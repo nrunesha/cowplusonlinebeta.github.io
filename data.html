@@ -413,6 +413,12 @@
 				}
 			}
 			function CreateTableFromJSON() {
+				if(document.querySelectorAll('input[type="checkbox"]:checked').length ==0){
+					document.getElementById("Warning").style.display = "block";
+				}
+				else{
+					document.getElementById("Warning").style.display = "none";				
+				}
 				var myData = dataSetChooser();
 				//columns to be displayed
 				let displayColumns = variableChooser();
@@ -485,7 +491,7 @@
 			<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" value="cinc_NMC_5_0">
 			<label for="cinc_NMC_5_0">cinc</label>			
 		</div>
-		<div style="padding-left:20px">
+		<div style="padding-left:20px;margin-bottom:0px">
 			<input type="radio" id="WRP_NAT" name="dataset" value="WRP_NAT" onclick="dataSetChooser();toggleVariableSelectionDiv();toggleVariableTableDiv()">
 			<label for="css">WRP_NAT</label>
 		</div>
@@ -1037,9 +1043,14 @@
 				</tr>
 			</table>
 		</div>
+		<div style="padding-left:20px;">
+			<br>
+			<input type="button" onclick="CreateTableFromJSON();checkCheckboxes()" value="Create"/>
+		</div>
+		<div style="display:none" id="Warning">
+			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">You have not checked any variables!</p>
+		</div>
 		<div style="padding-left:20px">
-			<br><br>
-			<input type="button" onclick="CreateTableFromJSON()" value="Create"/>
 			<p id="showData"></p>
 		</div>
 	</body>
