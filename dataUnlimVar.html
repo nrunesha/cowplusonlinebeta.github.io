@@ -6,8 +6,8 @@
 		<meta name="description" content="NewGene is a tool for teaching about and managing the types of data commonly used to quantitatively study international relations. NewGene is an complete rewrite of the popular EuGene software.  A special thank you to the NSF for making this possible! For more on NewGene, please visit our YouTube Channel, see our conceptual manual (published in the Journal of Conflict Resolution), or read this article (and watch the presentation) about NewGene. You can download NewGene for Windows or Mac.">
 		<meta name="keywords" content="NewGene, data, international relations">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="newgene.github.io/datafiles/NMC_5_0_DataUnlim.js"></script>
-		<script src="newgene.github.io/datafiles/WRP_NATUnlim.js"></script>
+		<script src="datafiles/NMC_5_0_DataUnlim.js"></script>
+		<script src="datafiles/WRP_NATUnlim.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<style>
 			body, nav {margin:0px;
@@ -878,7 +878,7 @@
 			<label for="cinc_NMC_5_0">cinc</label>			
 		</div>
 		<div style="padding-left:20px;margin-bottom:0px">
-			<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="dataSetChooser();toggleVariableSelectionDiv();toggleVariableTableDiv()">
+			<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();dataSetChooser()">
 			<label for="css">WRP_NAT</label>
 		</div>
 		<div id="divWRP_NAT">
