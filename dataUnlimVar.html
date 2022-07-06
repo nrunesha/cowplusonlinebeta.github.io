@@ -463,7 +463,6 @@
 			}
 
 			var solution = mergeSets(NMC_5_0Unlim, WRP_NATUnlim, "state", "year");
-			
 			function dataSetChooser(){
 				var data = NMC_5_0Unlim;
 				if(document.getElementById("NMC_5_0").checked && document.getElementById("WRP_NAT").checked){
@@ -780,18 +779,33 @@
 					document.getElementById("divNMC_5_0").style.display = "block";
 				}
 				else{
-					document.getElementById("divNMC_5_0").style.display = "none";				
+					$('#divNMC_5_0').find('input[type=checkbox]:checked').removeAttr('checked');
+					document.getElementById("divNMC_5_0").style.display = "none";
 				}
 				if(document.getElementById("WRP_NAT").checked){
 					document.getElementById("divWRP_NAT").style.display = "block";
 				}
 				else{
+					$('#divWRP_NAT').find('input[type=checkbox]:checked').removeAttr('checked');
 					document.getElementById("divWRP_NAT").style.display = "none";
 				}
 			}
+			
+			function checkCheckboxes(){
+				let tf = true;
+				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
+					tf = false;
+				}
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 ){
+					tf = false;
+				}
+				return Boolean(tf);
+			}
 			function CreateTableFromJSON() {
-				if((document.querySelectorAll('input[type="checkbox"]:checked').length <=1) || (document.getElementById("NMC_5_0").checked && document.getElementById("WRP_NAT").checked) && document.querySelectorAll('input[type="checkbox"]:checked').length <=2 ){
+				let truefalse = checkCheckboxes();
+				if(truefalse == false){
 					document.getElementById("Warning").style.display = "block";
+					return;
 				}
 				else{
 					document.getElementById("Warning").style.display = "none";				
@@ -856,25 +870,25 @@
 			<label for="html">NMC_5_0</label>
 		</div>
 		<div id="divNMC_5_0">
-			<input type="checkbox" id="state_NMC_5_0" name="state_NMC_5_0" value="state_NMC_5_0">
+			<input type="checkbox" id="state_NMC_5_0" name="state_NMC_5_0" class="NMC_5_0" value="state_NMC_5_0">
 			<label for="state_NMC_5_0">state</label>
-			<input type="checkbox" id="ccode_NMC_5_0" name="ccode_NMC_5_0" value="ccode_NMC_5_0">
+			<input type="checkbox" id="ccode_NMC_5_0" name="ccode_NMC_5_0" class="NMC_5_0" value="ccode_NMC_5_0">
 			<label for="ccode_NMC_5_0">ccode</label>
-			<input type="checkbox" id="year_NMC_5_0" name="year_NMC_5_0" value="year_NMC_5_0">
+			<input type="checkbox" id="year_NMC_5_0" name="year_NMC_5_0" class="NMC_5_0" value="year_NMC_5_0">
 			<label for="year_NMC_5_0">year</label>
-			<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" value="milex_NMC_5_0">
+			<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
 			<label for="milex_NMC_5_0">milex</label>
-			<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" value="milper_NMC_5_0">
+			<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
 			<label for="milper_NMC_5_0">milper</label>
-			<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" value="irst_NMC_5_0">
+			<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" class="NMC_5_0" value="irst_NMC_5_0">
 			<label for="irst_NMC_5_0">irst</label>
-			<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" value="pec_NMC_5_0">
+			<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" class="NMC_5_0" value="pec_NMC_5_0">
 			<label for="pec_NMC_5_0">pec</label>
-			<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" value="tpop_NMC_5_0">
+			<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" class="NMC_5_0" value="tpop_NMC_5_0">
 			<label for="tpop_NMC_5_0">total population</label>
-			<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" value="upop_NMC_5_0">
+			<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" class="NMC_5_0" value="upop_NMC_5_0">
 			<label for="upop_NMC_5_0">urban population</label>
-			<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" value="cinc_NMC_5_0">
+			<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0">
 			<label for="cinc_NMC_5_0">cinc</label>			
 		</div>
 		<div style="padding-left:20px;margin-bottom:0px">
@@ -882,171 +896,171 @@
 			<label for="css">WRP_NAT</label>
 		</div>
 		<div id="divWRP_NAT">
-			<input type="checkbox" id="state_WRP_NAT" name="state_WRP_NAT" value="state_WRP_NAT">
+			<input type="checkbox" id="state_WRP_NAT" name="state_WRP_NAT" class="WRP_NAT" value="state_WRP_NAT">
 			<label for="state_WRP_NAT">state</label>
-			<input type="checkbox" id="ccode_WRP_NAT" name="ccode_WRP_NAT" value="ccode_WRP_NAT">
+			<input type="checkbox" id="ccode_WRP_NAT" name="ccode_WRP_NAT" class="WRP_NAT" value="ccode_WRP_NAT">
 			<label for="ccode_WRP_NAT">ccode</label>
-			<input type="checkbox" id="year_WRP_NAT" name="year_WRP_NAT" value="year_WRP_NAT">
+			<input type="checkbox" id="year_WRP_NAT" name="year_WRP_NAT" class="WRP_NAT" value="year_WRP_NAT">
 			<label for="year_WRP_NAT">year</label><br>
-			<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" value="chrstprot_WRP_NAT">
+			<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
 			<label for="chrstprot_WRP_NAT">chrstprot</label>
-			<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" value="chrstcat_WRP_NAT">
+			<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT">
 			<label for="chrstcat_WRP_NAT">chrstcat</label>
-			<input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" value="chrstorth_WRP_NAT">
+			<input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" class="WRP_NAT" value="chrstorth_WRP_NAT">
 			<label for="chrstorth_WRP_NAT">chrstorth</label>
-			<input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" value="chrstang_WRP_NAT">
+			<input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" class="WRP_NAT" value="chrstang_WRP_NAT">
 			<label for="chrstang_WRP_NAT">chrstang</label>
-			<input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" value="chrstothr_WRP_NAT">
+			<input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" class="WRP_NAT" value="chrstothr_WRP_NAT">
 			<label for="chrstothr_WRP_NAT">chrstothr</label>
-			<input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" value="chrstgen_WRP_NAT">
+			<input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" class="WRP_NAT" value="chrstgen_WRP_NAT">
 			<label for="chrstgen_WRP_NAT">chrstgen</label><br>
-			<input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" value="judorth_WRP_NAT">
+			<input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" class="WRP_NAT" value="judorth_WRP_NAT">
 			<label for="judorth_WRP_NAT">judorth</label>
-			<input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" value="judcons_WRP_NAT">
+			<input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" class="WRP_NAT" value="judcons_WRP_NAT">
 			<label for="judcons_WRP_NAT">judcons</label>
-			<input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" value="judref_WRP_NAT">
+			<input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" class="WRP_NAT" value="judref_WRP_NAT">
 			<label for="judref_WRP_NAT">judref</label>
-			<input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" value="judothr_WRP_NAT">
+			<input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" class="WRP_NAT" value="judothr_WRP_NAT">
 			<label for="judothr_WRP_NAT">judothr</label>	
-			<input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" value="judgen_WRP_NAT">
+			<input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" class="WRP_NAT" value="judgen_WRP_NAT">
 			<label for="judgen_WRP_NAT">judgen</label><br>
-			<input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" value="islmsun_WRP_NAT">
+			<input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" class="WRP_NAT" value="islmsun_WRP_NAT">
 			<label for="islmsun_WRP_NAT">islmsun</label>
-			<input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" value="islmshi_WRP_NAT">
+			<input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" class="WRP_NAT" value="islmshi_WRP_NAT">
 			<label for="islmshi_WRP_NAT">islmshi</label>
-			<input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" value="islmibd_WRP_NAT">
+			<input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" class="WRP_NAT" value="islmibd_WRP_NAT">
 			<label for="islmibd_WRP_NAT">islmibd</label>
-			<input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" value="islmnat_WRP_NAT">
+			<input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" class="WRP_NAT" value="islmnat_WRP_NAT">
 			<label for="islmnat_WRP_NAT">islmnat</label>
-			<input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" value="islmalw_WRP_NAT">
+			<input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" class="WRP_NAT" value="islmalw_WRP_NAT">
 			<label for="islmalw_WRP_NAT">islmalw</label>
-			<input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" value="islmahm_WRP_NAT">
+			<input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" class="WRP_NAT" value="islmahm_WRP_NAT">
 			<label for="islmahm_WRP_NAT">islmahm</label>
-			<input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" value="islmothr_WRP_NAT">
+			<input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" class="WRP_NAT" value="islmothr_WRP_NAT">
 			<label for="islmothr_WRP_NAT">islmothr</label>
-			<input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" value="islmgen_WRP_NAT">
+			<input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" class="WRP_NAT" value="islmgen_WRP_NAT">
 			<label for="islmgen_WRP_NAT">islmgen</label><br>
-			<input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" value="budmah_WRP_NAT">
+			<input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" class="WRP_NAT" value="budmah_WRP_NAT">
 			<label for="budmah_WRP_NAT">budmah</label>
-			<input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" value="budthr_WRP_NAT">
+			<input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" class="WRP_NAT" value="budthr_WRP_NAT">
 			<label for="budthr_WRP_NAT">budthr</label>
-			<input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" value="budothr_WRP_NAT">
+			<input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" class="WRP_NAT" value="budothr_WRP_NAT">
 			<label for="budothr_WRP_NAT">budothr</label>
-			<input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" value="budgen_WRP_NAT">
+			<input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" class="WRP_NAT" value="budgen_WRP_NAT">
 			<label for="budgen_WRP_NAT">budgen</label><br>
-			<input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" value="zorogen_WRP_NAT">
+			<input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" class="WRP_NAT" value="zorogen_WRP_NAT">
 			<label for="zorogen_WRP_NAT">zorogen</label>	
-			<input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" value="hindgen_WRP_NAT">
+			<input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" class="WRP_NAT" value="hindgen_WRP_NAT">
 			<label for="hindgen_WRP_NAT">hindgen</label>
-			<input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" value="sikhgen_WRP_NAT">
+			<input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" class="WRP_NAT" value="sikhgen_WRP_NAT">
 			<label for="sikhgen_WRP_NAT">sikhgen</label>
-			<input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" value="shntgen_WRP_NAT">
+			<input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" class="WRP_NAT" value="shntgen_WRP_NAT">
 			<label for="shntgen_WRP_NAT">shntgen</label>
-			<input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" value="bahgen_WRP_NAT">
+			<input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" class="WRP_NAT" value="bahgen_WRP_NAT">
 			<label for="bahgen_WRP_NAT">bahgen</label>
-			<input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" value="taogen_WRP_NAT">
+			<input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" class="WRP_NAT" value="taogen_WRP_NAT">
 			<label for="taogen_WRP_NAT">taogen</label>
-			<input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" value="jaingen_WRP_NAT">
+			<input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" class="WRP_NAT" value="jaingen_WRP_NAT">
 			<label for="jaingen_WRP_NAT">jaingen</label>
-			<input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" value="confgen_WRP_NAT">
+			<input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" class="WRP_NAT" value="confgen_WRP_NAT">
 			<label for="confgen_WRP_NAT">confgen</label>
-			<input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" value="syncgen_WRP_NAT">
+			<input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" class="WRP_NAT" value="syncgen_WRP_NAT">
 			<label for="syncgen_WRP_NAT">syncgen</label>
-			<input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" value="anmgen_WRP_NAT">
+			<input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" class="WRP_NAT" value="anmgen_WRP_NAT">
 			<label for="anmgen_WRP_NAT">anmgen</label><br>
-			<input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" value="nonrelig_WRP_NAT">
+			<input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" class="WRP_NAT" value="nonrelig_WRP_NAT">
 			<label for="nonrelig_WRP_NAT">nonrelig</label>
-			<input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" value="othrgen_WRP_NAT">
+			<input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" class="WRP_NAT" value="othrgen_WRP_NAT">
 			<label for="othrgen_WRP_NAT">othrgen</label>
-			<input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" value="sumrelig_WRP_NAT">
+			<input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" class="WRP_NAT" value="sumrelig_WRP_NAT">
 			<label for="sumrelig_WRP_NAT">sumrelig</label>
-			<input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" value="pop_WRP_NAT">
+			<input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" class="WRP_NAT" value="pop_WRP_NAT">
 			<label for="pop_WRP_NAT">population</label><br>
-			<input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" value="chrstprotpct_WRP_NAT">
+			<input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" class="WRP_NAT" value="chrstprotpct_WRP_NAT">
 			<label for="chrstprotpct_WRP_NAT">chrstprotpct</label>
-			<input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" value="chrstcatpct_WRP_NAT">
+			<input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" class="WRP_NAT" value="chrstcatpct_WRP_NAT">
 			<label for="chrstcatpct_WRP_NAT">chrstcatpct</label>
-			<input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" value="chrstorthpct_WRP_NAT">
+			<input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" class="WRP_NAT" value="chrstorthpct_WRP_NAT">
 			<label for="chrstorthpct_WRP_NAT">chrstorthpct</label>
-			<input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" value="chrstangpct_WRP_NAT">
+			<input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" class="WRP_NAT" value="chrstangpct_WRP_NAT">
 			<label for="chrstangpct_WRP_NAT">chrstangpct</label>
-			<input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" value="chrstothrpct_WRP_NAT">
+			<input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" class="WRP_NAT" value="chrstothrpct_WRP_NAT">
 			<label for="chrstothrpct_WRP_NAT">chrstothrpct</label>
-			<input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" value="chrstgenpct_WRP_NAT">
+			<input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" class="WRP_NAT" value="chrstgenpct_WRP_NAT">
 			<label for="chrstgenpct_WRP_NAT">chrstgenpct</label><br>
-			<input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" value="judorthpct_WRP_NAT">
+			<input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" class="WRP_NAT" value="judorthpct_WRP_NAT">
 			<label for="judorthpct_WRP_NAT">judorthpct</label>
-			<input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" value="judconspct_WRP_NAT">
+			<input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" class="WRP_NAT" value="judconspct_WRP_NAT">
 			<label for="judconspct_WRP_NAT">judconspct</label>
-			<input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" value="judrefpct_WRP_NAT">
+			<input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" class="WRP_NAT" value="judrefpct_WRP_NAT">
 			<label for="judrefpct_WRP_NAT">judrefpct</label>
-			<input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" value="judothrpct_WRP_NAT">
+			<input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" class="WRP_NAT" value="judothrpct_WRP_NAT">
 			<label for="judothrpct_WRP_NAT">judothrpct</label>	
-			<input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" value="judgenpct_WRP_NAT">
+			<input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" class="WRP_NAT" value="judgenpct_WRP_NAT">
 			<label for="judgenpct_WRP_NAT">judgenpct</label><br>
-			<input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" value="islmsunpct_WRP_NAT">
+			<input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" class="WRP_NAT" value="islmsunpct_WRP_NAT">
 			<label for="islmsunpct_WRP_NAT">islmsunpct</label>
-			<input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" value="islmshipct_WRP_NAT">
+			<input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" class="WRP_NAT" value="islmshipct_WRP_NAT">
 			<label for="islmshipct_WRP_NAT">islmshipct</label>
-			<input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" value="islmibdpct_WRP_NAT">
+			<input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" class="WRP_NAT" value="islmibdpct_WRP_NAT">
 			<label for="islmibdpct_WRP_NAT">islmibdpct</label>
-			<input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" value="islmnatpct_WRP_NAT">
+			<input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" class="WRP_NAT" value="islmnatpct_WRP_NAT">
 			<label for="islmnatpct_WRP_NAT">islmnatpct</label>
-			<input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" value="islmalwpct_WRP_NAT">
+			<input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" class="WRP_NAT" value="islmalwpct_WRP_NAT">
 			<label for="islmalwpct_WRP_NAT">islmalwpct</label>
-			<input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" value="islmahmpct_WRP_NAT">
+			<input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" class="WRP_NAT" value="islmahmpct_WRP_NAT">
 			<label for="islmahmpct_WRP_NAT">islmahmpct</label>
-			<input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" value="islmothrpct_WRP_NAT">
+			<input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" class="WRP_NAT" value="islmothrpct_WRP_NAT">
 			<label for="islmothrpct_WRP_NAT">islmothrpct</label>
-			<input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" value="islmgenpct_WRP_NAT">
+			<input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" class="WRP_NAT" value="islmgenpct_WRP_NAT">
 			<label for="islmgenpct_WRP_NAT">islmgenpct</label><br>
-			<input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" value="budmahpct_WRP_NAT">
+			<input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" class="WRP_NAT" value="budmahpct_WRP_NAT">
 			<label for="budmahpct_WRP_NAT">budmahpct</label>
-			<input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" value="budthrpct_WRP_NAT">
+			<input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" class="WRP_NAT" value="budthrpct_WRP_NAT">
 			<label for="budthrpct_WRP_NAT">budthrpct</label>
-			<input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" value="budothrpct_WRP_NAT">
+			<input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" class="WRP_NAT" value="budothrpct_WRP_NAT">
 			<label for="budothrpct_WRP_NAT">budothrpct</label>
-			<input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" value="budgenpct_WRP_NAT">
+			<input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" class="WRP_NAT" value="budgenpct_WRP_NAT">
 			<label for="budgenpct_WRP_NAT">budgenpct</label>	<br>
-			<input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" value="zorogenpct_WRP_NAT">
+			<input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" class="WRP_NAT" value="zorogenpct_WRP_NAT">
 			<label for="zorogenpct_WRP_NAT">zorogenpct</label>	
-			<input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" value="hindgenpct_WRP_NAT">
+			<input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" class="WRP_NAT" value="hindgenpct_WRP_NAT">
 			<label for="hindgenpct_WRP_NAT">hindgenpct</label>
-			<input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" value="sikhgenpct_WRP_NAT">
+			<input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" class="WRP_NAT" value="sikhgenpct_WRP_NAT">
 			<label for="sikhgenpct_WRP_NAT">sikhgenpct</label>
-			<input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" value="shntgenpct_WRP_NAT">
+			<input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" class="WRP_NAT" value="shntgenpct_WRP_NAT">
 			<label for="shntgenpct_WRP_NAT">shntgenpct</label>
-			<input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" value="bahgenpct_WRP_NAT">
+			<input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" class="WRP_NAT" value="bahgenpct_WRP_NAT">
 			<label for="bahgenpct_WRP_NAT">bahgenpct</label>
-			<input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" value="taogenpct_WRP_NAT">
+			<input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" class="WRP_NAT" value="taogenpct_WRP_NAT">
 			<label for="taogenpct_WRP_NAT">taogenpct</label>
-			<input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" value="jaingenpct_WRP_NAT">
+			<input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" class="WRP_NAT" value="jaingenpct_WRP_NAT">
 			<label for="jaingenpct_WRP_NAT">jaingenpct</label>
-			<input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" value="confgenpct_WRP_NAT">
+			<input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" class="WRP_NAT" value="confgenpct_WRP_NAT">
 			<label for="confgenpct_WRP_NAT">confgenpct</label>
-			<input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" value="syncgenpct_WRP_NAT">
+			<input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" class="WRP_NAT" value="syncgenpct_WRP_NAT">
 			<label for="syncgenpct_WRP_NAT">syncgenpct</label>
-			<input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" value="anmgenpct_WRP_NAT">
+			<input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" class="WRP_NAT" value="anmgenpct_WRP_NAT">
 			<label for="anmgenpct_WRP_NAT">anmgenpct</label><br>
-			<input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" value="nonreligpct_WRP_NAT">
+			<input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" class="WRP_NAT" value="nonreligpct_WRP_NAT">
 			<label for="nonreligpct_WRP_NAT">nonreligpct</label>
-			<input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" value="othrgenpct_WRP_NAT">
+			<input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" class="WRP_NAT" value="othrgenpct_WRP_NAT">
 			<label for="othrgenpct_WRP_NAT">othrgenpct</label>
-			<input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" value="sumreligpct_WRP_NAT">
+			<input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" class="WRP_NAT" value="sumreligpct_WRP_NAT">
 			<label for="sumreligpct_WRP_NAT">sumreligpct</label>
-			<input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" value="total_WRP_NAT">
+			<input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" class="WRP_NAT" value="total_WRP_NAT">
 			<label for="total_WRP_NAT">total</label>
-			<input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" value="dualrelig_WRP_NAT">
+			<input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" class="WRP_NAT" value="dualrelig_WRP_NAT">
 			<label for="dualrelig_WRP_NAT">dualrelig</label><br>
-			<input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" value="datatype_WRP_NAT">
+			<input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" class="WRP_NAT" value="datatype_WRP_NAT">
 			<label for="datatype_WRP_NAT">datatype</label>
-			<input type="checkbox" id="sourcereliab_WRP_NAT" name="sourcereliab_WRP_NAT" value="sourcereliab_WRP_NAT">
+			<input type="checkbox" id="sourcereliab_WRP_NAT" name="sourcereliab_WRP_NAT" class="WRP_NAT" value="sourcereliab_WRP_NAT">
 			<label for="sourcereliab_WRP_NAT">sourcereliab</label>
-			<input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" value="recreliab_WRP_NAT">
+			<input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" class="WRP_NAT" value="recreliab_WRP_NAT">
 			<label for="recreliab_WRP_NAT">recreliab</label>
-			<input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" value="reliabilevel_WRP_NAT">
+			<input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" class="WRP_NAT" value="reliabilevel_WRP_NAT">
 			<label for="reliabilevel_WRP_NAT">reliabilevel</label>
-			<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" value="sourcecode_WRP_NAT">
+			<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
 			<label for="sourcecode_WRP_NAT">sourcecode</label>
 		</div>
 		<div id="divNMC_5_0_Table">
@@ -1434,7 +1448,7 @@
 			<input type="button" onclick="CreateTableFromJSON()" value="Create"/>
 		</div>
 		<div style="display:none" id="Warning">
-			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">You have not checked any variables!</p>
+			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">You have not checked enough variables! Please check that you have checked at least one variable per checked dataset.</p>
 		</div>
 		<div style="padding-left:20px">
 			<p id="showData"></p>
