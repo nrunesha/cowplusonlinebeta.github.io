@@ -411,7 +411,7 @@
 				}
 				return variables;
 			}
-			function contains(set, object, keys) {
+			function contains(set, object, keys) { //https://stackoverflow.com/a/24971102
 				var solution = -1;
 				set.forEach(function (item, index, array) {
 					var selfItem = item;
@@ -438,8 +438,8 @@
 						for (var property in item) {
 							if (item.hasOwnProperty(property)) {
 								if (!result[resultIndex].hasOwnProperty(property)) {
-									var hello = result[resultIndex];
-									hello[property] = item[property];
+									var element = result[resultIndex];
+									element[property] = item[property];
 								}
 							}
 						}
