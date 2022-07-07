@@ -411,20 +411,6 @@
 				}
 				return variables;
 			}
-			function toggleVariableSelectionDiv(){
-				if(document.getElementById("NMC_5_0").checked){
-					document.getElementById("divNMC_5_0").style.display = "block";
-				}
-				else{
-					document.getElementById("divNMC_5_0").style.display = "none";				
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					document.getElementById("divWRP_NAT").style.display = "block";
-				}
-				else{
-					document.getElementById("divWRP_NAT").style.display = "none";
-				}
-			}
 			function contains(set, object, keys) {
 				var solution = -1;
 				set.forEach(function (item, index, array) {
@@ -779,14 +765,14 @@
 					document.getElementById("divNMC_5_0").style.display = "block";
 				}
 				else{
-					$('#divNMC_5_0').find('input[type=checkbox]:checked').removeAttr('checked');
+					$('#divNMC_5_0').find('input[type=checkbox]:checked').prop('checked',false);
 					document.getElementById("divNMC_5_0").style.display = "none";
 				}
 				if(document.getElementById("WRP_NAT").checked){
 					document.getElementById("divWRP_NAT").style.display = "block";
 				}
 				else{
-					$('#divWRP_NAT').find('input[type=checkbox]:checked').removeAttr('checked');
+					$('#divWRP_NAT').find('input[type=checkbox]:checked').prop('checked',false);
 					document.getElementById("divWRP_NAT").style.display = "none";
 				}
 			}
