@@ -426,7 +426,6 @@
 				});
 				return solution;
 			}
-
 			function mergeSets(first, second) {
 				var result = first;
 				var keys = Array.prototype.slice.call(arguments, 2);
@@ -447,319 +446,7 @@
 				});
 				return result;
 			}
-
 			var solution = mergeSets(NMC_5_0Unlim, WRP_NATUnlim, "state", "year");
-			function dataSetChooser(){
-				var data = NMC_5_0Unlim;
-				if(document.getElementById("NMC_5_0").checked && document.getElementById("WRP_NAT").checked){
-					data = solution;
-				}
-				else if(document.getElementById("NMC_5_0").checked){
-					data = NMC_5_0Unlim;
-				}
-				else if(document.getElementById("WRP_NAT").checked){
-					data = WRP_NATUnlim;
-				}
-				return data;
-			}
-			function toggleVariableTableDiv(){
-				if(document.getElementById("NMC_5_0").checked){
-					document.getElementById("divNMC_5_0_Table").style.display = "block";
-				}
-				else{					
-					document.getElementById("divNMC_5_0_Table").style.display = "none";
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					document.getElementById("divWRP_NAT_Table").style.display = "block";
-				}
-				else{
-					document.getElementById("divWRP_NAT_Table").style.display = "none";
-				}
-			}
-			function variableChooser(){
-				const variables = [];
-				if(document.getElementById("NMC_5_0").checked){
-					if(document.getElementById("state_NMC_5_0").checked){
-						variables.push("state");
-					}
-					if(document.getElementById("year_NMC_5_0").checked){
-						variables.push("year");
-					}
-					if(document.getElementById("ccode_NMC_5_0").checked){
-						variables.push("ccode_NMC_5_0");
-					}
-					if(document.getElementById("milex_NMC_5_0").checked){
-						variables.push("milex_NMC_5_0");
-					}
-					if(document.getElementById("milper_NMC_5_0").checked){
-						variables.push("milper_NMC_5_0");
-					}
-					if(document.getElementById("irst_NMC_5_0").checked){
-						variables.push("irst_NMC_5_0");
-					}
-					if(document.getElementById("pec_NMC_5_0").checked){
-						variables.push("pec_NMC_5_0");
-					}
-					if(document.getElementById("tpop_NMC_5_0").checked){
-						variables.push("upop_NMC_5_0");
-					}
-					if(document.getElementById("cinc_NMC_5_0").checked){
-						variables.push("cinc_NMC_5_0");
-					}
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					if(document.getElementById("state_WRP_NAT").checked){
-						variables.push("state");
-					}
-					if(document.getElementById("ccode_WRP_NAT").checked){
-						variables.push("ccode_WRP_NAT");
-					}
-					if(document.getElementById("year_WRP_NAT").checked){
-						variables.push("year");
-					}
-					if(document.getElementById("chrstprot_WRP_NAT").checked){
-						variables.push("chrstprot_WRP_NAT");
-					}
-					if(document.getElementById("chrstcat_WRP_NAT").checked){
-						variables.push("chrstcat_WRP_NAT");
-					}
-					if(document.getElementById("chrstorth_WRP_NAT").checked){
-						variables.push("chrstorth_WRP_NAT");
-					}
-					if(document.getElementById("chrstang_WRP_NAT").checked){
-						variables.push("chrstang_WRP_NAT");
-					}
-					if(document.getElementById("chrstothr_WRP_NAT").checked){
-						variables.push("chrstothr_WRP_NAT");
-					}
-					if(document.getElementById("chrstgen_WRP_NAT").checked){
-						variables.push("chrstgen_WRP_NAT");
-					}
-					if(document.getElementById("judorth_WRP_NAT").checked){
-						variables.push("judorth_WRP_NAT");
-					}
-					if(document.getElementById("judcons_WRP_NAT").checked){
-						variables.push("judcons_WRP_NAT");
-					}
-					if(document.getElementById("judref_WRP_NAT").checked){
-						variables.push("judref_WRP_NAT");
-					}
-					if(document.getElementById("judothr_WRP_NAT").checked){
-						variables.push("judothr_WRP_NAT");
-					}
-					if(document.getElementById("judgen_WRP_NAT").checked){
-						variables.push("judgen_WRP_NAT");
-					}
-					if(document.getElementById("islmsun_WRP_NAT").checked){
-						variables.push("islmsun_WRP_NAT");
-					}
-					if(document.getElementById("islmshi_WRP_NAT").checked){
-						variables.push("islmshi_WRP_NAT");
-					}
-					if(document.getElementById("islmibd_WRP_NAT").checked){
-						variables.push("islmibd_WRP_NAT");
-					}
-					if(document.getElementById("islmnat_WRP_NAT").checked){
-						variables.push("islmnat_WRP_NAT");
-					}
-					if(document.getElementById("islmalw_WRP_NAT").checked){
-						variables.push("islmalw_WRP_NAT");
-					}
-					if(document.getElementById("islmahm_WRP_NAT").checked){
-						variables.push("islmahm_WRP_NAT");
-					}
-					if(document.getElementById("islmothr_WRP_NAT").checked){
-						variables.push("islmothr_WRP_NAT");
-					}
-					if(document.getElementById("islmgen_WRP_NAT").checked){
-						variables.push("islmgen_WRP_NAT");
-					}
-					if(document.getElementById("budmah_WRP_NAT").checked){
-						variables.push("budmah_WRP_NAT");
-					}
-					if(document.getElementById("budthr_WRP_NAT").checked){
-						variables.push("budthr_WRP_NAT");
-					}
-					if(document.getElementById("budothr_WRP_NAT").checked){
-						variables.push("budothr_WRP_NAT");
-					}
-					if(document.getElementById("budgen_WRP_NAT").checked){
-						variables.push("budgen_WRP_NAT");
-					}
-					if(document.getElementById("zorogen_WRP_NAT").checked){
-						variables.push("zorogen_WRP_NAT");
-					}
-					if(document.getElementById("hindgen_WRP_NAT").checked){
-						variables.push("hindgen_WRP_NAT");
-					}
-					if(document.getElementById("sikhgen_WRP_NAT").checked){
-						variables.push("sikhgen_WRP_NAT");
-					}
-					if(document.getElementById("shntgen_WRP_NAT").checked){
-						variables.push("shntgen_WRP_NAT");
-					}
-					if(document.getElementById("bahgen_WRP_NAT").checked){
-						variables.push("bahgen_WRP_NAT");
-					}
-					if(document.getElementById("taogen_WRP_NAT").checked){
-						variables.push("taogen_WRP_NAT");
-					}
-					if(document.getElementById("jaingen_WRP_NAT").checked){
-						variables.push("jaingen_WRP_NAT");
-					}
-					if(document.getElementById("confgen_WRP_NAT").checked){
-						variables.push("confgen_WRP_NAT");
-					}
-					if(document.getElementById("syncgen_WRP_NAT").checked){
-						variables.push("syncgen_WRP_NAT");
-					}
-					if(document.getElementById("anmgen_WRP_NAT").checked){
-						variables.push("anmgen_WRP_NAT");
-					}
-					if(document.getElementById("nonrelig_WRP_NAT").checked){
-						variables.push("nonrelig_WRP_NAT");
-					}
-					if(document.getElementById("othrgen_WRP_NAT").checked){
-						variables.push("othrgen_WRP_NAT");
-					}
-					if(document.getElementById("sumrelig_WRP_NAT").checked){
-						variables.push("sumrelig_WRP_NAT");
-					}
-					if(document.getElementById("pop_WRP_NAT").checked){
-						variables.push("pop_WRP_NAT");
-					}
-					if(document.getElementById("chrstprotpct_WRP_NAT").checked){
-						variables.push("chrstprotpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstcatpct_WRP_NAT").checked){
-						variables.push("chrstcatpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstorthpct_WRP_NAT").checked){
-						variables.push("chrstorthpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstangpct_WRP_NAT").checked){
-						variables.push("chrstangpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstothrpct_WRP_NAT").checked){
-						variables.push("chrstothrpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstgenpct_WRP_NAT").checked){
-						variables.push("chrstgenpct_WRP_NAT");
-					}
-					if(document.getElementById("judorthpct_WRP_NAT").checked){
-						variables.push("judorthpct_WRP_NAT");
-					}
-					if(document.getElementById("judconspct_WRP_NAT").checked){
-						variables.push("judconspct_WRP_NAT");
-					}
-					if(document.getElementById("judrefpct_WRP_NAT").checked){
-						variables.push("judrefpct_WRP_NAT");
-					}
-					if(document.getElementById("judothrpct_WRP_NAT").checked){
-						variables.push("judothrpct_WRP_NAT");
-					}
-					if(document.getElementById("judgenpct_WRP_NAT").checked){
-						variables.push("judgenpct_WRP_NAT");
-					}
-					if(document.getElementById("islmsunpct_WRP_NAT").checked){
-						variables.push("islmsunpct_WRP_NAT");
-					}
-					if(document.getElementById("islmshipct_WRP_NAT").checked){
-						variables.push("islmshipct_WRP_NAT");
-					}
-					if(document.getElementById("islmibdpct_WRP_NAT").checked){
-						variables.push("islmibdpct_WRP_NAT");
-					}
-					if(document.getElementById("islmnatpct_WRP_NAT").checked){
-						variables.push("islmnatpct_WRP_NAT");
-					}
-					if(document.getElementById("islmalwpct_WRP_NAT").checked){
-						variables.push("islmalwpct_WRP_NAT");
-					}
-					if(document.getElementById("islmahmpct_WRP_NAT").checked){
-						variables.push("islmahmpct_WRP_NAT");
-					}
-					if(document.getElementById("islmothrpct_WRP_NAT").checked){
-						variables.push("islmothrpct_WRP_NAT");
-					}
-					if(document.getElementById("islmgenpct_WRP_NAT").checked){
-						variables.push("islmgenpct_WRP_NAT");
-					}
-					if(document.getElementById("budmahpct_WRP_NAT").checked){
-						variables.push("budmahpct_WRP_NAT");
-					}
-					if(document.getElementById("budthrpct_WRP_NAT").checked){
-						variables.push("budthrpct_WRP_NAT");
-					}
-					if(document.getElementById("budothrpct_WRP_NAT").checked){
-						variables.push("budothrpct_WRP_NAT");
-					}
-					if(document.getElementById("budgenpct_WRP_NAT").checked){
-						variables.push("budgenpct_WRP_NAT");
-					}
-					if(document.getElementById("zorogenpct_WRP_NAT").checked){
-						variables.push("zorogenpct_WRP_NAT");
-					}
-					if(document.getElementById("hindgenpct_WRP_NAT").checked){
-						variables.push("hindgenpct_WRP_NAT");
-					}
-					if(document.getElementById("sikhgenpct_WRP_NAT").checked){
-						variables.push("sikhgenpct_WRP_NAT");
-					}
-					if(document.getElementById("shntgenpct_WRP_NAT").checked){
-						variables.push("shntgenpct_WRP_NAT");
-					}
-					if(document.getElementById("bahgenpct_WRP_NAT").checked){
-						variables.push("bahgenpct_WRP_NAT");
-					}
-					if(document.getElementById("taogenpct_WRP_NAT").checked){
-						variables.push("taogenpct_WRP_NAT");
-					}
-					if(document.getElementById("jaingenpct_WRP_NAT").checked){
-						variables.push("jaingenpct_WRP_NAT");
-					}
-					if(document.getElementById("confgenpct_WRP_NAT").checked){
-						variables.push("confgenpct_WRP_NAT");
-					}
-					if(document.getElementById("syncgenpct_WRP_NAT").checked){
-						variables.push("syncgenpct_WRP_NAT");
-					}
-					if(document.getElementById("anmgenpct_WRP_NAT").checked){
-						variables.push("anmgenpct_WRP_NAT");
-					}
-					if(document.getElementById("nonreligpct_WRP_NAT").checked){
-						variables.push("nonreligpct_WRP_NAT");
-					}
-					if(document.getElementById("othrgenpct_WRP_NAT").checked){
-						variables.push("othrgenpct_WRP_NAT");
-					}
-					if(document.getElementById("sumreligpct_WRP_NAT").checked){
-						variables.push("sumreligpct_WRP_NAT");
-					}
-					if(document.getElementById("total_WRP_NAT").checked){
-						variables.push("total_WRP_NAT");
-					}
-					if(document.getElementById("dualrelig_WRP_NAT").checked){
-						variables.push("dualrelig_WRP_NAT");
-					}
-					if(document.getElementById("datatype_WRP_NAT").checked){
-						variables.push("datatype_WRP_NAT");
-					}
-					if(document.getElementById("sourcereliab_WRP_NAT").checked){
-						variables.push("sourcereliab_WRP_NAT");
-					}
-					if(document.getElementById("recreliab_WRP_NAT").checked){
-						variables.push("recreliab_WRP_NAT");
-					}
-					if(document.getElementById("reliabilevel_WRP_NAT").checked){
-						variables.push("reliabilevel_WRP_NAT");
-					}
-					if(document.getElementById("sourcecode_WRP_NAT").checked){
-						variables.push("sourcecode_WRP_NAT");
-					}
-				}
-				return variables;
-			}
 			function toggleVariableSelectionDiv(){
 				if(document.getElementById("NMC_5_0").checked){
 					document.getElementById("divNMC_5_0").style.display = "block";
@@ -775,10 +462,22 @@
 					$('#divWRP_NAT').find('input[type=checkbox]:checked').prop('checked',false);
 					document.getElementById("divWRP_NAT").style.display = "none";
 				}
-			}
-			
+			}		
 			function checkCheckboxes(){
 				let tf = true;
+				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
+					tf = false;
+				}
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 ){
+					tf = false;
+				}
+				return Boolean(tf);
+			}
+			function checkTable(){
+				let tf = true;
+				if (document.querySelectorAll("#generated_Data table tr").length <=0){
+					tf = false;
+				}
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
 					tf = false;
 				}
@@ -849,6 +548,55 @@
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
 			}		
+			function downloadCSV(csv, filename) {
+				var csvFile;
+				var downloadLink;
+
+				// CSV file
+				csvFile = new Blob([csv], {type: "text/csv"});
+
+				// Download link
+				downloadLink = document.createElement("a");
+
+				// File name
+				downloadLink.download = filename;
+
+				// Create a link to the file
+				downloadLink.href = window.URL.createObjectURL(csvFile);
+
+				// Hide download link
+				downloadLink.style.display = "none";
+
+				// Add the link to DOM
+				document.body.appendChild(downloadLink);
+
+				// Click download link
+				downloadLink.click();
+			}
+			function exportTableToCSV(filename) {
+				let truefalse = checkTable();
+					if(truefalse == false){
+						document.getElementById("WarningDownload").style.display = "block";
+						return;
+					}
+					else{
+						document.getElementById("WarningDownload").style.display = "none";				
+				}
+				var csv = [];
+				var rows = document.querySelectorAll("#generated_Data table tr");
+	
+				for (var i = 0; i < rows.length; i++) {
+					var row = [], cols = rows[i].querySelectorAll("#generated_Data td, #generated_Data th");
+					
+					for (var j = 0; j < cols.length; j++) 
+						row.push(cols[j].innerText);
+					
+					csv.push(row.join(","));        
+				}
+
+				// Download CSV file
+				downloadCSV(csv.join("\n"), filename);
+			}
 		</script>
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
@@ -1434,10 +1182,14 @@
 			<input type="button" onclick="CreateTableFromJSON()" value="Create"/>
 		</div>
 		<div style="display:none" id="Warning">
-			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">You have not checked enough variables! Please check that you have checked at least one variable per checked dataset.</p>
+			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
 		</div>
-		<div style="padding-left:20px">
+		<div style="padding-left:20px" id = "generated_Data">
 			<p id="showData"></p>
+			<button onclick="exportTableToCSV('newgene.csv')">Download CSV File</button>
+		</div>
+		<div style="display:none" id="WarningDownload">
+			<p style="color:red;padding-left:20px;font-family:arial; font-size:12px">A table was not created.</p>
 		</div>
 	</body>
 </html>
