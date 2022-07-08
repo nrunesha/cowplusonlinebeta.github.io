@@ -463,6 +463,59 @@
 					document.getElementById("divWRP_NAT").style.display = "none";
 				}
 			}		
+			
+			function toggleDropdownMenu(){
+				if(document.getElementById("state_NMC_5_0").checked || document.getElementById("state_WRP_NAT").checked){
+					document.getElementById("selectCountry").style.display = "block";
+				}
+				else{
+					document.getElementById("selectCountry").style.display = "none";					
+				}
+			}
+			function stateSet(){
+				var stateDup = [];
+				var myData = dataSetChooser();
+				for (var i = 0; i < myData.length; i++){
+					stateDup.push(myData[i]["state"]);
+				}
+				var stateSet = new Set(stateDup);
+				var stateUnique = Array.from(stateSet);
+				return stateUnique;
+			}
+			function dropDownList(){
+				var select = document.getElementById("dropdown");
+				var states = stateSet();
+				for(var i = 0; i < states.length; i++) {
+					var opt = states[i];
+					var el = document.createElement("option");
+					el.textContent = opt;
+					el.value = opt;
+					select.appendChild(el);
+				}
+			}
+			function filter(){
+				var input, table, tr, td, i;
+				input = document.getElementById("dropdown").value;
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+				if (input == "all"){
+					for (i = 0; i < tr.length; i++) {
+						tr[i].style.display = "";    
+					}
+					return;
+				}
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+					  if (td.innerHTML == input) {
+						tr[i].style.display = "";
+					  } else {
+						tr[i].style.display = "none";
+					  }
+					}       
+				}
+			}
+			
 			function checkCheckboxes(){
 				let tf = true;
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
@@ -548,6 +601,7 @@
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
 			}		
+			
 			function downloadCSV(csv, filename) {
 				var csvFile;
 				var downloadLink;
@@ -575,22 +629,22 @@
 			}
 			function exportTableToCSV(filename) {
 				let truefalse = checkTable();
-					if(truefalse == false){
-						document.getElementById("WarningDownload").style.display = "block";
-						return;
-					}
-					else{
-						document.getElementById("WarningDownload").style.display = "none";				
+				if(truefalse == false){
+					document.getElementById("WarningDownload").style.display = "block";
+					return;
+				}
+				else{
+					document.getElementById("WarningDownload").style.display = "none";				
 				}
 				var csv = [];
-				var rows = document.querySelectorAll("#generated_Data table tr");
+				var rows = $("table tr:visible");
 	
 				for (var i = 0; i < rows.length; i++) {
 					var row = [], cols = rows[i].querySelectorAll("#generated_Data td, #generated_Data th");
 					
-					for (var j = 0; j < cols.length; j++) 
+					for (var j = 0; j < cols.length; j++) {
 						row.push(cols[j].innerText);
-					
+					}
 					csv.push(row.join(","));        
 				}
 
@@ -1177,9 +1231,16 @@
 				</tr>
 			</table>
 		</div>
+		<div style="display:none;padding-left:20px;" id="selectCountry">
+			<br>
+			<select name = "dropdown" id = "dropdown" onchange="filter()">
+				<option value = "all">Choose a country</option>
+			</select>
+			<br>
+		</div>
 		<div style="padding-left:20px;">
 			<br>
-			<input type="button" onclick="CreateTableFromJSON()" value="Create"/>
+			<input type="button" onclick="CreateTableFromJSON();dropDownList();toggleDropdownMenu()" value="Create"/>
 		</div>
 		<div style="display:none" id="Warning">
 			<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
