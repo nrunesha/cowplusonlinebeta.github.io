@@ -130,15 +130,9 @@
 			function variableChooser(){
 				const variables = [];
 				if(document.getElementById("NMC_5_0").checked){
-					if(document.getElementById("state_NMC_5_0").checked){
-						variables.push("state");
-					}
-					if(document.getElementById("year_NMC_5_0").checked){
-						variables.push("year");
-					}
-					if(document.getElementById("ccode_NMC_5_0").checked){
-						variables.push("ccode_NMC_5_0");
-					}
+					variables.push("state");
+					variables.push("year");
+					variables.push("ccode_NMC_5_0");
 					if(document.getElementById("milex_NMC_5_0").checked){
 						variables.push("milex_NMC_5_0");
 					}
@@ -159,15 +153,9 @@
 					}
 				}
 				if(document.getElementById("WRP_NAT").checked){
-					if(document.getElementById("state_WRP_NAT").checked){
-						variables.push("state");
-					}
-					if(document.getElementById("ccode_WRP_NAT").checked){
-						variables.push("ccode_WRP_NAT");
-					}
-					if(document.getElementById("year_WRP_NAT").checked){
-						variables.push("year");
-					}
+					variables.push("state");
+					variables.push("year");
+					variables.push("ccode_WRP_NAT");
 					if(document.getElementById("chrstprot_WRP_NAT").checked){
 						variables.push("chrstprot_WRP_NAT");
 					}
@@ -465,13 +453,13 @@
 			}		
 			
 			function toggleDropdownMenu(){
-				if(document.getElementById("state_NMC_5_0").checked || document.getElementById("state_WRP_NAT").checked){
-					document.getElementById("selectCountry").style.display = "block";
-				}
-				else{
-					document.getElementById("selectCountry").style.display = "none";					
-				}
+				document.getElementById("selectCountry").style.display = "inline-block";
 			}
+			
+			function toggleYearRange(){
+				document.getElementById("selectYearRange").style.display = "inline-block";
+			}
+			
 			function stateSet(){
 				var stateDup = [];
 				var myData = dataSetChooser();
@@ -493,7 +481,7 @@
 					select.appendChild(el);
 				}
 			}
-			function filter(){
+			function filterByState(){
 				var input, table, tr, td, i;
 				input = document.getElementById("dropdown").value;
 				table = document.getElementById("generated_Data");
@@ -516,6 +504,32 @@
 				}
 			}
 			
+			function selectedYearList(){
+				var minYear = document.getElementById("minimumYear").value;
+				var maxYear = document.getElementById("maximumYear").value;
+				var validYears=[];
+				for(var i = minYear; i <= maxYear; i++) {
+					validYears.push(i.toString());
+				}
+				return validYears;
+			}
+			
+			function filterByYear(){
+				var input, table, tr, td, i;
+				input = selectedYearList();
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[1];
+					if (td) {
+					  if (input.includes(td.innerHTML,0)) {
+						tr[i].style.display = "";
+					  } else {
+						tr[i].style.display = "none";
+					  }
+					}       
+				}
+			}
 			function checkCheckboxes(){
 				let tf = true;
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
@@ -651,6 +665,13 @@
 				// Download CSV file
 				downloadCSV(csv.join("\n"), filename);
 			}
+			 function findAllVariables() {
+			 	for (let variable in window) {
+			 		if (window.hasOwnProperty(variable)) {
+			 			console.log(variable);
+			 		}
+			 	}
+			 }
 		</script>
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
@@ -658,12 +679,6 @@
 			<label for="html">NMC_5_0</label>
 		</div>
 		<div id="divNMC_5_0">
-			<input type="checkbox" id="state_NMC_5_0" name="state_NMC_5_0" class="NMC_5_0" value="state_NMC_5_0">
-			<label for="state_NMC_5_0">state</label>
-			<input type="checkbox" id="ccode_NMC_5_0" name="ccode_NMC_5_0" class="NMC_5_0" value="ccode_NMC_5_0">
-			<label for="ccode_NMC_5_0">ccode</label>
-			<input type="checkbox" id="year_NMC_5_0" name="year_NMC_5_0" class="NMC_5_0" value="year_NMC_5_0">
-			<label for="year_NMC_5_0">year</label>
 			<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
 			<label for="milex_NMC_5_0">milex</label>
 			<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
@@ -684,12 +699,6 @@
 			<label for="css">WRP_NAT</label>
 		</div>
 		<div id="divWRP_NAT">
-			<input type="checkbox" id="state_WRP_NAT" name="state_WRP_NAT" class="WRP_NAT" value="state_WRP_NAT">
-			<label for="state_WRP_NAT">state</label>
-			<input type="checkbox" id="ccode_WRP_NAT" name="ccode_WRP_NAT" class="WRP_NAT" value="ccode_WRP_NAT">
-			<label for="ccode_WRP_NAT">ccode</label>
-			<input type="checkbox" id="year_WRP_NAT" name="year_WRP_NAT" class="WRP_NAT" value="year_WRP_NAT">
-			<label for="year_WRP_NAT">year</label><br>
 			<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
 			<label for="chrstprot_WRP_NAT">chrstprot</label>
 			<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT">
@@ -1231,16 +1240,29 @@
 				</tr>
 			</table>
 		</div>
-		<div style="display:none;padding-left:20px;" id="selectCountry">
-			<br>
-			<select name = "dropdown" id = "dropdown" onchange="filter()">
-				<option value = "all">Choose a country</option>
-			</select>
-			<br>
+		<div id="selectors">
+			<div style="display:none;padding-left:20px;" id="selectCountry">
+				<br>
+				<select name = "dropdown" id = "dropdown" onchange="filterByState()">
+					<option value = "all">Choose a country</option>
+				</select>
+				<br>
+			</div>
+			<div style="display:none;padding-left:20px;" id = "selectYearRange">
+				<br>
+				<label for="minYear">Choose starting year:</label>
+				<input type="range" id="minimumYear" name="minimumYear" min="1816" max="2012" value = "1914" oninput="printedMinYear.value=minimumYear.value;filterByYear();">
+				<input type="text" id="printedMinYear" value = "1914" oninput="minimumYear.value=printedMinYear.value;filterByYear();">
+				<br>
+				<label for="maxYear">Choose end year:</label>
+				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYear();">
+				<input type="text" id="printedMaxYear" value = "1914" oninput="maximumYear.value=printedMaxYear.value;filterByYear();">
+				<br>
+			</div>
 		</div>
 		<div style="padding-left:20px;">
 			<br>
-			<input type="button" onclick="CreateTableFromJSON();dropDownList();toggleDropdownMenu()" value="Create"/>
+			<input type="button" onclick="CreateTableFromJSON();dropDownList();toggleDropdownMenu();toggleYearRange();" value="Create"/>
 		</div>
 		<div style="display:none" id="Warning">
 			<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
