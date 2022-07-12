@@ -481,27 +481,44 @@
 					select.appendChild(el);
 				}
 			}
+			var selectedCountries = [];
+			function selectedCountriesList(){
+				var element = document.getElementById("dropdown").value;
+				if (selectedCountries.includes(element)){
+					selectedCountries.splice(selectedCountries.indexOf(element), 1);
+				}
+				else {
+					selectedCountries.push(element);
+				}
+				
+				return selectedCountries;
+			}
+			
 			function filterByState(){
 				var input, table, tr, td, i;
-				input = document.getElementById("dropdown").value;
+				input = selectedCountriesList();
 				table = document.getElementById("generated_Data");
 				tr = table.getElementsByTagName("tr");
-				if (input == "all"){
+				if (input.includes("all")){
 					for (i = 0; i < tr.length; i++) {
 						tr[i].style.display = "";    
 					}
+					selectedCountries = [];
+					document.getElementById("countriesSelected").innerHTML = selectedCountries;
 					return;
 				}
 				for (i = 0; i < tr.length; i++) {
 					td = tr[i].getElementsByTagName("td")[0];
 					if (td) {
-					  if (td.innerHTML == input) {
+					  if (input.includes(td.innerHTML)) {
 						tr[i].style.display = "";
 					  } else {
 						tr[i].style.display = "none";
 					  }
 					}       
 				}
+				
+				document.getElementById("countriesSelected").innerHTML = input.join(", ");
 			}
 			
 			function checkYearRangeSelector(){
@@ -1275,8 +1292,12 @@
 				<br>
 				<select name = "dropdown" id = "dropdown" onchange="filterByState()">
 					<option value = "all">Choose a country</option>
+					<option value = "all">All countries</option>
 				</select>
 				<br>
+				<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;">
+				<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelected"></p>
+				</div>
 			</div>
 			<div style="display:none;padding-left:20px;" id = "selectYearRange">
 				<br>
@@ -1285,7 +1306,7 @@
 				<input type="text" id="printedMinYear" value = "1914" oninput="minimumYear.value=printedMinYear.value;filterByYear();">
 				<br>
 				<label for="maxYear">Choose end year:</label>
-				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYear();" style="margin-left:26px">
+				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYear();" style="margin-left:6px">
 				<input type="text" id="printedMaxYear" value = "1914" oninput="maximumYear.value=printedMaxYear.value;filterByYear();">
 				<br>
 			</div>
