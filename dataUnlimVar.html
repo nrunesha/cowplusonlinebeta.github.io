@@ -103,7 +103,7 @@
 			function dataSetChooser(){
 				var data = NMC_5_0Unlim;
 				if(document.getElementById("NMC_5_0").checked && document.getElementById("WRP_NAT").checked){
-					data = solution;
+					data = countryYearMerge;
 				}
 				else if(document.getElementById("NMC_5_0").checked){
 					data = NMC_5_0Unlim;
@@ -434,7 +434,7 @@
 				});
 				return result;
 			}
-			var solution = mergeSets(NMC_5_0Unlim, WRP_NATUnlim, "state", "year");
+			var countryYearMerge = mergeSets(NMC_5_0Unlim, WRP_NATUnlim, "state", "year");
 			function toggleVariableSelectionDiv(){
 				if(document.getElementById("NMC_5_0").checked){
 					document.getElementById("divNMC_5_0").style.display = "block";
@@ -504,6 +504,18 @@
 				}
 			}
 			
+			function checkYearRangeSelector(){
+				var minYear = document.getElementById("minimumYear").value;
+				var maxYear = document.getElementById("maximumYear").value;
+				let tf = true;
+				if (minYear > maxYear){
+					tf = false;
+				}
+				if ($('#generated_Data table tbody tr:visible').length <= 1){
+					tf = false;
+				}
+				return Boolean(tf);
+			}
 			function selectedYearList(){
 				var minYear = document.getElementById("minimumYear").value;
 				var maxYear = document.getElementById("maximumYear").value;
@@ -529,6 +541,14 @@
 					  }
 					}       
 				}
+				let truefalseYear = checkYearRangeSelector();
+				if(truefalseYear == false){
+					document.getElementById("WarningYearSelector").style.display = "block";
+					return;
+				}
+				else{
+					document.getElementById("WarningYearSelector").style.display = "none";				
+				}
 			}
 			function checkCheckboxes(){
 				let tf = true;
@@ -553,7 +573,10 @@
 				}
 				return Boolean(tf);
 			}
+			
+			
 			function CreateTableFromJSON() {
+				
 				let truefalse = checkCheckboxes();
 				if(truefalse == false){
 					document.getElementById("Warning").style.display = "block";
@@ -676,569 +699,576 @@
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
 			<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="dataSetChooser();toggleVariableSelectionDiv();toggleVariableTableDiv()">
-			<label for="html">NMC_5_0</label>
+			<label for="html">NMC_5_0 (1816-2012)</label>
 		</div>
-		<div id="divNMC_5_0">
-			<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
-			<label for="milex_NMC_5_0">milex</label>
-			<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
-			<label for="milper_NMC_5_0">milper</label>
-			<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" class="NMC_5_0" value="irst_NMC_5_0">
-			<label for="irst_NMC_5_0">irst</label>
-			<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" class="NMC_5_0" value="pec_NMC_5_0">
-			<label for="pec_NMC_5_0">pec</label>
-			<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" class="NMC_5_0" value="tpop_NMC_5_0">
-			<label for="tpop_NMC_5_0">total population</label>
-			<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" class="NMC_5_0" value="upop_NMC_5_0">
-			<label for="upop_NMC_5_0">urban population</label>
-			<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0">
-			<label for="cinc_NMC_5_0">cinc</label>			
+		<div id="countryYearData">
+			<div id="divNMC_5_0">
+				<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
+				<label for="milex_NMC_5_0">milex</label>
+				<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
+				<label for="milper_NMC_5_0">milper</label>
+				<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" class="NMC_5_0" value="irst_NMC_5_0">
+				<label for="irst_NMC_5_0">irst</label>
+				<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" class="NMC_5_0" value="pec_NMC_5_0">
+				<label for="pec_NMC_5_0">pec</label>
+				<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" class="NMC_5_0" value="tpop_NMC_5_0">
+				<label for="tpop_NMC_5_0">total population</label>
+				<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" class="NMC_5_0" value="upop_NMC_5_0">
+				<label for="upop_NMC_5_0">urban population</label>
+				<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0">
+				<label for="cinc_NMC_5_0">cinc</label>			
+			</div>
+			<div style="padding-left:20px;margin-bottom:0px">
+				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();dataSetChooser()">
+				<label for="css">WRP_NAT (1945-2010)</label>
+			</div>
+			<div id="divWRP_NAT">
+				<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
+				<label for="chrstprot_WRP_NAT">chrstprot</label>
+				<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT">
+				<label for="chrstcat_WRP_NAT">chrstcat</label>
+				<input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" class="WRP_NAT" value="chrstorth_WRP_NAT">
+				<label for="chrstorth_WRP_NAT">chrstorth</label>
+				<input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" class="WRP_NAT" value="chrstang_WRP_NAT">
+				<label for="chrstang_WRP_NAT">chrstang</label>
+				<input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" class="WRP_NAT" value="chrstothr_WRP_NAT">
+				<label for="chrstothr_WRP_NAT">chrstothr</label>
+				<input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" class="WRP_NAT" value="chrstgen_WRP_NAT">
+				<label for="chrstgen_WRP_NAT">chrstgen</label><br>
+				<input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" class="WRP_NAT" value="judorth_WRP_NAT">
+				<label for="judorth_WRP_NAT">judorth</label>
+				<input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" class="WRP_NAT" value="judcons_WRP_NAT">
+				<label for="judcons_WRP_NAT">judcons</label>
+				<input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" class="WRP_NAT" value="judref_WRP_NAT">
+				<label for="judref_WRP_NAT">judref</label>
+				<input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" class="WRP_NAT" value="judothr_WRP_NAT">
+				<label for="judothr_WRP_NAT">judothr</label>	
+				<input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" class="WRP_NAT" value="judgen_WRP_NAT">
+				<label for="judgen_WRP_NAT">judgen</label><br>
+				<input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" class="WRP_NAT" value="islmsun_WRP_NAT">
+				<label for="islmsun_WRP_NAT">islmsun</label>
+				<input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" class="WRP_NAT" value="islmshi_WRP_NAT">
+				<label for="islmshi_WRP_NAT">islmshi</label>
+				<input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" class="WRP_NAT" value="islmibd_WRP_NAT">
+				<label for="islmibd_WRP_NAT">islmibd</label>
+				<input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" class="WRP_NAT" value="islmnat_WRP_NAT">
+				<label for="islmnat_WRP_NAT">islmnat</label>
+				<input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" class="WRP_NAT" value="islmalw_WRP_NAT">
+				<label for="islmalw_WRP_NAT">islmalw</label>
+				<input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" class="WRP_NAT" value="islmahm_WRP_NAT">
+				<label for="islmahm_WRP_NAT">islmahm</label>
+				<input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" class="WRP_NAT" value="islmothr_WRP_NAT">
+				<label for="islmothr_WRP_NAT">islmothr</label>
+				<input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" class="WRP_NAT" value="islmgen_WRP_NAT">
+				<label for="islmgen_WRP_NAT">islmgen</label><br>
+				<input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" class="WRP_NAT" value="budmah_WRP_NAT">
+				<label for="budmah_WRP_NAT">budmah</label>
+				<input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" class="WRP_NAT" value="budthr_WRP_NAT">
+				<label for="budthr_WRP_NAT">budthr</label>
+				<input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" class="WRP_NAT" value="budothr_WRP_NAT">
+				<label for="budothr_WRP_NAT">budothr</label>
+				<input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" class="WRP_NAT" value="budgen_WRP_NAT">
+				<label for="budgen_WRP_NAT">budgen</label><br>
+				<input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" class="WRP_NAT" value="zorogen_WRP_NAT">
+				<label for="zorogen_WRP_NAT">zorogen</label>	
+				<input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" class="WRP_NAT" value="hindgen_WRP_NAT">
+				<label for="hindgen_WRP_NAT">hindgen</label>
+				<input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" class="WRP_NAT" value="sikhgen_WRP_NAT">
+				<label for="sikhgen_WRP_NAT">sikhgen</label>
+				<input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" class="WRP_NAT" value="shntgen_WRP_NAT">
+				<label for="shntgen_WRP_NAT">shntgen</label>
+				<input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" class="WRP_NAT" value="bahgen_WRP_NAT">
+				<label for="bahgen_WRP_NAT">bahgen</label>
+				<input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" class="WRP_NAT" value="taogen_WRP_NAT">
+				<label for="taogen_WRP_NAT">taogen</label>
+				<input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" class="WRP_NAT" value="jaingen_WRP_NAT">
+				<label for="jaingen_WRP_NAT">jaingen</label>
+				<input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" class="WRP_NAT" value="confgen_WRP_NAT">
+				<label for="confgen_WRP_NAT">confgen</label>
+				<input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" class="WRP_NAT" value="syncgen_WRP_NAT">
+				<label for="syncgen_WRP_NAT">syncgen</label>
+				<input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" class="WRP_NAT" value="anmgen_WRP_NAT">
+				<label for="anmgen_WRP_NAT">anmgen</label><br>
+				<input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" class="WRP_NAT" value="nonrelig_WRP_NAT">
+				<label for="nonrelig_WRP_NAT">nonrelig</label>
+				<input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" class="WRP_NAT" value="othrgen_WRP_NAT">
+				<label for="othrgen_WRP_NAT">othrgen</label>
+				<input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" class="WRP_NAT" value="sumrelig_WRP_NAT">
+				<label for="sumrelig_WRP_NAT">sumrelig</label>
+				<input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" class="WRP_NAT" value="pop_WRP_NAT">
+				<label for="pop_WRP_NAT">population</label><br>
+				<input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" class="WRP_NAT" value="chrstprotpct_WRP_NAT">
+				<label for="chrstprotpct_WRP_NAT">chrstprotpct</label>
+				<input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" class="WRP_NAT" value="chrstcatpct_WRP_NAT">
+				<label for="chrstcatpct_WRP_NAT">chrstcatpct</label>
+				<input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" class="WRP_NAT" value="chrstorthpct_WRP_NAT">
+				<label for="chrstorthpct_WRP_NAT">chrstorthpct</label>
+				<input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" class="WRP_NAT" value="chrstangpct_WRP_NAT">
+				<label for="chrstangpct_WRP_NAT">chrstangpct</label>
+				<input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" class="WRP_NAT" value="chrstothrpct_WRP_NAT">
+				<label for="chrstothrpct_WRP_NAT">chrstothrpct</label>
+				<input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" class="WRP_NAT" value="chrstgenpct_WRP_NAT">
+				<label for="chrstgenpct_WRP_NAT">chrstgenpct</label><br>
+				<input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" class="WRP_NAT" value="judorthpct_WRP_NAT">
+				<label for="judorthpct_WRP_NAT">judorthpct</label>
+				<input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" class="WRP_NAT" value="judconspct_WRP_NAT">
+				<label for="judconspct_WRP_NAT">judconspct</label>
+				<input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" class="WRP_NAT" value="judrefpct_WRP_NAT">
+				<label for="judrefpct_WRP_NAT">judrefpct</label>
+				<input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" class="WRP_NAT" value="judothrpct_WRP_NAT">
+				<label for="judothrpct_WRP_NAT">judothrpct</label>	
+				<input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" class="WRP_NAT" value="judgenpct_WRP_NAT">
+				<label for="judgenpct_WRP_NAT">judgenpct</label><br>
+				<input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" class="WRP_NAT" value="islmsunpct_WRP_NAT">
+				<label for="islmsunpct_WRP_NAT">islmsunpct</label>
+				<input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" class="WRP_NAT" value="islmshipct_WRP_NAT">
+				<label for="islmshipct_WRP_NAT">islmshipct</label>
+				<input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" class="WRP_NAT" value="islmibdpct_WRP_NAT">
+				<label for="islmibdpct_WRP_NAT">islmibdpct</label>
+				<input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" class="WRP_NAT" value="islmnatpct_WRP_NAT">
+				<label for="islmnatpct_WRP_NAT">islmnatpct</label>
+				<input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" class="WRP_NAT" value="islmalwpct_WRP_NAT">
+				<label for="islmalwpct_WRP_NAT">islmalwpct</label>
+				<input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" class="WRP_NAT" value="islmahmpct_WRP_NAT">
+				<label for="islmahmpct_WRP_NAT">islmahmpct</label>
+				<input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" class="WRP_NAT" value="islmothrpct_WRP_NAT">
+				<label for="islmothrpct_WRP_NAT">islmothrpct</label>
+				<input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" class="WRP_NAT" value="islmgenpct_WRP_NAT">
+				<label for="islmgenpct_WRP_NAT">islmgenpct</label><br>
+				<input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" class="WRP_NAT" value="budmahpct_WRP_NAT">
+				<label for="budmahpct_WRP_NAT">budmahpct</label>
+				<input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" class="WRP_NAT" value="budthrpct_WRP_NAT">
+				<label for="budthrpct_WRP_NAT">budthrpct</label>
+				<input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" class="WRP_NAT" value="budothrpct_WRP_NAT">
+				<label for="budothrpct_WRP_NAT">budothrpct</label>
+				<input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" class="WRP_NAT" value="budgenpct_WRP_NAT">
+				<label for="budgenpct_WRP_NAT">budgenpct</label>	<br>
+				<input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" class="WRP_NAT" value="zorogenpct_WRP_NAT">
+				<label for="zorogenpct_WRP_NAT">zorogenpct</label>	
+				<input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" class="WRP_NAT" value="hindgenpct_WRP_NAT">
+				<label for="hindgenpct_WRP_NAT">hindgenpct</label>
+				<input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" class="WRP_NAT" value="sikhgenpct_WRP_NAT">
+				<label for="sikhgenpct_WRP_NAT">sikhgenpct</label>
+				<input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" class="WRP_NAT" value="shntgenpct_WRP_NAT">
+				<label for="shntgenpct_WRP_NAT">shntgenpct</label>
+				<input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" class="WRP_NAT" value="bahgenpct_WRP_NAT">
+				<label for="bahgenpct_WRP_NAT">bahgenpct</label>
+				<input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" class="WRP_NAT" value="taogenpct_WRP_NAT">
+				<label for="taogenpct_WRP_NAT">taogenpct</label>
+				<input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" class="WRP_NAT" value="jaingenpct_WRP_NAT">
+				<label for="jaingenpct_WRP_NAT">jaingenpct</label>
+				<input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" class="WRP_NAT" value="confgenpct_WRP_NAT">
+				<label for="confgenpct_WRP_NAT">confgenpct</label>
+				<input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" class="WRP_NAT" value="syncgenpct_WRP_NAT">
+				<label for="syncgenpct_WRP_NAT">syncgenpct</label>
+				<input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" class="WRP_NAT" value="anmgenpct_WRP_NAT">
+				<label for="anmgenpct_WRP_NAT">anmgenpct</label><br>
+				<input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" class="WRP_NAT" value="nonreligpct_WRP_NAT">
+				<label for="nonreligpct_WRP_NAT">nonreligpct</label>
+				<input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" class="WRP_NAT" value="othrgenpct_WRP_NAT">
+				<label for="othrgenpct_WRP_NAT">othrgenpct</label>
+				<input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" class="WRP_NAT" value="sumreligpct_WRP_NAT">
+				<label for="sumreligpct_WRP_NAT">sumreligpct</label>
+				<input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" class="WRP_NAT" value="total_WRP_NAT">
+				<label for="total_WRP_NAT">total</label>
+				<input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" class="WRP_NAT" value="dualrelig_WRP_NAT">
+				<label for="dualrelig_WRP_NAT">dualrelig</label><br>
+				<input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" class="WRP_NAT" value="datatype_WRP_NAT">
+				<label for="datatype_WRP_NAT">datatype</label>
+				<input type="checkbox" id="sourcereliab_WRP_NAT" name="sourcereliab_WRP_NAT" class="WRP_NAT" value="sourcereliab_WRP_NAT">
+				<label for="sourcereliab_WRP_NAT">sourcereliab</label>
+				<input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" class="WRP_NAT" value="recreliab_WRP_NAT">
+				<label for="recreliab_WRP_NAT">recreliab</label>
+				<input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" class="WRP_NAT" value="reliabilevel_WRP_NAT">
+				<label for="reliabilevel_WRP_NAT">reliabilevel</label>
+				<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
+				<label for="sourcecode_WRP_NAT">sourcecode</label>
+			</div>
 		</div>
-		<div style="padding-left:20px;margin-bottom:0px">
-			<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();dataSetChooser()">
-			<label for="css">WRP_NAT</label>
+		<div id = "dyadicData">
+		
 		</div>
-		<div id="divWRP_NAT">
-			<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
-			<label for="chrstprot_WRP_NAT">chrstprot</label>
-			<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT">
-			<label for="chrstcat_WRP_NAT">chrstcat</label>
-			<input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" class="WRP_NAT" value="chrstorth_WRP_NAT">
-			<label for="chrstorth_WRP_NAT">chrstorth</label>
-			<input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" class="WRP_NAT" value="chrstang_WRP_NAT">
-			<label for="chrstang_WRP_NAT">chrstang</label>
-			<input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" class="WRP_NAT" value="chrstothr_WRP_NAT">
-			<label for="chrstothr_WRP_NAT">chrstothr</label>
-			<input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" class="WRP_NAT" value="chrstgen_WRP_NAT">
-			<label for="chrstgen_WRP_NAT">chrstgen</label><br>
-			<input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" class="WRP_NAT" value="judorth_WRP_NAT">
-			<label for="judorth_WRP_NAT">judorth</label>
-			<input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" class="WRP_NAT" value="judcons_WRP_NAT">
-			<label for="judcons_WRP_NAT">judcons</label>
-			<input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" class="WRP_NAT" value="judref_WRP_NAT">
-			<label for="judref_WRP_NAT">judref</label>
-			<input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" class="WRP_NAT" value="judothr_WRP_NAT">
-			<label for="judothr_WRP_NAT">judothr</label>	
-			<input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" class="WRP_NAT" value="judgen_WRP_NAT">
-			<label for="judgen_WRP_NAT">judgen</label><br>
-			<input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" class="WRP_NAT" value="islmsun_WRP_NAT">
-			<label for="islmsun_WRP_NAT">islmsun</label>
-			<input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" class="WRP_NAT" value="islmshi_WRP_NAT">
-			<label for="islmshi_WRP_NAT">islmshi</label>
-			<input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" class="WRP_NAT" value="islmibd_WRP_NAT">
-			<label for="islmibd_WRP_NAT">islmibd</label>
-			<input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" class="WRP_NAT" value="islmnat_WRP_NAT">
-			<label for="islmnat_WRP_NAT">islmnat</label>
-			<input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" class="WRP_NAT" value="islmalw_WRP_NAT">
-			<label for="islmalw_WRP_NAT">islmalw</label>
-			<input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" class="WRP_NAT" value="islmahm_WRP_NAT">
-			<label for="islmahm_WRP_NAT">islmahm</label>
-			<input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" class="WRP_NAT" value="islmothr_WRP_NAT">
-			<label for="islmothr_WRP_NAT">islmothr</label>
-			<input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" class="WRP_NAT" value="islmgen_WRP_NAT">
-			<label for="islmgen_WRP_NAT">islmgen</label><br>
-			<input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" class="WRP_NAT" value="budmah_WRP_NAT">
-			<label for="budmah_WRP_NAT">budmah</label>
-			<input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" class="WRP_NAT" value="budthr_WRP_NAT">
-			<label for="budthr_WRP_NAT">budthr</label>
-			<input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" class="WRP_NAT" value="budothr_WRP_NAT">
-			<label for="budothr_WRP_NAT">budothr</label>
-			<input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" class="WRP_NAT" value="budgen_WRP_NAT">
-			<label for="budgen_WRP_NAT">budgen</label><br>
-			<input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" class="WRP_NAT" value="zorogen_WRP_NAT">
-			<label for="zorogen_WRP_NAT">zorogen</label>	
-			<input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" class="WRP_NAT" value="hindgen_WRP_NAT">
-			<label for="hindgen_WRP_NAT">hindgen</label>
-			<input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" class="WRP_NAT" value="sikhgen_WRP_NAT">
-			<label for="sikhgen_WRP_NAT">sikhgen</label>
-			<input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" class="WRP_NAT" value="shntgen_WRP_NAT">
-			<label for="shntgen_WRP_NAT">shntgen</label>
-			<input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" class="WRP_NAT" value="bahgen_WRP_NAT">
-			<label for="bahgen_WRP_NAT">bahgen</label>
-			<input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" class="WRP_NAT" value="taogen_WRP_NAT">
-			<label for="taogen_WRP_NAT">taogen</label>
-			<input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" class="WRP_NAT" value="jaingen_WRP_NAT">
-			<label for="jaingen_WRP_NAT">jaingen</label>
-			<input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" class="WRP_NAT" value="confgen_WRP_NAT">
-			<label for="confgen_WRP_NAT">confgen</label>
-			<input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" class="WRP_NAT" value="syncgen_WRP_NAT">
-			<label for="syncgen_WRP_NAT">syncgen</label>
-			<input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" class="WRP_NAT" value="anmgen_WRP_NAT">
-			<label for="anmgen_WRP_NAT">anmgen</label><br>
-			<input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" class="WRP_NAT" value="nonrelig_WRP_NAT">
-			<label for="nonrelig_WRP_NAT">nonrelig</label>
-			<input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" class="WRP_NAT" value="othrgen_WRP_NAT">
-			<label for="othrgen_WRP_NAT">othrgen</label>
-			<input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" class="WRP_NAT" value="sumrelig_WRP_NAT">
-			<label for="sumrelig_WRP_NAT">sumrelig</label>
-			<input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" class="WRP_NAT" value="pop_WRP_NAT">
-			<label for="pop_WRP_NAT">population</label><br>
-			<input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" class="WRP_NAT" value="chrstprotpct_WRP_NAT">
-			<label for="chrstprotpct_WRP_NAT">chrstprotpct</label>
-			<input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" class="WRP_NAT" value="chrstcatpct_WRP_NAT">
-			<label for="chrstcatpct_WRP_NAT">chrstcatpct</label>
-			<input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" class="WRP_NAT" value="chrstorthpct_WRP_NAT">
-			<label for="chrstorthpct_WRP_NAT">chrstorthpct</label>
-			<input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" class="WRP_NAT" value="chrstangpct_WRP_NAT">
-			<label for="chrstangpct_WRP_NAT">chrstangpct</label>
-			<input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" class="WRP_NAT" value="chrstothrpct_WRP_NAT">
-			<label for="chrstothrpct_WRP_NAT">chrstothrpct</label>
-			<input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" class="WRP_NAT" value="chrstgenpct_WRP_NAT">
-			<label for="chrstgenpct_WRP_NAT">chrstgenpct</label><br>
-			<input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" class="WRP_NAT" value="judorthpct_WRP_NAT">
-			<label for="judorthpct_WRP_NAT">judorthpct</label>
-			<input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" class="WRP_NAT" value="judconspct_WRP_NAT">
-			<label for="judconspct_WRP_NAT">judconspct</label>
-			<input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" class="WRP_NAT" value="judrefpct_WRP_NAT">
-			<label for="judrefpct_WRP_NAT">judrefpct</label>
-			<input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" class="WRP_NAT" value="judothrpct_WRP_NAT">
-			<label for="judothrpct_WRP_NAT">judothrpct</label>	
-			<input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" class="WRP_NAT" value="judgenpct_WRP_NAT">
-			<label for="judgenpct_WRP_NAT">judgenpct</label><br>
-			<input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" class="WRP_NAT" value="islmsunpct_WRP_NAT">
-			<label for="islmsunpct_WRP_NAT">islmsunpct</label>
-			<input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" class="WRP_NAT" value="islmshipct_WRP_NAT">
-			<label for="islmshipct_WRP_NAT">islmshipct</label>
-			<input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" class="WRP_NAT" value="islmibdpct_WRP_NAT">
-			<label for="islmibdpct_WRP_NAT">islmibdpct</label>
-			<input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" class="WRP_NAT" value="islmnatpct_WRP_NAT">
-			<label for="islmnatpct_WRP_NAT">islmnatpct</label>
-			<input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" class="WRP_NAT" value="islmalwpct_WRP_NAT">
-			<label for="islmalwpct_WRP_NAT">islmalwpct</label>
-			<input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" class="WRP_NAT" value="islmahmpct_WRP_NAT">
-			<label for="islmahmpct_WRP_NAT">islmahmpct</label>
-			<input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" class="WRP_NAT" value="islmothrpct_WRP_NAT">
-			<label for="islmothrpct_WRP_NAT">islmothrpct</label>
-			<input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" class="WRP_NAT" value="islmgenpct_WRP_NAT">
-			<label for="islmgenpct_WRP_NAT">islmgenpct</label><br>
-			<input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" class="WRP_NAT" value="budmahpct_WRP_NAT">
-			<label for="budmahpct_WRP_NAT">budmahpct</label>
-			<input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" class="WRP_NAT" value="budthrpct_WRP_NAT">
-			<label for="budthrpct_WRP_NAT">budthrpct</label>
-			<input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" class="WRP_NAT" value="budothrpct_WRP_NAT">
-			<label for="budothrpct_WRP_NAT">budothrpct</label>
-			<input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" class="WRP_NAT" value="budgenpct_WRP_NAT">
-			<label for="budgenpct_WRP_NAT">budgenpct</label>	<br>
-			<input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" class="WRP_NAT" value="zorogenpct_WRP_NAT">
-			<label for="zorogenpct_WRP_NAT">zorogenpct</label>	
-			<input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" class="WRP_NAT" value="hindgenpct_WRP_NAT">
-			<label for="hindgenpct_WRP_NAT">hindgenpct</label>
-			<input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" class="WRP_NAT" value="sikhgenpct_WRP_NAT">
-			<label for="sikhgenpct_WRP_NAT">sikhgenpct</label>
-			<input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" class="WRP_NAT" value="shntgenpct_WRP_NAT">
-			<label for="shntgenpct_WRP_NAT">shntgenpct</label>
-			<input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" class="WRP_NAT" value="bahgenpct_WRP_NAT">
-			<label for="bahgenpct_WRP_NAT">bahgenpct</label>
-			<input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" class="WRP_NAT" value="taogenpct_WRP_NAT">
-			<label for="taogenpct_WRP_NAT">taogenpct</label>
-			<input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" class="WRP_NAT" value="jaingenpct_WRP_NAT">
-			<label for="jaingenpct_WRP_NAT">jaingenpct</label>
-			<input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" class="WRP_NAT" value="confgenpct_WRP_NAT">
-			<label for="confgenpct_WRP_NAT">confgenpct</label>
-			<input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" class="WRP_NAT" value="syncgenpct_WRP_NAT">
-			<label for="syncgenpct_WRP_NAT">syncgenpct</label>
-			<input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" class="WRP_NAT" value="anmgenpct_WRP_NAT">
-			<label for="anmgenpct_WRP_NAT">anmgenpct</label><br>
-			<input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" class="WRP_NAT" value="nonreligpct_WRP_NAT">
-			<label for="nonreligpct_WRP_NAT">nonreligpct</label>
-			<input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" class="WRP_NAT" value="othrgenpct_WRP_NAT">
-			<label for="othrgenpct_WRP_NAT">othrgenpct</label>
-			<input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" class="WRP_NAT" value="sumreligpct_WRP_NAT">
-			<label for="sumreligpct_WRP_NAT">sumreligpct</label>
-			<input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" class="WRP_NAT" value="total_WRP_NAT">
-			<label for="total_WRP_NAT">total</label>
-			<input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" class="WRP_NAT" value="dualrelig_WRP_NAT">
-			<label for="dualrelig_WRP_NAT">dualrelig</label><br>
-			<input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" class="WRP_NAT" value="datatype_WRP_NAT">
-			<label for="datatype_WRP_NAT">datatype</label>
-			<input type="checkbox" id="sourcereliab_WRP_NAT" name="sourcereliab_WRP_NAT" class="WRP_NAT" value="sourcereliab_WRP_NAT">
-			<label for="sourcereliab_WRP_NAT">sourcereliab</label>
-			<input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" class="WRP_NAT" value="recreliab_WRP_NAT">
-			<label for="recreliab_WRP_NAT">recreliab</label>
-			<input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" class="WRP_NAT" value="reliabilevel_WRP_NAT">
-			<label for="reliabilevel_WRP_NAT">reliabilevel</label>
-			<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
-			<label for="sourcecode_WRP_NAT">sourcecode</label>
-		</div>
-		<div id="divNMC_5_0_Table">
-			<h4 style="font-family:arial">Variables</h4>
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-				</tr>
-				<tr>
-					<td>state</td>
-					<td>abbreviation of the state or country</td>
-				</tr>
-				<tr>
-					<td>ccode</td>
-					<td>Correlates of War Country Code</td>
-				</tr>
-				<tr>
-					<td>year</td>
-					<td>the year the data is about</td>
-				</tr>
-				<tr>
-					<td>milex</td>
-					<td>military expenditure in 100,000s</td>
-				</tr>
-				<tr>
-					<td>milper</td>
-					<td>military personnel in 1000s</td>
-				</tr>
-				<tr>
-					<td>irst</td>
-					<td>iron and steel production</td>
-				</tr>
-				<tr>
-					<td>pec</td>
-					<td>energy consumption</td>
-				</tr>
-				<tr>
-					<td>tpop</td>
-					<td>total population</td>
-				</tr>
-				<tr>
-					<td>upop</td>
-					<td>urban population</td>
-				</tr>
-				<tr>
-					<td>cinc</td>
-					<td>composite index of national capability (scale: 0-1)</td>
-				</tr>
-			</table>
-		</div>
-		<div id="divWRP_NAT_Table">
-			<h4 style="font-family:arial">Variables</h4>
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-				</tr>
-				<tr>
-					<td>state</td>
-					<td>abbreviation of the state or country</td>
-				</tr>
-				<tr>
-					<td>ccode</td>
-					<td>Correlates of War Country Code</td>
-				</tr>
-				<tr>
-					<td>chrstprot</td>
-					<td>Christianity: Protestant - number of adherents</td>
-				</tr>
-				<tr>
-					<td>chrstcat</td>
-					<td>Christianity: Roman Catholics - number of adherents</td>
-				</tr>
-				<tr>
-					<td>chrstorth</td>
-					<td>Christianity: Eastern Orthodox - number of adherents</td>
-				</tr>
-				<tr>
-					<td>chrstang</td>
-					<td>Christianity: Anglican - number of adherents</td>
-				</tr>
-				<tr>
-					<td>chrstothr</td>
-					<td>Christianity: Others - number of adherents</td>
-				</tr>
-				<tr>
-					<td>chrstgen</td>
-					<td>Christianity - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>judorth</td>
-					<td>Judaism: Orthodox - number of adherents</td>
-				</tr>
-				<tr>
-					<td>judcons</td>
-					<td>Judaism: Conservatives - number of adherents</td>
-				</tr>
-				<tr>
-					<td>judref</td>
-					<td>Judaism: Reform - number of adherents</td>
-				</tr>
-				<tr>
-					<td>judothr</td>
-					<td>Judaism: Others - number of adherents</td>
-				</tr>
-				<tr>
-					<td>judgen</td>
-					<td>Judaism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmsun</td>
-					<td>Islam: Sunni - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmshi</td>
-					<td>Islam: Shi'a - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmibd</td>
-					<td>Islam: Ibadhi - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmnat</td>
-					<td>Islam: Nation of Islam - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmalw</td>
-					<td>Islam: Alawite - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmahm</td>
-					<td>Islam: Almadiyya - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmothr</td>
-					<td>Islam: Others - number of adherents</td>
-				</tr>
-				<tr>
-					<td>islmgen</td>
-					<td>Islam - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>budmah</td>
-					<td>Buddhism: Mahayana - number of adherents</td>
-				</tr>
-				<tr>
-					<td>budthr</td>
-					<td>Buddhism: Theravada - number of adherents</td>
-				</tr>
-				<tr>
-					<td>budothr</td>
-					<td>Buddhism: Others - number of adherents</td>
-				</tr>
-				<tr>
-					<td>budgen</td>
-					<td>Buddhism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>zorogen</td>
-					<td>Zoroastrianism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>hindgen</td>
-					<td>Hinduism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>sikhgen</td>
-					<td>Sikhism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>shntgen</td>
-					<td>Shinto - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>bahgen</td>
-					<td>Baha'i - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>taogen</td>
-					<td>Taoism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>jaingen</td>
-					<td>Jainism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>confgen</td>
-					<td>Confucianism - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>syncgen</td>
-					<td>Syncretic Religions - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>anmgen</td>
-					<td>Animist - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>nonrelig</td>
-					<td>Non-relgious - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>othrgen</td>
-					<td>Other Religions - total number of adherents</td>
-				</tr>
-				<tr>
-					<td>sumrelig</td>
-					<td>total number of religious adherents</td>
-				</tr>
-				<tr>
-					<td>pop</td>
-					<td>total population</td>
-				</tr>
-				<tr>
-					<td>chrstprotpct</td>
-					<td>Christianity: Protestant - percent adherents</td>
-				</tr>
-				<tr>
-					<td>chrstcatpct</td>
-					<td>Christianity: Roman Catholics - percent adherents</td>
-				</tr>
-				<tr>
-					<td>chrstorthpct</td>
-					<td>Christianity: Eastern Orthodox - percent adherents</td>
-				</tr>
-				<tr>
-					<td>chrstangpct</td>
-					<td>Christianity: Anglican - percent adherents</td>
-				</tr>
-				<tr>
-					<td>chrstothrpct</td>
-					<td>Christianity: Others - percent adherents</td>
-				</tr>
-				<tr>
-					<td>chrstgenpct</td>
-					<td>Christianity - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>judorthpct</td>
-					<td>Judaism: Orthodox - percent adherents</td>
-				</tr>
-				<tr>
-					<td>judconspct</td>
-					<td>Judaism: Conservatives - percent adherents</td>
-				</tr>
-				<tr>
-					<td>judrefpct</td>
-					<td>Judaism: Reform - percent adherents</td>
-				</tr>
-				<tr>
-					<td>judothrpct</td>
-					<td>Judaism: Others - percent adherents</td>
-				</tr>
-				<tr>
-					<td>judgenpct</td>
-					<td>Judaism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmsunpct</td>
-					<td>Islam: Sunni - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmshipct</td>
-					<td>Islam: Shi'a - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmibdpct</td>
-					<td>Islam: Ibadhi - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmnatpct</td>
-					<td>Islam: Nation of Islam - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmalwpct</td>
-					<td>Islam: Alawite - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmahmpct</td>
-					<td>Islam: Almadiyya - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmothrpct</td>
-					<td>Islam: Others - percent adherents</td>
-				</tr>
-				<tr>
-					<td>islmgenpct</td>
-					<td>Islam - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>budmahpct</td>
-					<td>Buddhism: Mahayana - percent adherents</td>
-				</tr>
-				<tr>
-					<td>budthrpct</td>
-					<td>Buddhism: Theravada - percent adherents</td>
-				</tr>
-				<tr>
-					<td>budothrpct</td>
-					<td>Buddhism: Others - percent adherents</td>
-				</tr>
-				<tr>
-					<td>budgenpct</td>
-					<td>Buddhism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>zorogenpct</td>
-					<td>Zoroastrianism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>hindgenpct</td>
-					<td>Hinduism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>sikhgenpct</td>
-					<td>Sikhism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>shntgenpct</td>
-					<td>Shinto - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>bahgenpct</td>
-					<td>Baha'i - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>taogenpct</td>
-					<td>Taoism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>jaingenpct</td>
-					<td>Jainism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>confgenpct</td>
-					<td>Confucianism - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>syncgenpct</td>
-					<td>Syncretic Religions - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>anmgenpct</td>
-					<td>Animist - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>nonreligpct</td>
-					<td>Non-relgious - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>othrgenpct</td>
-					<td>Other Religions - total percent adherents</td>
-				</tr>
-				<tr>
-					<td>sumreligpct</td>
-					<td>total percent religious adherents</td>
-				</tr>
-				<tr>
-					<td>total</td>
-					<td>total population percentage (if dualrelig = 1, total > 1</td>
-				</tr>
-				<tr>
-					<td>dualrelig</td>
-					<td>dual religion (1: Yes; 0: No)</td>
-				</tr>
-				<tr>
-					<td>datatype</td>
-					<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
-						134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
-						234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
-				</tr>
-				<tr>
-					<td>recreliab</td>
-					<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
-				</tr>
-				<tr>
-					<td>sourcecode</td>
-					<td>code of major source used for the record</td>
-				</tr>
-			</table>
+		<div id="variableTables">
+				<div id="divNMC_5_0_Table">
+					<h4 style="font-family:arial">Variables</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>abbreviation of the state or country</td>
+						</tr>
+						<tr>
+							<td>ccode</td>
+							<td>Correlates of War Country Code</td>
+						</tr>
+						<tr>
+							<td>year</td>
+							<td>the year the data is about</td>
+						</tr>
+						<tr>
+							<td>milex</td>
+							<td>military expenditure in 100,000s</td>
+						</tr>
+						<tr>
+							<td>milper</td>
+							<td>military personnel in 1000s</td>
+						</tr>
+						<tr>
+							<td>irst</td>
+							<td>iron and steel production</td>
+						</tr>
+						<tr>
+							<td>pec</td>
+							<td>energy consumption</td>
+						</tr>
+						<tr>
+							<td>tpop</td>
+							<td>total population</td>
+						</tr>
+						<tr>
+							<td>upop</td>
+							<td>urban population</td>
+						</tr>
+						<tr>
+							<td>cinc</td>
+							<td>composite index of national capability (scale: 0-1)</td>
+						</tr>
+					</table>
+				</div>
+				<div id="divWRP_NAT_Table">
+				<h4 style="font-family:arial">Variables</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>state</td>
+						<td>abbreviation of the state or country</td>
+					</tr>
+					<tr>
+						<td>ccode</td>
+						<td>Correlates of War Country Code</td>
+					</tr>
+					<tr>
+						<td>chrstprot</td>
+						<td>Christianity: Protestant - number of adherents</td>
+					</tr>
+					<tr>
+						<td>chrstcat</td>
+						<td>Christianity: Roman Catholics - number of adherents</td>
+					</tr>
+					<tr>
+						<td>chrstorth</td>
+						<td>Christianity: Eastern Orthodox - number of adherents</td>
+					</tr>
+					<tr>
+						<td>chrstang</td>
+						<td>Christianity: Anglican - number of adherents</td>
+					</tr>
+					<tr>
+						<td>chrstothr</td>
+						<td>Christianity: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td>chrstgen</td>
+						<td>Christianity - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>judorth</td>
+						<td>Judaism: Orthodox - number of adherents</td>
+					</tr>
+					<tr>
+						<td>judcons</td>
+						<td>Judaism: Conservatives - number of adherents</td>
+					</tr>
+					<tr>
+						<td>judref</td>
+						<td>Judaism: Reform - number of adherents</td>
+					</tr>
+					<tr>
+						<td>judothr</td>
+						<td>Judaism: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td>judgen</td>
+						<td>Judaism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmsun</td>
+						<td>Islam: Sunni - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmshi</td>
+						<td>Islam: Shi'a - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmibd</td>
+						<td>Islam: Ibadhi - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmnat</td>
+						<td>Islam: Nation of Islam - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmalw</td>
+						<td>Islam: Alawite - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmahm</td>
+						<td>Islam: Almadiyya - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmothr</td>
+						<td>Islam: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td>islmgen</td>
+						<td>Islam - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>budmah</td>
+						<td>Buddhism: Mahayana - number of adherents</td>
+					</tr>
+					<tr>
+						<td>budthr</td>
+						<td>Buddhism: Theravada - number of adherents</td>
+					</tr>
+					<tr>
+						<td>budothr</td>
+						<td>Buddhism: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td>budgen</td>
+						<td>Buddhism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>zorogen</td>
+						<td>Zoroastrianism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>hindgen</td>
+						<td>Hinduism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>sikhgen</td>
+						<td>Sikhism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>shntgen</td>
+						<td>Shinto - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>bahgen</td>
+						<td>Baha'i - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>taogen</td>
+						<td>Taoism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>jaingen</td>
+						<td>Jainism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>confgen</td>
+						<td>Confucianism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>syncgen</td>
+						<td>Syncretic Religions - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>anmgen</td>
+						<td>Animist - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>nonrelig</td>
+						<td>Non-relgious - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>othrgen</td>
+						<td>Other Religions - total number of adherents</td>
+					</tr>
+					<tr>
+						<td>sumrelig</td>
+						<td>total number of religious adherents</td>
+					</tr>
+					<tr>
+						<td>pop</td>
+						<td>total population</td>
+					</tr>
+					<tr>
+						<td>chrstprotpct</td>
+						<td>Christianity: Protestant - percent adherents</td>
+					</tr>
+					<tr>
+						<td>chrstcatpct</td>
+						<td>Christianity: Roman Catholics - percent adherents</td>
+					</tr>
+					<tr>
+						<td>chrstorthpct</td>
+						<td>Christianity: Eastern Orthodox - percent adherents</td>
+					</tr>
+					<tr>
+						<td>chrstangpct</td>
+						<td>Christianity: Anglican - percent adherents</td>
+					</tr>
+					<tr>
+						<td>chrstothrpct</td>
+						<td>Christianity: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td>chrstgenpct</td>
+						<td>Christianity - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>judorthpct</td>
+						<td>Judaism: Orthodox - percent adherents</td>
+					</tr>
+					<tr>
+						<td>judconspct</td>
+						<td>Judaism: Conservatives - percent adherents</td>
+					</tr>
+					<tr>
+						<td>judrefpct</td>
+						<td>Judaism: Reform - percent adherents</td>
+					</tr>
+					<tr>
+						<td>judothrpct</td>
+						<td>Judaism: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td>judgenpct</td>
+						<td>Judaism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmsunpct</td>
+						<td>Islam: Sunni - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmshipct</td>
+						<td>Islam: Shi'a - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmibdpct</td>
+						<td>Islam: Ibadhi - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmnatpct</td>
+						<td>Islam: Nation of Islam - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmalwpct</td>
+						<td>Islam: Alawite - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmahmpct</td>
+						<td>Islam: Almadiyya - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmothrpct</td>
+						<td>Islam: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td>islmgenpct</td>
+						<td>Islam - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>budmahpct</td>
+						<td>Buddhism: Mahayana - percent adherents</td>
+					</tr>
+					<tr>
+						<td>budthrpct</td>
+						<td>Buddhism: Theravada - percent adherents</td>
+					</tr>
+					<tr>
+						<td>budothrpct</td>
+						<td>Buddhism: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td>budgenpct</td>
+						<td>Buddhism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>zorogenpct</td>
+						<td>Zoroastrianism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>hindgenpct</td>
+						<td>Hinduism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>sikhgenpct</td>
+						<td>Sikhism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>shntgenpct</td>
+						<td>Shinto - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>bahgenpct</td>
+						<td>Baha'i - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>taogenpct</td>
+						<td>Taoism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>jaingenpct</td>
+						<td>Jainism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>confgenpct</td>
+						<td>Confucianism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>syncgenpct</td>
+						<td>Syncretic Religions - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>anmgenpct</td>
+						<td>Animist - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>nonreligpct</td>
+						<td>Non-relgious - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>othrgenpct</td>
+						<td>Other Religions - total percent adherents</td>
+					</tr>
+					<tr>
+						<td>sumreligpct</td>
+						<td>total percent religious adherents</td>
+					</tr>
+					<tr>
+						<td>total</td>
+						<td>total population percentage (if dualrelig = 1, total > 1</td>
+					</tr>
+					<tr>
+						<td>dualrelig</td>
+						<td>dual religion (1: Yes; 0: No)</td>
+					</tr>
+					<tr>
+						<td>datatype</td>
+						<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
+							134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
+							234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
+					</tr>
+					<tr>
+						<td>recreliab</td>
+						<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
+					</tr>
+					<tr>
+						<td>sourcecode</td>
+						<td>code of major source used for the record</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div id="selectors">
 			<div style="display:none;padding-left:20px;" id="selectCountry">
@@ -1250,7 +1280,7 @@
 			</div>
 			<div style="display:none;padding-left:20px;" id = "selectYearRange">
 				<br>
-				<label for="minYear">Choose starting year:</label>
+				<label for="minYear">Choose start year:</label>
 				<input type="range" id="minimumYear" name="minimumYear" min="1816" max="2012" value = "1914" oninput="printedMinYear.value=minimumYear.value;filterByYear();">
 				<input type="text" id="printedMinYear" value = "1914" oninput="minimumYear.value=printedMinYear.value;filterByYear();">
 				<br>
@@ -1258,6 +1288,9 @@
 				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYear();" style="margin-left:26px">
 				<input type="text" id="printedMaxYear" value = "1914" oninput="maximumYear.value=printedMaxYear.value;filterByYear();">
 				<br>
+			</div>
+			<div style="display:none" id="WarningYearSelector">
+				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
 			</div>
 		</div>
 		<div style="padding-left:20px;">
