@@ -8,22 +8,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="datafiles/NMC_5_0_DataUnlim.js"></script>
 		<script src="datafiles/WRP_NATUnlim.js"></script>
+		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<style>
 			body, nav {margin:0px;
 				display: block;	
 			}
 			
-			#divNMC_5_0, #divWRP_NAT {
+			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers {
 				display:none;
 				padding-left:40px;
 			}
-			#divNMC_5_0_Table, #divWRP_NAT_Table{
+			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable{
 				display:none;
 				padding-left:20px;
 				padding-right:20px;
 				overflow:scroll;
-				height:300px;
+				height:200px;
 				overflow-x:auto;
 				margin-top: 20px;
 			}
@@ -100,19 +101,7 @@
 			</nav>
 		</header>
 		<script>
-			function dataSetChooser(){
-				var data = NMC_5_0Unlim;
-				if(document.getElementById("NMC_5_0").checked && document.getElementById("WRP_NAT").checked){
-					data = countryYearMerge;
-				}
-				else if(document.getElementById("NMC_5_0").checked){
-					data = NMC_5_0Unlim;
-				}
-				else if(document.getElementById("WRP_NAT").checked){
-					data = WRP_NATUnlim;
-				}
-				return data;
-			}
+			
 			function toggleVariableTableDiv(){
 				if(document.getElementById("NMC_5_0").checked){
 					document.getElementById("divNMC_5_0_Table").style.display = "block";
@@ -126,13 +115,19 @@
 				else{
 					document.getElementById("divWRP_NAT_Table").style.display = "none";
 				}
+				if(document.getElementById("Major_Powers").checked){
+					document.getElementById("divMajor_PowersTable").style.display = "block";
+				}
+				else{
+					document.getElementById("divMajor_PowersTable").style.display = "none";
+				}
 			}
 			function variableChooser(){
 				const variables = [];
 				if(document.getElementById("NMC_5_0").checked){
 					variables.push("state");
 					variables.push("year");
-					variables.push("ccode_NMC_5_0");
+					variables.push("ccode");
 					if(document.getElementById("milex_NMC_5_0").checked){
 						variables.push("milex_NMC_5_0");
 					}
@@ -152,10 +147,21 @@
 						variables.push("cinc_NMC_5_0");
 					}
 				}
+				if(document.getElementById("Major_Powers").checked){
+					variables.push("state");
+					variables.push("year");
+					variables.push("ccode");
+					if(document.getElementById("statename_Major_Powers").checked){
+						variables.push("statename_Major_Powers");
+					}
+					if(document.getElementById("major_Major_Powers").checked){
+						variables.push("major_Major_Powers");
+					}
+				}
 				if(document.getElementById("WRP_NAT").checked){
 					variables.push("state");
 					variables.push("year");
-					variables.push("ccode_WRP_NAT");
+					variables.push("ccode");
 					if(document.getElementById("chrstprot_WRP_NAT").checked){
 						variables.push("chrstprot_WRP_NAT");
 					}
@@ -399,7 +405,7 @@
 				}
 				return variables;
 			}
-			function contains(set, object, keys) { //https://stackoverflow.com/a/24971102
+			function contains(set, object, keys) {
 				var solution = -1;
 				set.forEach(function (item, index, array) {
 					var selfItem = item;
@@ -434,7 +440,38 @@
 				});
 				return result;
 			}
-			var countryYearMerge = mergeSets(NMC_5_0Unlim, WRP_NATUnlim, "state", "year");
+			
+			function mergeCountryYearData(){			
+				var countryYearDataSelected = [];
+
+				if(document.getElementById("NMC_5_0").checked){
+					countryYearDataSelected.push(NMC_5_0Unlim);
+				}
+				if(document.getElementById("WRP_NAT").checked){
+					countryYearDataSelected.push(WRP_NATUnlim);
+				}
+				if(document.getElementById("Major_Powers").checked){
+					countryYearDataSelected.push(COW_States_Major_Powers);
+				}
+				
+				return countryYearDataSelected;
+			}
+			var countryYearDatasets = mergeCountryYearData();
+			function dataSetChooser(){
+				var countryYearDatasets = mergeCountryYearData();
+				var data = NMC_5_0Unlim;
+				if(countryYearDatasets.length == 1){
+					data = countryYearDatasets[0];
+				}
+				else if(countryYearDatasets.length == 2){
+					data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
+				}
+				else if(countryYearDatasets.length == 3){
+					var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
+					data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
+				}
+				return data;
+			}
 			function toggleVariableSelectionDiv(){
 				if(document.getElementById("NMC_5_0").checked){
 					document.getElementById("divNMC_5_0").style.display = "block";
@@ -449,6 +486,13 @@
 				else{
 					$('#divWRP_NAT').find('input[type=checkbox]:checked').prop('checked',false);
 					document.getElementById("divWRP_NAT").style.display = "none";
+				}
+				if(document.getElementById("Major_Powers").checked){
+					document.getElementById("divMajor_Powers").style.display = "block";
+				}
+				else{
+					$('#divMajor_Powers').find('input[type=checkbox]:checked').prop('checked',false);
+					document.getElementById("divMajor_Powers").style.display = "none";
 				}
 			}		
 			
@@ -572,7 +616,7 @@
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
 					tf = false;
 				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 ){
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1){
 					tf = false;
 				}
 				return Boolean(tf);
@@ -585,7 +629,7 @@
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
 					tf = false;
 				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 ){
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1){
 					tf = false;
 				}
 				return Boolean(tf);
@@ -715,8 +759,8 @@
 		</script>
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
-			<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="dataSetChooser();toggleVariableSelectionDiv();toggleVariableTableDiv()">
-			<label for="html">NMC_5_0 (1816-2012)</label>
+			<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+			<label for="NMC_5_0">NMC_5_0 (1816-2012)</label>
 		</div>
 		<div id="countryYearData">
 			<div id="divNMC_5_0">
@@ -736,8 +780,8 @@
 				<label for="cinc_NMC_5_0">cinc</label>			
 			</div>
 			<div style="padding-left:20px;margin-bottom:0px">
-				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();dataSetChooser()">
-				<label for="css">WRP_NAT (1945-2010)</label>
+				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();">
+				<label for="WRP_NAT">WRP_NAT (1945-2010)</label>
 			</div>
 			<div id="divWRP_NAT">
 				<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
@@ -901,7 +945,18 @@
 				<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
 				<label for="sourcecode_WRP_NAT">sourcecode</label>
 			</div>
-		</div>
+			<div style="padding-left:20px;margin-bottom:0px">
+				<input type="checkbox" id="Major_Powers" name="dataset_Major_Powers" value="Major_Powers" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+				<label for="Major_Powers">COW States and Major Powers (1816-2014)</label>
+			</div>
+			<div id="divMajor_Powers">
+				<input type="checkbox" id="statename_Major_Powers" name="statename_Major_Powers" class="Major_Powers" value="statename_Major_Powers">
+				<label for="statename_Major_Powers">statename</label>
+				<input type="checkbox" id="major_Major_Powers" name="major_Major_Powers" class="Major_Powers" value="major_Major_Powers">
+				<label for="major_Major_Powers">major</label>
+				
+			</div>
+	</div>
 		<div id = "dyadicData">
 		
 		</div>
@@ -1286,6 +1341,34 @@
 					</tr>
 				</table>
 			</div>
+				<div id="divMajor_PowersTable">
+					<h4 style="font-family:arial">Variables</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>abbreviation of the state or country</td>
+						</tr>
+						<tr>
+							<td>ccode</td>
+							<td>Correlates of War Country Code</td>
+						</tr>
+						<tr>
+							<td>year</td>
+							<td>the year the data is about</td>
+						</tr>
+						<tr>
+							<td>statename</td>
+							<td>country's full name</td>
+						</tr>
+						<tr>
+							<td>major</td>
+							<td>0: No; 1: Yes</td>
+						</tr>
+					</table>
 		</div>
 		<div id="selectors">
 			<div style="display:none;padding-left:20px;" id="selectCountry">
