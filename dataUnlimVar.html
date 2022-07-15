@@ -10,6 +10,7 @@
 		<script src="datafiles/WRP_NATUnlim.js"></script>
 		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<!-- <link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />  -->
 		<style>
 			body, nav {margin:0px;
 				display: block;	
@@ -81,6 +82,18 @@
 			thead{
 				position: absolute;
 			}
+			
+			<!-- #progressBar {
+				width: 1%;
+				height:20px;
+				background-color:limegreen;
+			}
+			
+			#progressStatus{
+				width: 50%;
+				background-color:lightgrey;
+				margin-bottom:-5px;
+			} -->
 			
 			#showData{
 				overflow-x:auto;
@@ -418,9 +431,12 @@
 						solution = index;
 					}
 				});
+
 				return solution;
 			}
+
 			function mergeSets(first, second) {
+
 				var result = first;
 				var keys = Array.prototype.slice.call(arguments, 2);
 				second.forEach(function (item, index, array) {
@@ -437,7 +453,9 @@
 							}
 						}
 					}
+
 				});
+		
 				return result;
 			}
 			
@@ -462,13 +480,16 @@
 				var data = NMC_5_0Unlim;
 				if(countryYearDatasets.length == 1){
 					data = countryYearDatasets[0];
+					//update();
 				}
 				else if(countryYearDatasets.length == 2){
 					data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
+					//update();
 				}
 				else if(countryYearDatasets.length == 3){
 					var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
 					data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
+					//update();
 				}
 				return data;
 			}
@@ -635,8 +656,25 @@
 				return Boolean(tf);
 			}
 			
-			
-			function CreateTableFromJSON() {
+			/*function update(){
+				var element = document.getElementById("progressBar");
+				var width = 1;
+				var identity = setInterval(scene, 10);
+
+				function scene(){  
+					if (width >= 100){
+						clearInterval(identity);
+						element.style.display = "none";
+						document.getElementById("createButton").style.display = "none";
+					}
+					else{
+						width++;
+						element.style.width = width + '%';
+					}
+				}
+			}
+			*/
+			function CreateTable() {
 				
 				let truefalse = checkCheckboxes();
 				if(truefalse == false){
@@ -646,6 +684,7 @@
 				else{
 					document.getElementById("Warning").style.display = "none";				
 				}
+
 				var myData = dataSetChooser();
 				//columns to be displayed
 				let displayColumns = variableChooser();
@@ -698,6 +737,7 @@
 				var divContainer = document.getElementById("showData");
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
+				document.getElementById("createButton").style.display = "none";
 			}		
 			
 			function downloadCSV(csv, filename) {
@@ -747,6 +787,7 @@
 				}
 
 				// Download CSV file
+				filename = filename + " " + new Date().toISOString().slice(0, 10) + ".csv";
 				downloadCSV(csv.join("\n"), filename);
 			}
 			 function findAllVariables() {
@@ -1369,6 +1410,7 @@
 							<td>0: No; 1: Yes</td>
 						</tr>
 					</table>
+				</div>
 		</div>
 		<div id="selectors">
 			<div style="display:none;padding-left:20px;" id="selectCountry">
@@ -1397,16 +1439,21 @@
 				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
 			</div>
 		</div>
-		<div style="padding-left:20px;">
-			<br>
-			<input type="button" onclick="CreateTableFromJSON();dropDownList();toggleDropdownMenu();toggleYearRange();" value="Create"/>
-		</div>
-		<div style="display:none" id="Warning">
-			<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
+		<div>
+			<div style="padding-left:20px;display:inline-block">
+				<br>
+				<input type="button" id = "createButton" onclick="CreateTable();dropDownList();toggleDropdownMenu();toggleYearRange();" value="Next"/>
+			</div>
+			<!-- <div style = "display:inline-block" id="progressStatus">
+				<div id="progressBar"></div>
+			</div> -->
+			<div style="display:none" id="Warning">
+				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
+			</div>
 		</div>
 		<div style="padding-left:20px" id = "generated_Data">
 			<p id="showData"></p>
-			<button onclick="exportTableToCSV('newgene.csv')">Download CSV File</button>
+			<button onclick="exportTableToCSV('newgene')">Download CSV File</button>
 		</div>
 		<div style="display:none" id="WarningDownload">
 			<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">A table was not created.</p>
