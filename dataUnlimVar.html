@@ -9,6 +9,7 @@
 		<script src="datafiles/NMC_5_0_DataUnlim.js"></script>
 		<script src="datafiles/WRP_NATUnlim.js"></script>
 		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
+		<script src="datafiles/DirectContiguityDyadic.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<!-- <link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />  -->
 		<style>
@@ -18,9 +19,13 @@
 			
 			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers {
 				display:none;
+				padding-left:60px;
+			}
+			#countryYearData, #dyadicData{
+				display:none;
 				padding-left:40px;
 			}
-			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable{
+			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable{
 				display:none;
 				padding-left:20px;
 				padding-right:20px;
@@ -114,6 +119,22 @@
 			</nav>
 		</header>
 		<script>
+			function toggleDataGroups(){
+				if(document.getElementById("countryYear").checked){
+					document.getElementById("countryYearData").style.display = "block";
+				}
+				else{
+					$('#countryYearData').find('input[type=checkbox]:checked').prop('checked',false);
+					document.getElementById("countryYearData").style.display = "none";
+				}
+				if(document.getElementById("dyadYear").checked){
+					document.getElementById("dyadicData").style.display = "block";
+				}
+				else{
+					$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
+					document.getElementById("dyadicData").style.display = "none";
+				}
+			}
 			
 			function toggleVariableTableDiv(){
 				if(document.getElementById("NMC_5_0").checked){
@@ -133,6 +154,12 @@
 				}
 				else{
 					document.getElementById("divMajor_PowersTable").style.display = "none";
+				}
+				if(document.getElementById("DirectContiguity").checked){
+					document.getElementById("divDirectContiguityTable").style.display = "block";
+				}
+				else{
+					document.getElementById("divDirectContiguityTable").style.display = "none";
 				}
 			}
 			function variableChooser(){
@@ -416,6 +443,15 @@
 						variables.push("sourcecode_WRP_NAT");
 					}
 				}
+				if(document.getElementById("DirectContiguity").checked){
+					variables.push("dyad");
+					variables.push("state1no");
+					variables.push("state1ab");
+					variables.push("state2no");
+					variables.push("state2ab");
+					variables.push("year");
+					variables.push("conttype_DirectContiguity");
+				}
 				return variables;
 			}
 			function contains(set, object, keys) {
@@ -434,9 +470,8 @@
 
 				return solution;
 			}
-
+			
 			function mergeSets(first, second) {
-
 				var result = first;
 				var keys = Array.prototype.slice.call(arguments, 2);
 				second.forEach(function (item, index, array) {
@@ -474,8 +509,8 @@
 				
 				return countryYearDataSelected;
 			}
-			var countryYearDatasets = mergeCountryYearData();
-			function dataSetChooser(){
+
+			function countryYearDataSetChooser(){
 				var countryYearDatasets = mergeCountryYearData();
 				var data = NMC_5_0Unlim;
 				if(countryYearDatasets.length == 1){
@@ -493,6 +528,26 @@
 				}
 				return data;
 			}
+			
+			function mergeDyadYearData(){			
+				var countryYearDataSelected = [];
+
+				if(document.getElementById("DirectContiguity").checked){
+					countryYearDataSelected.push(DirectContiguityDyadic);
+				}
+				
+				return countryYearDataSelected;
+			}
+
+			function dyadYearDataSetChooser(){
+				var dyadYearDatasets = mergeDyadYearData();
+				var data = DirectContiguityDyadic;
+				if(dyadYearDatasets.length == 1){
+					data = dyadYearDatasets[0];
+				}
+				return data;
+			}
+			
 			function toggleVariableSelectionDiv(){
 				if(document.getElementById("NMC_5_0").checked){
 					document.getElementById("divNMC_5_0").style.display = "block";
@@ -527,7 +582,7 @@
 			
 			function stateSet(){
 				var stateDup = [];
-				var myData = dataSetChooser();
+				var myData = countryYearDataSetChooser();
 				for (var i = 0; i < myData.length; i++){
 					stateDup.push(myData[i]["state"]);
 				}
@@ -634,7 +689,7 @@
 			}
 			function checkCheckboxes(){
 				let tf = true;
-				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
+				if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 					tf = false;
 				}
 				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1){
@@ -684,8 +739,12 @@
 				else{
 					document.getElementById("Warning").style.display = "none";				
 				}
-
-				var myData = dataSetChooser();
+				if(document.getElementById("countryYear").checked){
+					var myData = countryYearDataSetChooser();
+				}
+				else if(document.getElementById("dyadYear").checked){
+					var myData = dyadYearDataSetChooser();
+				}
 				//columns to be displayed
 				let displayColumns = variableChooser();
 
@@ -800,10 +859,14 @@
 		</script>
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
-			<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
-			<label for="NMC_5_0">NMC_5_0 (1816-2012)</label>
+			<input type="radio" id="countryYear" name="dataGroup" value="countryYear" onclick="toggleDataGroups()">
+			<label for="countryYear">Country-Year Data</label>
 		</div>
 		<div id="countryYearData">
+			<div style="margin-bottom:0px">
+				<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+				<label for="NMC_5_0">NMC_5_0 (1816-2012)</label>
+			</div>
 			<div id="divNMC_5_0">
 				<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
 				<label for="milex_NMC_5_0">milex</label>
@@ -820,7 +883,7 @@
 				<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0">
 				<label for="cinc_NMC_5_0">cinc</label>			
 			</div>
-			<div style="padding-left:20px;margin-bottom:0px">
+			<div style="margin-bottom:0px">
 				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();">
 				<label for="WRP_NAT">WRP_NAT (1945-2010)</label>
 			</div>
@@ -986,7 +1049,7 @@
 				<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
 				<label for="sourcecode_WRP_NAT">sourcecode</label>
 			</div>
-			<div style="padding-left:20px;margin-bottom:0px">
+			<div style="margin-bottom:0px">
 				<input type="checkbox" id="Major_Powers" name="dataset_Major_Powers" value="Major_Powers" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
 				<label for="Major_Powers">COW States and Major Powers (1816-2014)</label>
 			</div>
@@ -997,9 +1060,17 @@
 				<label for="major_Major_Powers">major</label>
 				
 			</div>
-	</div>
-		<div id = "dyadicData">
-		
+		</div>
+		<div style="padding-left:20px">
+			<input type="radio" id="dyadYear" name="dataGroup" value="dyadYear" onclick="toggleDataGroups()">
+			<label for="dyadYear">Dyad-Year Data</label>
+		</div>
+		<div id = "dyadicData" >
+			<div style="margin-bottom:0px" >
+					<input type="checkbox" id="DirectContiguity" name="DirectContiguity" value="DirectContiguity" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+					<label for="DirectContiguity">Direct Contiguity (1816-2016)</label>
+				</div>
+			</div>
 		</div>
 		<div id="variableTables">
 				<div id="divNMC_5_0_Table">
@@ -1408,6 +1479,42 @@
 						<tr>
 							<td>major</td>
 							<td>0: No; 1: Yes</td>
+						</tr>
+					</table>
+				</div>
+				<div id="divDirectContiguityTable">
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>dyad</td>
+							<td>the two countries involved</td>
+						</tr>
+						<tr>
+							<td>state1no</td>
+							<td>Correlates of War country code for first country</td>
+						</tr>
+						<tr>
+							<td>state1abb</td>
+							<td>name of first country</td>
+						</tr>
+						<tr>
+							<td>state2no</td>
+							<td>Correlates of War country code for second country</td>
+						</tr>
+						<tr>
+							<td>state2abb</td>
+							<td>name of second country</td>
+						</tr>
+						<tr>
+							<td>year</td>
+							<td>year of observation</td>
+						</tr>
+						<tr>
+							<td>conttype</td>
+							<td>1: land contiguity <br> 2: water contiguity by 12 miles <br> 3: water contiguity by 24 miles <br> 4: water contiguity by 150 miles <br> 5: water contiguity by 400 miles </td>
 						</tr>
 					</table>
 				</div>
