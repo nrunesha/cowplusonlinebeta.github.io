@@ -11,7 +11,7 @@
 		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
 		<script src="datafiles/DirectContiguityDyadic.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<!-- <link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />  -->
+		<link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />
 		<style>
 			body, nav {margin:0px;
 				display: block;	
@@ -19,7 +19,7 @@
 			
 			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers {
 				display:none;
-				padding-left:60px;
+				padding-left:20px;
 			}
 			#countryYearData, #dyadicData{
 				display:none;
@@ -88,7 +88,7 @@
 				position: absolute;
 			}
 			
-			<!-- #progressBar {
+			#progressBar {
 				width: 1%;
 				height:20px;
 				background-color:limegreen;
@@ -98,7 +98,7 @@
 				width: 50%;
 				background-color:lightgrey;
 				margin-bottom:-5px;
-			} -->
+			}
 			
 			#showData{
 				overflow-x:auto;
@@ -490,7 +490,6 @@
 					}
 
 				});
-		
 				return result;
 			}
 			
@@ -515,16 +514,13 @@
 				var data = NMC_5_0Unlim;
 				if(countryYearDatasets.length == 1){
 					data = countryYearDatasets[0];
-					//update();
 				}
 				else if(countryYearDatasets.length == 2){
 					data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-					//update();
 				}
 				else if(countryYearDatasets.length == 3){
 					var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
 					data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
-					//update();
 				}
 				return data;
 			}
@@ -711,26 +707,42 @@
 				return Boolean(tf);
 			}
 			
-			/*function update(){
-				var element = document.getElementById("progressBar");
-				var width = 1;
-				var identity = setInterval(scene, 10);
-
-				function scene(){  
-					if (width >= 100){
-						clearInterval(identity);
-						element.style.display = "none";
-						document.getElementById("createButton").style.display = "none";
-					}
-					else{
-						width++;
-						element.style.width = width + '%';
-					}
-				}
+			function update(){
+				return new Promise((resolve,reject)=>{
+					var element = document.getElementById("progressBar");
+					var width = 1;
+					var identity = setInterval(scene, 10);
+					function scene(){  
+						if (width >= 100){
+							clearInterval(identity);
+							element.style.display = "none";
+						}
+						else{
+							width++;
+							element.style.width = width + '%';
+						}
+					}					
+					setTimeout(()=>{
+						console.log("");
+						resolve();
+						;} , 1000
+					);
+				});
 			}
-			*/
-			function CreateTable() {
+			function toggleProgressBar(){
+				return new Promise((resolve,reject)=>{
+					document.getElementById("progressStatus").style.display = "inline-block";
 				
+					setTimeout(()=>{
+						console.log("");
+						resolve();
+						;} , 1
+					);
+				});
+			}
+			
+			async function CreateTable() {
+				await toggleProgressBar();
 				let truefalse = checkCheckboxes();
 				if(truefalse == false){
 					document.getElementById("Warning").style.display = "block";
@@ -745,9 +757,10 @@
 				else if(document.getElementById("dyadYear").checked){
 					var myData = dyadYearDataSetChooser();
 				}
+				
 				//columns to be displayed
 				let displayColumns = variableChooser();
-
+				
 				//filter data
 				 myData = myData.map(x => {
 				  let newObj = {};
@@ -792,13 +805,16 @@
 					  }
 				  }
 				}
+				await update();
 				// Output
 				var divContainer = document.getElementById("showData");
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
-				document.getElementById("createButton").style.display = "none";
+				toggleDropdownMenu();
+				toggleYearRange();
 			}		
 			
+
 			function downloadCSV(csv, filename) {
 				var csvFile;
 				var downloadLink;
@@ -1549,11 +1565,11 @@
 		<div>
 			<div style="padding-left:20px;display:inline-block">
 				<br>
-				<input type="button" id = "createButton" onclick="CreateTable();dropDownList();toggleDropdownMenu();toggleYearRange();" value="Next"/>
+				<input type="button" id = "createButton" onclick="CreateTable();dropDownList();" value="Next"/>
 			</div>
-			<!-- <div style = "display:inline-block" id="progressStatus">
+			<div style = "display:none" id="progressStatus">
 				<div id="progressBar"></div>
-			</div> -->
+			</div>
 			<div style="display:none" id="Warning">
 				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">You have not checked enough variables. Please check that you have checked at least one variable per accessed dataset.</p>
 			</div>
