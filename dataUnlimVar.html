@@ -568,12 +568,8 @@
 				}
 			}		
 			
-			function toggleDropdownMenu(){
-				document.getElementById("selectCountry").style.display = "inline-block";
-			}
-			
-			function toggleYearRange(){
-				document.getElementById("selectYearRange").style.display = "inline-block";
+			function toggleSelectorsCountryYear(){
+				document.getElementById("selectorsCountryYear").style.display = "block";
 			}
 			
 			function stateSet(){
@@ -610,7 +606,7 @@
 				return selectedCountries;
 			}
 			
-			function filterByState(){
+			function filterByStateCountryYear(){
 				var input, table, tr, td, i;
 				input = selectedCountriesList();
 				table = document.getElementById("generated_Data");
@@ -638,8 +634,8 @@
 			}
 			
 			function checkYearRangeSelector(){
-				var minYear = document.getElementById("minimumYear").value;
-				var maxYear = document.getElementById("maximumYear").value;
+				var minYear = document.getElementById("minimumYearCountryYear").value;
+				var maxYear = document.getElementById("maximumYearCountryYear").value;
 				let tf = true;
 				if (minYear > maxYear){
 					tf = false;
@@ -649,7 +645,7 @@
 				}
 				return Boolean(tf);
 			}
-			function selectedYearList(){
+			function selectedYearListCountryYear(){
 				var minYear = document.getElementById("minimumYear").value;
 				var maxYear = document.getElementById("maximumYear").value;
 				var validYears=[];
@@ -659,9 +655,9 @@
 				return validYears;
 			}
 			
-			function filterByYear(){
+			function filterByYearCountryYear(){
 				var input, table, tr, td, i;
-				input = selectedYearList();
+				input = selectedYearListCountryYear();
 				table = document.getElementById("generated_Data");
 				tr = table.getElementsByTagName("tr");
 				for (i = 0; i < tr.length; i++) {
@@ -683,6 +679,196 @@
 					document.getElementById("WarningYearSelector").style.display = "none";				
 				}
 			}
+			
+			function toggleSelectorsDyadYear(){
+				document.getElementById("selectorsDyadYear").style.display = "block";
+			}
+			
+			function stateSetDyadYear1(){
+				var stateDup = [];
+				var myData = dyadYearDataSetChooser();
+				for (var i = 0; i < myData.length; i++){
+					stateDup.push(myData[i]["state1ab"]);
+				}
+				var stateSet = new Set(stateDup);
+				var stateUnique = Array.from(stateSet);
+				return stateUnique;
+			}
+			function dropDownListDyadYear1(){
+				var select = document.getElementById("dropdown1");
+				var states = stateSetDyadYear1();
+				for(var i = 0; i < states.length; i++) {
+					var opt = states[i];
+					var el = document.createElement("option");
+					el.textContent = opt;
+					el.value = opt;
+					select.appendChild(el);
+				}
+			}
+			var selectedCountriesFirst = [];
+			function selectedCountriesListDyadYear1(){
+				var element = document.getElementById("dropdown1").value;
+				if (selectedCountriesFirst.includes(element)){
+					selectedCountriesFirst.splice(selectedCountriesFirst.indexOf(element), 1);
+				}
+				else {
+					selectedCountriesFirst.push(element);
+				}
+				
+				return selectedCountriesFirst;
+			}
+			
+			function stateSetDyadYear2(){
+				var stateDup = [];
+				var myData = dyadYearDataSetChooser();
+				for (var i = 0; i < myData.length; i++){
+					stateDup.push(myData[i]["state2ab"]);
+				}
+				var stateSet = new Set(stateDup);
+				var stateUnique = Array.from(stateSet);
+				return stateUnique;
+			}
+			function dropDownListDyadYear2(){
+				var select = document.getElementById("dropdown2");
+				var states = stateSetDyadYear2();
+				for(var i = 0; i < states.length; i++) {
+					var opt = states[i];
+					var el = document.createElement("option");
+					el.textContent = opt;
+					el.value = opt;
+					select.appendChild(el);
+				}
+			}
+			var selectedCountriesSecond = [];
+			function selectedCountriesListDyadYear2(){
+				var element = document.getElementById("dropdown2").value;
+				if (selectedCountriesSecond.includes(element)){
+					selectedCountriesSecond.splice(selectedCountriesSecond.indexOf(element), 1);
+				}
+				else {
+					selectedCountriesSecond.push(element);
+				}
+				
+				return selectedCountriesSecond;
+			}
+			
+			var input1Dyad = ["all"];
+			var input2Dyad = ["all"];
+
+			function setInput1Dyad(){
+				input1Dyad=selectedCountriesListDyadYear1();
+				return input1Dyad;
+			}
+			function setInput2Dyad(){
+				input2Dyad=selectedCountriesListDyadYear2();
+				return input2Dyad;
+			}
+			function filterByStateDyadYear(){
+				var input1, input2, table, tr, td, td2, i;
+				input1 = input1Dyad;
+				input2 = input2Dyad;
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+				if (input1.includes("all") && input2.includes("all")){
+					for (i = 0; i < tr.length; i++) {
+						tr[i].style.display = "";    
+					}
+					selectedCountriesFirst = [];
+					selectedCountriesSecond = [];
+					document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
+					document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
+					return;
+				}
+				else if(input1.includes("all")){
+					for (i = 0; i < tr.length; i++) {
+						td2 = tr[i].getElementsByTagName("td")[4];
+						if (td2) {
+						  if (input2.includes(td2.innerHTML)) {
+							tr[i].style.display = "";
+						  } else {
+							tr[i].style.display = "none";
+						  }
+						}       
+					}
+				}
+				else if(input2.includes("all")){
+					for (i = 0; i < tr.length; i++) {
+						td = tr[i].getElementsByTagName("td")[2];
+						if (td) {
+						  if (input1.includes(td.innerHTML)) {
+							tr[i].style.display = "";
+						  } else {
+							tr[i].style.display = "none";
+						  }
+						}       
+					}
+				}
+				else{
+					for (i = 0; i < tr.length; i++) {
+						td = tr[i].getElementsByTagName("td")[2];
+						td2 = tr[i].getElementsByTagName("td")[4];
+						if (td || td2) {
+						  if (input1.includes(td.innerHTML) && input2.includes(td2.innerHTML)) {
+							tr[i].style.display = "";
+						  } else {
+							tr[i].style.display = "none";
+						  }
+						}       
+					}
+				}
+				
+				document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
+				document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
+			}
+			
+			function checkYearRangeSelectorDyadYear(){
+				var minYear = document.getElementById("minimumYearDyad").value;
+				var maxYear = document.getElementById("maximumYearDyad").value;
+				let tf = true;
+				if (minYear > maxYear){
+					tf = false;
+				}
+				if ($('#generated_Data table tbody tr:visible').length <= 1){
+					tf = false;
+				}
+				return Boolean(tf);
+			}
+			function selectedYearListDyadYear(){
+				var minYear = document.getElementById("minimumYearDyad").value;
+				var maxYear = document.getElementById("maximumYearDyad").value;
+				var validYears=[];
+				for(var i = minYear; i <= maxYear; i++) {
+					validYears.push(i.toString());
+				}
+				return validYears;
+			}
+			
+			function filterByYearDyadYear(){
+				var input, table, tr, td, i;
+				input = selectedYearListDyadYear();
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[5];
+					if (td) {
+					  if (input.includes(td.innerHTML,0)) {
+						tr[i].style.display = "";
+					  } else {
+						tr[i].style.display = "none";
+					  }
+					}       
+				}
+				let truefalseYear = checkYearRangeSelectorDyadYear();
+				if(truefalseYear == false){
+					document.getElementById("WarningYearSelector").style.display = "block";
+					return;
+				}
+				else{
+					document.getElementById("WarningYearSelector").style.display = "none";				
+				}
+			}
+			
+			
 			function checkCheckboxes(){
 				let tf = true;
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
@@ -725,7 +911,7 @@
 					setTimeout(()=>{
 						console.log("");
 						resolve();
-						;} , 1000
+						;} , 2000
 					);
 				});
 			}
@@ -810,8 +996,14 @@
 				var divContainer = document.getElementById("showData");
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
-				toggleDropdownMenu();
-				toggleYearRange();
+				if(document.getElementById("countryYear").checked){
+					toggleSelectorsCountryYear();
+					
+				}
+				
+				if(document.getElementById("dyadYear").checked){
+					toggleSelectorsDyadYear();
+				}
 			}		
 			
 
@@ -1535,10 +1727,10 @@
 					</table>
 				</div>
 		</div>
-		<div id="selectors">
-			<div style="display:none;padding-left:20px;" id="selectCountry">
+		<div id="selectorsCountryYear" style="display:none;">
+			<div style="display:inline-block;padding-left:20px;" id="selectCountry">
 				<br>
-				<select name = "dropdown" id = "dropdown" onchange="filterByState()">
+				<select name = "dropdown" id = "dropdown" onchange="filterByStateCountryYear()" onclick = "dropDownList()">
 					<option value = "all">Choose a country</option>
 					<option value = "all">All countries</option>
 				</select>
@@ -1547,14 +1739,14 @@
 				<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelected"></p>
 				</div>
 			</div>
-			<div style="display:none;padding-left:20px;" id = "selectYearRange">
+			<div style="display:inline-block;padding-left:20px;" id = "selectYearRange">
 				<br>
 				<label for="minYear">Choose start year:</label>
-				<input type="range" id="minimumYear" name="minimumYear" min="1816" max="2012" value = "1914" oninput="printedMinYear.value=minimumYear.value;filterByYear();">
+				<input type="range" id="minimumYear" name="minimumYear" min="1816" max="2012" value = "1914" oninput="printedMinYear.value=minimumYear.value;filterByYearCountryYear();">
 				<input type="text" id="printedMinYear" value = "1914" oninput="minimumYear.value=printedMinYear.value;filterByYear();">
 				<br>
 				<label for="maxYear">Choose end year:</label>
-				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYear();" style="margin-left:6px">
+				<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2012" value = "1914" oninput="printedMaxYear.value=maximumYear.value;filterByYearCountryYear();" style="margin-left:6px">
 				<input type="text" id="printedMaxYear" value = "1914" oninput="maximumYear.value=printedMaxYear.value;filterByYear();">
 				<br>
 			</div>
@@ -1562,10 +1754,46 @@
 				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
 			</div>
 		</div>
+		
+		<div id="selectorsDyadYear" style="display:none;">
+			<div style="display:inline-block;padding-left:20px;" id="selectCountryDyad">
+				<br>
+				<select name = "dropdown1" id = "dropdown1" onchange="setInput1Dyad();filterByStateDyadYear();" style="display:inline-block" onclick="dropDownListDyadYear1();">
+					<option value = "all">Choose a country</option>
+					<option value = "all">All countries</option>
+				</select>
+				<select name = "dropdown2" id = "dropdown2" onchange="setInput2Dyad();filterByStateDyadYear();" style="display:inline-block; margin-left:96px" onclick = "dropDownListDyadYear2();">
+					<option value = "all">Choose a country</option>
+					<option value = "all">All countries</option>
+				</select>
+				<br>
+				<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;display:inline-block;">
+				<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelectedDyadYear1"></p>
+				</div>
+				<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;display:inline-block; margin-left:20px;">
+				<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelectedDyadYear2"></p>
+				</div>
+			</div>
+			<div style="display:inline-block;padding-left:20px;" id = "selectYearRangeDyad">
+				<br>
+				<label for="minYear">Choose start year:</label>
+				<input type="range" id="minimumYearDyad" name="minimumYearDyad" min="1816" max="2012" value = "1914" oninput="printedMinYearDyad.value=minimumYearDyad.value;filterByYearDyadYear();">
+				<input type="text" id="printedMinYearDyad" value = "1914" oninput="minimumYearDyad.value=printedMinYearDyad.value;filterByYearDyadYear();">
+				<br>
+				<label for="maxYear">Choose end year:</label>
+				<input type="range" id="maximumYearDyad" name="maximumYearDyad" min="1816" max="2012" value = "1914" oninput="printedMaxYearDyad.value=maximumYearDyad.value;filterByYearDyadYear();" style="margin-left:6px">
+				<input type="text" id="printedMaxYearDyad" value = "1914" oninput="maximumYearDyad.value=printedMaxYearDyad.value;filterByYearDyadYear();">
+				<br>
+			</div>
+			<div style="display:none" id="WarningYearSelector">
+				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
+			</div>
+		</div>
+		
 		<div>
 			<div style="padding-left:20px;display:inline-block">
 				<br>
-				<input type="button" id = "createButton" onclick="CreateTable();dropDownList();" value="Next"/>
+				<input type="button" id = "createButton" onclick="CreateTable();" value="Next"/>
 			</div>
 			<div style = "display:none" id="progressStatus">
 				<div id="progressBar"></div>
