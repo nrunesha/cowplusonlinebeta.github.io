@@ -790,6 +790,11 @@
 						  }
 						}       
 					}
+					
+					document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
+					selectedCountriesFirst = [];
+					document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
+					return;
 				}
 				else if(input2.includes("all")){
 					for (i = 0; i < tr.length; i++) {
@@ -802,6 +807,10 @@
 						  }
 						}       
 					}
+					document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
+					selectedCountriesSecond = [];
+					document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
+					return;
 				}
 				else{
 					for (i = 0; i < tr.length; i++) {
