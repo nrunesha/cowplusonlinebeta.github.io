@@ -10,14 +10,17 @@
 		<script src="datafiles/WRP_NATUnlim.js"></script>
 		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
 		<script src="datafiles/DirectContiguityDyadic.js"></script>
+		<script src="datafiles/COW_MID_Data_ND_Dyadic.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />
+		<link rel="canonical" href= "https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm" />
+		
 		<style>
 			body, nav {margin:0px;
 				display: block;	
 			}
 			
-			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers {
+			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers, #divMID_Data_ND {
 				display:none;
 				padding-left:20px;
 			}
@@ -25,7 +28,7 @@
 				display:none;
 				padding-left:40px;
 			}
-			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable{
+			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable{
 				display:none;
 				padding-left:20px;
 				padding-right:20px;
@@ -160,6 +163,13 @@
 				}
 				else{
 					document.getElementById("divDirectContiguityTable").style.display = "none";
+				}
+				
+				if(document.getElementById("ND_Data_MID").checked){
+					document.getElementById("divMidDataTable").style.display = "block";
+				}
+				else{
+					document.getElementById("divMidDataTable").style.display = "none";
 				}
 			}
 			function variableChooser(){
@@ -444,15 +454,177 @@
 					}
 				}
 				if(document.getElementById("DirectContiguity").checked){
-					variables.push("dyad");
 					variables.push("state1no");
 					variables.push("state1ab");
 					variables.push("state2no");
 					variables.push("state2ab");
 					variables.push("year");
+					variables.push("dyad");
 					variables.push("conttype_DirectContiguity");
 				}
-				return variables;
+				if(document.getElementById("ND_Data_MID").checked){
+					variables.push("state1no");
+					variables.push("state1ab");
+					variables.push("state2no");
+					variables.push("state2ab");
+					variables.push("year");
+					variables.push("statenme1");
+					variables.push("statenme2");
+					if(document.getElementById("mid_count_MID").checked){
+						variables.push("mid_count");
+					}
+					if(document.getElementById("mid_onset_m_MID").checked){
+						variables.push("mid_onset_m");
+					}
+					if(document.getElementById("mid_ongoing_m_MID").checked){
+						variables.push("mid_ongoing_m");
+					}
+					if(document.getElementById("onset_other_MID").checked){
+						variables.push("onset_other");
+					}
+					if(document.getElementById("ongoing_other_MID").checked){
+						variables.push("ongoing_other");
+					}
+					if(document.getElementById("main_disno_MID").checked){
+						variables.push("main_disno");
+					}
+					if(document.getElementById("dyindex_MID").checked){
+						variables.push("dyindex");
+					}
+					if(document.getElementById("strtday_m_MID").checked){
+						variables.push("strtday_m");
+					}
+					if(document.getElementById("strtmnth_m_MID").checked){
+						variables.push("strtmnth_m");
+					}
+					if(document.getElementById("strtyr_m_MID").checked){
+						variables.push("strtyr_m");
+					}
+					if(document.getElementById("endday_m_MID").checked){
+						variables.push("endday_m");
+					}
+					if(document.getElementById("endmnth_m_MID").checked){
+						variables.push("endmnth_m");
+					}
+					if(document.getElementById("endyear_m_MID").checked){
+						variables.push("endyear_m");
+					}
+					if(document.getElementById("outcome_m_MID").checked){
+						variables.push("outcome_m");
+					}
+					if(document.getElementById("settlmnt_m_MID").checked){
+						variables.push("settlmnt_m");
+					}
+					if(document.getElementById("fatlev_m_MID").checked){
+						variables.push("fatlev_m");
+					}
+					if(document.getElementById("highact_m_MID").checked){
+						variables.push("highact_m");
+					}
+					if(document.getElementById("hihost_m_MID").checked){
+						variables.push("hihost_m");
+					}
+					if(document.getElementById("recip_m_MID").checked){
+						variables.push("recip_m");
+					}
+					if(document.getElementById("nosideA_m_MID").checked){
+						variables.push("nosideA_m");
+					}
+					if(document.getElementById("nosideB_m_MID").checked){
+						variables.push("nosideB_m");
+					}
+					if(document.getElementById("sideaa_m_MID").checked){
+						variables.push("sideaa_m");
+					}
+					if(document.getElementById("revstata_m_MID").checked){
+						variables.push("revstata_m");
+					}
+					if(document.getElementById("revtypea_m_MID").checked){
+						variables.push("revtypea_m");
+					}
+					if(document.getElementById("fatleva_m_MID").checked){
+						variables.push("fatleva_m");
+					}
+					if(document.getElementById("highmcaa_m_MID").checked){
+						variables.push("highmcaa_m");
+					}
+					if(document.getElementById("hihosta_m_MID").checked){
+						variables.push("hihosta_m");
+					}
+					if(document.getElementById("orignata_m_MID").checked){
+						variables.push("orignata_m");
+					}
+					if(document.getElementById("sideab_m_MID").checked){
+						variables.push("sideab_m");
+					}
+					if(document.getElementById("revstatb_m_MID").checked){
+						variables.push("revstatb_m");
+					}
+					if(document.getElementById("revtypeb_m_MID").checked){
+						variables.push("revtypeb_m");
+					}
+					if(document.getElementById("fatlevb_m_MID").checked){
+						variables.push("fatlevb_m");
+					}
+					if(document.getElementById("highmcab_m_MID").checked){
+						variables.push("highmcab_m");
+					}
+					if(document.getElementById("hihostb_m_MID").checked){
+						variables.push("hihostb_m");
+					}
+					if(document.getElementById("orignatb_m_MID").checked){
+						variables.push("orignatb_m");
+					}
+					if(document.getElementById("rolea_m_MID").checked){
+						variables.push("rolea_m");
+					}
+					if(document.getElementById("roleb_m_MID").checked){
+						variables.push("roleb_m");
+					}
+					if(document.getElementById("dyad_rolea_m_MID").checked){
+						variables.push("dyad_rolea_m");
+					}
+					if(document.getElementById("dyad_roleb_m_MID").checked){
+						variables.push("dyad_roleb_m");
+					}
+					if(document.getElementById("war_m_MID").checked){
+						variables.push("war_m");
+					}
+					if(document.getElementById("durindx_m_MID").checked){
+						variables.push("durindx_m");
+					}
+					if(document.getElementById("duration_m_MID").checked){
+						variables.push("duration_m");
+					}
+					if(document.getElementById("cumdurat_m_MID").checked){
+						variables.push("cumdurat_m");
+					}
+					if(document.getElementById("mid5hiact_m_MID").checked){
+						variables.push("mid5hiact_m");
+					}
+					if(document.getElementById("mid5hiacta_m_MID").checked){
+						variables.push("mid5hiacta_m");
+					}
+					if(document.getElementById("mid5hiactb_m_MID").checked){
+						variables.push("mid5hiactb_m");
+					}
+					if(document.getElementById("severity_m_MID").checked){
+						variables.push("severity_m");
+					}
+					if(document.getElementById("severitya_m_MID").checked){
+						variables.push("severitya_m");
+					}
+					if(document.getElementById("severityb_m_MID").checked){
+						variables.push("severityb_m");
+					}
+					if(document.getElementById("ongo2014_m_MID").checked){
+						variables.push("ongo2014_m");
+					}
+					if(document.getElementById("new_m_MID").checked){
+						variables.push("new_m");
+					}
+					return variables;
+				}
 			}
 			function contains(set, object, keys) {
 				var solution = -1;
@@ -526,13 +698,15 @@
 			}
 			
 			function mergeDyadYearData(){			
-				var countryYearDataSelected = [];
+				var dyadYearDataSelected = [];
 
 				if(document.getElementById("DirectContiguity").checked){
-					countryYearDataSelected.push(DirectContiguityDyadic);
+					dyadYearDataSelected.push(DirectContiguityDyadic);
 				}
-				
-				return countryYearDataSelected;
+				if(document.getElementById("ND_Data_MID").checked){
+					dyadYearDataSelected.push(COW_MID_DATA_ND);
+				}
+				return dyadYearDataSelected;
 			}
 
 			function dyadYearDataSetChooser(){
@@ -540,6 +714,9 @@
 				var data = DirectContiguityDyadic;
 				if(dyadYearDatasets.length == 1){
 					data = dyadYearDatasets[0];
+				}
+				if(dyadYearDatasets.length == 2){
+					data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
 				}
 				return data;
 			}
@@ -566,10 +743,22 @@
 					$('#divMajor_Powers').find('input[type=checkbox]:checked').prop('checked',false);
 					document.getElementById("divMajor_Powers").style.display = "none";
 				}
+				if(document.getElementById("ND_Data_MID").checked){
+					document.getElementById("divMID_Data_ND").style.display = "block";
+				}
+				else{
+					$('#divMID_Data_ND').find('input[type=checkbox]:checked').prop('checked',false);
+					document.getElementById("divMID_Data_ND").style.display = "none";
+				}
 			}		
 			
 			function toggleSelectorsCountryYear(){
-				document.getElementById("selectorsCountryYear").style.display = "block";
+				if (document.getElementById("selectorsCountryYear").style.display = "block"){
+					document.getElementById("selectorsCountryYear").style.display = "none";
+				}
+				if (document.getElementById("selectorsCountryYear").style.display = "none"){
+					document.getElementById("selectorsCountryYear").style.display = "block";
+				}
 			}
 			
 			function stateSet(){
@@ -681,8 +870,12 @@
 			}
 			
 			function toggleSelectorsDyadYear(){
-				document.getElementById("selectorsDyadYear").style.display = "block";
-			}
+				if (document.getElementById("selectorsDyadYear").style.display = "block"){
+					document.getElementById("selectorsDyadYear").style.display = "none";
+				}
+				if (document.getElementById("selectorsDyadYear").style.display = "none"){
+					document.getElementById("selectorsDyadYear").style.display = "block";
+				}			}
 			
 			function stateSetDyadYear1(){
 				var stateDup = [];
@@ -779,43 +972,49 @@
 					document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
 					return;
 				}
-				else if(input1.includes("all")){
-					for (i = 0; i < tr.length; i++) {
-						td2 = tr[i].getElementsByTagName("td")[4];
-						if (td2) {
-						  if (input2.includes(td2.innerHTML)) {
-							tr[i].style.display = "";
-						  } else {
-							tr[i].style.display = "none";
-						  }
-						}       
+				else if(input1.includes("all") || input2.includes("all")){
+				
+					if(input2.includes("all")){
+						for (i = 0; i < tr.length; i++) {
+							td = tr[i].getElementsByTagName("td")[1];
+							if (td) {
+							  if (input1.includes(td.innerHTML)) {
+								tr[i].style.display = "";
+							  } else {
+								tr[i].style.display = "none";
+							  }
+							}       
+						}
 					}
 					
-					document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
-					selectedCountriesFirst = [];
-					document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
-					return;
-				}
-				else if(input2.includes("all")){
-					for (i = 0; i < tr.length; i++) {
-						td = tr[i].getElementsByTagName("td")[2];
-						if (td) {
-						  if (input1.includes(td.innerHTML)) {
-							tr[i].style.display = "";
-						  } else {
-							tr[i].style.display = "none";
-						  }
-						}       
+					if (input1.includes("all")){
+						for (i = 0; i < tr.length; i++) {
+							td2 = tr[i].getElementsByTagName("td")[3];
+							if (td2) {
+							  if (input2.includes(td2.innerHTML)) {
+								tr[i].style.display = "";
+							  } else {
+								tr[i].style.display = "none";
+							  }
+							}       
+						}
 					}
-					document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
-					selectedCountriesSecond = [];
-					document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
+					if (input1.includes("all")){
+						document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
+						selectedCountriesFirst = [];
+						document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
+					}
+					else{
+						document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
+						selectedCountriesSecond = [];
+						document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
+					}
 					return;
 				}
 				else{
 					for (i = 0; i < tr.length; i++) {
-						td = tr[i].getElementsByTagName("td")[2];
-						td2 = tr[i].getElementsByTagName("td")[4];
+						td = tr[i].getElementsByTagName("td")[1];
+						td2 = tr[i].getElementsByTagName("td")[3];
 						if (td || td2) {
 						  if (input1.includes(td.innerHTML) && input2.includes(td2.innerHTML)) {
 							tr[i].style.display = "";
@@ -858,7 +1057,7 @@
 				table = document.getElementById("generated_Data");
 				tr = table.getElementsByTagName("tr");
 				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[5];
+					td = tr[i].getElementsByTagName("td")[4];
 					if (td) {
 					  if (input.includes(td.innerHTML,0)) {
 						tr[i].style.display = "";
@@ -883,7 +1082,7 @@
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 					tf = false;
 				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1){
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1 || $('input[name*="MID"]:checked').length == 1){
 					tf = false;
 				}
 				return Boolean(tf);
@@ -896,7 +1095,7 @@
 				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
 					tf = false;
 				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1){
+				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1 || $('input[name*="MID"]:checked').length == 1){
 					tf = false;
 				}
 				return Boolean(tf);
@@ -1005,13 +1204,17 @@
 				var divContainer = document.getElementById("showData");
 				divContainer.innerHTML = "";
 				divContainer.appendChild(table);
+				
+				
 				if(document.getElementById("countryYear").checked){
 					toggleSelectorsCountryYear();
-					
+					dropDownList();
 				}
 				
 				if(document.getElementById("dyadYear").checked){
 					toggleSelectorsDyadYear();
+					dropDownListDyadYear1();
+					dropDownListDyadYear2();
 				}
 			}		
 			
@@ -1286,7 +1489,114 @@
 			<div style="margin-bottom:0px" >
 					<input type="checkbox" id="DirectContiguity" name="DirectContiguity" value="DirectContiguity" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
 					<label for="DirectContiguity">Direct Contiguity (1816-2016)</label>
-				</div>
+			</div>
+			<div style="margin-bottom:0px" >
+					<input type="checkbox" id="ND_Data_MID" name="ND_Data_MID" value="ND_Data_MID" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+					<label for="ND_Data_MID">Mid Data (Non-Directed)</label>
+			</div>
+			<div id="divMID_Data_ND">
+				<input type="checkbox" id="mid_count_MID" name="mid_count_MID" class="MID_ND" value="mid_count_MID">
+				<label for="mid_count_MID">mid count</label>
+				<input type="checkbox" id="mid_onset_m_MID" name="mid_onset_m_MID" class="MID_ND" value="mid_onset_m_MID">
+				<label for="mid_onset_m_MID">mid_onset_m</label>
+				<input type="checkbox" id="mid_ongoing_m_MID" name="mid_ongoing_m_MID" class="MID_ND" value="mid_ongoing_m_MID">
+				<label for="mid_ongoing_m_MID">mid_ongoing_m</label>
+				<input type="checkbox" id="onset_other_MID" name="onset_other_MID" class="MID_ND" value="onset_other_MID">
+				<label for="onset_other_MID">onset_other</label>
+				<input type="checkbox" id="ongoing_other_MID" name="ongoing_other_MID" class="MID_ND" value="ongoing_other_MID">
+				<label for="ongoing_other_MID">ongoing_other</label>
+				<input type="checkbox" id="main_disno_MID" name="main_disno_MID" class="MID_ND" value="main_disno_MID">
+				<label for="main_disno_MID">main disno</label>
+				<input type="checkbox" id="dyindex_MID" name="dyindex_MID" class="MID_ND" value="dyindex_MID">
+				<label for="dyindex_MID">dy index</label><br>
+				<input type="checkbox" id="strtday_m_MID" name="strtday_m_MID" class="MID_ND" value="strtday_m_MID">
+				<label for="strtday_m_MID">strtday_m</label>
+				<input type="checkbox" id="strtmnth_m_MID" name="strtmnth_m_MID" class="MID_ND" value="strtmnth_m_MID">
+				<label for="strtmnth_m_MID">strtmnth_m</label>
+				<input type="checkbox" id="strtyr_m_MID" name="strtyr_m_MID" class="MID_ND" value="strtyr_m_MID">
+				<label for="strtyr_m_MID">strtyr_m</label>
+				<input type="checkbox" id="endday_m_MID" name="endday_m_MID" class="MID_ND" value="endday_m_MID">
+				<label for="endday_m_MID">endday_m</label>
+				<input type="checkbox" id="endmnth_m_MID" name="endmnth_m_MID" class="MID_ND" value="endmnth_m_MID">
+				<label for="endmnth_m_MID">endmnth_m</label>
+				<input type="checkbox" id="endyear_m_MID" name="endyear_m_MID" class="MID_ND" value="endyear_m_MID">
+				<label for="endyear_m_MID">endyear_m</label>
+				<input type="checkbox" id="outcome_m_MID" name="outcome_m_MID" class="MID_ND" value="outcome_m_MID">
+				<label for="outcome_m_MID">outcome_m</label>
+				<input type="checkbox" id="settlmnt_m_MID" name="settlmnt_m_MID" class="MID_ND" value="settlmnt_m_MID">
+				<label for="settlmnt_m_MID">settlmnt_m</label>
+				<input type="checkbox" id="fatlev_m_MID" name="fatlev_m" class="MID_ND" value="fatlev_m">
+				<label for="fatlev_m">fatlev_m</label>
+				<input type="checkbox" id="highact_m_MID" name="highact_m_MID" class="MID_ND" value="highact_m_MID">
+				<label for="highact_m_MID">highact_m</label>
+				<input type="checkbox" id="hihost_m_MID" name="hihost_m_MID" class="MID_ND" value="hihost_m_MID">
+				<label for="hihost_m_MID">hihost_m</label>
+				<input type="checkbox" id="recip_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID">
+				<label for="recip_m_MID">recip_m</label><br>
+				<input type="checkbox" id="nosideA_m_MID" name="nosideA_m_MID" class="MID_ND" value="nosideA_m_MID">
+				<label for="nosideA_m_MID">nosideA_m</label>						
+				<input type="checkbox" id="nosideB_m_MID" name="nosideB_m_MID" class="MID_ND" value="nosideB_m_MID">
+				<label for="nosideB_m_MID">nosideB_m</label>
+				<input type="checkbox" id="sideaa_m_MID" name="sideaa_m_MID" class="MID_ND" value="sideaa_m_MID">
+				<label for="sideaa_m_MID">sideaa_m</label>
+				<input type="checkbox" id="revstata_m_MID" name="revstata_m" class="MID_ND" value="revstata_m">
+				<label for="revstata_m">revstata_m</label>
+				<input type="checkbox" id="revtypea_m_MID" name="revtypea_m_MID" class="MID_ND" value="revtypea_m_MID">
+				<label for="revtypea_m_MID">revtypea_m</label>
+				<input type="checkbox" id="fatleva_m_MID" name="fatleva_m_MID" class="MID_ND" value="fatleva_m_MID">
+				<label for="fatleva_m_MID">fatleva_m</label>
+				<input type="checkbox" id="highmcaa_m_MID" name="highmcaa_m_MID" class="MID_ND" value="highmcaa_m_MID">
+				<label for="highmcaa_m_MID">highmcaa_m</label>
+				<input type="checkbox" id="hihosta_m_MID" name="hihosta_m_MID" class="MID_ND" value="hihosta_m_MID">
+				<label for="hihosta_m_MID">hihosta_m</label>
+				<input type="checkbox" id="orignata_m_MID" name="orignata_m_MID" class="MID_ND" value="orignata_m_MID">
+				<label for="orignata_m_MID">orignata_m</label><br>
+				<input type="checkbox" id="sideab_m_MID" name="sideab_m_MID" class="MID_ND" value="sideab_m_MID">
+				<label for="sideab_m_MID">sideab_m</label>
+				<input type="checkbox" id="revstatb_m_MID" name="revstatb_m_MID" class="MID_ND" value="revstatb_m_MID">
+				<label for="revstatb_m_MID">revstatb_m</label>
+				<input type="checkbox" id="revtypeb_m_MID" name="revtypeb_m_MID" class="MID_ND" value="revtypeb_m_MID">
+				<label for="revtypeb_m_MID">revtypeb_m</label>
+				<input type="checkbox" id="fatlevb_m_MID" name="fatlevb_m_MID" class="MID_ND" value="fatlevb_m_MID">
+				<label for="fatlevb_m_MID">fatlevb_m</label>
+				<input type="checkbox" id="highmcab_m_MID" name="highmcab_m_MID" class="MID_ND" value="highmcab_m_MID">
+				<label for="highmcab_m_MID">highmcab_m</label>
+				<input type="checkbox" id="hihostb_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID">
+				<label for="recip_m_MID">hihostb_m</label>
+				<input type="checkbox" id="orignatb_m_MID" name="orignatb_m_MID" class="MID_ND" value="orignatb_m_MID">
+				<label for="orignatb_m_MID">orignatb_m</label>						
+				<input type="checkbox" id="rolea_m_MID" name="rolea_m_MID" class="MID_ND" value="rolea_m_MID">
+				<label for="nosideB_m_MID">rolea_m</label>
+				<input type="checkbox" id="roleb_m_MID" name="roleb_m_MID" class="MID_ND" value="roleb_m_MID">
+				<label for="roleb_m_MID">roleb_m</label><br>
+				<input type="checkbox" id="dyad_rolea_m_MID" name="dyad_rolea_m" class="MID_ND" value="dyad_rolea_m">
+				<label for="dyad_rolea_m">dyad_rolea_m</label>
+				<input type="checkbox" id="dyad_roleb_m_MID" name="dyad_roleb_m_MID" class="MID_ND" value="dyad_roleb_m_MID">
+				<label for="dyad_roleb_m_MID">dyad_roleb_m</label>
+				<input type="checkbox" id="war_m_MID" name="war_m_MID" class="MID_ND" value="war_m_MID">
+				<label for="war_m_MID">war_m</label>
+				<input type="checkbox" id="durindx_m_MID" name="durindx_m_MID" class="MID_ND" value="durindx_m_MID">
+				<label for="durindx_m_MID">durindx_m</label>
+				<input type="checkbox" id="duration_m_MID" name="duration_m_MID" class="MID_ND" value="duration_m_MID">
+				<label for="duration_m_MID">duration_m</label>
+				<input type="checkbox" id="cumdurat_m_MID" name="cumdurat_m_MID" class="MID_ND" value="cumdurat_m_MID">
+				<label for="cumdurat_m_MID">cumdurat_m</label><br>
+				<input type="checkbox" id="mid5hiact_m_MID" name="mid5hiact_m_MID" class="MID_ND" value="mid5hiact_m_MID">
+				<label for="mid5hiact_m_MID">mid5hiact_m</label>
+				<input type="checkbox" id="mid5hiacta_m_MID" name="mid5hiacta_m_MID" class="MID_ND" value="mid5hiacta_m_MID">
+				<label for="mid5hiacta_m_MID">mid5hiacta_m</label>
+				<input type="checkbox" id="mid5hiactb_m_MID" name="mid5hiactb_m_MID" class="MID_ND" value="mid5hiactb_m_MID">
+				<label for="mid5hiactb_m_MID">mid5hiactb_m</label>
+				<input type="checkbox" id="severity_m_MID" name="severity_m_MID" class="MID_ND" value="severity_m_MID">
+				<label for="severity_m_MID">severity_m</label>
+				<input type="checkbox" id="severitya_m_MID" name="severitya_m_MID" class="MID_ND" value="severitya_m_MID">
+				<label for="severitya_m_MID">severitya_m</label>
+				<input type="checkbox" id="severityb_m_MID" name="severityb_m_MID" class="MID_ND" value="severityb_m_MID">
+				<label for="severityb_m_MID">severityb_m_MID</label>
+				<input type="checkbox" id="ongo2014_m_MID" name="ongo2014_m_MID" class="MID_ND" value="ongo2014_m_MID">
+				<label for="ongo2014_m_MID">ongo2014_m</label>
+				<input type="checkbox" id="new_m_MID" name="new_m_MID" class="MID_ND" value="new_m_MID">
+				<label for="new_m_MID">new_m</label>
 			</div>
 		</div>
 		<div id="variableTables">
@@ -1340,335 +1650,335 @@
 					</table>
 				</div>
 				<div id="divWRP_NAT_Table">
-				<h4 style="font-family:arial">Variables</h4>
-				<table>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-					</tr>
-					<tr>
-						<td>state</td>
-						<td>abbreviation of the state or country</td>
-					</tr>
-					<tr>
-						<td>ccode</td>
-						<td>Correlates of War Country Code</td>
-					</tr>
-					<tr>
-						<td>chrstprot</td>
-						<td>Christianity: Protestant - number of adherents</td>
-					</tr>
-					<tr>
-						<td>chrstcat</td>
-						<td>Christianity: Roman Catholics - number of adherents</td>
-					</tr>
-					<tr>
-						<td>chrstorth</td>
-						<td>Christianity: Eastern Orthodox - number of adherents</td>
-					</tr>
-					<tr>
-						<td>chrstang</td>
-						<td>Christianity: Anglican - number of adherents</td>
-					</tr>
-					<tr>
-						<td>chrstothr</td>
-						<td>Christianity: Others - number of adherents</td>
-					</tr>
-					<tr>
-						<td>chrstgen</td>
-						<td>Christianity - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>judorth</td>
-						<td>Judaism: Orthodox - number of adherents</td>
-					</tr>
-					<tr>
-						<td>judcons</td>
-						<td>Judaism: Conservatives - number of adherents</td>
-					</tr>
-					<tr>
-						<td>judref</td>
-						<td>Judaism: Reform - number of adherents</td>
-					</tr>
-					<tr>
-						<td>judothr</td>
-						<td>Judaism: Others - number of adherents</td>
-					</tr>
-					<tr>
-						<td>judgen</td>
-						<td>Judaism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmsun</td>
-						<td>Islam: Sunni - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmshi</td>
-						<td>Islam: Shi'a - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmibd</td>
-						<td>Islam: Ibadhi - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmnat</td>
-						<td>Islam: Nation of Islam - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmalw</td>
-						<td>Islam: Alawite - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmahm</td>
-						<td>Islam: Almadiyya - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmothr</td>
-						<td>Islam: Others - number of adherents</td>
-					</tr>
-					<tr>
-						<td>islmgen</td>
-						<td>Islam - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>budmah</td>
-						<td>Buddhism: Mahayana - number of adherents</td>
-					</tr>
-					<tr>
-						<td>budthr</td>
-						<td>Buddhism: Theravada - number of adherents</td>
-					</tr>
-					<tr>
-						<td>budothr</td>
-						<td>Buddhism: Others - number of adherents</td>
-					</tr>
-					<tr>
-						<td>budgen</td>
-						<td>Buddhism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>zorogen</td>
-						<td>Zoroastrianism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>hindgen</td>
-						<td>Hinduism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>sikhgen</td>
-						<td>Sikhism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>shntgen</td>
-						<td>Shinto - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>bahgen</td>
-						<td>Baha'i - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>taogen</td>
-						<td>Taoism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>jaingen</td>
-						<td>Jainism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>confgen</td>
-						<td>Confucianism - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>syncgen</td>
-						<td>Syncretic Religions - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>anmgen</td>
-						<td>Animist - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>nonrelig</td>
-						<td>Non-relgious - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>othrgen</td>
-						<td>Other Religions - total number of adherents</td>
-					</tr>
-					<tr>
-						<td>sumrelig</td>
-						<td>total number of religious adherents</td>
-					</tr>
-					<tr>
-						<td>pop</td>
-						<td>total population</td>
-					</tr>
-					<tr>
-						<td>chrstprotpct</td>
-						<td>Christianity: Protestant - percent adherents</td>
-					</tr>
-					<tr>
-						<td>chrstcatpct</td>
-						<td>Christianity: Roman Catholics - percent adherents</td>
-					</tr>
-					<tr>
-						<td>chrstorthpct</td>
-						<td>Christianity: Eastern Orthodox - percent adherents</td>
-					</tr>
-					<tr>
-						<td>chrstangpct</td>
-						<td>Christianity: Anglican - percent adherents</td>
-					</tr>
-					<tr>
-						<td>chrstothrpct</td>
-						<td>Christianity: Others - percent adherents</td>
-					</tr>
-					<tr>
-						<td>chrstgenpct</td>
-						<td>Christianity - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>judorthpct</td>
-						<td>Judaism: Orthodox - percent adherents</td>
-					</tr>
-					<tr>
-						<td>judconspct</td>
-						<td>Judaism: Conservatives - percent adherents</td>
-					</tr>
-					<tr>
-						<td>judrefpct</td>
-						<td>Judaism: Reform - percent adherents</td>
-					</tr>
-					<tr>
-						<td>judothrpct</td>
-						<td>Judaism: Others - percent adherents</td>
-					</tr>
-					<tr>
-						<td>judgenpct</td>
-						<td>Judaism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmsunpct</td>
-						<td>Islam: Sunni - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmshipct</td>
-						<td>Islam: Shi'a - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmibdpct</td>
-						<td>Islam: Ibadhi - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmnatpct</td>
-						<td>Islam: Nation of Islam - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmalwpct</td>
-						<td>Islam: Alawite - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmahmpct</td>
-						<td>Islam: Almadiyya - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmothrpct</td>
-						<td>Islam: Others - percent adherents</td>
-					</tr>
-					<tr>
-						<td>islmgenpct</td>
-						<td>Islam - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>budmahpct</td>
-						<td>Buddhism: Mahayana - percent adherents</td>
-					</tr>
-					<tr>
-						<td>budthrpct</td>
-						<td>Buddhism: Theravada - percent adherents</td>
-					</tr>
-					<tr>
-						<td>budothrpct</td>
-						<td>Buddhism: Others - percent adherents</td>
-					</tr>
-					<tr>
-						<td>budgenpct</td>
-						<td>Buddhism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>zorogenpct</td>
-						<td>Zoroastrianism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>hindgenpct</td>
-						<td>Hinduism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>sikhgenpct</td>
-						<td>Sikhism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>shntgenpct</td>
-						<td>Shinto - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>bahgenpct</td>
-						<td>Baha'i - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>taogenpct</td>
-						<td>Taoism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>jaingenpct</td>
-						<td>Jainism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>confgenpct</td>
-						<td>Confucianism - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>syncgenpct</td>
-						<td>Syncretic Religions - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>anmgenpct</td>
-						<td>Animist - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>nonreligpct</td>
-						<td>Non-relgious - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>othrgenpct</td>
-						<td>Other Religions - total percent adherents</td>
-					</tr>
-					<tr>
-						<td>sumreligpct</td>
-						<td>total percent religious adherents</td>
-					</tr>
-					<tr>
-						<td>total</td>
-						<td>total population percentage (if dualrelig = 1, total > 1</td>
-					</tr>
-					<tr>
-						<td>dualrelig</td>
-						<td>dual religion (1: Yes; 0: No)</td>
-					</tr>
-					<tr>
-						<td>datatype</td>
-						<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
-							134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
-							234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
-					</tr>
-					<tr>
-						<td>recreliab</td>
-						<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
-					</tr>
-					<tr>
-						<td>sourcecode</td>
-						<td>code of major source used for the record</td>
-					</tr>
-				</table>
+					<h4 style="font-family:arial">Variables</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>abbreviation of the state or country</td>
+						</tr>
+						<tr>
+							<td>ccode</td>
+							<td>Correlates of War Country Code</td>
+						</tr>
+						<tr>
+							<td>chrstprot</td>
+							<td>Christianity: Protestant - number of adherents</td>
+						</tr>
+						<tr>
+							<td>chrstcat</td>
+							<td>Christianity: Roman Catholics - number of adherents</td>
+						</tr>
+						<tr>
+							<td>chrstorth</td>
+							<td>Christianity: Eastern Orthodox - number of adherents</td>
+						</tr>
+						<tr>
+							<td>chrstang</td>
+							<td>Christianity: Anglican - number of adherents</td>
+						</tr>
+						<tr>
+							<td>chrstothr</td>
+							<td>Christianity: Others - number of adherents</td>
+						</tr>
+						<tr>
+							<td>chrstgen</td>
+							<td>Christianity - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>judorth</td>
+							<td>Judaism: Orthodox - number of adherents</td>
+						</tr>
+						<tr>
+							<td>judcons</td>
+							<td>Judaism: Conservatives - number of adherents</td>
+						</tr>
+						<tr>
+							<td>judref</td>
+							<td>Judaism: Reform - number of adherents</td>
+						</tr>
+						<tr>
+							<td>judothr</td>
+							<td>Judaism: Others - number of adherents</td>
+						</tr>
+						<tr>
+							<td>judgen</td>
+							<td>Judaism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmsun</td>
+							<td>Islam: Sunni - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmshi</td>
+							<td>Islam: Shi'a - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmibd</td>
+							<td>Islam: Ibadhi - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmnat</td>
+							<td>Islam: Nation of Islam - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmalw</td>
+							<td>Islam: Alawite - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmahm</td>
+							<td>Islam: Almadiyya - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmothr</td>
+							<td>Islam: Others - number of adherents</td>
+						</tr>
+						<tr>
+							<td>islmgen</td>
+							<td>Islam - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>budmah</td>
+							<td>Buddhism: Mahayana - number of adherents</td>
+						</tr>
+						<tr>
+							<td>budthr</td>
+							<td>Buddhism: Theravada - number of adherents</td>
+						</tr>
+						<tr>
+							<td>budothr</td>
+							<td>Buddhism: Others - number of adherents</td>
+						</tr>
+						<tr>
+							<td>budgen</td>
+							<td>Buddhism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>zorogen</td>
+							<td>Zoroastrianism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>hindgen</td>
+							<td>Hinduism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>sikhgen</td>
+							<td>Sikhism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>shntgen</td>
+							<td>Shinto - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>bahgen</td>
+							<td>Baha'i - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>taogen</td>
+							<td>Taoism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>jaingen</td>
+							<td>Jainism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>confgen</td>
+							<td>Confucianism - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>syncgen</td>
+							<td>Syncretic Religions - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>anmgen</td>
+							<td>Animist - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>nonrelig</td>
+							<td>Non-relgious - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>othrgen</td>
+							<td>Other Religions - total number of adherents</td>
+						</tr>
+						<tr>
+							<td>sumrelig</td>
+							<td>total number of religious adherents</td>
+						</tr>
+						<tr>
+							<td>pop</td>
+							<td>total population</td>
+						</tr>
+						<tr>
+							<td>chrstprotpct</td>
+							<td>Christianity: Protestant - percent adherents</td>
+						</tr>
+						<tr>
+							<td>chrstcatpct</td>
+							<td>Christianity: Roman Catholics - percent adherents</td>
+						</tr>
+						<tr>
+							<td>chrstorthpct</td>
+							<td>Christianity: Eastern Orthodox - percent adherents</td>
+						</tr>
+						<tr>
+							<td>chrstangpct</td>
+							<td>Christianity: Anglican - percent adherents</td>
+						</tr>
+						<tr>
+							<td>chrstothrpct</td>
+							<td>Christianity: Others - percent adherents</td>
+						</tr>
+						<tr>
+							<td>chrstgenpct</td>
+							<td>Christianity - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>judorthpct</td>
+							<td>Judaism: Orthodox - percent adherents</td>
+						</tr>
+						<tr>
+							<td>judconspct</td>
+							<td>Judaism: Conservatives - percent adherents</td>
+						</tr>
+						<tr>
+							<td>judrefpct</td>
+							<td>Judaism: Reform - percent adherents</td>
+						</tr>
+						<tr>
+							<td>judothrpct</td>
+							<td>Judaism: Others - percent adherents</td>
+						</tr>
+						<tr>
+							<td>judgenpct</td>
+							<td>Judaism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmsunpct</td>
+							<td>Islam: Sunni - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmshipct</td>
+							<td>Islam: Shi'a - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmibdpct</td>
+							<td>Islam: Ibadhi - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmnatpct</td>
+							<td>Islam: Nation of Islam - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmalwpct</td>
+							<td>Islam: Alawite - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmahmpct</td>
+							<td>Islam: Almadiyya - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmothrpct</td>
+							<td>Islam: Others - percent adherents</td>
+						</tr>
+						<tr>
+							<td>islmgenpct</td>
+							<td>Islam - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>budmahpct</td>
+							<td>Buddhism: Mahayana - percent adherents</td>
+						</tr>
+						<tr>
+							<td>budthrpct</td>
+							<td>Buddhism: Theravada - percent adherents</td>
+						</tr>
+						<tr>
+							<td>budothrpct</td>
+							<td>Buddhism: Others - percent adherents</td>
+						</tr>
+						<tr>
+							<td>budgenpct</td>
+							<td>Buddhism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>zorogenpct</td>
+							<td>Zoroastrianism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>hindgenpct</td>
+							<td>Hinduism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>sikhgenpct</td>
+							<td>Sikhism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>shntgenpct</td>
+							<td>Shinto - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>bahgenpct</td>
+							<td>Baha'i - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>taogenpct</td>
+							<td>Taoism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>jaingenpct</td>
+							<td>Jainism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>confgenpct</td>
+							<td>Confucianism - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>syncgenpct</td>
+							<td>Syncretic Religions - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>anmgenpct</td>
+							<td>Animist - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>nonreligpct</td>
+							<td>Non-relgious - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>othrgenpct</td>
+							<td>Other Religions - total percent adherents</td>
+						</tr>
+						<tr>
+							<td>sumreligpct</td>
+							<td>total percent religious adherents</td>
+						</tr>
+						<tr>
+							<td>total</td>
+							<td>total population percentage (if dualrelig = 1, total > 1</td>
+						</tr>
+						<tr>
+							<td>dualrelig</td>
+							<td>dual religion (1: Yes; 0: No)</td>
+						</tr>
+						<tr>
+							<td>datatype</td>
+							<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
+								134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
+								234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
+						</tr>
+						<tr>
+							<td>recreliab</td>
+							<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
+						</tr>
+						<tr>
+							<td>sourcecode</td>
+							<td>code of major source used for the record</td>
+						</tr>
+					</table>
 			</div>
 				<div id="divMajor_PowersTable">
 					<h4 style="font-family:arial">Variables</h4>
@@ -1735,6 +2045,247 @@
 						</tr>
 					</table>
 				</div>
+				<div id="divMidDataTable">
+					<h4 style="font-family:arial">Variables</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>state1no</td>
+							<td>Correlates of War country code for first country</td>
+						</tr>
+						<tr>
+							<td>state1abb</td>
+							<td>abbreviation of first country</td>
+						</tr>
+						<tr>
+							<td>state2no</td>
+							<td>Correlates of War country code for second country</td>
+						</tr>
+						<tr>
+							<td>state2abb</td>
+							<td>abbreviation of second country</td>
+						</tr>
+						<tr>
+							<td>year</td>
+							<td>year of observation</td>
+						</tr>
+						<tr>
+							<td>statenme1</td>
+							<td>name of first country</td>
+						</tr>
+						<tr>
+							<td>statenme2</td>
+							<td>name of first country</td>
+						</tr>
+						<tr>
+							<td>mid_count</td>
+							<td>Count of the number of MIDS in the dyad-year, both total and new MIDs</td>
+						</tr>
+						<tr>
+							<td>mid_onset_m</td>
+							<td>Main MID began that Year</td>
+						</tr>
+						<tr>
+							<td>mid_ongoing_m</td>
+							<td>Main MID ongoing but did not start that year (relevant for multi-year MIDS)</td>
+						</tr>
+						<tr>
+							<td>onset_other</td>
+							<td>Dyad members had another MID (not just main MID) start that year</td>
+						</tr>
+						<tr>
+							<td>ongoing_other</td>
+							<td>Dyad members had another MID (not just main MID) ongoing that year</td>
+						</tr>
+						<tr>
+							<td>main_disno</td>
+							<td>Number of the MID identified as the key MID in that year</td>
+						</tr>
+						<tr>
+							<td>dyindex</td>
+							<td>Christianity: Others - number of adherents</td>
+						</tr>
+						<tr>
+							<td>strtday_m</td>
+							<td>Start Day of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>strtmnth_m</td>
+							<td>Start Month of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>strtyr_m</td>
+							<td>Start Year of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>endday_m</td>
+							<td>End Day of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>endmnth_m</td>
+							<td>End Month of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>endyear_m</td>
+							<td>End Year of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>outcome_m</td>
+							<td>Outcome of the dyad's key MID, 9 point scale</td>
+						</tr>
+						<tr>
+							<td>settlmnt_m</td>
+							<td>Settlement type of the dyad's key MID, 5 point scale</td>
+						</tr>
+						<tr>
+							<td>fatlev_m</td>
+							<td>Fatality level of the dyad's key MID, 7 point scale</td>
+						</tr>
+						<tr>
+							<td>highact_m</td>
+							<td>Highest military confrontation action of the dyad's key MID, 24 point scale</td>
+						</tr>
+						<tr>
+							<td>hihost_m</td>
+							<td>Highest level of hostility of the dyad's key MID, 5 point scale</td>
+						</tr>
+						<tr>
+							<td>recip_m</td>
+							<td>Initiator of MID can NOT be clearly identified in the dyad's key MID, Yes or No</td>
+						</tr>
+						<tr>
+							<td>nosideA_m</td>
+							<td>Number of states on side A of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>nosideB_m</td>
+							<td>Number of states on side B of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>sideaa_m</td>
+							<td>State A on the side that initiated the dyad's key MID, 1 = Yes</td>
+						</tr>
+						<tr>
+							<td>revstata_m</td>
+							<td>State A revisitionist in the dyad's key MID, 1=yes</td>
+						</tr>
+						<tr>
+							<td>revtypea_m</td>
+							<td>Type of revision sought by state A of the dyad's key MID (if revisionist), 5 point scale</td>
+						</tr>
+						<tr>
+							<td>fatleva_m</td>
+							<td>Level of fatality incurred by State A of the dyad's key MID, see FATLEV</td>
+						</tr>
+						<tr>
+							<td>highmcaa_m</td>
+							<td>Highest military confrontration action of State A in the dyad's key MID, see HIGHACT</td>
+						</tr>
+						<tr>
+							<td>hihosta_m </td>
+							<td>Highest level of hostility reached by State A of the dyad's key MID, see HIHOST</td>
+						</tr>
+						<tr>
+							<td>orignata_m</td>
+							<td>State A is an original participant in the dyad's key MID, 1 = Yes</td>
+						</tr>
+						<tr>
+							<td>sideab_m</td>
+							<td>State B on Initator's side of the dyad's key MID, 1=Yes</td>
+						</tr>
+						<tr>
+							<td>revstatb_m</td>
+							<td>State B revisitionist in the dyad's key MID, 1=yes</td>
+						</tr>
+						<tr>
+							<td>revtypeb_m</td>
+							<td>Type of revision sought by state B of the dyad's key MID (if revisionist), 5 point scale</td>
+						</tr>
+						<tr>
+							<td>fatlevb_m</td>
+							<td>Level of fatality incurred by State B of the dyad's key MID, see FATLEV</td>
+						</tr>
+						<tr>
+							<td>highmcab_m</td>
+							<td>Highest military confrontration action of State B in the dyad's key MID, see HIGHACT</td>
+						</tr>
+						<tr>
+							<td>hihostb_m </td>
+							<td>Highest level of hostility reached by State B of the dyad's key MID, see HIHOST</td>
+						</tr>
+						<tr>
+							<td>orignatb_m</td>
+							<td>State B is an original participant in the dyad's key MID, 1 = Yes</td>
+						</tr>
+						<tr>
+							<td>rolea_m</td>
+							<td>Role of Stata A in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+						</tr>
+						<tr>
+							<td>roleb_m</td>
+							<td>Role of Stata B in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>						
+						</tr>
+						<tr>
+							<td>dyad_rolea_m</td>
+							<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+						</tr>
+						<tr>
+							<td>dyad_roleb_m</td>
+							<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+						</tr>
+						<tr>
+							<td>war_m</td>
+							<td>Does the dyad's key MID rise to the level of a COW War in that year, 1=Yes</td>
+						</tr>
+						<tr>
+							<td>durindx_m</td>
+							<td>Duration year of the dyad's key MID, i.e. 1 or 2 or 3, etc.</td>
+						</tr>
+						<tr>
+							<td>duration_m</td>
+							<td>Number of dispute days of dyad's key MID in that year</td>
+						</tr>
+						<tr>
+							<td>cumdurat_m</td>
+							<td>Cumulative number of days of the dyad's key MID in that year</td>
+						</tr>
+						<tr>
+							<td>mid5hiact_m </td>
+							<td>MID data 5.01 Highest military confrontration action of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>mid5hiacta_m</td>
+							<td>MID data 5.01 Highest military confrontration action of State A in the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>mid5hiactb_m</td>
+							<td>MID data 5.01 Highest military confrontration action of State B in the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>severity_m</td>
+							<td>Judaism: Conservatives - percent adherents</td>
+						</tr>
+						<tr>
+							<td>severitya_m</td>
+							<td>Highest severity score committed by State A of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>severityb_m</td>
+							<td>Highest severity score committed by State B of the dyad's key MID</td>
+						</tr>
+						<tr>
+							<td>ongo2014_m</td>
+							<td>The dyad's key MID is an ongoing MID in 2014</td>
+						</tr>
+						<tr>
+							<td>new_m</td>
+							<td>The dyad's key MID is a new dyadic MID in Year</td>
+						</tr>
+					</table>
+				</div>
 		</div>
 		<div id="selectorsCountryYear" style="display:none;">
 			<div style="display:inline-block;padding-left:20px;" id="selectCountry">
@@ -1767,11 +2318,11 @@
 		<div id="selectorsDyadYear" style="display:none;">
 			<div style="display:inline-block;padding-left:20px;" id="selectCountryDyad">
 				<br>
-				<select name = "dropdown1" id = "dropdown1" onchange="setInput1Dyad();filterByStateDyadYear();" style="display:inline-block" onclick="dropDownListDyadYear1();">
+				<select name = "dropdown1" id = "dropdown1" onchange="setInput1Dyad();filterByStateDyadYear();" style="display:inline-block">
 					<option value = "all">Choose a country</option>
 					<option value = "all">All countries</option>
 				</select>
-				<select name = "dropdown2" id = "dropdown2" onchange="setInput2Dyad();filterByStateDyadYear();" style="display:inline-block; margin-left:96px" onclick = "dropDownListDyadYear2();">
+				<select name = "dropdown2" id = "dropdown2" onchange="setInput2Dyad();filterByStateDyadYear();" style="display:inline-block; margin-left:96px">
 					<option value = "all">Choose a country</option>
 					<option value = "all">All countries</option>
 				</select>
