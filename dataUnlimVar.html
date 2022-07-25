@@ -1106,10 +1106,7 @@
 				if (document.querySelectorAll("#generated_Data table tr").length <=0){
 					tf = false;
 				}
-				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1){
-					tf = false;
-				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1 || $('input[name*="MID"]:checked').length == 1){
+				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1 && !document.getElementById("DirectContiguity").checked){
 					tf = false;
 				}
 				return Boolean(tf);
@@ -1230,6 +1227,10 @@
 					dropDownListDyadYear1();
 					dropDownListDyadYear2();
 				}
+				
+				document.getElementById("createButton").disabled = true;
+				document.getElementById("downloadButton").style.display = "inline-block";
+				
 			}		
 			
 
@@ -2364,10 +2365,16 @@
 			</div>
 		</div>
 		
-		<div>
+		<div id="buttons">
 			<div style="padding-left:20px;display:inline-block">
 				<br>
 				<input type="button" id = "createButton" onclick="CreateTable();" value="Next"/>
+			</div>
+			<div style="display: none" id="downloadButton">
+				<button onclick="exportTableToCSV('newgene')">Download CSV File</button>
+			</div>
+			<div style="display:none" id="WarningDownload">
+				<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">A table was not created.</p>
 			</div>
 			<div style = "display:none" id="progressStatus">
 				<div id="progressBar"></div>
@@ -2378,10 +2385,7 @@
 		</div>
 		<div style="padding-left:20px" id = "generated_Data">
 			<p id="showData"></p>
-			<button onclick="exportTableToCSV('newgene')">Download CSV File</button>
-		</div>
-		<div style="display:none" id="WarningDownload">
-			<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">A table was not created.</p>
+			<br>
 		</div>
 	</body>
 </html>
