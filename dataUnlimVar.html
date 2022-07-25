@@ -639,7 +639,6 @@
 						solution = index;
 					}
 				});
-
 				return solution;
 			}
 			
@@ -654,13 +653,12 @@
 						for (var property in item) {
 							if (item.hasOwnProperty(property)) {
 								if (!result[resultIndex].hasOwnProperty(property)) {
-									var element = result[resultIndex];
-									element[property] = item[property];
+									var hello = result[resultIndex];
+									hello[property] = item[property];
 								}
 							}
 						}
 					}
-
 				});
 				return result;
 			}
@@ -716,7 +714,7 @@
 					data = dyadYearDatasets[0];
 				}
 				if(dyadYearDatasets.length == 2){
-					data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+					data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1ab", "state2ab", "year");
 				}
 				return data;
 			}
@@ -880,8 +878,16 @@
 			function stateSetDyadYear1(){
 				var stateDup = [];
 				var myData = dyadYearDataSetChooser();
-				for (var i = 0; i < myData.length; i++){
-					stateDup.push(myData[i]["state1ab"]);
+				var table, tr, td, i;
+				
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[1];
+					if (td){
+						stateDup.push(td.innerHTML);       
+					}
 				}
 				var stateSet = new Set(stateDup);
 				var stateUnique = Array.from(stateSet);
@@ -913,9 +919,16 @@
 			
 			function stateSetDyadYear2(){
 				var stateDup = [];
-				var myData = dyadYearDataSetChooser();
-				for (var i = 0; i < myData.length; i++){
-					stateDup.push(myData[i]["state2ab"]);
+				var table, tr, td, i;
+				
+				table = document.getElementById("generated_Data");
+				tr = table.getElementsByTagName("tr");
+
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[3];
+					if (td){
+						stateDup.push(td.innerHTML);       
+					}
 				}
 				var stateSet = new Set(stateDup);
 				var stateUnique = Array.from(stateSet);
@@ -2024,7 +2037,7 @@
 							<td>Correlates of War country code for first country</td>
 						</tr>
 						<tr>
-							<td>state1abb</td>
+							<td>state1ab</td>
 							<td>name of first country</td>
 						</tr>
 						<tr>
@@ -2032,7 +2045,7 @@
 							<td>Correlates of War country code for second country</td>
 						</tr>
 						<tr>
-							<td>state2abb</td>
+							<td>state2ab</td>
 							<td>name of second country</td>
 						</tr>
 						<tr>
@@ -2057,7 +2070,7 @@
 							<td>Correlates of War country code for first country</td>
 						</tr>
 						<tr>
-							<td>state1abb</td>
+							<td>state1ab</td>
 							<td>abbreviation of first country</td>
 						</tr>
 						<tr>
@@ -2065,7 +2078,7 @@
 							<td>Correlates of War country code for second country</td>
 						</tr>
 						<tr>
-							<td>state2abb</td>
+							<td>state2ab</td>
 							<td>abbreviation of second country</td>
 						</tr>
 						<tr>
