@@ -1,0 +1,92 @@
+body, nav {margin:0px;
+	display: block;	
+}
+
+#divNMC_5_0, #divWRP_NAT, #divMajor_Powers, #divMID_Data_ND, #divNMC_5_0SecondStep, #divWRP_NATSecondStep, #divMajor_PowersSecondStep{
+	display:none;
+	padding-left:20px;
+}
+#countryYearData, #dyadicData{
+	display:none;
+	padding-left:40px;
+}
+#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable{
+	display:none;
+	padding-left:20px;
+	padding-right:20px;
+	overflow:scroll;
+	height:200px;
+	overflow-x:auto;
+	margin-top: 20px;
+}
+h1 {text-align: center}
+h4 {margin:0px}
+p, nav {font-size: 17px;
+  }
+table, th, td {
+	border: 1px solid black;
+	border-collapse:collapse;
+}
+th,td{
+	padding-right:20px;
+}
+body {
+	background-color: #ffffff;
+}
+header{
+	padding-left:0px;
+}
+.topnav {
+	overflow: hidden;
+	background-color: lightgrey;
+	width: 100%;
+	text-align: center;
+	}
+.topnav a {
+	float: middle;
+	display: inline-block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	}
+.topnav a:hover {
+	background-color: white;
+	color: black;
+	}
+.topnav a.active {
+	background-color: black;
+	color: white;
+	}	
+.headerone {
+	float: center;
+	display:block;
+	text-align: center;
+	background-color: white;
+	color: black;
+	margin: 0px;
+	height: 50px;
+	padding: 30px;
+	}
+thead{
+	position: absolute;
+}
+
+#progressBar {
+	width: 1%;
+	height:20px;
+	background-color:limegreen;
+}
+
+#progressStatus{
+	width: 50%;
+	background-color:lightgrey;
+	margin-bottom:-5px;
+}
+
+#showData{
+	overflow-x:auto;
+	overflow:scroll;
+	height:300px;
+}

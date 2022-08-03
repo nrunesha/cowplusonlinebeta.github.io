@@ -11,105 +11,12 @@
 		<script src="datafiles/COW_States_and_Major_PowersUnlim.js"></script>
 		<script src="datafiles/DirectContiguityDyadic.js"></script>
 		<script src="datafiles/COW_MID_Data_ND_Dyadic.js"></script>
+		<script src="js/main.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />
 		<link rel="canonical" href= "https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm" />
-		
-		<style>
-			body, nav {margin:0px;
-				display: block;	
-			}
-			
-			#divNMC_5_0, #divWRP_NAT, #divMajor_Powers, #divMID_Data_ND {
-				display:none;
-				padding-left:20px;
-			}
-			#countryYearData, #dyadicData{
-				display:none;
-				padding-left:40px;
-			}
-			#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable{
-				display:none;
-				padding-left:20px;
-				padding-right:20px;
-				overflow:scroll;
-				height:200px;
-				overflow-x:auto;
-				margin-top: 20px;
-			}
-			h1 {text-align: center}
-			h4 {margin:0px}
-			p, nav {font-size: 17px;
-			  }
-			table, th, td {
-				border: 1px solid black;
-				border-collapse:collapse;
-			}
-			th,td{
-				padding-right:20px;
-			}
-			body {
-				background-color: #ffffff;
-			}
-			header{
-				padding-left:0px;
-			}
-			.topnav {
-				overflow: hidden;
-				background-color: lightgrey;
-				width: 100%;
-				text-align: center;
-				}
-			.topnav a {
-				float: middle;
-				display: inline-block;
-				color: black;
-				text-align: center;
-				padding: 14px 16px;
-				text-decoration: none;
-				font-size: 17px;
-				}
-			.topnav a:hover {
-				background-color: white;
-				color: black;
-				}
-			.topnav a.active {
-				background-color: black;
-				color: white;
-				}	
-			.headerone {
-				float: center;
-				display:block;
-				text-align: center;
-				background-color: white;
-				color: black;
-				margin: 0px;
-				height: 50px;
-				padding: 30px;
-				}
-			thead{
-				position: absolute;
-			}
-			
-			#progressBar {
-				width: 1%;
-				height:20px;
-				background-color:limegreen;
-			}
-			
-			#progressStatus{
-				width: 50%;
-				background-color:lightgrey;
-				margin-bottom:-5px;
-			}
-			
-			#showData{
-				overflow-x:auto;
-				overflow:scroll;
-				height:300px;
-			}
-		</style>
-			
+		<link rel="stylesheet" href="css/main.css">
+
 	</head>
 	<body>
 		<header style="padding:-20px">
@@ -121,1177 +28,6 @@
 				</div>	
 			</nav>
 		</header>
-		<script>
-			function toggleDataGroups(){
-				if(document.getElementById("countryYear").checked){
-					document.getElementById("countryYearData").style.display = "block";
-				}
-				else{
-					$('#countryYearData').find('input[type=checkbox]:checked').prop('checked',false);
-					document.getElementById("countryYearData").style.display = "none";
-				}
-				if(document.getElementById("dyadYear").checked){
-					document.getElementById("dyadicData").style.display = "block";
-				}
-				else{
-					$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
-					document.getElementById("dyadicData").style.display = "none";
-				}
-			}
-			
-			function toggleVariableTableDiv(){
-				if(document.getElementById("NMC_5_0").checked){
-					document.getElementById("divNMC_5_0_Table").style.display = "block";
-				}
-				else{					
-					document.getElementById("divNMC_5_0_Table").style.display = "none";
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					document.getElementById("divWRP_NAT_Table").style.display = "block";
-				}
-				else{
-					document.getElementById("divWRP_NAT_Table").style.display = "none";
-				}
-				if(document.getElementById("Major_Powers").checked){
-					document.getElementById("divMajor_PowersTable").style.display = "block";
-				}
-				else{
-					document.getElementById("divMajor_PowersTable").style.display = "none";
-				}
-				if(document.getElementById("DirectContiguity").checked){
-					document.getElementById("divDirectContiguityTable").style.display = "block";
-				}
-				else{
-					document.getElementById("divDirectContiguityTable").style.display = "none";
-				}
-				
-				if(document.getElementById("ND_Data_MID").checked){
-					document.getElementById("divMidDataTable").style.display = "block";
-				}
-				else{
-					document.getElementById("divMidDataTable").style.display = "none";
-				}
-			}
-			function variableChooser(){
-				const variables = [];
-				if(document.getElementById("NMC_5_0").checked){
-					variables.push("state");
-					variables.push("year");
-					variables.push("ccode");
-					if(document.getElementById("milex_NMC_5_0").checked){
-						variables.push("milex_NMC_5_0");
-					}
-					if(document.getElementById("milper_NMC_5_0").checked){
-						variables.push("milper_NMC_5_0");
-					}
-					if(document.getElementById("irst_NMC_5_0").checked){
-						variables.push("irst_NMC_5_0");
-					}
-					if(document.getElementById("pec_NMC_5_0").checked){
-						variables.push("pec_NMC_5_0");
-					}
-					if(document.getElementById("tpop_NMC_5_0").checked){
-						variables.push("upop_NMC_5_0");
-					}
-					if(document.getElementById("cinc_NMC_5_0").checked){
-						variables.push("cinc_NMC_5_0");
-					}
-				}
-				if(document.getElementById("Major_Powers").checked){
-					variables.push("state");
-					variables.push("year");
-					variables.push("ccode");
-					if(document.getElementById("statename_Major_Powers").checked){
-						variables.push("statename_Major_Powers");
-					}
-					if(document.getElementById("major_Major_Powers").checked){
-						variables.push("major_Major_Powers");
-					}
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					variables.push("state");
-					variables.push("year");
-					variables.push("ccode");
-					if(document.getElementById("chrstprot_WRP_NAT").checked){
-						variables.push("chrstprot_WRP_NAT");
-					}
-					if(document.getElementById("chrstcat_WRP_NAT").checked){
-						variables.push("chrstcat_WRP_NAT");
-					}
-					if(document.getElementById("chrstorth_WRP_NAT").checked){
-						variables.push("chrstorth_WRP_NAT");
-					}
-					if(document.getElementById("chrstang_WRP_NAT").checked){
-						variables.push("chrstang_WRP_NAT");
-					}
-					if(document.getElementById("chrstothr_WRP_NAT").checked){
-						variables.push("chrstothr_WRP_NAT");
-					}
-					if(document.getElementById("chrstgen_WRP_NAT").checked){
-						variables.push("chrstgen_WRP_NAT");
-					}
-					if(document.getElementById("judorth_WRP_NAT").checked){
-						variables.push("judorth_WRP_NAT");
-					}
-					if(document.getElementById("judcons_WRP_NAT").checked){
-						variables.push("judcons_WRP_NAT");
-					}
-					if(document.getElementById("judref_WRP_NAT").checked){
-						variables.push("judref_WRP_NAT");
-					}
-					if(document.getElementById("judothr_WRP_NAT").checked){
-						variables.push("judothr_WRP_NAT");
-					}
-					if(document.getElementById("judgen_WRP_NAT").checked){
-						variables.push("judgen_WRP_NAT");
-					}
-					if(document.getElementById("islmsun_WRP_NAT").checked){
-						variables.push("islmsun_WRP_NAT");
-					}
-					if(document.getElementById("islmshi_WRP_NAT").checked){
-						variables.push("islmshi_WRP_NAT");
-					}
-					if(document.getElementById("islmibd_WRP_NAT").checked){
-						variables.push("islmibd_WRP_NAT");
-					}
-					if(document.getElementById("islmnat_WRP_NAT").checked){
-						variables.push("islmnat_WRP_NAT");
-					}
-					if(document.getElementById("islmalw_WRP_NAT").checked){
-						variables.push("islmalw_WRP_NAT");
-					}
-					if(document.getElementById("islmahm_WRP_NAT").checked){
-						variables.push("islmahm_WRP_NAT");
-					}
-					if(document.getElementById("islmothr_WRP_NAT").checked){
-						variables.push("islmothr_WRP_NAT");
-					}
-					if(document.getElementById("islmgen_WRP_NAT").checked){
-						variables.push("islmgen_WRP_NAT");
-					}
-					if(document.getElementById("budmah_WRP_NAT").checked){
-						variables.push("budmah_WRP_NAT");
-					}
-					if(document.getElementById("budthr_WRP_NAT").checked){
-						variables.push("budthr_WRP_NAT");
-					}
-					if(document.getElementById("budothr_WRP_NAT").checked){
-						variables.push("budothr_WRP_NAT");
-					}
-					if(document.getElementById("budgen_WRP_NAT").checked){
-						variables.push("budgen_WRP_NAT");
-					}
-					if(document.getElementById("zorogen_WRP_NAT").checked){
-						variables.push("zorogen_WRP_NAT");
-					}
-					if(document.getElementById("hindgen_WRP_NAT").checked){
-						variables.push("hindgen_WRP_NAT");
-					}
-					if(document.getElementById("sikhgen_WRP_NAT").checked){
-						variables.push("sikhgen_WRP_NAT");
-					}
-					if(document.getElementById("shntgen_WRP_NAT").checked){
-						variables.push("shntgen_WRP_NAT");
-					}
-					if(document.getElementById("bahgen_WRP_NAT").checked){
-						variables.push("bahgen_WRP_NAT");
-					}
-					if(document.getElementById("taogen_WRP_NAT").checked){
-						variables.push("taogen_WRP_NAT");
-					}
-					if(document.getElementById("jaingen_WRP_NAT").checked){
-						variables.push("jaingen_WRP_NAT");
-					}
-					if(document.getElementById("confgen_WRP_NAT").checked){
-						variables.push("confgen_WRP_NAT");
-					}
-					if(document.getElementById("syncgen_WRP_NAT").checked){
-						variables.push("syncgen_WRP_NAT");
-					}
-					if(document.getElementById("anmgen_WRP_NAT").checked){
-						variables.push("anmgen_WRP_NAT");
-					}
-					if(document.getElementById("nonrelig_WRP_NAT").checked){
-						variables.push("nonrelig_WRP_NAT");
-					}
-					if(document.getElementById("othrgen_WRP_NAT").checked){
-						variables.push("othrgen_WRP_NAT");
-					}
-					if(document.getElementById("sumrelig_WRP_NAT").checked){
-						variables.push("sumrelig_WRP_NAT");
-					}
-					if(document.getElementById("pop_WRP_NAT").checked){
-						variables.push("pop_WRP_NAT");
-					}
-					if(document.getElementById("chrstprotpct_WRP_NAT").checked){
-						variables.push("chrstprotpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstcatpct_WRP_NAT").checked){
-						variables.push("chrstcatpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstorthpct_WRP_NAT").checked){
-						variables.push("chrstorthpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstangpct_WRP_NAT").checked){
-						variables.push("chrstangpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstothrpct_WRP_NAT").checked){
-						variables.push("chrstothrpct_WRP_NAT");
-					}
-					if(document.getElementById("chrstgenpct_WRP_NAT").checked){
-						variables.push("chrstgenpct_WRP_NAT");
-					}
-					if(document.getElementById("judorthpct_WRP_NAT").checked){
-						variables.push("judorthpct_WRP_NAT");
-					}
-					if(document.getElementById("judconspct_WRP_NAT").checked){
-						variables.push("judconspct_WRP_NAT");
-					}
-					if(document.getElementById("judrefpct_WRP_NAT").checked){
-						variables.push("judrefpct_WRP_NAT");
-					}
-					if(document.getElementById("judothrpct_WRP_NAT").checked){
-						variables.push("judothrpct_WRP_NAT");
-					}
-					if(document.getElementById("judgenpct_WRP_NAT").checked){
-						variables.push("judgenpct_WRP_NAT");
-					}
-					if(document.getElementById("islmsunpct_WRP_NAT").checked){
-						variables.push("islmsunpct_WRP_NAT");
-					}
-					if(document.getElementById("islmshipct_WRP_NAT").checked){
-						variables.push("islmshipct_WRP_NAT");
-					}
-					if(document.getElementById("islmibdpct_WRP_NAT").checked){
-						variables.push("islmibdpct_WRP_NAT");
-					}
-					if(document.getElementById("islmnatpct_WRP_NAT").checked){
-						variables.push("islmnatpct_WRP_NAT");
-					}
-					if(document.getElementById("islmalwpct_WRP_NAT").checked){
-						variables.push("islmalwpct_WRP_NAT");
-					}
-					if(document.getElementById("islmahmpct_WRP_NAT").checked){
-						variables.push("islmahmpct_WRP_NAT");
-					}
-					if(document.getElementById("islmothrpct_WRP_NAT").checked){
-						variables.push("islmothrpct_WRP_NAT");
-					}
-					if(document.getElementById("islmgenpct_WRP_NAT").checked){
-						variables.push("islmgenpct_WRP_NAT");
-					}
-					if(document.getElementById("budmahpct_WRP_NAT").checked){
-						variables.push("budmahpct_WRP_NAT");
-					}
-					if(document.getElementById("budthrpct_WRP_NAT").checked){
-						variables.push("budthrpct_WRP_NAT");
-					}
-					if(document.getElementById("budothrpct_WRP_NAT").checked){
-						variables.push("budothrpct_WRP_NAT");
-					}
-					if(document.getElementById("budgenpct_WRP_NAT").checked){
-						variables.push("budgenpct_WRP_NAT");
-					}
-					if(document.getElementById("zorogenpct_WRP_NAT").checked){
-						variables.push("zorogenpct_WRP_NAT");
-					}
-					if(document.getElementById("hindgenpct_WRP_NAT").checked){
-						variables.push("hindgenpct_WRP_NAT");
-					}
-					if(document.getElementById("sikhgenpct_WRP_NAT").checked){
-						variables.push("sikhgenpct_WRP_NAT");
-					}
-					if(document.getElementById("shntgenpct_WRP_NAT").checked){
-						variables.push("shntgenpct_WRP_NAT");
-					}
-					if(document.getElementById("bahgenpct_WRP_NAT").checked){
-						variables.push("bahgenpct_WRP_NAT");
-					}
-					if(document.getElementById("taogenpct_WRP_NAT").checked){
-						variables.push("taogenpct_WRP_NAT");
-					}
-					if(document.getElementById("jaingenpct_WRP_NAT").checked){
-						variables.push("jaingenpct_WRP_NAT");
-					}
-					if(document.getElementById("confgenpct_WRP_NAT").checked){
-						variables.push("confgenpct_WRP_NAT");
-					}
-					if(document.getElementById("syncgenpct_WRP_NAT").checked){
-						variables.push("syncgenpct_WRP_NAT");
-					}
-					if(document.getElementById("anmgenpct_WRP_NAT").checked){
-						variables.push("anmgenpct_WRP_NAT");
-					}
-					if(document.getElementById("nonreligpct_WRP_NAT").checked){
-						variables.push("nonreligpct_WRP_NAT");
-					}
-					if(document.getElementById("othrgenpct_WRP_NAT").checked){
-						variables.push("othrgenpct_WRP_NAT");
-					}
-					if(document.getElementById("sumreligpct_WRP_NAT").checked){
-						variables.push("sumreligpct_WRP_NAT");
-					}
-					if(document.getElementById("total_WRP_NAT").checked){
-						variables.push("total_WRP_NAT");
-					}
-					if(document.getElementById("dualrelig_WRP_NAT").checked){
-						variables.push("dualrelig_WRP_NAT");
-					}
-					if(document.getElementById("datatype_WRP_NAT").checked){
-						variables.push("datatype_WRP_NAT");
-					}
-					if(document.getElementById("sourcereliab_WRP_NAT").checked){
-						variables.push("sourcereliab_WRP_NAT");
-					}
-					if(document.getElementById("recreliab_WRP_NAT").checked){
-						variables.push("recreliab_WRP_NAT");
-					}
-					if(document.getElementById("reliabilevel_WRP_NAT").checked){
-						variables.push("reliabilevel_WRP_NAT");
-					}
-					if(document.getElementById("sourcecode_WRP_NAT").checked){
-						variables.push("sourcecode_WRP_NAT");
-					}
-				}
-				if(document.getElementById("DirectContiguity").checked){
-					variables.push("state1no");
-					variables.push("state1ab");
-					variables.push("state2no");
-					variables.push("state2ab");
-					variables.push("year");
-					variables.push("dyad");
-					variables.push("conttype_DirectContiguity");
-				}
-				if(document.getElementById("ND_Data_MID").checked){
-					variables.push("state1no");
-					variables.push("state1ab");
-					variables.push("state2no");
-					variables.push("state2ab");
-					variables.push("year");
-					variables.push("statenme1");
-					variables.push("statenme2");
-					if(document.getElementById("mid_count_MID").checked){
-						variables.push("mid_count");
-					}
-					if(document.getElementById("mid_onset_m_MID").checked){
-						variables.push("mid_onset_m");
-					}
-					if(document.getElementById("mid_ongoing_m_MID").checked){
-						variables.push("mid_ongoing_m");
-					}
-					if(document.getElementById("onset_other_MID").checked){
-						variables.push("onset_other");
-					}
-					if(document.getElementById("ongoing_other_MID").checked){
-						variables.push("ongoing_other");
-					}
-					if(document.getElementById("main_disno_MID").checked){
-						variables.push("main_disno");
-					}
-					if(document.getElementById("dyindex_MID").checked){
-						variables.push("dyindex");
-					}
-					if(document.getElementById("strtday_m_MID").checked){
-						variables.push("strtday_m");
-					}
-					if(document.getElementById("strtmnth_m_MID").checked){
-						variables.push("strtmnth_m");
-					}
-					if(document.getElementById("strtyr_m_MID").checked){
-						variables.push("strtyr_m");
-					}
-					if(document.getElementById("endday_m_MID").checked){
-						variables.push("endday_m");
-					}
-					if(document.getElementById("endmnth_m_MID").checked){
-						variables.push("endmnth_m");
-					}
-					if(document.getElementById("endyear_m_MID").checked){
-						variables.push("endyear_m");
-					}
-					if(document.getElementById("outcome_m_MID").checked){
-						variables.push("outcome_m");
-					}
-					if(document.getElementById("settlmnt_m_MID").checked){
-						variables.push("settlmnt_m");
-					}
-					if(document.getElementById("fatlev_m_MID").checked){
-						variables.push("fatlev_m");
-					}
-					if(document.getElementById("highact_m_MID").checked){
-						variables.push("highact_m");
-					}
-					if(document.getElementById("hihost_m_MID").checked){
-						variables.push("hihost_m");
-					}
-					if(document.getElementById("recip_m_MID").checked){
-						variables.push("recip_m");
-					}
-					if(document.getElementById("nosideA_m_MID").checked){
-						variables.push("nosideA_m");
-					}
-					if(document.getElementById("nosideB_m_MID").checked){
-						variables.push("nosideB_m");
-					}
-					if(document.getElementById("sideaa_m_MID").checked){
-						variables.push("sideaa_m");
-					}
-					if(document.getElementById("revstata_m_MID").checked){
-						variables.push("revstata_m");
-					}
-					if(document.getElementById("revtypea_m_MID").checked){
-						variables.push("revtypea_m");
-					}
-					if(document.getElementById("fatleva_m_MID").checked){
-						variables.push("fatleva_m");
-					}
-					if(document.getElementById("highmcaa_m_MID").checked){
-						variables.push("highmcaa_m");
-					}
-					if(document.getElementById("hihosta_m_MID").checked){
-						variables.push("hihosta_m");
-					}
-					if(document.getElementById("orignata_m_MID").checked){
-						variables.push("orignata_m");
-					}
-					if(document.getElementById("sideab_m_MID").checked){
-						variables.push("sideab_m");
-					}
-					if(document.getElementById("revstatb_m_MID").checked){
-						variables.push("revstatb_m");
-					}
-					if(document.getElementById("revtypeb_m_MID").checked){
-						variables.push("revtypeb_m");
-					}
-					if(document.getElementById("fatlevb_m_MID").checked){
-						variables.push("fatlevb_m");
-					}
-					if(document.getElementById("highmcab_m_MID").checked){
-						variables.push("highmcab_m");
-					}
-					if(document.getElementById("hihostb_m_MID").checked){
-						variables.push("hihostb_m");
-					}
-					if(document.getElementById("orignatb_m_MID").checked){
-						variables.push("orignatb_m");
-					}
-					if(document.getElementById("rolea_m_MID").checked){
-						variables.push("rolea_m");
-					}
-					if(document.getElementById("roleb_m_MID").checked){
-						variables.push("roleb_m");
-					}
-					if(document.getElementById("dyad_rolea_m_MID").checked){
-						variables.push("dyad_rolea_m");
-					}
-					if(document.getElementById("dyad_roleb_m_MID").checked){
-						variables.push("dyad_roleb_m");
-					}
-					if(document.getElementById("war_m_MID").checked){
-						variables.push("war_m");
-					}
-					if(document.getElementById("durindx_m_MID").checked){
-						variables.push("durindx_m");
-					}
-					if(document.getElementById("duration_m_MID").checked){
-						variables.push("duration_m");
-					}
-					if(document.getElementById("cumdurat_m_MID").checked){
-						variables.push("cumdurat_m");
-					}
-					if(document.getElementById("mid5hiact_m_MID").checked){
-						variables.push("mid5hiact_m");
-					}
-					if(document.getElementById("mid5hiacta_m_MID").checked){
-						variables.push("mid5hiacta_m");
-					}
-					if(document.getElementById("mid5hiactb_m_MID").checked){
-						variables.push("mid5hiactb_m");
-					}
-					if(document.getElementById("severity_m_MID").checked){
-						variables.push("severity_m");
-					}
-					if(document.getElementById("severitya_m_MID").checked){
-						variables.push("severitya_m");
-					}
-					if(document.getElementById("severityb_m_MID").checked){
-						variables.push("severityb_m");
-					}
-					if(document.getElementById("ongo2014_m_MID").checked){
-						variables.push("ongo2014_m");
-					}
-					if(document.getElementById("new_m_MID").checked){
-						variables.push("new_m");
-					}
-				}
-				return variables;
-			}
-			
-			function contains(set, object, keys) {
-				var solution = -1;
-				set.forEach(function (item, index, array) {
-					var selfItem = item;
-					var allKeys = keys.every(function (item, index, array) {
-						if (selfItem[item] === object[item]) {
-							return true;
-						}
-					});
-					if (allKeys) {
-						solution = index;
-					}
-				});
-				return solution;
-			}
-			
-			function mergeSets(first, second) {
-				var result = first;
-				var keys = Array.prototype.slice.call(arguments, 2);
-				second.forEach(function (item, index, array) {
-					var resultIndex = contains(result, item, keys);
-					if (resultIndex === -1) {
-						result.push(item);
-					} else {
-						for (var property in item) {
-							if (item.hasOwnProperty(property)) {
-								if (!result[resultIndex].hasOwnProperty(property)) {
-									var hello = result[resultIndex];
-									hello[property] = item[property];
-								}
-							}
-						}
-					}
-				});
-				return result;
-			}
-			
-			function mergeCountryYearData(){			
-				var countryYearDataSelected = [];
-
-				if(document.getElementById("NMC_5_0").checked){
-					countryYearDataSelected.push(NMC_5_0Unlim);
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					countryYearDataSelected.push(WRP_NATUnlim);
-				}
-				if(document.getElementById("Major_Powers").checked){
-					countryYearDataSelected.push(COW_States_Major_Powers);
-				}
-				
-				return countryYearDataSelected;
-			}
-
-			function countryYearDataSetChooser(){
-				var countryYearDatasets = mergeCountryYearData();
-				var data = NMC_5_0Unlim;
-				if(countryYearDatasets.length == 1){
-					data = countryYearDatasets[0];
-				}
-				else if(countryYearDatasets.length == 2){
-					data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-				}
-				else if(countryYearDatasets.length == 3){
-					var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-					data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
-				}
-				return data;
-			}
-			
-			function mergeDyadYearData(){			
-				var dyadYearDataSelected = [];
-
-				if(document.getElementById("DirectContiguity").checked){
-					dyadYearDataSelected.push(DirectContiguityDyadic);
-				}
-				if(document.getElementById("ND_Data_MID").checked){
-					dyadYearDataSelected.push(COW_MID_DATA_ND);
-				}
-				return dyadYearDataSelected;
-			}
-
-			function dyadYearDataSetChooser(){
-				var dyadYearDatasets = mergeDyadYearData();
-				var data = DirectContiguityDyadic;
-				if(dyadYearDatasets.length == 1){
-					data = dyadYearDatasets[0];
-				}
-				if(dyadYearDatasets.length == 2){
-					data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1ab", "state2ab", "year");
-				}
-				return data;
-			}
-			
-			function toggleVariableSelectionDiv(){
-				if(document.getElementById("NMC_5_0").checked){
-					document.getElementById("divNMC_5_0").style.display = "block";
-				}
-				else{
-					$('#divNMC_5_0').find('input[type=checkbox]:checked').prop('checked',false);
-					document.getElementById("divNMC_5_0").style.display = "none";
-				}
-				if(document.getElementById("WRP_NAT").checked){
-					document.getElementById("divWRP_NAT").style.display = "block";
-				}
-				else{
-					$('#divWRP_NAT').find('input[type=checkbox]:checked').prop('checked',false);
-					document.getElementById("divWRP_NAT").style.display = "none";
-				}
-				if(document.getElementById("Major_Powers").checked){
-					document.getElementById("divMajor_Powers").style.display = "block";
-				}
-				else{
-					$('#divMajor_Powers').find('input[type=checkbox]:checked').prop('checked',false);
-					document.getElementById("divMajor_Powers").style.display = "none";
-				}
-				if(document.getElementById("ND_Data_MID").checked){
-					document.getElementById("divMID_Data_ND").style.display = "block";
-				}
-				else{
-					$('#divMID_Data_ND').find('input[type=checkbox]:checked').prop('checked',false);
-					document.getElementById("divMID_Data_ND").style.display = "none";
-				}
-			}		
-			
-			function toggleSelectorsCountryYear(){
-				if (document.getElementById("selectorsCountryYear").style.display = "block"){
-					document.getElementById("selectorsCountryYear").style.display = "none";
-				}
-				if (document.getElementById("selectorsCountryYear").style.display = "none"){
-					document.getElementById("selectorsCountryYear").style.display = "block";
-				}
-			}
-			
-			function stateSet(){
-				var stateDup = [];
-				var myData = countryYearDataSetChooser();
-				for (var i = 0; i < myData.length; i++){
-					stateDup.push(myData[i]["state"]);
-				}
-				var stateSet = new Set(stateDup);
-				var stateUnique = Array.from(stateSet);
-				return stateUnique;
-			}
-			function dropDownList(){
-				var select = document.getElementById("dropdown");
-				var states = stateSet();
-				for(var i = 0; i < states.length; i++) {
-					var opt = states[i];
-					var el = document.createElement("option");
-					el.textContent = opt;
-					el.value = opt;
-					select.appendChild(el);
-				}
-			}
-			var selectedCountries = [];
-			function selectedCountriesList(){
-				var element = document.getElementById("dropdown").value;
-				if (selectedCountries.includes(element)){
-					selectedCountries.splice(selectedCountries.indexOf(element), 1);
-				}
-				else {
-					selectedCountries.push(element);
-				}
-				
-				return selectedCountries;
-			}
-			
-			function filterByStateCountryYear(){
-				var input, table, tr, td, i;
-				input = selectedCountriesList();
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-				if (input.includes("all")){
-					for (i = 0; i < tr.length; i++) {
-						tr[i].style.display = "";    
-					}
-					selectedCountries = [];
-					document.getElementById("countriesSelected").innerHTML = selectedCountries;
-					return;
-				}
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[0];
-					if (td) {
-					  if (input.includes(td.innerHTML)) {
-						tr[i].style.display = "";
-					  } else {
-						tr[i].style.display = "none";
-					  }
-					}       
-				}
-				
-				document.getElementById("countriesSelected").innerHTML = input.join(", ");
-			}
-			
-			function checkYearRangeSelector(){
-				var minYear = document.getElementById("minimumYearCountryYear").value;
-				var maxYear = document.getElementById("maximumYearCountryYear").value;
-				let tf = true;
-				if (minYear > maxYear){
-					tf = false;
-				}
-				if ($('#generated_Data table tbody tr:visible').length <= 1){
-					tf = false;
-				}
-				return Boolean(tf);
-			}
-			function selectedYearListCountryYear(){
-				var minYear = document.getElementById("minimumYear").value;
-				var maxYear = document.getElementById("maximumYear").value;
-				var validYears=[];
-				for(var i = minYear; i <= maxYear; i++) {
-					validYears.push(i.toString());
-				}
-				return validYears;
-			}
-			
-			function filterByYearCountryYear(){
-				var input, table, tr, td, i;
-				input = selectedYearListCountryYear();
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[1];
-					if (td) {
-					  if (input.includes(td.innerHTML,0)) {
-						tr[i].style.display = "";
-					  } else {
-						tr[i].style.display = "none";
-					  }
-					}       
-				}
-				let truefalseYear = checkYearRangeSelector();
-				if(truefalseYear == false){
-					document.getElementById("WarningYearSelector").style.display = "block";
-					return;
-				}
-				else{
-					document.getElementById("WarningYearSelector").style.display = "none";				
-				}
-			}
-			
-			function toggleSelectorsDyadYear(){
-				if (document.getElementById("selectorsDyadYear").style.display = "block"){
-					document.getElementById("selectorsDyadYear").style.display = "none";
-				}
-				if (document.getElementById("selectorsDyadYear").style.display = "none"){
-					document.getElementById("selectorsDyadYear").style.display = "block";
-				}			}
-			
-			function stateSetDyadYear1(){
-				var stateDup = [];
-				var myData = dyadYearDataSetChooser();
-				var table, tr, td, i;
-				
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[1];
-					if (td){
-						stateDup.push(td.innerHTML);       
-					}
-				}
-				var stateSet = new Set(stateDup);
-				var stateUnique = Array.from(stateSet);
-				return stateUnique;
-			}
-			function dropDownListDyadYear1(){
-				var select = document.getElementById("dropdown1");
-				var states = stateSetDyadYear1();
-				for(var i = 0; i < states.length; i++) {
-					var opt = states[i];
-					var el = document.createElement("option");
-					el.textContent = opt;
-					el.value = opt;
-					select.appendChild(el);
-				}
-			}
-			var selectedCountriesFirst = [];
-			function selectedCountriesListDyadYear1(){
-				var element = document.getElementById("dropdown1").value;
-				if (selectedCountriesFirst.includes(element)){
-					selectedCountriesFirst.splice(selectedCountriesFirst.indexOf(element), 1);
-				}
-				else {
-					selectedCountriesFirst.push(element);
-				}
-				
-				return selectedCountriesFirst;
-			}
-			
-			function stateSetDyadYear2(){
-				var stateDup = [];
-				var table, tr, td, i;
-				
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[3];
-					if (td){
-						stateDup.push(td.innerHTML);       
-					}
-				}
-				var stateSet = new Set(stateDup);
-				var stateUnique = Array.from(stateSet);
-				return stateUnique;
-			}
-			function dropDownListDyadYear2(){
-				var select = document.getElementById("dropdown2");
-				var states = stateSetDyadYear2();
-				for(var i = 0; i < states.length; i++) {
-					var opt = states[i];
-					var el = document.createElement("option");
-					el.textContent = opt;
-					el.value = opt;
-					select.appendChild(el);
-				}
-			}
-			var selectedCountriesSecond = [];
-			function selectedCountriesListDyadYear2(){
-				var element = document.getElementById("dropdown2").value;
-				if (selectedCountriesSecond.includes(element)){
-					selectedCountriesSecond.splice(selectedCountriesSecond.indexOf(element), 1);
-				}
-				else {
-					selectedCountriesSecond.push(element);
-				}
-				
-				return selectedCountriesSecond;
-			}
-			
-			var input1Dyad = ["all"];
-			var input2Dyad = ["all"];
-
-			function setInput1Dyad(){
-				input1Dyad=selectedCountriesListDyadYear1();
-				return input1Dyad;
-			}
-			function setInput2Dyad(){
-				input2Dyad=selectedCountriesListDyadYear2();
-				return input2Dyad;
-			}
-			function filterByStateDyadYear(){
-				var input1, input2, table, tr, td, td2, i;
-				input1 = input1Dyad;
-				input2 = input2Dyad;
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-				if (input1.includes("all") && input2.includes("all")){
-					for (i = 0; i < tr.length; i++) {
-						tr[i].style.display = "";    
-					}
-					selectedCountriesFirst = [];
-					selectedCountriesSecond = [];
-					document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
-					document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
-					return;
-				}
-				else if(input1.includes("all") || input2.includes("all")){
-				
-					if(input2.includes("all")){
-						for (i = 0; i < tr.length; i++) {
-							td = tr[i].getElementsByTagName("td")[1];
-							if (td) {
-							  if (input1.includes(td.innerHTML)) {
-								tr[i].style.display = "";
-							  } else {
-								tr[i].style.display = "none";
-							  }
-							}       
-						}
-					}
-					
-					if (input1.includes("all")){
-						for (i = 0; i < tr.length; i++) {
-							td2 = tr[i].getElementsByTagName("td")[3];
-							if (td2) {
-							  if (input2.includes(td2.innerHTML)) {
-								tr[i].style.display = "";
-							  } else {
-								tr[i].style.display = "none";
-							  }
-							}       
-						}
-					}
-					if (input1.includes("all")){
-						document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
-						selectedCountriesFirst = [];
-						document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
-					}
-					else{
-						document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
-						selectedCountriesSecond = [];
-						document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
-					}
-					return;
-				}
-				else{
-					for (i = 0; i < tr.length; i++) {
-						td = tr[i].getElementsByTagName("td")[1];
-						td2 = tr[i].getElementsByTagName("td")[3];
-						if (td || td2) {
-						  if (input1.includes(td.innerHTML) && input2.includes(td2.innerHTML)) {
-							tr[i].style.display = "";
-						  } else {
-							tr[i].style.display = "none";
-						  }
-						}       
-					}
-				}
-				
-				document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
-				document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
-			}
-			
-			function checkYearRangeSelectorDyadYear(){
-				var minYear = document.getElementById("minimumYearDyad").value;
-				var maxYear = document.getElementById("maximumYearDyad").value;
-				let tf = true;
-				if (minYear > maxYear){
-					tf = false;
-				}
-				if ($('#generated_Data table tbody tr:visible').length <= 1){
-					tf = false;
-				}
-				return Boolean(tf);
-			}
-			function selectedYearListDyadYear(){
-				var minYear = document.getElementById("minimumYearDyad").value;
-				var maxYear = document.getElementById("maximumYearDyad").value;
-				var validYears=[];
-				for(var i = minYear; i <= maxYear; i++) {
-					validYears.push(i.toString());
-				}
-				return validYears;
-			}
-			
-			function filterByYearDyadYear(){
-				var input, table, tr, td, i;
-				input = selectedYearListDyadYear();
-				table = document.getElementById("generated_Data");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[4];
-					if (td) {
-					  if (input.includes(td.innerHTML,0)) {
-						tr[i].style.display = "";
-					  } else {
-						tr[i].style.display = "none";
-					  }
-					}       
-				}
-				let truefalseYear = checkYearRangeSelectorDyadYear();
-				if(truefalseYear == false){
-					document.getElementById("WarningYearSelector").style.display = "block";
-					return;
-				}
-				else{
-					document.getElementById("WarningYearSelector").style.display = "none";				
-				}
-			}
-			
-			
-			function checkCheckboxes(){
-				let tf = true;
-				if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
-					tf = false;
-				}
-				if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1 || $('input[name*="MID"]:checked').length == 1){
-					tf = false;
-				}
-				return Boolean(tf);
-			}
-			function checkTable(){
-				let tf = true;
-				if (document.querySelectorAll("#generated_Data table tr").length <=0){
-					tf = false;
-				}
-				if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1 && !document.getElementById("DirectContiguity").checked){
-					tf = false;
-				}
-				return Boolean(tf);
-			}
-			
-			function update(){
-				return new Promise((resolve,reject)=>{
-					var element = document.getElementById("progressBar");
-					var width = 1;
-					var identity = setInterval(scene, 10);
-					function scene(){  
-						if (width >= 100){
-							clearInterval(identity);
-							element.style.display = "none";
-						}
-						else{
-							width++;
-							element.style.width = width + '%';
-						}
-					}					
-					setTimeout(()=>{
-						console.log("");
-						resolve();
-						;} , 2000
-					);
-				});
-			}
-			function toggleProgressBar(){
-				return new Promise((resolve,reject)=>{
-					document.getElementById("progressStatus").style.display = "inline-block";
-				
-					setTimeout(()=>{
-						console.log("");
-						resolve();
-						;} , 1
-					);
-				});
-			}
-			
-			async function CreateTable() {
-				await toggleProgressBar();
-				let truefalse = checkCheckboxes();
-				if(truefalse == false){
-					document.getElementById("Warning").style.display = "block";
-					return;
-				}
-				else{
-					document.getElementById("Warning").style.display = "none";				
-				}
-				if(document.getElementById("countryYear").checked){
-					var myData = countryYearDataSetChooser();
-				}
-				else if(document.getElementById("dyadYear").checked){
-					var myData = dyadYearDataSetChooser();
-				}
-				
-				//columns to be displayed
-				let displayColumns = variableChooser();
-				
-				//filter data
-				 myData = myData.map(x => {
-				  let newObj = {};
-				  for (col of displayColumns) {
-					newObj[col] = x[col];
-				  }
-				  return newObj;
-				});
-
-				// values for headers
-				var col = [];
-				for (var i = 0; i < myData.length; i++) {
-				  for (var key in myData[i]) {
-					if (col.indexOf(key) === -1) {
-					  col.push(key);
-					}
-				  }
-				}
-				// the table
-				var table = document.createElement("table");
-				// create headers
-				var tr = table.insertRow(-1); // TABLE ROW.
-				for (var i = 0; i < col.length; i++) {
-				  var th = document.createElement("th"); // TABLE HEADER.
-				  th.innerHTML = col[i];
-				  tr.appendChild(th);
-				}
-				// add rows
-				let booleantf = true;
-				for (var i = 0; i < myData.length; i++) {
-				  booleantf = true;
-				  for(var k=0; k<col.length; k++) {
-					if(myData[i][col[k]]==undefined){
-						booleantf = false;
-					}
-				  }
-				  if(booleantf == true){
-					  tr = table.insertRow(-1);
-					  for (var j = 0; j < col.length; j++) {
-						var tabCell = tr.insertCell(-1);
-						tabCell.innerHTML = myData[i][col[j]];
-					  }
-				  }
-				}
-				await update();
-				// Output
-				var divContainer = document.getElementById("showData");
-				divContainer.innerHTML = "";
-				divContainer.appendChild(table);
-				
-				
-				if(document.getElementById("countryYear").checked){
-					toggleSelectorsCountryYear();
-					dropDownList();
-				}
-				
-				if(document.getElementById("dyadYear").checked){
-					toggleSelectorsDyadYear();
-					dropDownListDyadYear1();
-					dropDownListDyadYear2();
-				}
-				
-				document.getElementById("createButton").disabled = true;
-				document.getElementById("downloadButton").style.display = "inline-block";
-				
-			}		
-			
-
-			function downloadCSV(csv, filename) {
-				var csvFile;
-				var downloadLink;
-
-				// CSV file
-				csvFile = new Blob([csv], {type: "text/csv"});
-
-				// Download link
-				downloadLink = document.createElement("a");
-
-				// File name
-				downloadLink.download = filename;
-
-				// Create a link to the file
-				downloadLink.href = window.URL.createObjectURL(csvFile);
-
-				// Hide download link
-				downloadLink.style.display = "none";
-
-				// Add the link to DOM
-				document.body.appendChild(downloadLink);
-
-				// Click download link
-				downloadLink.click();
-			}
-			function exportTableToCSV(filename) {
-				let truefalse = checkTable();
-				if(truefalse == false){
-					document.getElementById("WarningDownload").style.display = "block";
-					return;
-				}
-				else{
-					document.getElementById("WarningDownload").style.display = "none";				
-				}
-				var csv = [];
-				var rows = $("table tr:visible");
-	
-				for (var i = 0; i < rows.length; i++) {
-					var row = [], cols = rows[i].querySelectorAll("#generated_Data td, #generated_Data th");
-					
-					for (var j = 0; j < cols.length; j++) {
-						row.push(cols[j].innerText);
-					}
-					csv.push(row.join(","));        
-				}
-
-				// Download CSV file
-				filename = filename + " " + new Date().toISOString().slice(0, 10) + ".csv";
-				downloadCSV(csv.join("\n"), filename);
-			}
-			 function findAllVariables() {
-			 	for (let variable in window) {
-			 		if (window.hasOwnProperty(variable)) {
-			 			console.log(variable);
-			 		}
-			 	}
-			 }
-		</script>
 		<div style="padding-left:20px">
 			<h4 style="font-family:arial;margin-top:20px">Dataset</h4>
 			<input type="radio" id="countryYear" name="dataGroup" value="countryYear" onclick="toggleDataGroups()">
@@ -1507,7 +243,7 @@
 			</div>
 			<div style="margin-bottom:0px" >
 					<input type="checkbox" id="ND_Data_MID" name="ND_Data_MID" value="ND_Data_MID" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
-					<label for="ND_Data_MID">Mid Data (Non-Directed)</label>
+					<label for="ND_Data_MID">Mid Data (Non-Directed) (1816-2014)</label>
 			</div>
 			<div id="divMID_Data_ND">
 				<input type="checkbox" id="mid_count_MID" name="mid_count_MID" class="MID_ND" value="mid_count_MID">
@@ -2302,6 +1038,214 @@
 					</table>
 				</div>
 		</div>
+		<div id="SecondStep">
+			<div id="qChooseCY" style="display:none;padding-left:20px;">
+				<p style="padding-bottom:0px;margin-bottom:0px;">Do you want to add variables from country-year data?</p>
+				<input type="radio" id="yesChooseCY" name="qChooseCY" value="yesChooseCY" onclick="displayChooseCYData()" style="margin-top:0px">
+				<label for="yesChooseCY">Yes</label>
+				<input type="radio" id="noChooseCY" name="qChooseCY" value="noChooseCY" onclick="displayChooseCYData()">
+					<label for="noChooseCY">No</label>
+			</div>
+			<div id="chooseCountryYearData" style="display:none;padding-left:20px">
+				<div style="margin-bottom:0px">
+					<input type="checkbox" id="NMC_5_0SecondStep" name="NMC_5_0SecondStep" value="NMC_5_0" onclick="toggleVariableSelectionDivSecondStep();toggleVariableTableDiv()">
+					<label for="NMC_5_0SecondStep">NMC_5_0 (1816-2012)</label>
+				</div>
+				<div id="divNMC_5_0SecondStep">
+					<input type="checkbox" id="milex_NMC_5_0SecondStep" name="milex_NMC_5_0SecondStep"  value="milex_NMC_5_0SecondStep">
+					<label for="milex_NMC_5_0SecondStep">milex</label>
+					<input type="checkbox" id="milper_NMC_5_0SecondStep" name="milper_NMC_5_0SecondStep"  value="milper_NMC_5_0SecondStep">
+					<label for="milper_NMC_5_0SecondStep">milper</label>
+					<input type="checkbox" id="irst_NMC_5_0SecondStep" name="irst_NMC_5_0SecondStep"  value="irst_NMC_5_0SecondStep">
+					<label for="irst_NMC_5_0SecondStep">irst</label>
+					<input type="checkbox" id="pec_NMC_5_0SecondStep" name="pec_NMC_5_0SecondStep"  value="pec_NMC_5_0SecondStep">
+					<label for="pec_NMC_5_0SecondStep">pec</label>
+					<input type="checkbox" id="tpop_NMC_5_0SecondStep" name="tpop_NMC_5_0SecondStep"  value="tpop_NMC_5_0SecondStep">
+					<label for="tpop_NMC_5_0SecondStep">total population</label>
+					<input type="checkbox" id="upop_NMC_5_0SecondStep" name="upop_NMC_5_0SecondStep"  value="upop_NMC_5_0SecondStep">
+					<label for="upop_NMC_5_0SecondStep">urban population</label>
+					<input type="checkbox" id="cinc_NMC_5_0SecondStep" name="cinc_NMC_5_0SecondStep"  value="cinc_NMC_5_0SecondStep">
+					<label for="cinc_NMC_5_0SecondStep">cinc</label>			
+				</div>
+				<div style="margin-bottom:0px">
+					<input type="checkbox" id="WRP_NATSecondStep" name="WRP_NATSecondStep" value="WRP_NAT" onclick="toggleVariableSelectionDivSecondStep();toggleVariableTableDiv();">
+					<label for="WRP_NATSecondStep">WRP_NAT (1945-2010)</label>
+				</div>
+				<div id="divWRP_NATSecondStep">
+					<input type="checkbox" id="chrstprot_WRP_NATSecondStep" name="chrstprot_WRP_NATSecondStep"  value="chrstprot_WRP_NATSecondStep">
+					<label for="chrstprot_WRP_NATSecondStep">chrstprot</label>
+					<input type="checkbox" id="chrstcat_WRP_NATSecondStep" name="chrstcat_WRP_NATSecondStep"  value="chrstcat_WRP_NATSecondStep">
+					<label for="chrstcat_WRP_NATSecondStep">chrstcat</label>
+					<input type="checkbox" id="chrstorth_WRP_NATSecondStep" name="chrstorth_WRP_NATSecondStep"  value="chrstorth_WRP_NATSecondStep">
+					<label for="chrstorth_WRP_NATSecondStep">chrstorth</label>
+					<input type="checkbox" id="chrstang_WRP_NATSecondStep" name="chrstang_WRP_NATSecondStep"  value="chrstang_WRP_NATSecondStep">
+					<label for="chrstang_WRP_NATSecondStep">chrstang</label>
+					<input type="checkbox" id="chrstothr_WRP_NATSecondStep" name="chrstothr_WRP_NATSecondStep"  value="chrstothr_WRP_NATSecondStep">
+					<label for="chrstothr_WRP_NATSecondStep">chrstothr</label>
+					<input type="checkbox" id="chrstgen_WRP_NATSecondStep" name="chrstgen_WRP_NATSecondStep"  value="chrstgen_WRP_NATSecondStep">
+					<label for="chrstgen_WRP_NATSecondStep">chrstgen</label><br>
+					<input type="checkbox" id="judorth_WRP_NATSecondStep" name="judorth_WRP_NATSecondStep"  value="judorth_WRP_NATSecondStep">
+					<label for="judorth_WRP_NATSecondStep">judorth</label>
+					<input type="checkbox" id="judcons_WRP_NATSecondStep" name="judcons_WRP_NATSecondStep"  value="judcons_WRP_NATSecondStep">
+					<label for="judcons_WRP_NATSecondStep">judcons</label>
+					<input type="checkbox" id="judref_WRP_NATSecondStep" name="judref_WRP_NATSecondStep"  value="judref_WRP_NATSecondStep">
+					<label for="judref_WRP_NATSecondStep">judref</label>
+					<input type="checkbox" id="judothr_WRP_NATSecondStep" name="judothr_WRP_NATSecondStep"  value="judothr_WRP_NATSecondStep">
+					<label for="judothr_WRP_NATSecondStep">judothr</label>	
+					<input type="checkbox" id="judgen_WRP_NATSecondStep" name="judgen_WRP_NATSecondStep"  value="judgen_WRP_NATSecondStep">
+					<label for="judgen_WRP_NATSecondStep">judgen</label><br>
+					<input type="checkbox" id="islmsun_WRP_NATSecondStep" name="islmsun_WRP_NATSecondStep"  value="islmsun_WRP_NATSecondStep">
+					<label for="islmsun_WRP_NATSecondStep">islmsun</label>
+					<input type="checkbox" id="islmshi_WRP_NATSecondStep" name="islmshi_WRP_NATSecondStep"  value="islmshi_WRP_NATSecondStep">
+					<label for="islmshi_WRP_NATSecondStep">islmshi</label>
+					<input type="checkbox" id="islmibd_WRP_NATSecondStep" name="islmibd_WRP_NATSecondStep"  value="islmibd_WRP_NATSecondStep">
+					<label for="islmibd_WRP_NATSecondStep">islmibd</label>
+					<input type="checkbox" id="islmnat_WRP_NATSecondStep" name="islmnat_WRP_NATSecondStep"  value="islmnat_WRP_NATSecondStep">
+					<label for="islmnat_WRP_NATSecondStep">islmnat</label>
+					<input type="checkbox" id="islmalw_WRP_NATSecondStep" name="islmalw_WRP_NATSecondStep"  value="islmalw_WRP_NATSecondStep">
+					<label for="islmalw_WRP_NATSecondStep">islmalw</label>
+					<input type="checkbox" id="islmahm_WRP_NATSecondStep" name="islmahm_WRP_NATSecondStep"  value="islmahm_WRP_NATSecondStep">
+					<label for="islmahm_WRP_NATSecondStep">islmahm</label>
+					<input type="checkbox" id="islmothr_WRP_NATSecondStep" name="islmothr_WRP_NATSecondStep"  value="islmothr_WRP_NATSecondStep">
+					<label for="islmothr_WRP_NATSecondStep">islmothr</label>
+					<input type="checkbox" id="islmgen_WRP_NATSecondStep" name="islmgen_WRP_NATSecondStep"  value="islmgen_WRP_NATSecondStep">
+					<label for="islmgen_WRP_NATSecondStep">islmgen</label><br>
+					<input type="checkbox" id="budmah_WRP_NATSecondStep" name="budmah_WRP_NATSecondStep"  value="budmah_WRP_NATSecondStep">
+					<label for="budmah_WRP_NATSecondStep">budmah</label>
+					<input type="checkbox" id="budthr_WRP_NATSecondStep" name="budthr_WRP_NATSecondStep"  value="budthr_WRP_NATSecondStep">
+					<label for="budthr_WRP_NATSecondStep">budthr</label>
+					<input type="checkbox" id="budothr_WRP_NATSecondStep" name="budothr_WRP_NATSecondStep"  value="budothr_WRP_NATSecondStep">
+					<label for="budothr_WRP_NATSecondStep">budothr</label>
+					<input type="checkbox" id="budgen_WRP_NATSecondStep" name="budgen_WRP_NATSecondStep"  value="budgen_WRP_NATSecondStep">
+					<label for="budgen_WRP_NATSecondStep">budgen</label><br>
+					<input type="checkbox" id="zorogen_WRP_NATSecondStep" name="zorogen_WRP_NATSecondStep"  value="zorogen_WRP_NATSecondStep">
+					<label for="zorogen_WRP_NATSecondStep">zorogen</label>	
+					<input type="checkbox" id="hindgen_WRP_NATSecondStep" name="hindgen_WRP_NATSecondStep"  value="hindgen_WRP_NATSecondStep">
+					<label for="hindgen_WRP_NATSecondStep">hindgen</label>
+					<input type="checkbox" id="sikhgen_WRP_NATSecondStep" name="sikhgen_WRP_NATSecondStep"  value="sikhgen_WRP_NATSecondStep">
+					<label for="sikhgen_WRP_NATSecondStep">sikhgen</label>
+					<input type="checkbox" id="shntgen_WRP_NATSecondStep" name="shntgen_WRP_NATSecondStep"  value="shntgen_WRP_NATSecondStep">
+					<label for="shntgen_WRP_NATSecondStep">shntgen</label>
+					<input type="checkbox" id="bahgen_WRP_NATSecondStep" name="bahgen_WRP_NATSecondStep"  value="bahgen_WRP_NATSecondStep">
+					<label for="bahgen_WRP_NATSecondStep">bahgen</label>
+					<input type="checkbox" id="taogen_WRP_NATSecondStep" name="taogen_WRP_NATSecondStep"  value="taogen_WRP_NATSecondStep">
+					<label for="taogen_WRP_NATSecondStep">taogen</label>
+					<input type="checkbox" id="jaingen_WRP_NATSecondStep" name="jaingen_WRP_NATSecondStep"  value="jaingen_WRP_NATSecondStep">
+					<label for="jaingen_WRP_NATSecondStep">jaingen</label>
+					<input type="checkbox" id="confgen_WRP_NATSecondStep" name="confgen_WRP_NATSecondStep"  value="confgen_WRP_NATSecondStep">
+					<label for="confgen_WRP_NATSecondStep">confgen</label>
+					<input type="checkbox" id="syncgen_WRP_NATSecondStep" name="syncgen_WRP_NATSecondStep"  value="syncgen_WRP_NATSecondStep">
+					<label for="syncgen_WRP_NATSecondStep">syncgen</label>
+					<input type="checkbox" id="anmgen_WRP_NATSecondStep" name="anmgen_WRP_NATSecondStep"  value="anmgen_WRP_NATSecondStep">
+					<label for="anmgen_WRP_NATSecondStep">anmgen</label><br>
+					<input type="checkbox" id="nonrelig_WRP_NATSecondStep" name="nonrelig_WRP_NATSecondStep"  value="nonrelig_WRP_NATSecondStep">
+					<label for="nonrelig_WRP_NATSecondStep">nonrelig</label>
+					<input type="checkbox" id="othrgen_WRP_NATSecondStep" name="othrgen_WRP_NATSecondStep"  value="othrgen_WRP_NATSecondStep">
+					<label for="othrgen_WRP_NATSecondStep">othrgen</label>
+					<input type="checkbox" id="sumrelig_WRP_NATSecondStep" name="sumrelig_WRP_NATSecondStep"  value="sumrelig_WRP_NATSecondStep">
+					<label for="sumrelig_WRP_NATSecondStep">sumrelig</label>
+					<input type="checkbox" id="pop_WRP_NATSecondStep" name="pop_WRP_NATSecondStep"  value="pop_WRP_NATSecondStep">
+					<label for="pop_WRP_NATSecondStep">population</label><br>
+					<input type="checkbox" id="chrstprotpct_WRP_NATSecondStep" name="chrstprotpct_WRP_NATSecondStep"  value="chrstprotpct_WRP_NATSecondStep">
+					<label for="chrstprotpct_WRP_NATSecondStep">chrstprotpct</label>
+					<input type="checkbox" id="chrstcatpct_WRP_NATSecondStep" name="chrstcatpct_WRP_NATSecondStep"  value="chrstcatpct_WRP_NATSecondStep">
+					<label for="chrstcatpct_WRP_NATSecondStep">chrstcatpct</label>
+					<input type="checkbox" id="chrstorthpct_WRP_NATSecondStep" name="chrstorthpct_WRP_NATSecondStep"  value="chrstorthpct_WRP_NATSecondStep">
+					<label for="chrstorthpct_WRP_NATSecondStep">chrstorthpct</label>
+					<input type="checkbox" id="chrstangpct_WRP_NATSecondStep" name="chrstangpct_WRP_NATSecondStep"  value="chrstangpct_WRP_NATSecondStep">
+					<label for="chrstangpct_WRP_NATSecondStep">chrstangpct</label>
+					<input type="checkbox" id="chrstothrpct_WRP_NATSecondStep" name="chrstothrpct_WRP_NATSecondStep"  value="chrstothrpct_WRP_NATSecondStep">
+					<label for="chrstothrpct_WRP_NATSecondStep">chrstothrpct</label>
+					<input type="checkbox" id="chrstgenpct_WRP_NATSecondStep" name="chrstgenpct_WRP_NATSecondStep"  value="chrstgenpct_WRP_NATSecondStep">
+					<label for="chrstgenpct_WRP_NATSecondStep">chrstgenpct</label><br>
+					<input type="checkbox" id="judorthpct_WRP_NATSecondStep" name="judorthpct_WRP_NATSecondStep"  value="judorthpct_WRP_NATSecondStep">
+					<label for="judorthpct_WRP_NATSecondStep">judorthpct</label>
+					<input type="checkbox" id="judconspct_WRP_NATSecondStep" name="judconspct_WRP_NATSecondStep"  value="judconspct_WRP_NATSecondStep">
+					<label for="judconspct_WRP_NATSecondStep">judconspct</label>
+					<input type="checkbox" id="judrefpct_WRP_NATSecondStep" name="judrefpct_WRP_NATSecondStep"  value="judrefpct_WRP_NATSecondStep">
+					<label for="judrefpct_WRP_NATSecondStep">judrefpct</label>
+					<input type="checkbox" id="judothrpct_WRP_NATSecondStep" name="judothrpct_WRP_NATSecondStep"  value="judothrpct_WRP_NATSecondStep">
+					<label for="judothrpct_WRP_NATSecondStep">judothrpct</label>	
+					<input type="checkbox" id="judgenpct_WRP_NATSecondStep" name="judgenpct_WRP_NATSecondStep"  value="judgenpct_WRP_NATSecondStep">
+					<label for="judgenpct_WRP_NATSecondStep">judgenpct</label><br>
+					<input type="checkbox" id="islmsunpct_WRP_NATSecondStep" name="islmsunpct_WRP_NATSecondStep"  value="islmsunpct_WRP_NATSecondStep">
+					<label for="islmsunpct_WRP_NATSecondStep">islmsunpct</label>
+					<input type="checkbox" id="islmshipct_WRP_NATSecondStep" name="islmshipct_WRP_NATSecondStep"  value="islmshipct_WRP_NATSecondStep">
+					<label for="islmshipct_WRP_NATSecondStep">islmshipct</label>
+					<input type="checkbox" id="islmibdpct_WRP_NATSecondStep" name="islmibdpct_WRP_NATSecondStep"  value="islmibdpct_WRP_NATSecondStep">
+					<label for="islmibdpct_WRP_NATSecondStep">islmibdpct</label>
+					<input type="checkbox" id="islmnatpct_WRP_NATSecondStep" name="islmnatpct_WRP_NATSecondStep"  value="islmnatpct_WRP_NATSecondStep">
+					<label for="islmnatpct_WRP_NATSecondStep">islmnatpct</label>
+					<input type="checkbox" id="islmalwpct_WRP_NATSecondStep" name="islmalwpct_WRP_NATSecondStep"  value="islmalwpct_WRP_NATSecondStep">
+					<label for="islmalwpct_WRP_NATSecondStep">islmalwpct</label>
+					<input type="checkbox" id="islmahmpct_WRP_NATSecondStep" name="islmahmpct_WRP_NATSecondStep"  value="islmahmpct_WRP_NATSecondStep">
+					<label for="islmahmpct_WRP_NATSecondStep">islmahmpct</label>
+					<input type="checkbox" id="islmothrpct_WRP_NATSecondStep" name="islmothrpct_WRP_NATSecondStep"  value="islmothrpct_WRP_NATSecondStep">
+					<label for="islmothrpct_WRP_NATSecondStep">islmothrpct</label>
+					<input type="checkbox" id="islmgenpct_WRP_NATSecondStep" name="islmgenpct_WRP_NATSecondStep"  value="islmgenpct_WRP_NATSecondStep">
+					<label for="islmgenpct_WRP_NATSecondStep">islmgenpct</label><br>
+					<input type="checkbox" id="budmahpct_WRP_NATSecondStep" name="budmahpct_WRP_NATSecondStep"  value="budmahpct_WRP_NATSecondStep">
+					<label for="budmahpct_WRP_NATSecondStep">budmahpct</label>
+					<input type="checkbox" id="budthrpct_WRP_NATSecondStep" name="budthrpct_WRP_NATSecondStep"  value="budthrpct_WRP_NATSecondStep">
+					<label for="budthrpct_WRP_NATSecondStep">budthrpct</label>
+					<input type="checkbox" id="budothrpct_WRP_NATSecondStep" name="budothrpct_WRP_NATSecondStep"  value="budothrpct_WRP_NATSecondStep">
+					<label for="budothrpct_WRP_NATSecondStep">budothrpct</label>
+					<input type="checkbox" id="budgenpct_WRP_NATSecondStep" name="budgenpct_WRP_NATSecondStep"  value="budgenpct_WRP_NATSecondStep">
+					<label for="budgenpct_WRP_NATSecondStep">budgenpct</label>	<br>
+					<input type="checkbox" id="zorogenpct_WRP_NATSecondStep" name="zorogenpct_WRP_NATSecondStep"  value="zorogenpct_WRP_NATSecondStep">
+					<label for="zorogenpct_WRP_NATSecondStep">zorogenpct</label>	
+					<input type="checkbox" id="hindgenpct_WRP_NATSecondStep" name="hindgenpct_WRP_NATSecondStep"  value="hindgenpct_WRP_NATSecondStep">
+					<label for="hindgenpct_WRP_NATSecondStep">hindgenpct</label>
+					<input type="checkbox" id="sikhgenpct_WRP_NATSecondStep" name="sikhgenpct_WRP_NATSecondStep"  value="sikhgenpct_WRP_NATSecondStep">
+					<label for="sikhgenpct_WRP_NATSecondStep">sikhgenpct</label>
+					<input type="checkbox" id="shntgenpct_WRP_NATSecondStep" name="shntgenpct_WRP_NATSecondStep"  value="shntgenpct_WRP_NATSecondStep">
+					<label for="shntgenpct_WRP_NATSecondStep">shntgenpct</label>
+					<input type="checkbox" id="bahgenpct_WRP_NATSecondStep" name="bahgenpct_WRP_NATSecondStep"  value="bahgenpct_WRP_NATSecondStep">
+					<label for="bahgenpct_WRP_NATSecondStep">bahgenpct</label>
+					<input type="checkbox" id="taogenpct_WRP_NATSecondStep" name="taogenpct_WRP_NATSecondStep"  value="taogenpct_WRP_NATSecondStep">
+					<label for="taogenpct_WRP_NATSecondStep">taogenpct</label>
+					<input type="checkbox" id="jaingenpct_WRP_NATSecondStep" name="jaingenpct_WRP_NATSecondStep"  value="jaingenpct_WRP_NATSecondStep">
+					<label for="jaingenpct_WRP_NATSecondStep">jaingenpct</label>
+					<input type="checkbox" id="confgenpct_WRP_NATSecondStep" name="confgenpct_WRP_NATSecondStep"  value="confgenpct_WRP_NATSecondStep">
+					<label for="confgenpct_WRP_NATSecondStep">confgenpct</label>
+					<input type="checkbox" id="syncgenpct_WRP_NATSecondStep" name="syncgenpct_WRP_NATSecondStep"  value="syncgenpct_WRP_NATSecondStep">
+					<label for="syncgenpct_WRP_NATSecondStep">syncgenpct</label>
+					<input type="checkbox" id="anmgenpct_WRP_NATSecondStep" name="anmgenpct_WRP_NATSecondStep"  value="anmgenpct_WRP_NATSecondStep">
+					<label for="anmgenpct_WRP_NATSecondStep">anmgenpct</label><br>
+					<input type="checkbox" id="nonreligpct_WRP_NATSecondStep" name="nonreligpct_WRP_NATSecondStep"  value="nonreligpct_WRP_NATSecondStep">
+					<label for="nonreligpct_WRP_NATSecondStep">nonreligpct</label>
+					<input type="checkbox" id="othrgenpct_WRP_NATSecondStep" name="othrgenpct_WRP_NATSecondStep"  value="othrgenpct_WRP_NATSecondStep">
+					<label for="othrgenpct_WRP_NATSecondStep">othrgenpct</label>
+					<input type="checkbox" id="sumreligpct_WRP_NATSecondStep" name="sumreligpct_WRP_NATSecondStep"  value="sumreligpct_WRP_NATSecondStep">
+					<label for="sumreligpct_WRP_NATSecondStep">sumreligpct</label>
+					<input type="checkbox" id="total_WRP_NATSecondStep" name="total_WRP_NATSecondStep"  value="total_WRP_NATSecondStep">
+					<label for="total_WRP_NATSecondStep">total</label>
+					<input type="checkbox" id="dualrelig_WRP_NATSecondStep" name="dualrelig_WRP_NATSecondStep"  value="dualrelig_WRP_NATSecondStep">
+					<label for="dualrelig_WRP_NATSecondStep">dualrelig</label><br>
+					<input type="checkbox" id="datatype_WRP_NATSecondStep" name="datatype_WRP_NATSecondStep"  value="datatype_WRP_NATSecondStep">
+					<label for="datatype_WRP_NATSecondStep">datatype</label>
+					<input type="checkbox" id="sourcereliab_WRP_NATSecondStep" name="sourcereliab_WRP_NATSecondStep"  value="sourcereliab_WRP_NATSecondStep">
+					<label for="sourcereliab_WRP_NATSecondStep">sourcereliab</label>
+					<input type="checkbox" id="recreliab_WRP_NATSecondStep" name="recreliab_WRP_NATSecondStep"  value="recreliab_WRP_NATSecondStep">
+					<label for="recreliab_WRP_NATSecondStep">recreliab</label>
+					<input type="checkbox" id="reliabilevel_WRP_NATSecondStep" name="reliabilevel_WRP_NATSecondStep"  value="reliabilevel_WRP_NATSecondStep">
+					<label for="reliabilevel_WRP_NATSecondStep">reliabilevel</label>
+					<input type="checkbox" id="sourcecode_WRP_NATSecondStep" name="sourcecode_WRP_NATSecondStep"  value="sourcecode_WRP_NATSecondStep">
+					<label for="sourcecode_WRP_NATSecondStep">sourcecode</label>
+				</div>
+				<div style="margin-bottom:0px">
+					<input type="checkbox" id="Major_PowersSecondStep" name="Major_PowersSecondStep" value="Major_Powers" onclick="toggleVariableSelectionDivSecondStep();toggleVariableTableDiv()">
+					<label for="Major_PowersSecondStep">COW States and Major Powers (1816-2014)</label>
+				</div>
+				<div id="divMajor_PowersSecondStep">
+					<input type="checkbox" id="statename_Major_PowersSecondStep" name="statename_Major_PowersSecondStep" value="statename_Major_PowersSecondStep">
+					<label for="statename_Major_Powers">statename</label>
+					<input type="checkbox" id="major_Major_PowersSecondStep" name="major_Major_PowersSecondStep" value="major_Major_PowersSecondStep">
+					<label for="major_Major_Powers">major</label>
+					
+				</div>
+			</div>
+		</div>
 		<div id="selectorsCountryYear" style="display:none;">
 			<div style="display:inline-block;padding-left:20px;" id="selectCountry">
 				<br>
@@ -2368,7 +1312,10 @@
 		<div id="buttons">
 			<div style="padding-left:20px;display:inline-block">
 				<br>
-				<input type="button" id = "createButton" onclick="CreateTable();" value="Next"/>
+				<input type="button" id = "createButton" onclick="CreateTable()" value="Continue"/>
+			</div>
+			<div style="display:none" id="createButtonSecondStep">
+				<button onclick="AddColumns();" id="buttonSecond">Next</button>
 			</div>
 			<div style="display: none" id="downloadButton">
 				<button onclick="exportTableToCSV('newgene')">Download CSV File</button>
