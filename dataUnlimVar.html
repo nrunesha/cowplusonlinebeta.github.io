@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang = "en">
 	<head>
-		<title> NewGene </title>
+		<title> COW Plus Online </title>
 		<meta charset = "utf-8" />
-		<meta name="description" content="NewGene is a tool for teaching about and managing the types of data commonly used to quantitatively study international relations. NewGene is an complete rewrite of the popular EuGene software.  A special thank you to the NSF for making this possible! For more on NewGene, please visit our YouTube Channel, see our conceptual manual (published in the Journal of Conflict Resolution), or read this article (and watch the presentation) about NewGene. You can download NewGene for Windows or Mac.">
-		<meta name="keywords" content="NewGene software, Professor Poast Newgene, data management software ir, international relations data">
+		<meta name="description" content="COW Plus Online data manager is online platform for managing data related to international relations, primarily international conflict. If you are conducting research on war or international security, this platform will help you create a comprehensive and easily manipulable dataset for quantitative analysis.">
+		<meta name="keywords" content="COW Plus Online, Professor Poast COW Plus Online, data management software ir, correlates of war, international relations data">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="datafiles/NMC_5_0_DataUnlim.js"></script>
 		<script src="datafiles/WRP_NATUnlim.js"></script>
@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<header style="padding:-20px">
-			<h1 class="headerone">NewGene Software</h1>
+			<h1 class="headerone">COW Plus Online</h1>
 			<nav>
 				<div class="topnav">
 					<a href="index.html">Home</a>
@@ -35,201 +35,16 @@
 		</div>
 		<div id="countryYearData">
 			<div style="margin-bottom:0px">
-				<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+				<input type="checkbox" id="NMC_5_0" name="dataset_NMC_5_0" value="NMC_5_0" onclick="toggleVariableTableDiv()">
 				<label for="NMC_5_0">NMC_5_0 (1816-2012)</label>
 			</div>
-			<div id="divNMC_5_0">
-				<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
-				<label for="milex_NMC_5_0">milex</label>
-				<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
-				<label for="milper_NMC_5_0">milper</label>
-				<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" class="NMC_5_0" value="irst_NMC_5_0">
-				<label for="irst_NMC_5_0">irst</label>
-				<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" class="NMC_5_0" value="pec_NMC_5_0">
-				<label for="pec_NMC_5_0">pec</label>
-				<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" class="NMC_5_0" value="tpop_NMC_5_0">
-				<label for="tpop_NMC_5_0">total population</label>
-				<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" class="NMC_5_0" value="upop_NMC_5_0">
-				<label for="upop_NMC_5_0">urban population</label>
-				<input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0">
-				<label for="cinc_NMC_5_0">cinc</label>			
-			</div>
 			<div style="margin-bottom:0px">
-				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv();">
+				<input type="checkbox" id="WRP_NAT" name="dataset_WRP_NAT" value="WRP_NAT" onclick="toggleVariableTableDiv();">
 				<label for="WRP_NAT">WRP_NAT (1945-2010)</label>
 			</div>
-			<div id="divWRP_NAT">
-				<input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT">
-				<label for="chrstprot_WRP_NAT">chrstprot</label>
-				<input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT">
-				<label for="chrstcat_WRP_NAT">chrstcat</label>
-				<input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" class="WRP_NAT" value="chrstorth_WRP_NAT">
-				<label for="chrstorth_WRP_NAT">chrstorth</label>
-				<input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" class="WRP_NAT" value="chrstang_WRP_NAT">
-				<label for="chrstang_WRP_NAT">chrstang</label>
-				<input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" class="WRP_NAT" value="chrstothr_WRP_NAT">
-				<label for="chrstothr_WRP_NAT">chrstothr</label>
-				<input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" class="WRP_NAT" value="chrstgen_WRP_NAT">
-				<label for="chrstgen_WRP_NAT">chrstgen</label><br>
-				<input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" class="WRP_NAT" value="judorth_WRP_NAT">
-				<label for="judorth_WRP_NAT">judorth</label>
-				<input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" class="WRP_NAT" value="judcons_WRP_NAT">
-				<label for="judcons_WRP_NAT">judcons</label>
-				<input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" class="WRP_NAT" value="judref_WRP_NAT">
-				<label for="judref_WRP_NAT">judref</label>
-				<input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" class="WRP_NAT" value="judothr_WRP_NAT">
-				<label for="judothr_WRP_NAT">judothr</label>	
-				<input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" class="WRP_NAT" value="judgen_WRP_NAT">
-				<label for="judgen_WRP_NAT">judgen</label><br>
-				<input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" class="WRP_NAT" value="islmsun_WRP_NAT">
-				<label for="islmsun_WRP_NAT">islmsun</label>
-				<input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" class="WRP_NAT" value="islmshi_WRP_NAT">
-				<label for="islmshi_WRP_NAT">islmshi</label>
-				<input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" class="WRP_NAT" value="islmibd_WRP_NAT">
-				<label for="islmibd_WRP_NAT">islmibd</label>
-				<input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" class="WRP_NAT" value="islmnat_WRP_NAT">
-				<label for="islmnat_WRP_NAT">islmnat</label>
-				<input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" class="WRP_NAT" value="islmalw_WRP_NAT">
-				<label for="islmalw_WRP_NAT">islmalw</label>
-				<input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" class="WRP_NAT" value="islmahm_WRP_NAT">
-				<label for="islmahm_WRP_NAT">islmahm</label>
-				<input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" class="WRP_NAT" value="islmothr_WRP_NAT">
-				<label for="islmothr_WRP_NAT">islmothr</label>
-				<input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" class="WRP_NAT" value="islmgen_WRP_NAT">
-				<label for="islmgen_WRP_NAT">islmgen</label><br>
-				<input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" class="WRP_NAT" value="budmah_WRP_NAT">
-				<label for="budmah_WRP_NAT">budmah</label>
-				<input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" class="WRP_NAT" value="budthr_WRP_NAT">
-				<label for="budthr_WRP_NAT">budthr</label>
-				<input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" class="WRP_NAT" value="budothr_WRP_NAT">
-				<label for="budothr_WRP_NAT">budothr</label>
-				<input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" class="WRP_NAT" value="budgen_WRP_NAT">
-				<label for="budgen_WRP_NAT">budgen</label><br>
-				<input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" class="WRP_NAT" value="zorogen_WRP_NAT">
-				<label for="zorogen_WRP_NAT">zorogen</label>	
-				<input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" class="WRP_NAT" value="hindgen_WRP_NAT">
-				<label for="hindgen_WRP_NAT">hindgen</label>
-				<input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" class="WRP_NAT" value="sikhgen_WRP_NAT">
-				<label for="sikhgen_WRP_NAT">sikhgen</label>
-				<input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" class="WRP_NAT" value="shntgen_WRP_NAT">
-				<label for="shntgen_WRP_NAT">shntgen</label>
-				<input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" class="WRP_NAT" value="bahgen_WRP_NAT">
-				<label for="bahgen_WRP_NAT">bahgen</label>
-				<input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" class="WRP_NAT" value="taogen_WRP_NAT">
-				<label for="taogen_WRP_NAT">taogen</label>
-				<input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" class="WRP_NAT" value="jaingen_WRP_NAT">
-				<label for="jaingen_WRP_NAT">jaingen</label>
-				<input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" class="WRP_NAT" value="confgen_WRP_NAT">
-				<label for="confgen_WRP_NAT">confgen</label>
-				<input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" class="WRP_NAT" value="syncgen_WRP_NAT">
-				<label for="syncgen_WRP_NAT">syncgen</label>
-				<input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" class="WRP_NAT" value="anmgen_WRP_NAT">
-				<label for="anmgen_WRP_NAT">anmgen</label><br>
-				<input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" class="WRP_NAT" value="nonrelig_WRP_NAT">
-				<label for="nonrelig_WRP_NAT">nonrelig</label>
-				<input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" class="WRP_NAT" value="othrgen_WRP_NAT">
-				<label for="othrgen_WRP_NAT">othrgen</label>
-				<input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" class="WRP_NAT" value="sumrelig_WRP_NAT">
-				<label for="sumrelig_WRP_NAT">sumrelig</label>
-				<input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" class="WRP_NAT" value="pop_WRP_NAT">
-				<label for="pop_WRP_NAT">population</label><br>
-				<input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" class="WRP_NAT" value="chrstprotpct_WRP_NAT">
-				<label for="chrstprotpct_WRP_NAT">chrstprotpct</label>
-				<input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" class="WRP_NAT" value="chrstcatpct_WRP_NAT">
-				<label for="chrstcatpct_WRP_NAT">chrstcatpct</label>
-				<input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" class="WRP_NAT" value="chrstorthpct_WRP_NAT">
-				<label for="chrstorthpct_WRP_NAT">chrstorthpct</label>
-				<input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" class="WRP_NAT" value="chrstangpct_WRP_NAT">
-				<label for="chrstangpct_WRP_NAT">chrstangpct</label>
-				<input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" class="WRP_NAT" value="chrstothrpct_WRP_NAT">
-				<label for="chrstothrpct_WRP_NAT">chrstothrpct</label>
-				<input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" class="WRP_NAT" value="chrstgenpct_WRP_NAT">
-				<label for="chrstgenpct_WRP_NAT">chrstgenpct</label><br>
-				<input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" class="WRP_NAT" value="judorthpct_WRP_NAT">
-				<label for="judorthpct_WRP_NAT">judorthpct</label>
-				<input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" class="WRP_NAT" value="judconspct_WRP_NAT">
-				<label for="judconspct_WRP_NAT">judconspct</label>
-				<input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" class="WRP_NAT" value="judrefpct_WRP_NAT">
-				<label for="judrefpct_WRP_NAT">judrefpct</label>
-				<input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" class="WRP_NAT" value="judothrpct_WRP_NAT">
-				<label for="judothrpct_WRP_NAT">judothrpct</label>	
-				<input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" class="WRP_NAT" value="judgenpct_WRP_NAT">
-				<label for="judgenpct_WRP_NAT">judgenpct</label><br>
-				<input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" class="WRP_NAT" value="islmsunpct_WRP_NAT">
-				<label for="islmsunpct_WRP_NAT">islmsunpct</label>
-				<input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" class="WRP_NAT" value="islmshipct_WRP_NAT">
-				<label for="islmshipct_WRP_NAT">islmshipct</label>
-				<input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" class="WRP_NAT" value="islmibdpct_WRP_NAT">
-				<label for="islmibdpct_WRP_NAT">islmibdpct</label>
-				<input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" class="WRP_NAT" value="islmnatpct_WRP_NAT">
-				<label for="islmnatpct_WRP_NAT">islmnatpct</label>
-				<input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" class="WRP_NAT" value="islmalwpct_WRP_NAT">
-				<label for="islmalwpct_WRP_NAT">islmalwpct</label>
-				<input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" class="WRP_NAT" value="islmahmpct_WRP_NAT">
-				<label for="islmahmpct_WRP_NAT">islmahmpct</label>
-				<input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" class="WRP_NAT" value="islmothrpct_WRP_NAT">
-				<label for="islmothrpct_WRP_NAT">islmothrpct</label>
-				<input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" class="WRP_NAT" value="islmgenpct_WRP_NAT">
-				<label for="islmgenpct_WRP_NAT">islmgenpct</label><br>
-				<input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" class="WRP_NAT" value="budmahpct_WRP_NAT">
-				<label for="budmahpct_WRP_NAT">budmahpct</label>
-				<input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" class="WRP_NAT" value="budthrpct_WRP_NAT">
-				<label for="budthrpct_WRP_NAT">budthrpct</label>
-				<input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" class="WRP_NAT" value="budothrpct_WRP_NAT">
-				<label for="budothrpct_WRP_NAT">budothrpct</label>
-				<input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" class="WRP_NAT" value="budgenpct_WRP_NAT">
-				<label for="budgenpct_WRP_NAT">budgenpct</label>	<br>
-				<input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" class="WRP_NAT" value="zorogenpct_WRP_NAT">
-				<label for="zorogenpct_WRP_NAT">zorogenpct</label>	
-				<input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" class="WRP_NAT" value="hindgenpct_WRP_NAT">
-				<label for="hindgenpct_WRP_NAT">hindgenpct</label>
-				<input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" class="WRP_NAT" value="sikhgenpct_WRP_NAT">
-				<label for="sikhgenpct_WRP_NAT">sikhgenpct</label>
-				<input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" class="WRP_NAT" value="shntgenpct_WRP_NAT">
-				<label for="shntgenpct_WRP_NAT">shntgenpct</label>
-				<input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" class="WRP_NAT" value="bahgenpct_WRP_NAT">
-				<label for="bahgenpct_WRP_NAT">bahgenpct</label>
-				<input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" class="WRP_NAT" value="taogenpct_WRP_NAT">
-				<label for="taogenpct_WRP_NAT">taogenpct</label>
-				<input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" class="WRP_NAT" value="jaingenpct_WRP_NAT">
-				<label for="jaingenpct_WRP_NAT">jaingenpct</label>
-				<input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" class="WRP_NAT" value="confgenpct_WRP_NAT">
-				<label for="confgenpct_WRP_NAT">confgenpct</label>
-				<input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" class="WRP_NAT" value="syncgenpct_WRP_NAT">
-				<label for="syncgenpct_WRP_NAT">syncgenpct</label>
-				<input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" class="WRP_NAT" value="anmgenpct_WRP_NAT">
-				<label for="anmgenpct_WRP_NAT">anmgenpct</label><br>
-				<input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" class="WRP_NAT" value="nonreligpct_WRP_NAT">
-				<label for="nonreligpct_WRP_NAT">nonreligpct</label>
-				<input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" class="WRP_NAT" value="othrgenpct_WRP_NAT">
-				<label for="othrgenpct_WRP_NAT">othrgenpct</label>
-				<input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" class="WRP_NAT" value="sumreligpct_WRP_NAT">
-				<label for="sumreligpct_WRP_NAT">sumreligpct</label>
-				<input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" class="WRP_NAT" value="total_WRP_NAT">
-				<label for="total_WRP_NAT">total</label>
-				<input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" class="WRP_NAT" value="dualrelig_WRP_NAT">
-				<label for="dualrelig_WRP_NAT">dualrelig</label><br>
-				<input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" class="WRP_NAT" value="datatype_WRP_NAT">
-				<label for="datatype_WRP_NAT">datatype</label>
-				<input type="checkbox" id="sourcereliab_WRP_NAT" name="sourcereliab_WRP_NAT" class="WRP_NAT" value="sourcereliab_WRP_NAT">
-				<label for="sourcereliab_WRP_NAT">sourcereliab</label>
-				<input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" class="WRP_NAT" value="recreliab_WRP_NAT">
-				<label for="recreliab_WRP_NAT">recreliab</label>
-				<input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" class="WRP_NAT" value="reliabilevel_WRP_NAT">
-				<label for="reliabilevel_WRP_NAT">reliabilevel</label>
-				<input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT">
-				<label for="sourcecode_WRP_NAT">sourcecode</label>
-			</div>
 			<div style="margin-bottom:0px">
-				<input type="checkbox" id="Major_Powers" name="dataset_Major_Powers" value="Major_Powers" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+				<input type="checkbox" id="Major_Powers" name="dataset_Major_Powers" value="Major_Powers" onclick="toggleVariableTableDiv()">
 				<label for="Major_Powers">COW States and Major Powers (1816-2014)</label>
-			</div>
-			<div id="divMajor_Powers">
-				<input type="checkbox" id="statename_Major_Powers" name="statename_Major_Powers" class="Major_Powers" value="statename_Major_Powers">
-				<label for="statename_Major_Powers">statename</label>
-				<input type="checkbox" id="major_Major_Powers" name="major_Major_Powers" class="Major_Powers" value="major_Major_Powers">
-				<label for="major_Major_Powers">major</label>
-				
 			</div>
 		</div>
 		<div style="padding-left:20px">
@@ -238,805 +53,792 @@
 		</div>
 		<div id = "dyadicData" >
 			<div style="margin-bottom:0px" >
-					<input type="checkbox" id="DirectContiguity" name="DirectContiguity" value="DirectContiguity" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+					<input type="checkbox" id="DirectContiguity" name="DirectContiguity" value="DirectContiguity" onclick="toggleVariableTableDiv()">
 					<label for="DirectContiguity">Direct Contiguity (1816-2016)</label>
 			</div>
 			<div style="margin-bottom:0px" >
-					<input type="checkbox" id="ND_Data_MID" name="ND_Data_MID" value="ND_Data_MID" onclick="toggleVariableSelectionDiv();toggleVariableTableDiv()">
+					<input type="checkbox" id="ND_Data_MID" name="ND_Data_MID" value="ND_Data_MID" onclick="toggleVariableTableDiv()">
 					<label for="ND_Data_MID">MIDs Data (Non-Directed) (1816-2014)</label>
-			</div>
-			<div id="divMID_Data_ND">
-				<input type="checkbox" id="mid_count_MID" name="mid_count_MID" class="MID_ND" value="mid_count_MID">
-				<label for="mid_count_MID">mid count</label>
-				<input type="checkbox" id="mid_onset_m_MID" name="mid_onset_m_MID" class="MID_ND" value="mid_onset_m_MID">
-				<label for="mid_onset_m_MID">mid_onset_m</label>
-				<input type="checkbox" id="mid_ongoing_m_MID" name="mid_ongoing_m_MID" class="MID_ND" value="mid_ongoing_m_MID">
-				<label for="mid_ongoing_m_MID">mid_ongoing_m</label>
-				<input type="checkbox" id="onset_other_MID" name="onset_other_MID" class="MID_ND" value="onset_other_MID">
-				<label for="onset_other_MID">onset_other</label>
-				<input type="checkbox" id="ongoing_other_MID" name="ongoing_other_MID" class="MID_ND" value="ongoing_other_MID">
-				<label for="ongoing_other_MID">ongoing_other</label>
-				<input type="checkbox" id="main_disno_MID" name="main_disno_MID" class="MID_ND" value="main_disno_MID">
-				<label for="main_disno_MID">main disno</label>
-				<input type="checkbox" id="dyindex_MID" name="dyindex_MID" class="MID_ND" value="dyindex_MID">
-				<label for="dyindex_MID">dy index</label><br>
-				<input type="checkbox" id="strtday_m_MID" name="strtday_m_MID" class="MID_ND" value="strtday_m_MID">
-				<label for="strtday_m_MID">strtday_m</label>
-				<input type="checkbox" id="strtmnth_m_MID" name="strtmnth_m_MID" class="MID_ND" value="strtmnth_m_MID">
-				<label for="strtmnth_m_MID">strtmnth_m</label>
-				<input type="checkbox" id="strtyr_m_MID" name="strtyr_m_MID" class="MID_ND" value="strtyr_m_MID">
-				<label for="strtyr_m_MID">strtyr_m</label>
-				<input type="checkbox" id="endday_m_MID" name="endday_m_MID" class="MID_ND" value="endday_m_MID">
-				<label for="endday_m_MID">endday_m</label>
-				<input type="checkbox" id="endmnth_m_MID" name="endmnth_m_MID" class="MID_ND" value="endmnth_m_MID">
-				<label for="endmnth_m_MID">endmnth_m</label>
-				<input type="checkbox" id="endyear_m_MID" name="endyear_m_MID" class="MID_ND" value="endyear_m_MID">
-				<label for="endyear_m_MID">endyear_m</label>
-				<input type="checkbox" id="outcome_m_MID" name="outcome_m_MID" class="MID_ND" value="outcome_m_MID">
-				<label for="outcome_m_MID">outcome_m</label>
-				<input type="checkbox" id="settlmnt_m_MID" name="settlmnt_m_MID" class="MID_ND" value="settlmnt_m_MID">
-				<label for="settlmnt_m_MID">settlmnt_m</label>
-				<input type="checkbox" id="fatlev_m_MID" name="fatlev_m" class="MID_ND" value="fatlev_m">
-				<label for="fatlev_m">fatlev_m</label>
-				<input type="checkbox" id="highact_m_MID" name="highact_m_MID" class="MID_ND" value="highact_m_MID">
-				<label for="highact_m_MID">highact_m</label>
-				<input type="checkbox" id="hihost_m_MID" name="hihost_m_MID" class="MID_ND" value="hihost_m_MID">
-				<label for="hihost_m_MID">hihost_m</label>
-				<input type="checkbox" id="recip_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID">
-				<label for="recip_m_MID">recip_m</label><br>
-				<input type="checkbox" id="nosideA_m_MID" name="nosideA_m_MID" class="MID_ND" value="nosideA_m_MID">
-				<label for="nosideA_m_MID">nosideA_m</label>						
-				<input type="checkbox" id="nosideB_m_MID" name="nosideB_m_MID" class="MID_ND" value="nosideB_m_MID">
-				<label for="nosideB_m_MID">nosideB_m</label>
-				<input type="checkbox" id="sideaa_m_MID" name="sideaa_m_MID" class="MID_ND" value="sideaa_m_MID">
-				<label for="sideaa_m_MID">sideaa_m</label>
-				<input type="checkbox" id="revstata_m_MID" name="revstata_m" class="MID_ND" value="revstata_m">
-				<label for="revstata_m">revstata_m</label>
-				<input type="checkbox" id="revtypea_m_MID" name="revtypea_m_MID" class="MID_ND" value="revtypea_m_MID">
-				<label for="revtypea_m_MID">revtypea_m</label>
-				<input type="checkbox" id="fatleva_m_MID" name="fatleva_m_MID" class="MID_ND" value="fatleva_m_MID">
-				<label for="fatleva_m_MID">fatleva_m</label>
-				<input type="checkbox" id="highmcaa_m_MID" name="highmcaa_m_MID" class="MID_ND" value="highmcaa_m_MID">
-				<label for="highmcaa_m_MID">highmcaa_m</label>
-				<input type="checkbox" id="hihosta_m_MID" name="hihosta_m_MID" class="MID_ND" value="hihosta_m_MID">
-				<label for="hihosta_m_MID">hihosta_m</label>
-				<input type="checkbox" id="orignata_m_MID" name="orignata_m_MID" class="MID_ND" value="orignata_m_MID">
-				<label for="orignata_m_MID">orignata_m</label><br>
-				<input type="checkbox" id="sideab_m_MID" name="sideab_m_MID" class="MID_ND" value="sideab_m_MID">
-				<label for="sideab_m_MID">sideab_m</label>
-				<input type="checkbox" id="revstatb_m_MID" name="revstatb_m_MID" class="MID_ND" value="revstatb_m_MID">
-				<label for="revstatb_m_MID">revstatb_m</label>
-				<input type="checkbox" id="revtypeb_m_MID" name="revtypeb_m_MID" class="MID_ND" value="revtypeb_m_MID">
-				<label for="revtypeb_m_MID">revtypeb_m</label>
-				<input type="checkbox" id="fatlevb_m_MID" name="fatlevb_m_MID" class="MID_ND" value="fatlevb_m_MID">
-				<label for="fatlevb_m_MID">fatlevb_m</label>
-				<input type="checkbox" id="highmcab_m_MID" name="highmcab_m_MID" class="MID_ND" value="highmcab_m_MID">
-				<label for="highmcab_m_MID">highmcab_m</label>
-				<input type="checkbox" id="hihostb_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID">
-				<label for="recip_m_MID">hihostb_m</label>
-				<input type="checkbox" id="orignatb_m_MID" name="orignatb_m_MID" class="MID_ND" value="orignatb_m_MID">
-				<label for="orignatb_m_MID">orignatb_m</label>						
-				<input type="checkbox" id="rolea_m_MID" name="rolea_m_MID" class="MID_ND" value="rolea_m_MID">
-				<label for="nosideB_m_MID">rolea_m</label>
-				<input type="checkbox" id="roleb_m_MID" name="roleb_m_MID" class="MID_ND" value="roleb_m_MID">
-				<label for="roleb_m_MID">roleb_m</label><br>
-				<input type="checkbox" id="dyad_rolea_m_MID" name="dyad_rolea_m" class="MID_ND" value="dyad_rolea_m">
-				<label for="dyad_rolea_m">dyad_rolea_m</label>
-				<input type="checkbox" id="dyad_roleb_m_MID" name="dyad_roleb_m_MID" class="MID_ND" value="dyad_roleb_m_MID">
-				<label for="dyad_roleb_m_MID">dyad_roleb_m</label>
-				<input type="checkbox" id="war_m_MID" name="war_m_MID" class="MID_ND" value="war_m_MID">
-				<label for="war_m_MID">war_m</label>
-				<input type="checkbox" id="durindx_m_MID" name="durindx_m_MID" class="MID_ND" value="durindx_m_MID">
-				<label for="durindx_m_MID">durindx_m</label>
-				<input type="checkbox" id="duration_m_MID" name="duration_m_MID" class="MID_ND" value="duration_m_MID">
-				<label for="duration_m_MID">duration_m</label>
-				<input type="checkbox" id="cumdurat_m_MID" name="cumdurat_m_MID" class="MID_ND" value="cumdurat_m_MID">
-				<label for="cumdurat_m_MID">cumdurat_m</label><br>
-				<input type="checkbox" id="mid5hiact_m_MID" name="mid5hiact_m_MID" class="MID_ND" value="mid5hiact_m_MID">
-				<label for="mid5hiact_m_MID">mid5hiact_m</label>
-				<input type="checkbox" id="mid5hiacta_m_MID" name="mid5hiacta_m_MID" class="MID_ND" value="mid5hiacta_m_MID">
-				<label for="mid5hiacta_m_MID">mid5hiacta_m</label>
-				<input type="checkbox" id="mid5hiactb_m_MID" name="mid5hiactb_m_MID" class="MID_ND" value="mid5hiactb_m_MID">
-				<label for="mid5hiactb_m_MID">mid5hiactb_m</label>
-				<input type="checkbox" id="severity_m_MID" name="severity_m_MID" class="MID_ND" value="severity_m_MID">
-				<label for="severity_m_MID">severity_m</label>
-				<input type="checkbox" id="severitya_m_MID" name="severitya_m_MID" class="MID_ND" value="severitya_m_MID">
-				<label for="severitya_m_MID">severitya_m</label>
-				<input type="checkbox" id="severityb_m_MID" name="severityb_m_MID" class="MID_ND" value="severityb_m_MID">
-				<label for="severityb_m_MID">severityb_m</label>
-				<input type="checkbox" id="ongo2014_m_MID" name="ongo2014_m_MID" class="MID_ND" value="ongo2014_m_MID">
-				<label for="ongo2014_m_MID">ongo2014_m</label>
-				<input type="checkbox" id="new_m_MID" name="new_m_MID" class="MID_ND" value="new_m_MID">
-				<label for="new_m_MID">new_m</label>
 			</div>
 		</div>
 		<div id="variableTables">
-				<div id="divNMC_5_0_Table">
-					<h4 style="font-family:arial">Variables</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-						<tr>
-							<td>state</td>
-							<td>abbreviation of the state or country</td>
-						</tr>
-						<tr>
-							<td>ccode</td>
-							<td>Correlates of War Country Code</td>
-						</tr>
-						<tr>
-							<td>year</td>
-							<td>the year the data is about</td>
-						</tr>
-						<tr>
-							<td>milex</td>
-							<td>military expenditure in 100,000s</td>
-						</tr>
-						<tr>
-							<td>milper</td>
-							<td>military personnel in 1000s</td>
-						</tr>
-						<tr>
-							<td>irst</td>
-							<td>iron and steel production</td>
-						</tr>
-						<tr>
-							<td>pec</td>
-							<td>energy consumption</td>
-						</tr>
-						<tr>
-							<td>tpop</td>
-							<td>total population</td>
-						</tr>
-						<tr>
-							<td>upop</td>
-							<td>urban population</td>
-						</tr>
-						<tr>
-							<td>cinc</td>
-							<td>composite index of national capability (scale: 0-1)</td>
-						</tr>
-					</table>
-				</div>
-				<div id="divWRP_NAT_Table">
-					<h4 style="font-family:arial">Variables</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-						<tr>
-							<td>state</td>
-							<td>abbreviation of the state or country</td>
-						</tr>
-						<tr>
-							<td>ccode</td>
-							<td>Correlates of War Country Code</td>
-						</tr>
-						<tr>
-							<td>chrstprot</td>
-							<td>Christianity: Protestant - number of adherents</td>
-						</tr>
-						<tr>
-							<td>chrstcat</td>
-							<td>Christianity: Roman Catholics - number of adherents</td>
-						</tr>
-						<tr>
-							<td>chrstorth</td>
-							<td>Christianity: Eastern Orthodox - number of adherents</td>
-						</tr>
-						<tr>
-							<td>chrstang</td>
-							<td>Christianity: Anglican - number of adherents</td>
-						</tr>
-						<tr>
-							<td>chrstothr</td>
-							<td>Christianity: Others - number of adherents</td>
-						</tr>
-						<tr>
-							<td>chrstgen</td>
-							<td>Christianity - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>judorth</td>
-							<td>Judaism: Orthodox - number of adherents</td>
-						</tr>
-						<tr>
-							<td>judcons</td>
-							<td>Judaism: Conservatives - number of adherents</td>
-						</tr>
-						<tr>
-							<td>judref</td>
-							<td>Judaism: Reform - number of adherents</td>
-						</tr>
-						<tr>
-							<td>judothr</td>
-							<td>Judaism: Others - number of adherents</td>
-						</tr>
-						<tr>
-							<td>judgen</td>
-							<td>Judaism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmsun</td>
-							<td>Islam: Sunni - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmshi</td>
-							<td>Islam: Shi'a - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmibd</td>
-							<td>Islam: Ibadhi - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmnat</td>
-							<td>Islam: Nation of Islam - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmalw</td>
-							<td>Islam: Alawite - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmahm</td>
-							<td>Islam: Almadiyya - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmothr</td>
-							<td>Islam: Others - number of adherents</td>
-						</tr>
-						<tr>
-							<td>islmgen</td>
-							<td>Islam - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>budmah</td>
-							<td>Buddhism: Mahayana - number of adherents</td>
-						</tr>
-						<tr>
-							<td>budthr</td>
-							<td>Buddhism: Theravada - number of adherents</td>
-						</tr>
-						<tr>
-							<td>budothr</td>
-							<td>Buddhism: Others - number of adherents</td>
-						</tr>
-						<tr>
-							<td>budgen</td>
-							<td>Buddhism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>zorogen</td>
-							<td>Zoroastrianism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>hindgen</td>
-							<td>Hinduism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>sikhgen</td>
-							<td>Sikhism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>shntgen</td>
-							<td>Shinto - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>bahgen</td>
-							<td>Baha'i - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>taogen</td>
-							<td>Taoism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>jaingen</td>
-							<td>Jainism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>confgen</td>
-							<td>Confucianism - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>syncgen</td>
-							<td>Syncretic Religions - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>anmgen</td>
-							<td>Animist - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>nonrelig</td>
-							<td>Non-relgious - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>othrgen</td>
-							<td>Other Religions - total number of adherents</td>
-						</tr>
-						<tr>
-							<td>sumrelig</td>
-							<td>total number of religious adherents</td>
-						</tr>
-						<tr>
-							<td>pop</td>
-							<td>total population</td>
-						</tr>
-						<tr>
-							<td>chrstprotpct</td>
-							<td>Christianity: Protestant - percent adherents</td>
-						</tr>
-						<tr>
-							<td>chrstcatpct</td>
-							<td>Christianity: Roman Catholics - percent adherents</td>
-						</tr>
-						<tr>
-							<td>chrstorthpct</td>
-							<td>Christianity: Eastern Orthodox - percent adherents</td>
-						</tr>
-						<tr>
-							<td>chrstangpct</td>
-							<td>Christianity: Anglican - percent adherents</td>
-						</tr>
-						<tr>
-							<td>chrstothrpct</td>
-							<td>Christianity: Others - percent adherents</td>
-						</tr>
-						<tr>
-							<td>chrstgenpct</td>
-							<td>Christianity - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>judorthpct</td>
-							<td>Judaism: Orthodox - percent adherents</td>
-						</tr>
-						<tr>
-							<td>judconspct</td>
-							<td>Judaism: Conservatives - percent adherents</td>
-						</tr>
-						<tr>
-							<td>judrefpct</td>
-							<td>Judaism: Reform - percent adherents</td>
-						</tr>
-						<tr>
-							<td>judothrpct</td>
-							<td>Judaism: Others - percent adherents</td>
-						</tr>
-						<tr>
-							<td>judgenpct</td>
-							<td>Judaism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmsunpct</td>
-							<td>Islam: Sunni - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmshipct</td>
-							<td>Islam: Shi'a - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmibdpct</td>
-							<td>Islam: Ibadhi - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmnatpct</td>
-							<td>Islam: Nation of Islam - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmalwpct</td>
-							<td>Islam: Alawite - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmahmpct</td>
-							<td>Islam: Almadiyya - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmothrpct</td>
-							<td>Islam: Others - percent adherents</td>
-						</tr>
-						<tr>
-							<td>islmgenpct</td>
-							<td>Islam - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>budmahpct</td>
-							<td>Buddhism: Mahayana - percent adherents</td>
-						</tr>
-						<tr>
-							<td>budthrpct</td>
-							<td>Buddhism: Theravada - percent adherents</td>
-						</tr>
-						<tr>
-							<td>budothrpct</td>
-							<td>Buddhism: Others - percent adherents</td>
-						</tr>
-						<tr>
-							<td>budgenpct</td>
-							<td>Buddhism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>zorogenpct</td>
-							<td>Zoroastrianism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>hindgenpct</td>
-							<td>Hinduism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>sikhgenpct</td>
-							<td>Sikhism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>shntgenpct</td>
-							<td>Shinto - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>bahgenpct</td>
-							<td>Baha'i - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>taogenpct</td>
-							<td>Taoism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>jaingenpct</td>
-							<td>Jainism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>confgenpct</td>
-							<td>Confucianism - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>syncgenpct</td>
-							<td>Syncretic Religions - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>anmgenpct</td>
-							<td>Animist - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>nonreligpct</td>
-							<td>Non-relgious - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>othrgenpct</td>
-							<td>Other Religions - total percent adherents</td>
-						</tr>
-						<tr>
-							<td>sumreligpct</td>
-							<td>total percent religious adherents</td>
-						</tr>
-						<tr>
-							<td>total</td>
-							<td>total population percentage (if dualrelig = 1, total > 1</td>
-						</tr>
-						<tr>
-							<td>dualrelig</td>
-							<td>dual religion (1: Yes; 0: No)</td>
-						</tr>
-						<tr>
-							<td>datatype</td>
-							<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
-								134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
-								234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
-						</tr>
-						<tr>
-							<td>recreliab</td>
-							<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
-						</tr>
-						<tr>
-							<td>sourcecode</td>
-							<td>code of major source used for the record</td>
-						</tr>
-					</table>
+			<br>
+			<h4 style="font-family:arial;display:none;padding-left:20px; margin-bottom:0px;padding-bottom:0px;" id = "variableText">Variables</h4>
+			<div id="divNMC_5_0_Table">
+				<table>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" id="milex_NMC_5_0" name="milex_NMC_5_0" class="NMC_5_0" value="milex_NMC_5_0">
+						</td>
+						<td>milex</td>
+						<td>military expenditure in 100,000s</td>
+					</tr>
+					<tr>
+						<td>				
+							<input type="checkbox" id="milper_NMC_5_0" name="milper_NMC_5_0" class="NMC_5_0" value="milper_NMC_5_0">
+						</td>
+						<td>milper</td>
+						<td>military personnel in 1000s</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" id="irst_NMC_5_0" name="irst_NMC_5_0" class="NMC_5_0" value="irst_NMC_5_0">
+						</td>
+						<td>irst</td>
+						<td>iron and steel production</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" id="pec_NMC_5_0" name="pec_NMC_5_0" class="NMC_5_0" value="pec_NMC_5_0">
+						</td>
+						<td>pec</td>
+						<td>energy consumption</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" id="tpop_NMC_5_0" name="tpop_NMC_5_0" class="NMC_5_0" value="tpop_NMC_5_0">
+						</td>
+						<td>tpop</td>
+						<td>total population</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" id="upop_NMC_5_0" name="upop_NMC_5_0" class="NMC_5_0" value="upop_NMC_5_0">
+						</td>
+						<td>upop</td>
+						<td>urban population</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="cinc_NMC_5_0" name="cinc_NMC_5_0" class="NMC_5_0" value="cinc_NMC_5_0"></td>
+						<td>cinc</td>
+						<td>composite index of national capability (scale: 0-1)</td>
+					</tr>
+				</table>
 			</div>
-				<div id="divMajor_PowersTable">
-					<h4 style="font-family:arial">Variables</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-						<tr>
-							<td>state</td>
-							<td>abbreviation of the state or country</td>
-						</tr>
-						<tr>
-							<td>ccode</td>
-							<td>Correlates of War Country Code</td>
-						</tr>
-						<tr>
-							<td>year</td>
-							<td>the year the data is about</td>
-						</tr>
-						<tr>
-							<td>statename</td>
-							<td>country's full name</td>
-						</tr>
-						<tr>
-							<td>major</td>
-							<td>0: No; 1: Yes</td>
-						</tr>
-					</table>
-				</div>
-				<div id="divDirectContiguityTable">
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-						<tr>
-							<td>dyad</td>
-							<td>the two countries involved</td>
-						</tr>
-						<tr>
-							<td>state1no</td>
-							<td>Correlates of War country code for first country</td>
-						</tr>
-						<tr>
-							<td>state1ab</td>
-							<td>name of first country</td>
-						</tr>
-						<tr>
-							<td>state2no</td>
-							<td>Correlates of War country code for second country</td>
-						</tr>
-						<tr>
-							<td>state2ab</td>
-							<td>name of second country</td>
-						</tr>
-						<tr>
-							<td>year</td>
-							<td>year of observation</td>
-						</tr>
-						<tr>
-							<td>conttype</td>
-							<td>1: land contiguity <br> 2: water contiguity by 12 miles <br> 3: water contiguity by 24 miles <br> 4: water contiguity by 150 miles <br> 5: water contiguity by 400 miles </td>
-						</tr>
-					</table>
-				</div>
-				<div id="divMidDataTable">
-					<h4 style="font-family:arial">Variables</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-						<tr>
-							<td>state1no</td>
-							<td>Correlates of War country code for first country</td>
-						</tr>
-						<tr>
-							<td>state1ab</td>
-							<td>abbreviation of first country</td>
-						</tr>
-						<tr>
-							<td>state2no</td>
-							<td>Correlates of War country code for second country</td>
-						</tr>
-						<tr>
-							<td>state2ab</td>
-							<td>abbreviation of second country</td>
-						</tr>
-						<tr>
-							<td>year</td>
-							<td>year of observation</td>
-						</tr>
-						<tr>
-							<td>statenme1</td>
-							<td>name of first country</td>
-						</tr>
-						<tr>
-							<td>statenme2</td>
-							<td>name of first country</td>
-						</tr>
-						<tr>
-							<td>mid_count</td>
-							<td>Count of the number of MIDS in the dyad-year, both total and new MIDs</td>
-						</tr>
-						<tr>
-							<td>mid_onset_m</td>
-							<td>Main MID began that Year</td>
-						</tr>
-						<tr>
-							<td>mid_ongoing_m</td>
-							<td>Main MID ongoing but did not start that year (relevant for multi-year MIDS)</td>
-						</tr>
-						<tr>
-							<td>onset_other</td>
-							<td>Dyad members had another MID (not just main MID) start that year</td>
-						</tr>
-						<tr>
-							<td>ongoing_other</td>
-							<td>Dyad members had another MID (not just main MID) ongoing that year</td>
-						</tr>
-						<tr>
-							<td>main_disno</td>
-							<td>Number of the MID identified as the key MID in that year</td>
-						</tr>
-						<tr>
-							<td>dyindex</td>
-							<td>Christianity: Others - number of adherents</td>
-						</tr>
-						<tr>
-							<td>strtday_m</td>
-							<td>Start Day of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>strtmnth_m</td>
-							<td>Start Month of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>strtyr_m</td>
-							<td>Start Year of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>endday_m</td>
-							<td>End Day of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>endmnth_m</td>
-							<td>End Month of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>endyear_m</td>
-							<td>End Year of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>outcome_m</td>
-							<td>Outcome of the dyad's key MID, 9 point scale</td>
-						</tr>
-						<tr>
-							<td>settlmnt_m</td>
-							<td>Settlement type of the dyad's key MID, 5 point scale</td>
-						</tr>
-						<tr>
-							<td>fatlev_m</td>
-							<td>Fatality level of the dyad's key MID, 7 point scale</td>
-						</tr>
-						<tr>
-							<td>highact_m</td>
-							<td>Highest military confrontation action of the dyad's key MID, 24 point scale</td>
-						</tr>
-						<tr>
-							<td>hihost_m</td>
-							<td>Highest level of hostility of the dyad's key MID, 5 point scale</td>
-						</tr>
-						<tr>
-							<td>recip_m</td>
-							<td>Initiator of MID can NOT be clearly identified in the dyad's key MID, Yes or No</td>
-						</tr>
-						<tr>
-							<td>nosideA_m</td>
-							<td>Number of states on side A of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>nosideB_m</td>
-							<td>Number of states on side B of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>sideaa_m</td>
-							<td>State A on the side that initiated the dyad's key MID, 1 = Yes</td>
-						</tr>
-						<tr>
-							<td>revstata_m</td>
-							<td>State A revisitionist in the dyad's key MID, 1=yes</td>
-						</tr>
-						<tr>
-							<td>revtypea_m</td>
-							<td>Type of revision sought by state A of the dyad's key MID (if revisionist), 5 point scale</td>
-						</tr>
-						<tr>
-							<td>fatleva_m</td>
-							<td>Level of fatality incurred by State A of the dyad's key MID, see FATLEV</td>
-						</tr>
-						<tr>
-							<td>highmcaa_m</td>
-							<td>Highest military confrontration action of State A in the dyad's key MID, see HIGHACT</td>
-						</tr>
-						<tr>
-							<td>hihosta_m </td>
-							<td>Highest level of hostility reached by State A of the dyad's key MID, see HIHOST</td>
-						</tr>
-						<tr>
-							<td>orignata_m</td>
-							<td>State A is an original participant in the dyad's key MID, 1 = Yes</td>
-						</tr>
-						<tr>
-							<td>sideab_m</td>
-							<td>State B on Initator's side of the dyad's key MID, 1=Yes</td>
-						</tr>
-						<tr>
-							<td>revstatb_m</td>
-							<td>State B revisitionist in the dyad's key MID, 1=yes</td>
-						</tr>
-						<tr>
-							<td>revtypeb_m</td>
-							<td>Type of revision sought by state B of the dyad's key MID (if revisionist), 5 point scale</td>
-						</tr>
-						<tr>
-							<td>fatlevb_m</td>
-							<td>Level of fatality incurred by State B of the dyad's key MID, see FATLEV</td>
-						</tr>
-						<tr>
-							<td>highmcab_m</td>
-							<td>Highest military confrontration action of State B in the dyad's key MID, see HIGHACT</td>
-						</tr>
-						<tr>
-							<td>hihostb_m </td>
-							<td>Highest level of hostility reached by State B of the dyad's key MID, see HIHOST</td>
-						</tr>
-						<tr>
-							<td>orignatb_m</td>
-							<td>State B is an original participant in the dyad's key MID, 1 = Yes</td>
-						</tr>
-						<tr>
-							<td>rolea_m</td>
-							<td>Role of Stata A in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
-						</tr>
-						<tr>
-							<td>roleb_m</td>
-							<td>Role of Stata B in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>						
-						</tr>
-						<tr>
-							<td>dyad_rolea_m</td>
-							<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
-						</tr>
-						<tr>
-							<td>dyad_roleb_m</td>
-							<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
-						</tr>
-						<tr>
-							<td>war_m</td>
-							<td>Does the dyad's key MID rise to the level of a COW War in that year, 1=Yes</td>
-						</tr>
-						<tr>
-							<td>durindx_m</td>
-							<td>Duration year of the dyad's key MID, i.e. 1 or 2 or 3, etc.</td>
-						</tr>
-						<tr>
-							<td>duration_m</td>
-							<td>Number of dispute days of dyad's key MID in that year</td>
-						</tr>
-						<tr>
-							<td>cumdurat_m</td>
-							<td>Cumulative number of days of the dyad's key MID in that year</td>
-						</tr>
-						<tr>
-							<td>mid5hiact_m </td>
-							<td>MID data 5.01 Highest military confrontration action of the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>mid5hiacta_m</td>
-							<td>MID data 5.01 Highest military confrontration action of State A in the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>mid5hiactb_m</td>
-							<td>MID data 5.01 Highest military confrontration action of State B in the dyad's key MID</td>
-						</tr>
-						<tr>
-							<td>severity_m</td>
-							<td>Highest severity action of the dyad's key MID, ranges from 0 to 100</td>
-						</tr>
-						<tr>
-							<td>severitya_m</td>
-							<td>Highest severity score committed by State A of the dyad's key MID, ranges from 0 to 100</td>
-						</tr>
-						<tr>
-							<td>severityb_m</td>
-							<td>Highest severity score committed by State B of the dyad's key MID, ranges from 0 to 100</td>
-						</tr>
-						<tr>
-							<td>ongo2014_m</td>
-							<td>The dyad's key MID is an ongoing MID in 2014</td>
-						</tr>
-						<tr>
-							<td>new_m</td>
-							<td>The dyad's key MID is a new dyadic MID in Year</td>
-						</tr>
-					</table>
-				</div>
+			<div id="divWRP_NAT_Table">
+				<table>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstprot_WRP_NAT" name="chrstprot_WRP_NAT" class="WRP_NAT" value="chrstprot_WRP_NAT"></td>
+						<td>chrstprot</td>
+						<td>Christianity: Protestant - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstcat_WRP_NAT" name="chrstcat_WRP_NAT" class="WRP_NAT" value="chrstcat_WRP_NAT"></td>
+						<td>chrstcat</td>
+						<td>Christianity: Roman Catholics - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstorth_WRP_NAT" name="chrstorth_WRP_NAT" class="WRP_NAT" value="chrstorth_WRP_NAT"></td>
+						<td>chrstorth</td>
+						<td>Christianity: Eastern Orthodox - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstang_WRP_NAT" name="chrstang_WRP_NAT" class="WRP_NAT" value="chrstang_WRP_NAT"></td>
+						<td>chrstang</td>
+						<td>Christianity: Anglican - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstothr_WRP_NAT" name="chrstothr_WRP_NAT" class="WRP_NAT" value="chrstothr_WRP_NAT"></td>
+						<td>chrstothr</td>
+						<td>Christianity: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstgen_WRP_NAT" name="chrstgen_WRP_NAT" class="WRP_NAT" value="chrstgen_WRP_NAT"></td>
+						<td>chrstgen</td>
+						<td>Christianity - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judorth_WRP_NAT" name="judorth_WRP_NAT" class="WRP_NAT" value="judorth_WRP_NAT"></td>
+						<td>judorth</td>
+						<td>Judaism: Orthodox - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judcons_WRP_NAT" name="judcons_WRP_NAT" class="WRP_NAT" value="judcons_WRP_NAT"></td>
+						<td>judcons</td>
+						<td>Judaism: Conservatives - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judref_WRP_NAT" name="judref_WRP_NAT" class="WRP_NAT" value="judref_WRP_NAT"></td>
+						<td>judref</td>
+						<td>Judaism: Reform - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judothr_WRP_NAT" name="judothr_WRP_NAT" class="WRP_NAT" value="judothr_WRP_NAT"></td>
+						<td>judothr</td>
+						<td>Judaism: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judgen_WRP_NAT" name="judgen_WRP_NAT" class="WRP_NAT" value="judgen_WRP_NAT"></td>
+						<td>judgen</td>
+						<td>Judaism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmsun_WRP_NAT" name="islmsun_WRP_NAT" class="WRP_NAT" value="islmsun_WRP_NAT"></td>
+						<td>islmsun</td>
+						<td>Islam: Sunni - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmshi_WRP_NAT" name="islmshi_WRP_NAT" class="WRP_NAT" value="islmshi_WRP_NAT"></td>
+						<td>islmshi</td>
+						<td>Islam: Shi'a - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmibd_WRP_NAT" name="islmibd_WRP_NAT" class="WRP_NAT" value="islmibd_WRP_NAT"></td>
+						<td>islmibd</td>
+						<td>Islam: Ibadhi - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmnat_WRP_NAT" name="islmnat_WRP_NAT" class="WRP_NAT" value="islmnat_WRP_NAT"></td>
+						<td>islmnat</td>
+						<td>Islam: Nation of Islam - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmalw_WRP_NAT" name="islmalw_WRP_NAT" class="WRP_NAT" value="islmalw_WRP_NAT"></td>
+						<td>islmalw</td>
+						<td>Islam: Alawite - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmahm_WRP_NAT" name="islmahm_WRP_NAT" class="WRP_NAT" value="islmahm_WRP_NAT"></td>
+						<td>islmahm</td>
+						<td>Islam: Almadiyya - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmothr_WRP_NAT" name="islmothr_WRP_NAT" class="WRP_NAT" value="islmothr_WRP_NAT"></td>
+						<td>islmothr</td>
+						<td>Islam: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmgen_WRP_NAT" name="islmgen_WRP_NAT" class="WRP_NAT" value="islmgen_WRP_NAT"></td>
+						<td>islmgen</td>
+						<td>Islam - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budmah_WRP_NAT" name="budmah_WRP_NAT" class="WRP_NAT" value="budmah_WRP_NAT"></td>
+						<td>budmah</td>
+						<td>Buddhism: Mahayana - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budthr_WRP_NAT" name="budthr_WRP_NAT" class="WRP_NAT" value="budthr_WRP_NAT"></td>
+						<td>budthr</td>
+						<td>Buddhism: Theravada - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budothr_WRP_NAT" name="budothr_WRP_NAT" class="WRP_NAT" value="budothr_WRP_NAT"></td>
+						<td>budothr</td>
+						<td>Buddhism: Others - number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budgen_WRP_NAT" name="budgen_WRP_NAT" class="WRP_NAT" value="budgen_WRP_NAT"></td>
+						<td>budgen</td>
+						<td>Buddhism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="zorogen_WRP_NAT" name="zorogen_WRP_NAT" class="WRP_NAT" value="zorogen_WRP_NAT"></td>
+						<td>zorogen</td>
+						<td>Zoroastrianism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="hindgen_WRP_NAT" name="hindgen_WRP_NAT" class="WRP_NAT" value="hindgen_WRP_NAT"></td>
+						<td>hindgen</td>
+						<td>Hinduism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sikhgen_WRP_NAT" name="sikhgen_WRP_NAT" class="WRP_NAT" value="sikhgen_WRP_NAT"></td>
+						<td>sikhgen</td>
+						<td>Sikhism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="shntgen_WRP_NAT" name="shntgen_WRP_NAT" class="WRP_NAT" value="shntgen_WRP_NAT"></td>
+						<td>shntgen</td>
+						<td>Shinto - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="bahgen_WRP_NAT" name="bahgen_WRP_NAT" class="WRP_NAT" value="bahgen_WRP_NAT"></td>
+						<td>bahgen</td>
+						<td>Baha'i - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="taogen_WRP_NAT" name="taogen_WRP_NAT" class="WRP_NAT" value="taogen_WRP_NAT"></td>
+						<td>taogen</td>
+						<td>Taoism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="jaingen_WRP_NAT" name="jaingen_WRP_NAT" class="WRP_NAT" value="jaingen_WRP_NAT"></td>
+						<td>jaingen</td>
+						<td>Jainism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="confgen_WRP_NAT" name="confgen_WRP_NAT" class="WRP_NAT" value="confgen_WRP_NAT"></td>
+						<td>confgen</td>
+						<td>Confucianism - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="syncgen_WRP_NAT" name="syncgen_WRP_NAT" class="WRP_NAT" value="syncgen_WRP_NAT"></td>
+						<td>syncgen</td>
+						<td>Syncretic Religions - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="anmgen_WRP_NAT" name="anmgen_WRP_NAT" class="WRP_NAT" value="anmgen_WRP_NAT"></td>
+						<td>anmgen</td>
+						<td>Animist - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="nonrelig_WRP_NAT" name="nonrelig_WRP_NAT" class="WRP_NAT" value="nonrelig_WRP_NAT"></td>
+						<td>nonrelig</td>
+						<td>Non-relgious - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="othrgen_WRP_NAT" name="othrgen_WRP_NAT" class="WRP_NAT" value="othrgen_WRP_NAT"></td>
+						<td>othrgen</td>
+						<td>Other Religions - total number of adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sumrelig_WRP_NAT" name="sumrelig_WRP_NAT" class="WRP_NAT" value="sumrelig_WRP_NAT"></td>
+						<td>sumrelig</td>
+						<td>total number of religious adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="pop_WRP_NAT" name="pop_WRP_NAT" class="WRP_NAT" value="pop_WRP_NAT"></td>
+						<td>pop</td>
+						<td>total population</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstprotpct_WRP_NAT" name="chrstprotpct_WRP_NAT" class="WRP_NAT" value="chrstprotpct_WRP_NAT"></td>
+						<td>chrstprotpct</td>
+						<td>Christianity: Protestant - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstcatpct_WRP_NAT" name="chrstcatpct_WRP_NAT" class="WRP_NAT" value="chrstcatpct_WRP_NAT"></td>
+						<td>chrstcatpct</td>
+						<td>Christianity: Roman Catholics - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstorthpct_WRP_NAT" name="chrstorthpct_WRP_NAT" class="WRP_NAT" value="chrstorthpct_WRP_NAT"></td>
+						<td>chrstorthpct</td>
+						<td>Christianity: Eastern Orthodox - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstangpct_WRP_NAT" name="chrstangpct_WRP_NAT" class="WRP_NAT" value="chrstangpct_WRP_NAT"></td>
+						<td>chrstangpct</td>
+						<td>Christianity: Anglican - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstothrpct_WRP_NAT" name="chrstothrpct_WRP_NAT" class="WRP_NAT" value="chrstothrpct_WRP_NAT"></td>
+						<td>chrstothrpct</td>
+						<td>Christianity: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="chrstgenpct_WRP_NAT" name="chrstgenpct_WRP_NAT" class="WRP_NAT" value="chrstgenpct_WRP_NAT"></td>
+						<td>chrstgenpct</td>
+						<td>Christianity - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judorthpct_WRP_NAT" name="judorthpct_WRP_NAT" class="WRP_NAT" value="judorthpct_WRP_NAT"></td>
+						<td>judorthpct</td>
+						<td>Judaism: Orthodox - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judconspct_WRP_NAT" name="judconspct_WRP_NAT" class="WRP_NAT" value="judconspct_WRP_NAT"></td>
+						<td>judconspct</td>
+						<td>Judaism: Conservatives - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judrefpct_WRP_NAT" name="judrefpct_WRP_NAT" class="WRP_NAT" value="judrefpct_WRP_NAT"></td>
+						<td>judrefpct</td>
+						<td>Judaism: Reform - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judothrpct_WRP_NAT" name="judothrpct_WRP_NAT" class="WRP_NAT" value="judothrpct_WRP_NAT"></td>
+						<td>judothrpct</td>
+						<td>Judaism: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="judgenpct_WRP_NAT" name="judgenpct_WRP_NAT" class="WRP_NAT" value="judgenpct_WRP_NAT"></td>
+						<td>judgenpct</td>
+						<td>Judaism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmsunpct_WRP_NAT" name="islmsunpct_WRP_NAT" class="WRP_NAT" value="islmsunpct_WRP_NAT"></td>
+						<td>islmsunpct</td>
+						<td>Islam: Sunni - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmshipct_WRP_NAT" name="islmshipct_WRP_NAT" class="WRP_NAT" value="islmshipct_WRP_NAT"></td>
+						<td>islmshipct</td>
+						<td>Islam: Shi'a - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmibdpct_WRP_NAT" name="islmibdpct_WRP_NAT" class="WRP_NAT" value="islmibdpct_WRP_NAT"></td>
+						<td>islmibdpct</td>
+						<td>Islam: Ibadhi - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmnatpct_WRP_NAT" name="islmnatpct_WRP_NAT" class="WRP_NAT" value="islmnatpct_WRP_NAT"></td>
+						<td>islmnatpct</td>
+						<td>Islam: Nation of Islam - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmalwpct_WRP_NAT" name="islmalwpct_WRP_NAT" class="WRP_NAT" value="islmalwpct_WRP_NAT"></td>
+						<td>islmalwpct</td>
+						<td>Islam: Alawite - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmahmpct_WRP_NAT" name="islmahmpct_WRP_NAT" class="WRP_NAT" value="islmahmpct_WRP_NAT"></td>
+						<td>islmahmpct</td>
+						<td>Islam: Almadiyya - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmothrpct_WRP_NAT" name="islmothrpct_WRP_NAT" class="WRP_NAT" value="islmothrpct_WRP_NAT"></td>
+						<td>islmothrpct</td>
+						<td>Islam: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="islmgenpct_WRP_NAT" name="islmgenpct_WRP_NAT" class="WRP_NAT" value="islmgenpct_WRP_NAT"></td>
+						<td>islmgenpct</td>
+						<td>Islam - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budmahpct_WRP_NAT" name="budmahpct_WRP_NAT" class="WRP_NAT" value="budmahpct_WRP_NAT"></td>
+						<td>budmahpct</td>
+						<td>Buddhism: Mahayana - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budthrpct_WRP_NAT" name="budthrpct_WRP_NAT" class="WRP_NAT" value="budthrpct_WRP_NAT"></td>
+						<td>budthrpct</td>
+						<td>Buddhism: Theravada - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budothrpct_WRP_NAT" name="budothrpct_WRP_NAT" class="WRP_NAT" value="budothrpct_WRP_NAT"></td>
+						<td>budothrpct</td>
+						<td>Buddhism: Others - percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="budgenpct_WRP_NAT" name="budgenpct_WRP_NAT" class="WRP_NAT" value="budgenpct_WRP_NAT"></td>
+						<td>budgenpct</td>
+						<td>Buddhism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="zorogenpct_WRP_NAT" name="zorogenpct_WRP_NAT" class="WRP_NAT" value="zorogenpct_WRP_NAT"></td>
+						<td>zorogenpct</td>
+						<td>Zoroastrianism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="hindgenpct_WRP_NAT" name="hindgenpct_WRP_NAT" class="WRP_NAT" value="hindgenpct_WRP_NAT"></td>
+						<td>hindgenpct</td>
+						<td>Hinduism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sikhgenpct_WRP_NAT" name="sikhgenpct_WRP_NAT" class="WRP_NAT" value="sikhgenpct_WRP_NAT"></td>
+						<td>sikhgenpct</td>
+						<td>Sikhism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="shntgenpct_WRP_NAT" name="shntgenpct_WRP_NAT" class="WRP_NAT" value="shntgenpct_WRP_NAT"></td>
+						<td>shntgenpct</td>
+						<td>Shinto - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="bahgenpct_WRP_NAT" name="bahgenpct_WRP_NAT" class="WRP_NAT" value="bahgenpct_WRP_NAT"></td>
+						<td>bahgenpct</td>
+						<td>Baha'i - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="taogenpct_WRP_NAT" name="taogenpct_WRP_NAT" class="WRP_NAT" value="taogenpct_WRP_NAT"></td>
+						<td>taogenpct</td>
+						<td>Taoism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="jaingenpct_WRP_NAT" name="jaingenpct_WRP_NAT" class="WRP_NAT" value="jaingenpct_WRP_NAT"></td>
+						<td>jaingenpct</td>
+						<td>Jainism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="confgenpct_WRP_NAT" name="confgenpct_WRP_NAT" class="WRP_NAT" value="confgenpct_WRP_NAT"></td>
+						<td>confgenpct</td>
+						<td>Confucianism - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="syncgenpct_WRP_NAT" name="syncgenpct_WRP_NAT" class="WRP_NAT" value="syncgenpct_WRP_NAT"></td>
+						<td>syncgenpct</td>
+						<td>Syncretic Religions - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="anmgenpct_WRP_NAT" name="anmgenpct_WRP_NAT" class="WRP_NAT" value="anmgenpct_WRP_NAT"></td>
+						<td>anmgenpct</td>
+						<td>Animist - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="nonreligpct_WRP_NAT" name="nonreligpct_WRP_NAT" class="WRP_NAT" value="nonreligpct_WRP_NAT"></td>
+						<td>nonreligpct</td>
+						<td>Non-relgious - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="othrgenpct_WRP_NAT" name="othrgenpct_WRP_NAT" class="WRP_NAT" value="othrgenpct_WRP_NAT"></td>
+						<td>othrgenpct</td>
+						<td>Other Religions - total percent adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sumreligpct_WRP_NAT" name="sumreligpct_WRP_NAT" class="WRP_NAT" value="sumreligpct_WRP_NAT"></td>
+						<td>sumreligpct</td>
+						<td>total percent religious adherents</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="total_WRP_NAT" name="total_WRP_NAT" class="WRP_NAT" value="total_WRP_NAT"></td>
+						<td>total</td>
+						<td>total population percentage (if dualrelig = 1, total > 1)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="dualrelig_WRP_NAT" name="dualrelig_WRP_NAT" class="WRP_NAT" value="dualrelig_WRP_NAT"></td>
+						<td>dualrelig</td>
+						<td>dual religion (1: Yes; 0: No)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="datatype_WRP_NAT" name="datatype_WRP_NAT" class="WRP_NAT" value="datatype_WRP_NAT"></td>
+						<td>datatype</td>
+						<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
+							134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
+							234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="recreliab_WRP_NAT" name="recreliab_WRP_NAT" class="WRP_NAT" value="recreliab_WRP_NAT"></td>
+						<td>recreliab</td>
+						<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="reliabilevel_WRP_NAT" name="reliabilevel_WRP_NAT" class="WRP_NAT" value="reliabilevel_WRP_NAT"></td>
+						<td>reliabilevel</td>
+						<td>level of reliability of record</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sourcecode_WRP_NAT" name="sourcecode_WRP_NAT" class="WRP_NAT" value="sourcecode_WRP_NAT"></td>
+						<td>sourcecode</td>
+						<td>code of major source used for the record</td>
+					</tr>
+				</table>
+		</div>
+			<div id="divMajor_PowersTable">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>major</td>
+						<td>0: No; 1: Yes</td>
+					</tr>
+				</table>
+			</div>
+			<div id="divDirectContiguityTable">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>dyad</td>
+						<td>the two countries involved</td>
+					</tr>
+					<tr>
+						<td>state1no</td>
+						<td>Correlates of War country code for first country</td>
+					</tr>
+					<tr>
+						<td>state1ab</td>
+						<td>name of first country</td>
+					</tr>
+					<tr>
+						<td>state2no</td>
+						<td>Correlates of War country code for second country</td>
+					</tr>
+					<tr>
+						<td>state2ab</td>
+						<td>name of second country</td>
+					</tr>
+					<tr>
+						<td>year</td>
+						<td>year of observation</td>
+					</tr>
+					<tr>
+						<td>conttype</td>
+						<td>1: land contiguity <br> 2: water contiguity by 12 miles <br> 3: water contiguity by 24 miles <br> 4: water contiguity by 150 miles <br> 5: water contiguity by 400 miles </td>
+					</tr>
+				</table>
+			</div>
+			<div id="divMidDataTable">
+				<h4 style="font-family:arial">Variables</h4>
+				<table>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid_count_MID" name="mid_count_MID" class="MID_ND" value="mid_count_MID"></td>
+						<td>mid_count</td>
+						<td>Count of the number of MIDS in the dyad-year, both total and new MIDs</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid_onset_m_MID" name="mid_onset_m_MID" class="MID_ND" value="mid_onset_m_MID"></td>
+						<td>mid_onset_m</td>
+						<td>Main MID began that Year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid_ongoing_m_MID" name="mid_ongoing_m_MID" class="MID_ND" value="mid_ongoing_m_MID"></td>
+						<td>mid_ongoing_m</td>
+						<td>Main MID ongoing but did not start that year (relevant for multi-year MIDS)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="onset_other_MID" name="onset_other_MID" class="MID_ND" value="onset_other_MID"></td>
+						<td>onset_other</td>
+						<td>Dyad members had another MID (not just main MID) start that year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="ongoing_other_MID" name="ongoing_other_MID" class="MID_ND" value="ongoing_other_MID"></td>
+						<td>ongoing_other</td>
+						<td>Dyad members had another MID (not just main MID) ongoing that year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="main_disno_MID" name="main_disno_MID" class="MID_ND" value="main_disno_MID"></td>
+						<td>main_disno</td>
+						<td>Number of the MID identified as the key MID in that year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="dyindex_MID" name="dyindex_MID" class="MID_ND" value="dyindex_MID"></td>
+						<td>dyindex</td>
+						<td>dyad index</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="strtday_m_MID" name="strtday_m_MID" class="MID_ND" value="strtday_m_MID"></td>
+						<td>strtday_m</td>
+						<td>Start Day of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="strtmnth_m_MID" name="strtmnth_m_MID" class="MID_ND" value="strtmnth_m_MID"></td>
+						<td>strtmnth_m</td>
+						<td>Start Month of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="strtyr_m_MID" name="strtyr_m_MID" class="MID_ND" value="strtyr_m_MID"></td>
+						<td>strtyr_m</td>
+						<td>Start Year of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="endday_m_MID" name="endday_m_MID" class="MID_ND" value="endday_m_MID"></td>
+						<td>endday_m</td>
+						<td>End Day of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="endmnth_m_MID" name="endmnth_m_MID" class="MID_ND" value="endmnth_m_MID"></td>
+						<td>endmnth_m</td>
+						<td>End Month of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="endyear_m_MID" name="endyear_m_MID" class="MID_ND" value="endyear_m_MID"></td>
+						<td>endyear_m</td>
+						<td>End Year of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="outcome_m_MID" name="outcome_m_MID" class="MID_ND" value="outcome_m_MID"></td>
+						<td>outcome_m</td>
+						<td>Outcome of the dyad's key MID, 9 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="settlmnt_m_MID" name="settlmnt_m_MID" class="MID_ND" value="settlmnt_m_MID"></td>
+						<td>settlmnt_m</td>
+						<td>Settlement type of the dyad's key MID, 5 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="fatlev_m_MID" name="fatlev_m" class="MID_ND" value="fatlev_m"></td>
+						<td>fatlev_m</td>
+						<td>Fatality level of the dyad's key MID, 7 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="highact_m_MID" name="highact_m_MID" class="MID_ND" value="highact_m_MID"></td>
+						<td>highact_m</td>
+						<td>Highest military confrontation action of the dyad's key MID, 24 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="hihost_m_MID" name="hihost_m_MID" class="MID_ND" value="hihost_m_MID"></td>
+						<td>hihost_m</td>
+						<td>Highest level of hostility of the dyad's key MID, 5 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="recip_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID"></td>
+						<td>recip_m</td>
+						<td>Initiator of MID can NOT be clearly identified in the dyad's key MID, Yes or No</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="nosideA_m_MID" name="nosideA_m_MID" class="MID_ND" value="nosideA_m_MID"></td>
+						<td>nosideA_m</td>
+						<td>Number of states on side A of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="nosideB_m_MID" name="nosideB_m_MID" class="MID_ND" value="nosideB_m_MID"></td>
+						<td>nosideB_m</td>
+						<td>Number of states on side B of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sideaa_m_MID" name="sideaa_m_MID" class="MID_ND" value="sideaa_m_MID"></td>
+						<td>sideaa_m</td>
+						<td>State A on the side that initiated the dyad's key MID, 1 = Yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="revstata_m_MID" name="revstata_m" class="MID_ND" value="revstata_m"></td>
+						<td>revstata_m</td>
+						<td>State A revisitionist in the dyad's key MID, 1=yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="revtypea_m_MID" name="revtypea_m_MID" class="MID_ND" value="revtypea_m_MID"></td>
+						<td>revtypea_m</td>
+						<td>Type of revision sought by state A of the dyad's key MID (if revisionist), 5 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="fatleva_m_MID" name="fatleva_m_MID" class="MID_ND" value="fatleva_m_MID"></td>
+						<td>fatleva_m</td>
+						<td>Level of fatality incurred by State A of the dyad's key MID, see FATLEV</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="highmcaa_m_MID" name="highmcaa_m_MID" class="MID_ND" value="highmcaa_m_MID"></td>
+						<td>highmcaa_m</td>
+						<td>Highest military confrontration action of State A in the dyad's key MID, see HIGHACT</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="hihosta_m_MID" name="hihosta_m_MID" class="MID_ND" value="hihosta_m_MID"></td>
+						<td>hihosta_m </td>
+						<td>Highest level of hostility reached by State A of the dyad's key MID, see HIHOST</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="orignata_m_MID" name="orignata_m_MID" class="MID_ND" value="orignata_m_MID"></td>
+						<td>orignata_m</td>
+						<td>State A is an original participant in the dyad's key MID, 1 = Yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="sideab_m_MID" name="sideab_m_MID" class="MID_ND" value="sideab_m_MID"></td>
+						<td>sideab_m</td>
+						<td>State B on Initator's side of the dyad's key MID, 1=Yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="revstatb_m_MID" name="revstatb_m_MID" class="MID_ND" value="revstatb_m_MID"></td>
+						<td>revstatb_m</td>
+						<td>State B revisitionist in the dyad's key MID, 1=yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="revtypeb_m_MID" name="revtypeb_m_MID" class="MID_ND" value="revtypeb_m_MID"></td>
+						<td>revtypeb_m</td>
+						<td>Type of revision sought by state B of the dyad's key MID (if revisionist), 5 point scale</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="fatlevb_m_MID" name="fatlevb_m_MID" class="MID_ND" value="fatlevb_m_MID"></td>
+						<td>fatlevb_m</td>
+						<td>Level of fatality incurred by State B of the dyad's key MID, see FATLEV</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="highmcab_m_MID" name="highmcab_m_MID" class="MID_ND" value="highmcab_m_MID"></td>
+						<td>highmcab_m</td>
+						<td>Highest military confrontration action of State B in the dyad's key MID, see HIGHACT</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="hihostb_m_MID" name="recip_m_MID" class="MID_ND" value="recip_m_MID"></td>
+						<td>hihostb_m </td>
+						<td>Highest level of hostility reached by State B of the dyad's key MID, see HIHOST</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="orignatb_m_MID" name="orignatb_m_MID" class="MID_ND" value="orignatb_m_MID"></td>
+						<td>orignatb_m</td>
+						<td>State B is an original participant in the dyad's key MID, 1 = Yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="rolea_m_MID" name="rolea_m_MID" class="MID_ND" value="rolea_m_MID"></td>
+						<td>rolea_m</td>
+						<td>Role of Stata A in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="roleb_m_MID" name="roleb_m_MID" class="MID_ND" value="roleb_m_MID"></td>
+						<td>roleb_m</td>
+						<td>Role of Stata B in the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>						
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="dyad_rolea_m_MID" name="dyad_rolea_m" class="MID_ND" value="dyad_rolea_m"></td>
+						<td>dyad_rolea_m</td>
+						<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="dyad_roleb_m_MID" name="dyad_roleb_m_MID" class="MID_ND" value="dyad_roleb_m_MID"></td>
+						<td>dyad_roleb_m</td>
+						<td>Role of State A in just the dyadic portion of the dyad's key MID, 1 or 2 = initator side; 3 or 4 = target side</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="war_m_MID" name="war_m_MID" class="MID_ND" value="war_m_MID"></td>
+						<td>war_m</td>
+						<td>Does the dyad's key MID rise to the level of a COW War in that year, 1=Yes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="durindx_m_MID" name="durindx_m_MID" class="MID_ND" value="durindx_m_MID"></td>
+						<td>durindx_m</td>
+						<td>Duration year of the dyad's key MID, i.e. 1 or 2 or 3, etc.</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="duration_m_MID" name="duration_m_MID" class="MID_ND" value="duration_m_MID"></td>
+						<td>duration_m</td>
+						<td>Number of dispute days of dyad's key MID in that year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="cumdurat_m_MID" name="cumdurat_m_MID" class="MID_ND" value="cumdurat_m_MID"></td>
+						<td>cumdurat_m</td>
+						<td>Cumulative number of days of the dyad's key MID in that year</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid5hiact_m_MID" name="mid5hiact_m_MID" class="MID_ND" value="mid5hiact_m_MID"></td>
+						<td>mid5hiact_m </td>
+						<td>MID data 5.01 Highest military confrontration action of the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid5hiacta_m_MID" name="mid5hiacta_m_MID" class="MID_ND" value="mid5hiacta_m_MID"></td>
+						<td>mid5hiacta_m</td>
+						<td>MID data 5.01 Highest military confrontration action of State A in the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="mid5hiactb_m_MID" name="mid5hiactb_m_MID" class="MID_ND" value="mid5hiactb_m_MID"></td>
+						<td>mid5hiactb_m</td>
+						<td>MID data 5.01 Highest military confrontration action of State B in the dyad's key MID</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="severity_m_MID" name="severity_m_MID" class="MID_ND" value="severity_m_MID"></td>
+						<td>severity_m</td>
+						<td>Highest severity action of the dyad's key MID, ranges from 0 to 100</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="severitya_m_MID" name="severitya_m_MID" class="MID_ND" value="severitya_m_MID"></td>
+						<td>severitya_m</td>
+						<td>Highest severity score committed by State A of the dyad's key MID, ranges from 0 to 100</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="severityb_m_MID" name="severityb_m_MID" class="MID_ND" value="severityb_m_MID"></td>
+						<td>severityb_m</td>
+						<td>Highest severity score committed by State B of the dyad's key MID, ranges from 0 to 100</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="ongo2014_m_MID" name="ongo2014_m_MID" class="MID_ND" value="ongo2014_m_MID"></td>
+						<td>ongo2014_m</td>
+						<td>The dyad's key MID is an ongoing MID in 2014</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="new_m_MID" name="new_m_MID" class="MID_ND" value="new_m_MID"></td>
+						<td>new_m</td>
+						<td>The dyad's key MID is a new dyadic MID in Year</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div id="SecondStep">
 			<div id="qChooseCY" style="display:none;padding-left:20px;">
@@ -1224,8 +1026,6 @@
 					<label for="dualrelig_WRP_NATSecondStep">dualrelig</label><br>
 					<input type="checkbox" id="datatype_WRP_NATSecondStep" name="datatype_WRP_NATSecondStep"  value="datatype_WRP_NATSecondStep">
 					<label for="datatype_WRP_NATSecondStep">datatype</label>
-					<input type="checkbox" id="sourcereliab_WRP_NATSecondStep" name="sourcereliab_WRP_NATSecondStep"  value="sourcereliab_WRP_NATSecondStep">
-					<label for="sourcereliab_WRP_NATSecondStep">sourcereliab</label>
 					<input type="checkbox" id="recreliab_WRP_NATSecondStep" name="recreliab_WRP_NATSecondStep"  value="recreliab_WRP_NATSecondStep">
 					<label for="recreliab_WRP_NATSecondStep">recreliab</label>
 					<input type="checkbox" id="reliabilevel_WRP_NATSecondStep" name="reliabilevel_WRP_NATSecondStep"  value="reliabilevel_WRP_NATSecondStep">

@@ -16,16 +16,19 @@ function toggleDataGroups(){
 }
 
 function toggleVariableTableDiv(){
+	document.getElementById("variableText").style.display = "block";
 	if(document.getElementById("NMC_5_0").checked){
 		document.getElementById("divNMC_5_0_Table").style.display = "block";
 	}
 	else{					
+		$('#divNMC_5_0_Table').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divNMC_5_0_Table").style.display = "none";
 	}
 	if(document.getElementById("WRP_NAT").checked){
 		document.getElementById("divWRP_NAT_Table").style.display = "block";
 	}
 	else{
+		$('#divWRP_NAT_Table').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divWRP_NAT_Table").style.display = "none";
 	}
 	if(document.getElementById("Major_Powers").checked){
@@ -45,6 +48,7 @@ function toggleVariableTableDiv(){
 		document.getElementById("divMidDataTable").style.display = "block";
 	}
 	else{
+		$('#divMidDataTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divMidDataTable").style.display = "none";
 	}
 }
@@ -203,12 +207,8 @@ function variableChooser(){
 		variables.push("state");
 		variables.push("year");
 		variables.push("ccode");
-		if(document.getElementById("statename_Major_Powers").checked){
-			variables.push("statename_Major_Powers");
-		}
-		if(document.getElementById("major_Major_Powers").checked){
-			variables.push("major_Major_Powers");
-		}
+		variables.push("statename_Major_Powers");
+		variables.push("major_Major_Powers");
 	}
 	if(document.getElementById("WRP_NAT").checked){
 		variables.push("state");
@@ -441,9 +441,6 @@ function variableChooser(){
 		}
 		if(document.getElementById("datatype_WRP_NAT").checked){
 			variables.push("datatype_WRP_NAT");
-		}
-		if(document.getElementById("sourcereliab_WRP_NAT").checked){
-			variables.push("sourcereliab_WRP_NAT");
 		}
 		if(document.getElementById("recreliab_WRP_NAT").checked){
 			variables.push("recreliab_WRP_NAT");
@@ -1425,9 +1422,6 @@ function variableChooserSecondStep(){
 		}
 		if(document.getElementById("datatype_WRP_NATSecondStep").checked){
 			variablesSecondStep.push("datatype_WRP_NAT");
-		}
-		if(document.getElementById("sourcereliab_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sourcereliab_WRP_NAT");
 		}
 		if(document.getElementById("recreliab_WRP_NATSecondStep").checked){
 			variablesSecondStep.push("recreliab_WRP_NAT");

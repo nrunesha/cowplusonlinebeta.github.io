@@ -17,7 +17,8 @@ body, nav {margin:0px;
 	overflow:scroll;
 	height:200px;
 	overflow-x:auto;
-	margin-top: 20px;
+	margin-top: 5px;
+	margin-bottom:20px;
 }
 h1 {text-align: center}
 h4 {margin:0px}
