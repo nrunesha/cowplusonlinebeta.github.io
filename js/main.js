@@ -1546,7 +1546,6 @@ function createSearchArrayForExtraColumns(){
 	return compiledArray;
 }
 
-
 function createArrayForExtraColumnObjectsState1(){
 	var searchArray, selectedVar, dataset, i, outputstate1;
 	searchArray = createSearchArrayForExtraColumns();
@@ -1620,7 +1619,6 @@ function mergeAppendedData(){
 	var data = mergeSets(origData, newData, "state1ab", "state2ab", "year");
 	return data;
 }
-
 
 function clearTable(){
 	return new Promise((resolve,reject)=>{
