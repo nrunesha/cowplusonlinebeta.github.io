@@ -963,11 +963,11 @@ function filterByYearDyadYear(){
 	}
 	let truefalseYear = checkYearRangeSelectorDyadYear();
 	if(truefalseYear == false){
-		document.getElementById("WarningYearSelector").style.display = "block";
+		document.getElementById("WarningYearSelectorDyad").style.display = "block";
 		return;
 	}
 	else{
-		document.getElementById("WarningYearSelector").style.display = "none";				
+		document.getElementById("WarningYearSelectorDyad").style.display = "none";				
 	}
 }
 
