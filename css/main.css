@@ -2,7 +2,7 @@ body, nav {margin:0px;
 	display: block;	
 }
 
-#divNMC_5_0, #divWRP_NAT, #divMajor_Powers, #divMID_Data_ND, #divNMC_5_0SecondStep, #divWRP_NATSecondStep, #divMajor_PowersSecondStep{
+#divNMC_5_0SecondStep, #divWRP_NATSecondStep, #divMajor_PowersSecondStep{
 	display:none;
 	padding-left:20px;
 }
