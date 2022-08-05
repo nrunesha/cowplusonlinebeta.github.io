@@ -10,7 +10,7 @@ body, nav {margin:0px;
 	display:none;
 	padding-left:40px;
 }
-#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable{
+#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable, #divNMC_5_0_TableSecondStep, #divWRP_NAT_TableSecondStep, #divMajor_PowersTableSecondStep{
 	display:none;
 	padding-left:20px;
 	padding-right:20px;

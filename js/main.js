@@ -1090,8 +1090,9 @@ async function CreateTable() {
 	}
 	else if(document.getElementById("countryYear").checked){
 		toggleSelectors();
+		changeButtonSecondStep();
 	}
-	
+	document.getElementById("FirstStep").style.display = "none";
 }		
 
 //SECOND STEP 
@@ -1127,40 +1128,34 @@ function changeButton(){
 }
 
 function changeButtonSecondStep(){
+	document.getElementById("createButton").disabled = true;
 	document.getElementById("buttonSecond").disabled = true;
 	document.getElementById("downloadButton").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "none";
 
 } 
 
-function toggleVariableSelectionDivSecondStep(){
+function toggleVariableTableDivSecondStep(){
+	document.getElementById("variableText").style.display = "block";
 	if(document.getElementById("NMC_5_0SecondStep").checked){
-		document.getElementById("divNMC_5_0SecondStep").style.display = "block";
+		document.getElementById("divNMC_5_0_TableSecondStep").style.display = "block";
 	}
-	else{
-		$('#divNMC_5_0SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divNMC_5_0SecondStep").style.display = "none";
+	else{					
+		$('#divNMC_5_0_TableSecondStep').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divNMC_5_0_TableSecondStep").style.display = "none";
 	}
 	if(document.getElementById("WRP_NATSecondStep").checked){
-		document.getElementById("divWRP_NATSecondStep").style.display = "block";
+		document.getElementById("divWRP_NAT_TableSecondStep").style.display = "block";
 	}
 	else{
-		$('#divWRP_NATSecondStep').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divWRP_NATSecondStep").style.display = "none";
+		$('#divWRP_NAT_TableSecondStep').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divWRP_NAT_TableSecondStep").style.display = "none";
 	}
 	if(document.getElementById("Major_PowersSecondStep").checked){
-		document.getElementById("divMajor_PowersSecondStep").style.display = "block";
+		document.getElementById("divMajor_PowersTableSecondStep").style.display = "block";
 	}
 	else{
-		$('#divMajor_PowersSecondStep').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divMajor_PowersSecondStep").style.display = "none";
-	}
-	if(document.getElementById("ND_Data_MIDSecondStep").checked){
-		document.getElementById("divMID_Data_NDSecondStep").style.display = "block";
-	}
-	else{
-		$('#divMID_Data_NDSecondStep').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divMID_Data_NDSecondStep").style.display = "none";
+		document.getElementById("divMajor_PowersTableSecondStep").style.display = "none";
 	}
 }
 
