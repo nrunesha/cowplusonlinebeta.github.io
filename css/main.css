@@ -2,6 +2,14 @@ body, nav {margin:0px;
 	display: block;	
 }
 
+#myTable{
+	margin-left:20px;
+	margin-bottom:20px;
+	margin-top: 20px;
+	margin-right:20px;
+	display: none;
+}
+
 #divNMC_5_0SecondStep, #divWRP_NATSecondStep, #divMajor_PowersSecondStep{
 	display:none;
 	padding-left:20px;
@@ -10,7 +18,7 @@ body, nav {margin:0px;
 	display:none;
 	padding-left:40px;
 }
-#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable, #divNMC_5_0_TableSecondStep, #divWRP_NAT_TableSecondStep, #divMajor_PowersTableSecondStep{
+#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divMidDataTable, #divCOWAllianceDataTable, #divCOWIGODataTable, #divNMC_5_0_TableSecondStep, #divWRP_NAT_TableSecondStep, #divMajor_PowersTableSecondStep{
 	display:none;
 	padding-left:20px;
 	padding-right:20px;
@@ -24,11 +32,12 @@ h1 {text-align: center}
 h4 {margin:0px}
 p, nav {font-size: 17px;
   }
-table, th, td {
+
+.variableTables table, .variableTables th, .variableTables td {
 	border: 1px solid black;
 	border-collapse:collapse;
 }
-th,td{
+.variableTables th, .variableTables td{
 	padding-right:20px;
 }
 body {
@@ -37,6 +46,7 @@ body {
 header{
 	padding-left:0px;
 }
+
 .topnav {
 	overflow: hidden;
 	background-color: lightgrey;
@@ -86,7 +96,7 @@ thead{
 	margin-bottom:-5px;
 }
 
-#showData{
+#showData, #showDataSecondStep{
 	overflow-x:auto;
 	overflow:scroll;
 	height:300px;

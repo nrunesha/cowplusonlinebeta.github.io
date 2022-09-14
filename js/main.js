@@ -1,3 +1,4 @@
+
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
 		document.getElementById("countryYearData").style.display = "block";
@@ -15,9 +16,207 @@ function toggleDataGroups(){
 	}
 }
 
-function toggleVariableTableDiv(){
-	document.getElementById("variableText").style.display = "block";
+function allVariables(){
+	const variables = [];
 	if(document.getElementById("NMC_5_0").checked){
+		variables.push("stateabb");
+		variables.push("year");
+		variables.push("ccode");
+		variables.push("milex_NMC_5_0");
+		variables.push("milper_NMC_5_0");
+		variables.push("irst_NMC_5_0");
+		variables.push("pec_NMC_5_0");
+		variables.push("tpop_NMC_5_0");
+		variables.push("upop_NMC_5_0");
+		variables.push("cinc_NMC_5_0");
+	}
+	if(document.getElementById("Major_Powers").checked){
+		variables.push("stateabb");
+		variables.push("year");
+		variables.push("ccode");
+		variables.push("statename_Major_Powers");
+		variables.push("major_Major_Powers");
+	}
+	if(document.getElementById("WRP_NAT").checked){
+		variables.push("stateabb");
+		variables.push("year");
+		variables.push("ccode");
+		variables.push("chrstprot_WRP_NAT");
+		variables.push("chrstcat_WRP_NAT");
+		variables.push("chrstorth_WRP_NAT");
+		variables.push("chrstang_WRP_NAT");
+		variables.push("chrstothr_WRP_NAT");
+		variables.push("chrstgen_WRP_NAT");
+		variables.push("judorth_WRP_NAT");
+		variables.push("judcons_WRP_NAT");
+		variables.push("judref_WRP_NAT");
+		variables.push("judothr_WRP_NAT");
+		variables.push("judgen_WRP_NAT");
+		variables.push("islmsun_WRP_NAT");
+		variables.push("islmshi_WRP_NAT");
+		variables.push("islmibd_WRP_NAT");
+		variables.push("islmnat_WRP_NAT");
+		variables.push("islmalw_WRP_NAT");
+		variables.push("islmahm_WRP_NAT");
+		variables.push("islmothr_WRP_NAT");
+		variables.push("islmgen_WRP_NAT");
+		variables.push("budmah_WRP_NAT");
+		variables.push("budthr_WRP_NAT");
+		variables.push("budothr_WRP_NAT");
+		variables.push("budgen_WRP_NAT");
+		variables.push("zorogen_WRP_NAT");
+		variables.push("hindgen_WRP_NAT");
+		variables.push("sikhgen_WRP_NAT");
+		variables.push("shntgen_WRP_NAT");
+		variables.push("bahgen_WRP_NAT");
+		variables.push("taogen_WRP_NAT");
+		variables.push("jaingen_WRP_NAT");
+		variables.push("confgen_WRP_NAT");
+		variables.push("syncgen_WRP_NAT");
+		variables.push("anmgen_WRP_NAT");
+		variables.push("nonrelig_WRP_NAT");
+		variables.push("othrgen_WRP_NAT");
+		variables.push("sumrelig_WRP_NAT");
+		variables.push("pop_WRP_NAT");
+		variables.push("chrstprotpct_WRP_NAT");
+		variables.push("chrstcatpct_WRP_NAT");
+		variables.push("chrstorthpct_WRP_NAT");
+		variables.push("chrstangpct_WRP_NAT");
+		variables.push("chrstothrpct_WRP_NAT");
+		variables.push("chrstgenpct_WRP_NAT");
+		variables.push("judorthpct_WRP_NAT");
+		variables.push("judconspct_WRP_NAT");
+		variables.push("judrefpct_WRP_NAT");
+		variables.push("judothrpct_WRP_NAT");
+		variables.push("judgenpct_WRP_NAT");
+		variables.push("islmsunpct_WRP_NAT");
+		variables.push("islmshipct_WRP_NAT");
+		variables.push("islmibdpct_WRP_NAT");
+		variables.push("islmnatpct_WRP_NAT");
+		variables.push("islmalwpct_WRP_NAT");
+		variables.push("islmahmpct_WRP_NAT");
+		variables.push("islmothrpct_WRP_NAT");
+		variables.push("islmgenpct_WRP_NAT");
+		variables.push("budmahpct_WRP_NAT");
+		variables.push("budthrpct_WRP_NAT");
+		variables.push("budothrpct_WRP_NAT");
+		variables.push("budgenpct_WRP_NAT");
+		variables.push("zorogenpct_WRP_NAT");
+		variables.push("hindgenpct_WRP_NAT");
+		variables.push("sikhgenpct_WRP_NAT");
+		variables.push("shntgenpct_WRP_NAT");
+		variables.push("bahgenpct_WRP_NAT");
+		variables.push("taogenpct_WRP_NAT");
+		variables.push("jaingenpct_WRP_NAT");
+		variables.push("confgenpct_WRP_NAT");
+		variables.push("syncgenpct_WRP_NAT");
+		variables.push("anmgenpct_WRP_NAT");
+		variables.push("nonreligpct_WRP_NAT");
+		variables.push("othrgenpct_WRP_NAT");
+		variables.push("sumreligpct_WRP_NAT");
+		variables.push("total_WRP_NAT");
+		variables.push("dualrelig_WRP_NAT");
+		variables.push("datatype_WRP_NAT");
+		variables.push("recreliab_WRP_NAT");
+		variables.push("reliabilevel_WRP_NAT");
+		variables.push("sourcecode_WRP_NAT");
+	}
+	if(document.getElementById("DirectContiguity").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		variables.push("dyad");
+		variables.push("conttype_DirectContiguity");
+	}
+	if(document.getElementById("MIDS_NDD").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		variables.push("statenme1");
+		variables.push("statenme2");
+		variables.push("mid_count");
+		variables.push("mid_onset_m");
+		variables.push("mid_ongoing_m");
+		variables.push("onset_other");
+		variables.push("ongoing_other");
+		variables.push("main_disno");
+		variables.push("dyindex");
+		variables.push("strtday_m");
+		variables.push("strtmnth_m");
+		variables.push("strtyr_m");
+		variables.push("endday_m");
+		variables.push("endmnth_m");
+		variables.push("endyear_m");
+		variables.push("outcome_m");
+		variables.push("settlmnt_m");
+		variables.push("fatlev_m");
+		variables.push("highact_m");
+		variables.push("hihost_m");
+		variables.push("recip_m");
+		variables.push("nosideA_m");
+		variables.push("nosideB_m");
+		variables.push("sideaa_m");
+		variables.push("revstata_m");
+		variables.push("revtypea_m");
+		variables.push("fatleva_m");
+		variables.push("highmcaa_m");
+		variables.push("hihosta_m");
+		variables.push("orignata_m");
+		variables.push("sideab_m");
+		variables.push("revstatb_m");
+		variables.push("revtypeb_m");
+		variables.push("fatlevb_m");
+		variables.push("highmcab_m");
+		variables.push("hihostb_m");
+		variables.push("orignatb_m");
+		variables.push("rolea_m");
+		variables.push("roleb_m");
+		variables.push("dyad_rolea_m");
+		variables.push("dyad_roleb_m");
+		variables.push("war_m");
+		variables.push("durindx_m");
+		variables.push("duration_m");
+		variables.push("cumdurat_m");
+		variables.push("mid5hiact_m");
+		variables.push("mid5hiacta_m");
+		variables.push("mid5hiactb_m");
+		variables.push("severity_m");
+		variables.push("severitya_m");
+		variables.push("severityb_m");
+		variables.push("ongo2014_m");
+		variables.push("new_m");
+	}
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		variables.push("defense");
+		variables.push("neutrality");
+		variables.push("nonaggression");
+		variables.push("entente");
+	}
+	if(document.getElementById("COW_IGO_Data_NDD").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		variables.push("joint_igo_membership");
+		variables.push("joint_igo_membership_count");
+	}
+	return variables;
+}
+function toggleVariableTableDiv(){
+	if(document.querySelectorAll('input[type="checkbox"]:checked').length >=1){
+		document.getElementById("variableText").style.display = "block";
+	}
+	else{document.getElementById("variableText").style.display = "none";}	if(document.getElementById("NMC_5_0").checked){
 		document.getElementById("divNMC_5_0_Table").style.display = "block";
 	}
 	else{					
@@ -44,144 +243,70 @@ function toggleVariableTableDiv(){
 		document.getElementById("divDirectContiguityTable").style.display = "none";
 	}
 	
-	if(document.getElementById("ND_Data_MID").checked){
+	if(document.getElementById("MIDS_NDD").checked){
 		document.getElementById("divMidDataTable").style.display = "block";
 	}
 	else{
 		$('#divMidDataTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divMidDataTable").style.display = "none";
 	}
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){
+		document.getElementById("divCOWAllianceDataTable").style.display = "block";
+	}
+	else{
+		$('#divCOWAllianceDataTable').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divCOWAllianceDataTable").style.display = "none";
+	}
+	if(document.getElementById("COW_IGO_Data_NDD").checked){
+		document.getElementById("divCOWIGODataTable").style.display = "block";
+	}
+	else{
+		$('#divCOWIGODataTable').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divCOWIGODataTable").style.display = "none";
+	}
 }
 
-
 function contains(set, object, keys) {
-	var solution = -1;
-	set.forEach(function (item, index, array) {
-		var selfItem = item;
-		var allKeys = keys.every(function (item, index, array) {
-			if (selfItem[item] === object[item]) {
-				return true;
-			}
-		});
-		if (allKeys) {
-			solution = index;
-		}
-	});
-	return solution;
+    var solution = -1;
+    set.forEach(function (item, index, array) {
+        var selfItem = item;
+        var allKeys = keys.every(function (item, index, array) {
+            if (selfItem[item] === object[item]) {
+                return true;
+            }
+        });
+        if (allKeys) {
+            solution = index;
+        }
+    });
+    return solution;
 }
 
 function mergeSets(first, second) {
-	var result = first;
-	var keys = Array.prototype.slice.call(arguments, 2);
-	second.forEach(function (item, index, array) {
-		var resultIndex = contains(result, item, keys);
-		if (resultIndex === -1) {
-			result.push(item);
-		} else {
-			for (var property in item) {
-				if (item.hasOwnProperty(property)) {
-					if (!result[resultIndex].hasOwnProperty(property)) {
-						var hello = result[resultIndex];
-						hello[property] = item[property];
-					}
-				}
-			}
-		}
-	});
-	return result;
+    var result = first;
+    var keys = Array.prototype.slice.call(arguments, 2);
+    second.forEach(function (item, index, array) {
+        var resultIndex = contains(result, item, keys);
+        if (resultIndex === -1) {
+            result.push(item);
+        } else {
+            for (var property in item) {
+                if (item.hasOwnProperty(property)) {
+                    if (!result[resultIndex].hasOwnProperty(property)) {
+                        var el = result[resultIndex];
+                        el[property] = item[property];
+                    }
+                }
+            }
+        }
+    });
+    return result;
 }
-
-function mergeCountryYearData(){			
-	var countryYearDataSelected = [];
-
-	if(document.getElementById("NMC_5_0").checked){
-		countryYearDataSelected.push(NMC_5_0Unlim);
-	}
-	if(document.getElementById("WRP_NAT").checked){
-		countryYearDataSelected.push(WRP_NATUnlim);
-	}
-	if(document.getElementById("Major_Powers").checked){
-		countryYearDataSelected.push(COW_States_Major_Powers);
-	}
-	
-	return countryYearDataSelected;
-}
-
-function countryYearDataSetChooser(){
-	var countryYearDatasets = mergeCountryYearData();
-	var data = NMC_5_0Unlim;
-	if(countryYearDatasets.length == 1){
-		data = countryYearDatasets[0];
-	}
-	else if(countryYearDatasets.length == 2){
-		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-	}
-	else if(countryYearDatasets.length == 3){
-		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-		data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
-	}
-	return data;
-}
-
-function mergeDyadYearData(){			
-	var dyadYearDataSelected = [];
-
-	if(document.getElementById("DirectContiguity").checked){
-		dyadYearDataSelected.push(DirectContiguityDyadic);
-	}
-	if(document.getElementById("ND_Data_MID").checked){
-		dyadYearDataSelected.push(COW_MID_DATA_ND);
-	}
-	return dyadYearDataSelected;
-}
-
-function dyadYearDataSetChooser(){
-	var dyadYearDatasets = mergeDyadYearData();
-	var data = DirectContiguityDyadic;
-	if(dyadYearDatasets.length == 1){
-		data = dyadYearDatasets[0];
-	}
-	if(dyadYearDatasets.length == 2){
-		data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1ab", "state2ab", "year");
-	}
-	return data;
-}
-
-function toggleVariableSelectionDiv(){
-	if(document.getElementById("NMC_5_0").checked){
-		document.getElementById("divNMC_5_0").style.display = "block";
-	}
-	else{
-		$('#divNMC_5_0').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divNMC_5_0").style.display = "none";
-	}
-	if(document.getElementById("WRP_NAT").checked){
-		document.getElementById("divWRP_NAT").style.display = "block";
-	}
-	else{
-		$('#divWRP_NAT').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divWRP_NAT").style.display = "none";
-	}
-	if(document.getElementById("Major_Powers").checked){
-		document.getElementById("divMajor_Powers").style.display = "block";
-	}
-	else{
-		$('#divMajor_Powers').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divMajor_Powers").style.display = "none";
-	}
-	if(document.getElementById("ND_Data_MID").checked){
-		document.getElementById("divMID_Data_ND").style.display = "block";
-	}
-	else{
-		$('#divMID_Data_ND').find('input[type=checkbox]:checked').prop('checked',false);
-		document.getElementById("divMID_Data_ND").style.display = "none";
-	}
-}		
 
 function variableChooser(){
 	const variables = [];
 	if(document.getElementById("NMC_5_0").checked){
-		variables.push("state");
+		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
 		if(document.getElementById("milex_NMC_5_0").checked){
@@ -197,6 +322,9 @@ function variableChooser(){
 			variables.push("pec_NMC_5_0");
 		}
 		if(document.getElementById("tpop_NMC_5_0").checked){
+			variables.push("tpop_NMC_5_0");
+		}
+		if(document.getElementById("upop_NMC_5_0").checked){
 			variables.push("upop_NMC_5_0");
 		}
 		if(document.getElementById("cinc_NMC_5_0").checked){
@@ -204,14 +332,14 @@ function variableChooser(){
 		}
 	}
 	if(document.getElementById("Major_Powers").checked){
-		variables.push("state");
+		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
 		variables.push("statename_Major_Powers");
 		variables.push("major_Major_Powers");
 	}
 	if(document.getElementById("WRP_NAT").checked){
-		variables.push("state");
+		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
 		if(document.getElementById("chrstprot_WRP_NAT").checked){
@@ -461,7 +589,7 @@ function variableChooser(){
 		variables.push("dyad");
 		variables.push("conttype_DirectContiguity");
 	}
-	if(document.getElementById("ND_Data_MID").checked){
+	if(document.getElementById("MIDS_NDD").checked){
 		variables.push("state1no");
 		variables.push("state1ab");
 		variables.push("state2no");
@@ -623,350 +751,169 @@ function variableChooser(){
 			variables.push("new_m");
 		}
 	}
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		if(document.getElementById("defense_Alliance").checked){
+			variables.push("defense");
+		}
+		if(document.getElementById("neutrality_Alliance").checked){
+			variables.push("neutrality");
+		}
+		if(document.getElementById("nonaggression_Alliance").checked){
+			variables.push("nonaggression");
+		}
+		if(document.getElementById("entente_Alliance").checked){
+			variables.push("entente");
+		}
+	}
+	if(document.getElementById("COW_IGO_Data_NDD").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		if(document.getElementById("joint_igo_membership_IGO").checked){
+			variables.push("joint_igo_membership");
+		}
+		if(document.getElementById("joint_igo_membership_count_IGO").checked){
+			variables.push("joint_igo_membership_count");
+		}
+	}
 	return variables;
 }
 
-function toggleSelectorsCountryYear(){
-	if (document.getElementById("selectorsCountryYear").style.display = "block"){
-		document.getElementById("selectorsCountryYear").style.display = "none";
-	}
-	if (document.getElementById("selectorsCountryYear").style.display = "none"){
-		document.getElementById("selectorsCountryYear").style.display = "block";
-	}
-}
 
-function stateSet(){
-	var stateDup = [];
-	var myData = countryYearDataSetChooser();
-	for (var i = 0; i < myData.length; i++){
-		stateDup.push(myData[i]["state"]);
+function mergeCountryYearData(){			
+	var countryYearDataSelected = [];
+
+	if(document.getElementById("NMC_5_0").checked){
+		countryYearDataSelected.push(NMC_5_0Unlim);
 	}
-	var stateSet = new Set(stateDup);
-	var stateUnique = Array.from(stateSet);
-	return stateUnique;
-}
-function dropDownList(){
-	var select = document.getElementById("dropdown");
-	var states = stateSet();
-	for(var i = 0; i < states.length; i++) {
-		var opt = states[i];
-		var el = document.createElement("option");
-		el.textContent = opt;
-		el.value = opt;
-		select.appendChild(el);
+	if(document.getElementById("WRP_NAT").checked){
+		countryYearDataSelected.push(WRP_NATUnlim);
 	}
-}
-var selectedCountries = [];
-function selectedCountriesList(){
-	var element = document.getElementById("dropdown").value;
-	if (selectedCountries.includes(element)){
-		selectedCountries.splice(selectedCountries.indexOf(element), 1);
-	}
-	else {
-		selectedCountries.push(element);
+	if(document.getElementById("Major_Powers").checked){
+		countryYearDataSelected.push(COW_States_Major_Powers);
 	}
 	
-	return selectedCountries;
+	return countryYearDataSelected;
 }
 
-function filterByStateCountryYear(){
-	var input, table, tr, td, i;
-	input = selectedCountriesList();
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-	if (input.includes("all")){
-		for (i = 0; i < tr.length; i++) {
-			tr[i].style.display = "";    
-		}
-		selectedCountries = [];
-		document.getElementById("countriesSelected").innerHTML = selectedCountries;
-		return;
+function countryYearDataSetChooser(){
+	var countryYearDatasets = mergeCountryYearData();
+	var data = NMC_5_0Unlim;
+	var variableList = variableChooser();
+	var allVariablesList = allVariables();
+	if(countryYearDatasets.length == 1){
+		data = countryYearDatasets[0];
 	}
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[0];
-		if (td) {
-		  if (input.includes(td.innerHTML)) {
-			tr[i].style.display = "";
-		  } else {
-			tr[i].style.display = "none";
-		  }
-		}       
+	else if(countryYearDatasets.length == 2){
+		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
 	}
-	
-	document.getElementById("countriesSelected").innerHTML = input.join(", ");
-}
-
-function checkYearRangeSelector(){
-	var minYear = document.getElementById("minimumYearCountryYear").value;
-	var maxYear = document.getElementById("maximumYearCountryYear").value;
-	let tf = true;
-	if (minYear > maxYear){
-		tf = false;
+	else if(countryYearDatasets.length == 3){
+		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
+		data = 	mergeSets(temp, countryYearDatasets[2], "stateabb", "year", "ccode");
 	}
-	if ($('#generated_Data table tbody tr:visible').length <= 1){
-		tf = false;
-	}
-	return Boolean(tf);
-}
-function selectedYearListCountryYear(){
-	var minYear = document.getElementById("minimumYear").value;
-	var maxYear = document.getElementById("maximumYear").value;
-	var validYears=[];
-	for(var i = minYear; i <= maxYear; i++) {
-		validYears.push(i.toString());
-	}
-	return validYears;
-}
-
-function filterByYearCountryYear(){
-	var input, table, tr, td, i;
-	input = selectedYearListCountryYear();
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
-		if (td) {
-		  if (input.includes(td.innerHTML,0)) {
-			tr[i].style.display = "";
-		  } else {
-			tr[i].style.display = "none";
-		  }
-		}       
-	}
-	let truefalseYear = checkYearRangeSelector();
-	if(truefalseYear == false){
-		document.getElementById("WarningYearSelector").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("WarningYearSelector").style.display = "none";				
-	}
-}
-
-function toggleSelectorsDyadYear(){
-	if (document.getElementById("selectorsDyadYear").style.display = "block"){
-		document.getElementById("selectorsDyadYear").style.display = "none";
-	}
-	if (document.getElementById("selectorsDyadYear").style.display = "none"){
-		document.getElementById("selectorsDyadYear").style.display = "block";
-	}			
-}
-
-
-
-function stateSetDyadYear1(){
-	var stateDup = [];
-	var myData = dyadYearDataSetChooser();
-	var table, tr, td, i;
-	
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
-		if (td){
-			stateDup.push(td.innerHTML);       
-		}
-	}
-	var stateSet = new Set(stateDup);
-	var stateUnique = Array.from(stateSet);
-	return stateUnique;
-}
-
-function dropDownListDyadYear1(){
-	var select = document.getElementById("dropdown1");
-	var states = stateSetDyadYear1();
-	for(var i = 0; i < states.length; i++) {
-		var opt = states[i];
-		var el = document.createElement("option");
-		el.textContent = opt;
-		el.value = opt;
-		select.appendChild(el);
-	}
-}
-var selectedCountriesFirst = [];
-function selectedCountriesListDyadYear1(){
-	var element = document.getElementById("dropdown1").value;
-	if (selectedCountriesFirst.includes(element)){
-		selectedCountriesFirst.splice(selectedCountriesFirst.indexOf(element), 1);
-	}
-	else {
-		selectedCountriesFirst.push(element);
-	}
-	
-	return selectedCountriesFirst;
-}
-
-function stateSetDyadYear2(){
-	var stateDup = [];
-	var table, tr, td, i;
-	
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[3];
-		if (td){
-			stateDup.push(td.innerHTML);       
-		}
-	}
-	var stateSet = new Set(stateDup);
-	var stateUnique = Array.from(stateSet);
-	return stateUnique;
-}
-function dropDownListDyadYear2(){
-	var select = document.getElementById("dropdown2");
-	var states = stateSetDyadYear2();
-	for(var i = 0; i < states.length; i++) {
-		var opt = states[i];
-		var el = document.createElement("option");
-		el.textContent = opt;
-		el.value = opt;
-		select.appendChild(el);
-	}
-}
-var selectedCountriesSecond = [];
-function selectedCountriesListDyadYear2(){
-	var element = document.getElementById("dropdown2").value;
-	if (selectedCountriesSecond.includes(element)){
-		selectedCountriesSecond.splice(selectedCountriesSecond.indexOf(element), 1);
-	}
-	else {
-		selectedCountriesSecond.push(element);
-	}
-	
-	return selectedCountriesSecond;
-}
-
-var input1Dyad = ["all"];
-var input2Dyad = ["all"];
-function setInput1Dyad(){
-	input1Dyad=selectedCountriesListDyadYear1();
-	return input1Dyad;
-}
-function setInput2Dyad(){
-	input2Dyad=selectedCountriesListDyadYear2();
-	return input2Dyad;
-}
-function filterByStateDyadYear(){
-	var input1, input2, table, tr, td, td2, i;
-	input1 = input1Dyad;
-	input2 = input2Dyad;
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-	if (input1.includes("all") && input2.includes("all")){
-		for (i = 0; i < tr.length; i++) {
-			tr[i].style.display = "";    
-		}
-		selectedCountriesFirst = [];
-		selectedCountriesSecond = [];
-		document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
-		document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
-		return;
-	}
-	else if(input1.includes("all") || input2.includes("all")){
-	
-		if(input2.includes("all")){
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[1];
-				if (td) {
-				  if (input1.includes(td.innerHTML)) {
-					tr[i].style.display = "";
-				  } else {
-					tr[i].style.display = "none";
-				  }
-				}       
+	for (var i = 0; i<allVariablesList.length; i++){
+		if(variableList.includes(allVariables()[i]) == false){
+			for(var j = 0; j<data.length; j++){
+				delete data[j][allVariables()[i]];
 			}
 		}
-		
-		if (input1.includes("all")){
-			for (i = 0; i < tr.length; i++) {
-				td2 = tr[i].getElementsByTagName("td")[3];
-				if (td2) {
-				  if (input2.includes(td2.innerHTML)) {
-					tr[i].style.display = "";
-				  } else {
-					tr[i].style.display = "none";
-				  }
-				}       
+	}
+	for (var i = 0; i < data.length; i++){
+		for(var j = 0; j<variableList.length; j++){
+			if(Object.keys(data[i]).includes(variableList[j])){
+				continue;
+			}
+			else{
+				data.splice(i,1);
+				i--;
 			}
 		}
-		if (input1.includes("all")){
-			document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
-			selectedCountriesFirst = [];
-			document.getElementById("countriesSelectedDyadYear1").innerHTML = selectedCountriesFirst;
-		}
-		else{
-			document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
-			selectedCountriesSecond = [];
-			document.getElementById("countriesSelectedDyadYear2").innerHTML = selectedCountriesSecond;
-		}
-		return;
 	}
-	else{
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[1];
-			td2 = tr[i].getElementsByTagName("td")[3];
-			if (td || td2) {
-			  if (input1.includes(td.innerHTML) && input2.includes(td2.innerHTML)) {
-				tr[i].style.display = "";
-			  } else {
-				tr[i].style.display = "none";
-			  }
-			}       
+	return data;
+}
+
+function containsAll(obj, arr){
+   for(var i = 0; i < arr.length; i++){
+      if(Object.keys(obj).includes(arr[i])){
+         continue;
+      }else{
+         return false;
+      }
+   }
+   return true;
+}
+
+function mergeDyadYearData(){			
+	var dyadYearDataSelected = [];
+
+	if(document.getElementById("DirectContiguity").checked){
+		dyadYearDataSelected.push(DirectContiguityDyadic);
+	}
+	if(document.getElementById("MIDS_NDD").checked){
+		dyadYearDataSelected.push(COW_MID_DATA_ND);
+	}
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){
+		dyadYearDataSelected.push(COWAllianceDataND);
+	}
+	if(document.getElementById("COW_IGO_Data_NDD").checked){
+		dyadYearDataSelected.push(COWIGOData);
+	}
+	
+	dyadYearDataSelected.sort(function (one, other) {
+	   return other.length - one.length;
+	})
+	
+	return dyadYearDataSelected;
+}
+
+function dyadYearDataSetChooser(){
+	var dyadYearDatasets = mergeDyadYearData();
+	var data = DirectContiguityDyadic;
+	var variableList = variableChooser();
+	var allVariablesList = allVariables();
+	if(dyadYearDatasets.length == 1){
+		data = dyadYearDatasets[0];
+	}
+	if(dyadYearDatasets.length == 2){
+		data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+	}
+	if(dyadYearDatasets.length == 3){
+		var temp = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+		data = 	mergeSets(temp, dyadYearDatasets[2], "state1no", "state2no", "year");
+	}
+	if(dyadYearDatasets.length == 4){
+		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
+		data = 	mergeSets(temp1, temp2, "state1no", "state2no", "year");
+	}
+	for (var i = 0; i<allVariablesList.length; i++){
+		if(!variableList.includes(allVariablesList[i])){
+			for(var j = 0; j<data.length; j++){
+				delete data[j][allVariablesList[i]];
+			}
 		}
 	}
 	
-	document.getElementById("countriesSelectedDyadYear1").innerHTML = input1.join(", ");
-	document.getElementById("countriesSelectedDyadYear2").innerHTML = input2.join(", ");
+	for (var i = 0; i < data.length; i++){
+		for(var j = 0; j<variableList.length; j++){
+			if((!Object.keys(data[i]).includes(variableList[j])) || data[i] == undefined){
+				data.splice(i,1);
+				i--;
+				break;
+			}
+		}
+	}
+	
+	return data;
 }
 
-function checkYearRangeSelectorDyadYear(){
-	var minYear = document.getElementById("minimumYearDyad").value;
-	var maxYear = document.getElementById("maximumYearDyad").value;
-	let tf = true;
-	if (minYear > maxYear){
-		tf = false;
-	}
-	if ($('#generated_Data table tbody tr:visible').length <= 1){
-		tf = false;
-	}
-	return Boolean(tf);
-}
-function selectedYearListDyadYear(){
-	var minYear = document.getElementById("minimumYearDyad").value;
-	var maxYear = document.getElementById("maximumYearDyad").value;
-	var validYears=[];
-	for(var i = minYear; i <= maxYear; i++) {
-		validYears.push(i.toString());
-	}
-	return validYears;
-}
-
-function filterByYearDyadYear(){
-	var input, table, tr, td, i;
-	input = selectedYearListDyadYear();
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[4];
-		if (td) {
-		  if (input.includes(td.innerHTML,0)) {
-			tr[i].style.display = "";
-		  } else {
-			tr[i].style.display = "none";
-		  }
-		}       
-	}
-	let truefalseYear = checkYearRangeSelectorDyadYear();
-	if(truefalseYear == false){
-		document.getElementById("WarningYearSelectorDyad").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("WarningYearSelectorDyad").style.display = "none";				
-	}
-}
 
 
 function checkCheckboxes(){
@@ -974,7 +921,7 @@ function checkCheckboxes(){
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 		tf = false;
 	}
-	if($('input[name*="NMC_5_0"]:checked').length == 1 || $('input[name*="WRP_NAT"]:checked').length == 1 || $('input[name*="Major_Powers"]:checked').length == 1 || $('input[name*="MID"]:checked').length == 1){
+	if(!document.getElementById("DirectContiguity").checked && $('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
 		tf = false;
 	}
 	return Boolean(tf);
@@ -990,43 +937,27 @@ function checkTable(){
 	return Boolean(tf);
 }
 
-function update(){
-	return new Promise((resolve,reject)=>{
-		var element = document.getElementById("progressBar");
-		var width = 1;
-		var identity = setInterval(scene, 10);
-		function scene(){  
-			if (width >= 100){
-				clearInterval(identity);
-				element.style.display = "none";
-			}
-			else{
-				width++;
-				element.style.width = width + '%';
-			}
-		}					
-		setTimeout(()=>{
-			console.log("");
-			resolve();
-			;} , 2000
-		);
-	});
-}
-function toggleProgressBar(){
-	return new Promise((resolve,reject)=>{
-		if (document.getElementById("progressStatus").style.display = "none"){
-			document.getElementById("progressStatus").style.display = "inline-block";
-		}
-		setTimeout(()=>{
-			console.log("");
-			resolve();
-			;} , 1
-		);
-	});
+function addID(){
+	if(document.getElementById("countryYear").checked){
+		var myData = countryYearDataSetChooser();
+	}
+	else if(document.getElementById("dyadYear").checked){
+		var myData = dyadYearDataSetChooser();
+	}
+	for (var i = 0; i < myData.length; i++) {
+		myData[i] = {"id" : i+1, ...myData[i]};
+	}
+	return myData;
 }
 
-async function CreateTable() {
-	await toggleProgressBar();
+var filteredItems = [];
+function CreateTable(){
+	document.getElementById("myTable").style.display = "inline-block";
+	
+	var yearRangeMin = "0";
+	var yearRangeMax = "2022";
+	var dataView;
+	var grid;
 	let truefalse = checkCheckboxes();
 	if(truefalse == false){
 		document.getElementById("Warning").style.display = "block";
@@ -1035,66 +966,137 @@ async function CreateTable() {
 	else{
 		document.getElementById("Warning").style.display = "none";				
 	}
-	if(document.getElementById("countryYear").checked){
-		var myData = countryYearDataSetChooser();
-	}
-	else if(document.getElementById("dyadYear").checked){
-		var myData = dyadYearDataSetChooser();
-	}
+	var myData = addID();
 	let displayColumns = variableChooser();
+	displayColumns.unshift("id");
 	myData = myData.map(x => {
-	  let newObj = {};
-	  for (col of displayColumns) {
-		newObj[col] = x[col];
-	  }
-	  return newObj;
+		let newObj = {};
+		for (col of displayColumns) {
+			newObj[col] = x[col];
+		}
+		return newObj;
 	});
 	var col = [];
-	for (var i = 0; i < myData.length; i++) {
+	for (var i = 0; i < 1; i++) {
 	  for (var key in myData[i]) {
 		if (col.indexOf(key) === -1) {
-		  col.push(key);
+			col.push({id: key, name: key, field: key, toolTip: key});
 		}
 	  }
 	}
-	var table = document.createElement("table");
-	var tr = table.insertRow(-1);
-	for (var i = 0; i < col.length; i++) {
-	  var th = document.createElement("th");
-	  th.innerHTML = col[i];
-	  tr.appendChild(th);
-	}
-	let booleantf = true;
-	for (var i = 0; i < myData.length; i++) {
-	  booleantf = true;
-	  for(var k=0; k<col.length; k++) {
-		if(myData[i][col[k]]==undefined){
-			booleantf = false;
+	var options = {
+		enableCellNavigation: true,
+        enableColumnReorder: false,
+        explicitInitialization: true,
+        editable: false,
+	};
+		
+	$(function () {
+		dataView = new Slick.Data.DataView();
+		grid = new Slick.Grid("#myGrid", dataView, col, options);
+		
+        grid.setSelectionModel(new Slick.CellSelectionModel());
+
+		dataView.onRowCountChanged.subscribe(function (e, args) {
+		  grid.updateRowCount();
+		  grid.render();
+		});
+		dataView.onRowsChanged.subscribe(function (e, args) {
+		  grid.invalidateRows(args.rows);
+		  grid.render();
+		});
+		
+		$("#yearRangeMinimum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			// clear on Esc
+			if (e.which == 27) {
+			  this.value = "0";
+			}
+
+			yearRangeMin = this.value;
+			updateFilter();
+		});
+		$("#yearRangeMaximum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			// clear on Esc
+			if (e.which == 27) {
+			  this.value = "2022";
+			}
+
+			yearRangeMax = this.value;
+			updateFilter();
+		});
+		
+		function updateFilter() {
+			dataView.setFilterArgs({
+			  yearRangeMin: yearRangeMin,
+			  yearRangeMax: yearRangeMax
+			});
+			dataView.refresh();
 		}
-	  }
-	  if(booleantf == true){
-		  tr = table.insertRow(-1);
-		  for (var j = 0; j < col.length; j++) {
-			var tabCell = tr.insertCell(-1);
-			tabCell.innerHTML = myData[i][col[j]];
-		  }
-	  }
-	}
-	await update();
-	var divContainer = document.getElementById("showData");
-	divContainer.innerHTML = "";
-	divContainer.appendChild(table);
+		grid.init();
+		dataView.beginUpdate();
+		dataView.setItems(myData);
+		dataView.setFilterArgs({
+			yearRangeMin: yearRangeMin,
+			yearRangeMax: yearRangeMax
+		});
+		dataView.setFilter(filter);
+		
+		dataView.endUpdate();
+		
+		var filterPlugin = new Ext.Plugins.HeaderFilter({});
+
+            filterPlugin.onFilterApplied.subscribe(function () {
+                dataView.refresh();
+                grid.resetActiveCell();
+				filteredItems = dataView.getRows();
+            });
+
+
+            grid.registerPlugin(filterPlugin);
+
+            
+
+            grid.init();
+
+            function filter(item, args) {
+                var columns = grid.getColumns();
+
+                var value = true;
+
+                for (var i = 0; i < columns.length; i++) {
+                    var col = columns[i];
+                    var filterValues = col.filterValues;
+
+                    if (filterValues && filterValues.length > 0) {
+                        value = value & _.contains(filterValues, item[col.field]);
+                    }
+                }
+				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
+					value = false;
+				}
+				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
+					value = false;
+				}
+                return value;
+            }
+		filteredItems = dataView.getRows();
+    });
+	
 	if (document.getElementById("dyadYear").checked){
 		document.getElementById("qChooseCY").style.display = "block";
 		changeButton();
 	}
 	else if(document.getElementById("countryYear").checked){
-		toggleSelectors();
 		changeButtonSecondStep();
 	}
+	
+	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
-}		
-
+}
 //SECOND STEP 
 function displayChooseCYData(){
 	document.getElementById("yesChooseCY").disabled = true;
@@ -1104,7 +1106,7 @@ function displayChooseCYData(){
 	}
 	if (document.getElementById("noChooseCY").checked){
 		changeButtonSecondStep();
-		toggleSelectors();
+		//toggleSelectors();
 	}
 }
 
@@ -1113,10 +1115,10 @@ function checkCheckboxesSecondStep(){
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 		tf = false;
 	}
-	if($('input[name*="NMC_5_0SecondStep"]:checked').length == 1 || $('input[name*="WRP_NATSecondStep"]:checked').length == 1 || $('input[name*="Major_PowersSecondStep"]:checked').length == 1){
+	if($('input[name*="NMC_5_0SecondStep"]:checked').length < 1 && $('input[name*="WRP_NATSecondStep"]:checked').length < 1 && $('input[name*="Major_PowersSecondStep"]:checked').length < 1){
 		tf = false;
 	}
-	if($('input[name*="SecondStep"]:checked').length <= 1){
+	if($('input[name*="SecondStep"]:checked').length < 1){
 		tf = false;
 	}
 	return Boolean(tf);
@@ -1136,7 +1138,10 @@ function changeButtonSecondStep(){
 } 
 
 function toggleVariableTableDivSecondStep(){
-	document.getElementById("variableText").style.display = "block";
+	if(document.querySelectorAll('input[type="checkbox"]:checked').length >=1){
+		document.getElementById("variableText").style.display = "block";
+	}
+	else{document.getElementById("variableText").style.display = "none";}
 	if(document.getElementById("NMC_5_0SecondStep").checked){
 		document.getElementById("divNMC_5_0_TableSecondStep").style.display = "block";
 	}
@@ -1175,6 +1180,9 @@ function variableChooserSecondStep(){
 			variablesSecondStep.push("pec_NMC_5_0");
 		}
 		if(document.getElementById("tpop_NMC_5_0SecondStep").checked){
+			variablesSecondStep.push("tpop_NMC_5_0");
+		}
+		if(document.getElementById("upop_NMC_5_0SecondStep").checked){
 			variablesSecondStep.push("upop_NMC_5_0");
 		}
 		if(document.getElementById("cinc_NMC_5_0SecondStep").checked){
@@ -1182,9 +1190,6 @@ function variableChooserSecondStep(){
 		}
 	}
 	if(document.getElementById("Major_PowersSecondStep").checked){
-		if(document.getElementById("statename_Major_PowersSecondStep").checked){
-			variablesSecondStep.push("statename_Major_Powers");
-		}
 		if(document.getElementById("major_Major_PowersSecondStep").checked){
 			variablesSecondStep.push("major_Major_Powers");
 		}
@@ -1454,11 +1459,11 @@ function countryYearDataSetChooserSecondStep(){
 		data = countryYearDatasets[0];
 	}
 	else if(countryYearDatasets.length == 2){
-		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
+		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
 	}
 	else if(countryYearDatasets.length == 3){
-		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "state", "year", "ccode");
-		data = 	mergeSets(temp, countryYearDatasets[2], "state", "year", "ccode");
+		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
+		data = 	mergeSets(temp, countryYearDatasets[2], "stateabb", "year", "ccode");
 	}
 	return data;
 }
@@ -1466,54 +1471,30 @@ function countryYearDataSetChooserSecondStep(){
 function yearArrayDyadYear(){
 	var yearDup = [];
 	var myData = dyadYearDataSetChooser();
-	var table, tr, td, i;
-	
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[4];
-		if (td){
-			yearDup.push(parseInt(td.innerHTML));       
-		}
+	for (i = 0; i < myData.length; i++) {
+		yearDup.push(myData[i]["year"]);
 	}
 	return yearDup;
 }
 function stateArrayDyadYear1(){
 	var stateDup = [];
 	var myData = dyadYearDataSetChooser();
-	var table, tr, td, i;
-	
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
-		if (td){
-			stateDup.push(td.innerHTML);       
-		}
+	for (i = 0; i < myData.length; i++) {
+		stateDup.push(myData[i]["state1ab"]);       
 	}
 	return stateDup;
 }
 function stateArrayDyadYear2(){
 	var stateDup = [];
 	var myData = dyadYearDataSetChooser();
-	var table, tr, td, i;
-	
-	table = document.getElementById("generated_Data");
-	tr = table.getElementsByTagName("tr");
-
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[3];
-		if (td){
-			stateDup.push(td.innerHTML);       
-		}
+	for (i = 0; i < myData.length; i++) {
+		stateDup.push(myData[i]["state2ab"]);       
 	}
 	return stateDup;
 }
 
 function createSearchArrayForExtraColumns(){
-	var state1, state2, year, selectedVar, table, tr, td, td2, i;
+	var state1, state2, year, selectedVar;
 	state1 = stateArrayDyadYear1();
 	state2 = stateArrayDyadYear2();
 	year = yearArrayDyadYear();
@@ -1542,7 +1523,7 @@ function createArrayForExtraColumnObjectsState1(){
 	let compiledArray = [];
 	for (i = 0; i < searchArray.length; i++){
 		outputstate1 = dataset.find(function(element) {
-		  return element["state"] == searchArray[i]["state1ab"] && element["year"] == searchArray[i]["year"];
+		  return element["stateabb"] == searchArray[i]["state1ab"] && element["year"] == searchArray[i]["year"];
 		});		
 		compiledArray.push(outputstate1);
 	}
@@ -1555,7 +1536,7 @@ function createArrayForExtraColumnObjectsState2(){
 	let compiledArray = [];
 	for (i = 0; i < searchArray.length; i++){
 		outputstate2 = dataset.find(function(element) {
-		  return element["state"] == searchArray[i]["state2ab"] && element["year"] == searchArray[i]["year"];
+		  return element["stateabb"] == searchArray[i]["state2ab"] && element["year"] == searchArray[i]["year"];
 		});		
 		compiledArray.push(outputstate2);
 	}
@@ -1563,7 +1544,7 @@ function createArrayForExtraColumnObjectsState2(){
 }
 
 function createArrayForExtraColumnsFINALSTEP(){
-	var state1, state2, selectedVar, compiledArray, i;
+	var state1, state2, selectedVar, compiledArray;
 	state1 = createArrayForExtraColumnObjectsState1();
 	state2 = createArrayForExtraColumnObjectsState2();
 	selectedVar = variableChooserSecondStep();
@@ -1602,107 +1583,176 @@ function variableReplacer(){
 	}
 	return variables;
 }
+
+function mergeSetsByIndex(first, second){
+	var result = first.map((obj, index) => ({
+		...obj,
+		...second[index]
+	}));
+	return result;
+}
 function mergeAppendedData(){
 	var origData = dyadYearDataSetChooser();
 	var newData = createArrayForExtraColumnsFINALSTEP();
-	var data = mergeSets(origData, newData, "state1ab", "state2ab", "year");
+	var data = mergeSetsByIndex(origData, newData);
+	//data.pop();
 	return data;
 }
 
-function clearTable(){
-	return new Promise((resolve,reject)=>{
-	var divContainer = document.getElementById("showData");
-	divContainer.innerHTML = "";		
-	setTimeout(()=>{
-			console.log("");
-			resolve();
-			;} , 2000
-		);
-	});
-}
 
-function confirmNext(){
-	return new Promise((resolve,reject)=>{
-	if (!checkCheckboxesSecondStep()){
-		if(confirm("You have not checked any variables. Do you want to continue?")){
-			changeButtonSecondStep();
-			toggleSelectors();
-		}
-	}		
-	setTimeout(()=>{
-			console.log("");
-			resolve();
-			;} , 2000
-		);
-	});
+function addID2(){
+	var myData = mergeAppendedData();
+
+	for (var i = 0; i < myData.length; i++) {
+		myData[i] = {"id" : i+1, ...myData[i]};
+	}
+	return myData;
 }
 
 async function AddColumns() {
-	await confirmNext();
 	var myData = mergeAppendedData();
 	let displayColumns = variableChooser();
 	var variableListAppended = variableReplacer();
 	for(var i = 0; i<variableListAppended.length; i++){
 		displayColumns.push(variableListAppended[i]);
 	}
-	await clearTable();
+	displayColumns.unshift("id");
+	
+	var yearRangeMin = "0";
+	var yearRangeMax = "2022";
+	var dataView;
+	var grid;
+	let truefalse = checkCheckboxes();
+	if(truefalse == false){
+		document.getElementById("Warning").style.display = "block";
+		return;
+	}
+	else{
+		document.getElementById("Warning").style.display = "none";				
+	}
+	myData = addID2();
 	myData = myData.map(x => {
-	  let newObj = {};
-	  for (col of displayColumns) {
-		newObj[col] = x[col];
-	  }
-	  return newObj;
+		let newObj = {};
+		for (col of displayColumns) {
+			newObj[col] = x[col];
+		}
+		return newObj;
 	});
 	var col = [];
-	for (var i = 0; i < myData.length; i++) {
+	for (var i = 0; i < 1; i++) {
 	  for (var key in myData[i]) {
 		if (col.indexOf(key) === -1) {
-		  col.push(key);
+			col.push({id: key, name: key, field: key, toolTip: key});
 		}
 	  }
 	}
-	var table = document.createElement("table");
-	var tr = table.insertRow(-1);
-	for (var i = 0; i < col.length; i++) {
-	  var th = document.createElement("th");
-	  th.innerHTML = col[i];
-	  tr.appendChild(th);
-	}
-	let booleantf = true;
-	for (var i = 0; i < myData.length; i++) {
-	  booleantf = true;
-	  for(var k=0; k<col.length; k++) {
-		if(myData[i][col[k]]==undefined){
-			myData[i][col[k]] = '.';
-		}
-	  }
-	  tr = table.insertRow(-1);
-	  for (var j = 0; j < col.length; j++) {
-		var tabCell = tr.insertCell(-1);
-		tabCell.innerHTML = myData[i][col[j]];
-	  }
-    }
+	var options = {
+		enableCellNavigation: true,
+        enableColumnReorder: false,
+        explicitInitialization: true,
+        editable: false,
+	};
+		
+	$(function () {
+		dataView = new Slick.Data.DataView();
+		grid = new Slick.Grid("#myGrid", dataView, col, options);
+		
+        grid.setSelectionModel(new Slick.CellSelectionModel());
 
-	var divContainer = document.getElementById("showData");
-	divContainer.appendChild(table);
+		dataView.onRowCountChanged.subscribe(function (e, args) {
+		  grid.updateRowCount();
+		  grid.render();
+		});
+		dataView.onRowsChanged.subscribe(function (e, args) {
+		  grid.invalidateRows(args.rows);
+		  grid.render();
+		});
+		
+		$("#yearRangeMinimum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			// clear on Esc
+			if (e.which == 27) {
+			  this.value = "0";
+			}
+
+			yearRangeMin = this.value;
+			updateFilter();
+		});
+		$("#yearRangeMaximum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			// clear on Esc
+			if (e.which == 27) {
+			  this.value = "2022";
+			}
+
+			yearRangeMax = this.value;
+			updateFilter();
+		});
+		
+		function updateFilter() {
+			dataView.setFilterArgs({
+			  yearRangeMin: yearRangeMin,
+			  yearRangeMax: yearRangeMax
+			});
+			dataView.refresh();
+		}
+		grid.init();
+		dataView.beginUpdate();
+		dataView.setItems(myData);
+		dataView.setFilterArgs({
+			yearRangeMin: yearRangeMin,
+			yearRangeMax: yearRangeMax
+		});
+		dataView.setFilter(filter);		
+		dataView.endUpdate();
+		
+		var filterPlugin = new Ext.Plugins.HeaderFilter({});
+
+            filterPlugin.onFilterApplied.subscribe(function () {
+                dataView.refresh();
+                grid.resetActiveCell();
+				filteredItems = dataView.getRows();
+            });
+
+
+            grid.registerPlugin(filterPlugin);
+
+            
+
+            grid.init();
+
+            function filter(item, args) {
+                var columns = grid.getColumns();
+
+                var value = true;
+
+                for (var i = 0; i < columns.length; i++) {
+                    var col = columns[i];
+                    var filterValues = col.filterValues;
+
+                    if (filterValues && filterValues.length > 0) {
+                        value = value & _.contains(filterValues, item[col.field]);
+                    }
+                }
+				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
+					value = false;
+				}
+				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
+					value = false;
+				}
+                return value;
+            }
+		filteredItems = dataView.getRows();
+    });
 	
+	document.getElementById("optionsPanel").style.display = "inline-block";
 	changeButtonSecondStep();
-	toggleSelectors();
+	//toggleSelectors();
 }	
 
-function toggleSelectors(){ //third step
-	if(document.getElementById("countryYear").checked){
-		toggleSelectorsCountryYear();
-		dropDownList();
-	}
-	
-	if(document.getElementById("dyadYear").checked){
-		toggleSelectorsDyadYear();
-		dropDownListDyadYear1();
-		dropDownListDyadYear2();
-	}
-}
-
+//Third STEP
 function downloadCSV(csv, filename) {
 	var csvFile;
 	var downloadLink;
@@ -1715,31 +1765,19 @@ function downloadCSV(csv, filename) {
 	downloadLink.click();
 }
 function exportTableToCSV(filename) {
-	let truefalse = checkTable();
-	if(truefalse == false){
-		document.getElementById("WarningDownload").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("WarningDownload").style.display = "none";				
-	}
+	
 	var csv = [];
-	var rows = $("table tr:visible");
-	for (var i = 0; i < rows.length; i++) {
-		var row = [], cols = rows[i].querySelectorAll("#generated_Data td, #generated_Data th");
-		
-		for (var j = 0; j < cols.length; j++) {
-			row.push(cols[j].innerText);
-		}
-		csv.push(row.join(","));        
+	var filteredItem = [];
+	var allKeysOfObject = Object.keys(filteredItems[0]);
+	filteredItem.push(allKeysOfObject);
+	csv.push(filteredItem.join(","));        
+
+	for (var i = 0; i < filteredItems.length; i++) {
+		var filteredItem = [], objectOfGrid = filteredItems[i];
+
+		filteredItem.push(Object.values(objectOfGrid));
+		csv.push(filteredItem.join(","));        
 	}
 	filename = filename + " " + new Date().toISOString().slice(0, 10) + ".csv";
 	downloadCSV(csv.join("\n"), filename);
-}
-function findAllVariables() {
-	for (let variable in window) {
-		if (window.hasOwnProperty(variable)) {
-			console.log(variable);
-		}
-	}
 }
