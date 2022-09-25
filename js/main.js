@@ -1187,7 +1187,7 @@ function CreateTable(){
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
-	document.getElementById("SecondStep").style.display = "visible";
+	document.getElementById("SecondStep").style.display = "block";
 	history.pushState(updateStepNum(), '', "?step=2");
 
 }
