@@ -1173,7 +1173,7 @@ function CreateTable(){
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
-	history.pushState(null, '', "?step=1");
+	history.pushState(null, '', "?step=2");
 
 }
 //SECOND STEP 
@@ -1828,7 +1828,7 @@ async function AddColumns() {
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	changeButtonSecondStep();
-	history.pushState(null, '', "?step=2");
+	history.pushState(null, '', "?step=3");
 	
 }	
 
