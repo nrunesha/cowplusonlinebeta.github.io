@@ -1173,7 +1173,7 @@ function CreateTable(){
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
-	history.pushState(null, '', "afan7.github.io/newgene.github.io/dataUnlimVar.html?step=1");
+	window.location.hash = 'first';
 
 }
 //SECOND STEP 
@@ -1828,7 +1828,7 @@ async function AddColumns() {
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	changeButtonSecondStep();
-	history.pushState(null, '', "afan7.github.io/newgene.github.io/dataUnlimVar.html?step=2");
+	window.location.hash = 'second';
 	
 }	
 
