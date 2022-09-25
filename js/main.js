@@ -201,14 +201,28 @@ function allVariables(){
 		variables.push("nonaggression");
 		variables.push("entente");
 	}
-	if(document.getElementById("COW_IGO_Data_NDD").checked){
+	if(document.getElementById("COW_Diplomatic_Exchange").checked){
 		variables.push("state1no");
 		variables.push("state1ab");
 		variables.push("state2no");
 		variables.push("state2ab");
 		variables.push("year");
-		variables.push("joint_igo_membership");
-		variables.push("joint_igo_membership_count");
+		variables.push("dr_at_1");
+		variables.push("dr_at_2");
+		variables.push("de");
+	}
+	if(document.getElementById("COW_Trade_4_0").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		variables.push("flow1");
+		variables.push("flow2");
+		variables.push("smoothflow1");
+		variables.push("smoothflow2");
+		variables.push("smoothtotrade");
+		variables.push("china_alt_flow1");
 	}
 	return variables;
 }
@@ -216,7 +230,8 @@ function toggleVariableTableDiv(){
 	if(document.querySelectorAll('input[type="checkbox"]:checked').length >=1){
 		document.getElementById("variableText").style.display = "block";
 	}
-	else{document.getElementById("variableText").style.display = "none";}	if(document.getElementById("NMC_5_0").checked){
+	else{document.getElementById("variableText").style.display = "none";}	
+	if(document.getElementById("NMC_5_0").checked){
 		document.getElementById("divNMC_5_0_Table").style.display = "block";
 	}
 	else{					
@@ -263,6 +278,20 @@ function toggleVariableTableDiv(){
 	else{
 		$('#divCOWIGODataTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divCOWIGODataTable").style.display = "none";
+	}
+	if(document.getElementById("COW_Diplomatic_Exchange").checked){
+		document.getElementById("divCOWDiplomaticExchangeTable").style.display = "block";
+	}
+	else{
+		$('#divCOWDiplomaticExchangeTable').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divCOWDiplomaticExchangeTable").style.display = "none";
+	}
+	if(document.getElementById("COW_Trade_4_0").checked){
+		document.getElementById("divCOWTradeTable").style.display = "block";
+	}
+	else{
+		$('#divCOWTradeTable').find('input[type=checkbox]:checked').prop('checked',false);
+		document.getElementById("divCOWTradeTable").style.display = "none";
 	}
 }
 
@@ -595,8 +624,6 @@ function variableChooser(){
 		variables.push("state2no");
 		variables.push("state2ab");
 		variables.push("year");
-		variables.push("statenme1");
-		variables.push("statenme2");
 		if(document.getElementById("mid_count_MID").checked){
 			variables.push("mid_count");
 		}
@@ -783,6 +810,47 @@ function variableChooser(){
 			variables.push("joint_igo_membership_count");
 		}
 	}
+	if(document.getElementById("COW_Diplomatic_Exchange").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		if(document.getElementById("dr_at_1_Diplo").checked){
+			variables.push("dr_at_1");
+		}
+		if(document.getElementById("dr_at_2_Diplo").checked){
+			variables.push("dr_at_2");
+		}
+		if(document.getElementById("de_Diplo").checked){
+			variables.push("de");
+		}
+	}
+	if(document.getElementById("COW_Trade_4_0").checked){
+		variables.push("state1no");
+		variables.push("state1ab");
+		variables.push("state2no");
+		variables.push("state2ab");
+		variables.push("year");
+		if(document.getElementById("flow1_Trade").checked){
+			variables.push("flow1");
+		}
+		if(document.getElementById("flow2_Trade").checked){
+			variables.push("flow2");
+		}
+		if(document.getElementById("smoothflow1_Trade").checked){
+			variables.push("smoothflow1");
+		}
+		if(document.getElementById("smoothflow2_Trade").checked){
+			variables.push("smoothflow2");
+		}
+		if(document.getElementById("smoothtotrade_Trade").checked){
+			variables.push("smoothtotrade");
+		}
+		if(document.getElementById("china_alt_flow1_Trade").checked){
+			variables.push("china_alt_flow1");
+		}
+	}
 	return variables;
 }
 
@@ -865,10 +933,15 @@ function mergeDyadYearData(){
 	if(document.getElementById("COW_IGO_Data_NDD").checked){
 		dyadYearDataSelected.push(COWIGOData);
 	}
-	
-	dyadYearDataSelected.sort(function (one, other) {
-	   return other.length - one.length;
-	})
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){
+		dyadYearDataSelected.push(COWAllianceDataND);
+	}
+	if(document.getElementById("COW_Diplomatic_Exchange").checked){
+		dyadYearDataSelected.push(COW_Diplomatic_Exchange_Data);
+	}
+	if(document.getElementById("COW_Trade_4_0").checked){
+		dyadYearDataSelected.push(COW_Trade_Data);
+	}
 	
 	return dyadYearDataSelected;
 }
@@ -892,6 +965,19 @@ function dyadYearDataSetChooser(){
 		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
 		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
 		data = 	mergeSets(temp1, temp2, "state1no", "state2no", "year");
+	}
+	if(dyadYearDatasets.length == 5){
+		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
+		var temp3 = mergeSets(temp1, temp2, "state1no", "state2no", "year");
+		data = 	mergeSets(temp3, dyadYearDatasets[4], "state1no", "state2no", "year");
+	}
+	if(dyadYearDatasets.length == 6){
+		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
+		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
+		var temp3 = mergeSets(dyadYearDatasets[4], dyadYearDatasets[5], "state1no", "state2no", "year");
+		var temp4 = mergeSets(temp1, temp2, "state1no", "state2no", "year");
+		data = 	mergeSets(temp3, temp4, "state1no", "state2no", "year");
 	}
 	for (var i = 0; i<allVariablesList.length; i++){
 		if(!variableList.includes(allVariablesList[i])){
@@ -921,21 +1007,12 @@ function checkCheckboxes(){
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 		tf = false;
 	}
-	if(!document.getElementById("DirectContiguity").checked && $('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
+	if(!document.getElementById("DirectContiguity").checked && $('input[name*="Trade"]:checked').length < 1 && $('input[name*="Diplo"]:checked').length < 1 &&$('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
 		tf = false;
 	}
 	return Boolean(tf);
 }
-function checkTable(){
-	let tf = true;
-	if (document.querySelectorAll("#generated_Data table tr").length <=0){
-		tf = false;
-	}
-	if (document.querySelectorAll('input[type="checkbox"]:checked').length <=1 && !document.getElementById("DirectContiguity").checked){
-		tf = false;
-	}
-	return Boolean(tf);
-}
+
 
 function addID(){
 	if(document.getElementById("countryYear").checked){
@@ -1096,6 +1173,8 @@ function CreateTable(){
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
+	history.pushState(null, '', "afan7.github.io/newgene.github.io/dataUnlimVar.html?step=1");
+
 }
 //SECOND STEP 
 function displayChooseCYData(){
@@ -1749,7 +1828,8 @@ async function AddColumns() {
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	changeButtonSecondStep();
-	//toggleSelectors();
+	history.pushState(null, '', "afan7.github.io/newgene.github.io/dataUnlimVar.html?step=2");
+	
 }	
 
 //Third STEP

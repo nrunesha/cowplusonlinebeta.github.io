@@ -13,8 +13,8 @@
 		<script src="datafiles/COW_MID_Data_NDD.js"></script>
 		<script src="datafiles/COW_Alliance_Data_NDD.js"></script>
 		<script src="datafiles/COW_IGO_Data_NDD.js"></script>
-		<!-- <script src="datafiles/COW_Diplomatic_Exchange.js"></script>
-		<script src="datafiles/COW_Trade_4_0.js"></script> -->
+		<script src="datafiles/COW_Diplomatic_Exchange.js"></script>
+		<script src="datafiles/COW_Trade_4_0.js"></script>
 		<script src="js/main.js"></script>
 		<link rel="stylesheet" href="SlickGrid-2.4.44/slick.grid.css" type="text/css"/>
 		  <link rel="stylesheet" href="SlickGrid-2.4.44/css/smoothness/jquery-ui.css" type="text/css"/>
@@ -93,6 +93,14 @@
 				<div style="margin-bottom:0px" >
 						<input type="checkbox" id="COW_IGO_Data_NDD" name="dyadYearDataSet" value="COW_IGO_Data_NDD" onclick="toggleVariableTableDiv();">
 						<label for="COW_IGO_Data_NDD">IGO Data (Non-Directed) (1965-2005)</label>
+				</div>
+				<div style="margin-bottom:0px" >
+						<input type="checkbox" id="COW_Diplomatic_Exchange" name="dyadYearDataSet" value="COW_Diplomatic_Exchange" onclick="toggleVariableTableDiv();">
+						<label for="COW_Diplomatic_Exchange">Diplomatic Exchange Data (1817-2005)</label>
+				</div>
+				<div style="margin-bottom:0px" >
+						<input type="checkbox" id="COW_Trade_4_0" name="dyadYearDataSet" value="COW_Trade_4_0" onclick="toggleVariableTableDiv();">
+						<label for="COW_Trade_4_0">COW Trade Data (1870-2014)</label>
 				</div>
 			</div>
 			<div id="variableTables" class ="variableTables">
@@ -908,7 +916,7 @@
 						</tr>
 					</table>
 				</div>
-				<div id="divCOWIGODataTable"> <!--uncompleted!-->	
+				<div id="divCOWIGODataTable">
 					<table>
 						<tr>
 							<th>Name</th>
@@ -930,6 +938,85 @@
 						</tr>
 					</table>
 				</div>			
+				<div id="divCOWDiplomaticExchangeTable">
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="dr_at_1_Diplo" name="dr_at_1_Diplo" class="DiplomaticExchange" value="dr_at_1_Diplo">
+							</td>
+							<td>dr_at_1</td>
+							<td>Diplomatic representation level of side 2 at side 1 (0: no evidence of diplomatic exchange; 1=chargé d'affaires; 2=minister; 3=ambassador; 9=other) </td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="dr_at_2_Diplo" name="dr_at_2_Diplo" class="DiplomaticExchange" value="dr_at_2_Diplo">
+							</td>
+							<td>dr_at_2</td>
+							<td>Diplomatic representation level of side 1 at side 2 (0: no evidence of diplomatic exchange; 1=chargé d'affaires; 2=minister; 3=ambassador; 9=other)</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="de_Diplo" name="de_Diplo" class="DiplomaticExchange" value="de_Diplo">
+							</td>
+							<td>de</td>
+							<td>Any diplomatic exchange between side 1 and side 2 (0: neither side was represented in the other side; 1: at least one side was represented in the other side)</td>
+						</tr>
+					</table>
+				</div>	
+				<div id="divCOWTradeTable">
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="flow1_Trade" name="flow1_Trade" class="Trade_4_0" value="flow1_Trade">
+							</td>
+							<td>flow1</td>
+							<td>Imports of Country 1 from Country 2, in US millions of current dollars</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="flow2_Trade" name="flow2_Trade" class="Trade_4_0" value="flow2_Trade">
+							</td>
+							<td>flow2</td>
+							<td>Imports of Country 2 from Country 1, in US millions of current dollars</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="smoothflow1_Trade" name="smoothflow1_Trade" class="Trade_4_0" value="smoothflow1_Trade">
+							</td>
+							<td>smoothflow1</td>
+							<td>Smoothed flow1 values</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="smoothflow2_Trade" name="smoothflow2_Trade" class="Trade_4_0" value="smoothflow2_Trade">
+							</td>
+							<td>smoothflow2</td>
+							<td>Smoothed flow2 values</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="smoothtotrade_Trade" name="smoothtotrade_Trade" class="Trade_4_0" value="smoothtotrade_Trade">
+							</td>
+							<td>smoothtotrade</td>
+							<td>Smoothed total trade values (obtained by first summing Flow1 and Flow2 and then applying smoothing).</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="china_alt_flow1_Trade" name="china_alt_flow1_Trade" class="Trade_4_0" value="china_alt_flow1_Trade">
+							</td>
+							<td>china_alt_flow1</td>
+							<td>Original figures for the People’s Republic of China</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div id="SecondStep">
@@ -1526,10 +1613,10 @@
 				<hr/>
 				<div style="padding:6px;">
 					<label style="width:120px; float:left">Choose start year:</label>
-					<input type=text id="yearRangeMinimum" style="width:100px;">
+					<input type=text id="yearRangeMinimum" style="width:100px;" placeholder = "1816">
 					<br/><br/>
 					<label style="width:120px; float:left">Choose end year:</label>
-					<input type=text id="yearRangeMaximum" style="width:100px;">
+					<input type=text id="yearRangeMaximum" style="width:100px;" placeholder = "2014">
 					<br/>
 				</div>
 			</div>
