@@ -1518,69 +1518,7 @@
 			</div>			
 			</div>
 		</div>	
-		<div id = "ThirdStep">
-			<div id="selectorsCountryYear" style="display:none;">
-				<div style="display:inline-block;padding-left:20px;" id="selectCountry">
-					<br>
-					<select name = "dropdown" id = "dropdown" onchange="filterByStateCountryYear()" onclick = "dropDownList()">
-						<option value = "all">Choose a country</option>
-						<option value = "all">All countries</option>
-					</select>
-					<br>
-					<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;">
-					<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelected"></p>
-					</div>
-				</div>
-				<div style="display:inline-block;padding-left:20px;" id = "selectYearRange">
-					<br>
-					<label for="minYear">Choose start year:</label>
-					<input type="range" id="minimumYear" name="minimumYear" min="1816" max="2018" value = "1816" oninput="printedMinYear.value=minimumYear.value;filterByYearCountryYear();">
-					<input type="text" id="printedMinYear" value = "1816" oninput="minimumYear.value=printedMinYear.value;filterByYear();">
-					<br>
-					<label for="maxYear">Choose end year:</label>
-					<input type="range" id="maximumYear" name="maximumYear" min="1816" max="2018" value = "2018" oninput="printedMaxYear.value=maximumYear.value;filterByYearCountryYear();" style="margin-left:6px">
-					<input type="text" id="printedMaxYear" value = "2018" oninput="maximumYear.value=printedMaxYear.value;filterByYear();">
-					<br>
-				</div>
-				<div style="display:none" id="WarningYearSelector">
-					<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
-				</div>
-			</div>
-			<div id="selectorsDyadYear" style="display:none;">
-				<div style="display:inline-block;padding-left:20px;" id="selectCountryDyad">
-					<br>
-					<select name = "dropdown1" id = "dropdown1" onchange="setInput1Dyad();filterByStateDyadYear();" style="display:inline-block">
-						<option value = "all">Choose a country</option>
-						<option value = "all">All countries</option>
-					</select>
-					<select name = "dropdown2" id = "dropdown2" onchange="setInput2Dyad();filterByStateDyadYear();" style="display:inline-block; margin-left:96px">
-						<option value = "all">Choose a country</option>
-						<option value = "all">All countries</option>
-					</select>
-					<br>
-					<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;display:inline-block;">
-					<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelectedDyadYear1"></p>
-					</div>
-					<div style="height:45px;overflow:scroll; width: 204px; overflow-x:hidden; overflow-wrap:break-word;margin-top:4px;display:inline-block; margin-left:20px;">
-					<p style="font-family:arial; font-size:13.3333px;margin: 0px; padding-left:4px;" id = "countriesSelectedDyadYear2"></p>
-					</div>
-				</div>
-				<div style="display:inline-block;padding-left:20px;" id = "selectYearRangeDyad">
-					<br>
-					<label for="minYear">Choose start year:</label>
-					<input type="range" id="minimumYearDyad" name="minimumYearDyad" min="1816" max="2018" value = "1816" oninput="printedMinYearDyad.value=minimumYearDyad.value;filterByYearDyadYear();">
-					<input type="text" id="printedMinYearDyad" value = "1816" oninput="minimumYearDyad.value=printedMinYearDyad.value;filterByYearDyadYear();">
-					<br>
-					<label for="maxYear">Choose end year:</label>
-					<input type="range" id="maximumYearDyad" name="maximumYearDyad" min="1816" max="2018" value = "2018" oninput="printedMaxYearDyad.value=maximumYearDyad.value;filterByYearDyadYear();" style="margin-left:6px">
-					<input type="text" id="printedMaxYearDyad" value = "2018" oninput="maximumYearDyad.value=printedMaxYearDyad.value;filterByYearDyadYear();">
-					<br>
-				</div>
-				<div style="display:none" id="WarningYearSelectorDyad">
-					<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">The year range you have selected is invalid. Please check that the start year is before the ending year and that both are within the year range of the dataset selected.</p>
-				</div>
-			</div>
-		</div>
+
 		<div id="buttons">
 			<div style="padding-left:20px;display:inline-block">
 				<br>
