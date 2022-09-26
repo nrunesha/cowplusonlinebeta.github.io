@@ -1,1 +1,2 @@
-C:/AliceFan/Website/newgene.github.io/datafiles/COW_Trade_4_0.js filter=lfs diff=lfs merge=lfs -text
+.js filter=lfs diff=lfs merge=lfs -text
+*.js filter=lfs diff=lfs merge=lfs -text
