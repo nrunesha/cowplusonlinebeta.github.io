@@ -947,9 +947,6 @@ function mergeDyadYearData(){
 	if(document.getElementById("COW_IGO_Data_NDD").checked){
 		dyadYearDataSelected.push(COWIGOData);
 	}
-	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		dyadYearDataSelected.push(COWAllianceDataND);
-	}
 	if(document.getElementById("COW_Diplomatic_Exchange").checked){
 		dyadYearDataSelected.push(COW_Diplomatic_Exchange_Data);
 	}
