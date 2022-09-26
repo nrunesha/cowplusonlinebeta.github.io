@@ -1523,9 +1523,16 @@
 				<br>
 				<input type="button" id = "createButton" onclick="CreateTable()" value="Continue"/>
 			</div>
-			<div style="display:none" id="createButtonSecondStep">
+			<div style="display:none" id="backButton1">
 				<br>
+				<button onclick="BackButtonOne();" id="backButtonToFirst">Back</button>
+			</div>
+			<div style="display:none" id="createButtonSecondStep">
 				<button onclick="AddColumns();" id="buttonSecond">Next</button>
+			</div>
+			<div style="display:none" id="backButton2">
+				<br>
+				<button onclick="BackButtonTwo();" id="backButtonToSecond">Back</button>
 			</div>
 			<div style="display: none" id="downloadButton">
 				<button onclick="exportTableToCSV('newgene')">Download CSV File</button>

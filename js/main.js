@@ -1,35 +1,27 @@
 
-let stepNum = "1";
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
+		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
 		document.getElementById("countryYearData").style.display = "block";
+		toggleVariableTableDiv();
 	}
 	else{
 		$('#countryYearData').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("countryYearData").style.display = "none";
+		toggleVariableTableDiv();
 	}
 	if(document.getElementById("dyadYear").checked){
+		$('#countryYearData').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("dyadicData").style.display = "block";
+		toggleVariableTableDiv();
 	}
 	else{
 		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
 		document.getElementById("dyadicData").style.display = "none";
+		toggleVariableTableDiv();
 	}
-	history.pushState(stepNum, "", "?step=1");
 }
 
-function updateStepNum(){
-	if(document.getElementById("FirstStep").display = "visible"){
-		stepNum = "1";
-	}
-	else if(document.getElementById("SecondStep").display = "visible" && document.getElementById("FirstStep").display == "none"){
-		stepNum = "2";
-	}
-	else{
-		stepNum = "3";
-	}
-	return stepNum;
-}
 function allVariables(){
 	const variables = [];
 	if(document.getElementById("NMC_5_0").checked){
@@ -1038,6 +1030,56 @@ function addID(){
 	return myData;
 }
 
+function BackButtonOne(){
+	document.getElementById("qChooseCY").style.display = "none";
+	document.getElementById("backButton1").style.display = "none";
+	document.getElementById("createButtonSecondStep").style.display = "none";
+	document.getElementById("createButton").style.display = "inline-block";
+	document.getElementById("optionsPanel").style.display = "none";
+	document.getElementById("FirstStep").style.display = "block";
+	document.getElementById("SecondStep").style.display = "none";
+	document.getElementById("backButton2").style.display = "none";
+	document.getElementById("downloadButton").style.display = "none";
+	$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
+	$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
+	document.getElementById("myTable").style.display = "none";
+	document.getElementById("yesChooseCY").disabled = false;
+	document.getElementById("noChooseCY").disabled = false;
+}
+
+function BackButtonTwo(){
+	if(document.getElementById("dyadYear").checked){
+		document.getElementById("qChooseCY").style.display = "blcok";
+		document.getElementById("backButton1").style.display = "inline-block";
+		document.getElementById("createButtonSecondStep").style.display = "inline-block";
+		document.getElementById("createButton").style.display = "none";
+		document.getElementById("FirstStep").style.display = "none";
+		document.getElementById("SecondStep").style.display = "block";
+		document.getElementById("backButton2").style.display = "none";
+		document.getElementById("downloadButton").style.display = "none";
+		document.getElementById("chooseCountryYearData").style.display = "none";
+		document.getElementById("variableTablesSecondStep").style.display = "none";
+		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
+		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
+		document.getElementById("yesChooseCY").disabled = false;
+		document.getElementById("noChooseCY").disabled = false;
+		document.getElementById("myTable").style.display = "none";
+		CreateTable();
+	}
+	else if(document.getElementById("countryYear").checked){
+		document.getElementById("createButton").style.display = "inline-block";
+		document.getElementById("backButton1").style.display = "none";
+		document.getElementById("backButton2").style.display = "none";
+		document.getElementById("downloadButton").style.display = "none";
+		document.getElementById("FirstStep").style.display = "block";
+		document.getElementById("SecondStep").style.display = "none";
+		document.getElementById("optionsPanel").style.display = "none";
+		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
+		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
+		document.getElementById("myTable").style.display = "none";
+	}
+}
+
 var filteredItems = [];
 function CreateTable(){
 	document.getElementById("myTable").style.display = "inline-block";
@@ -1185,7 +1227,6 @@ function CreateTable(){
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
 	document.getElementById("SecondStep").style.display = "block";
-	history.pushState(updateStepNum(), '', "?step=2");
 
 }
 //SECOND STEP 
@@ -1216,19 +1257,24 @@ function checkCheckboxesSecondStep(){
 }
 
 function changeButton(){
+	document.getElementById("backButton1").style.display = "inline-block";
 	document.getElementById("createButtonSecondStep").style.display = "inline-block";
 	document.getElementById("createButton").style.display = "none";
 }
 
 function changeButtonSecondStep(){
-	document.getElementById("createButton").disabled = true;
-	document.getElementById("buttonSecond").disabled = true;
+	document.getElementById("createButtonSecondStep").style.display = "none";
+	document.getElementById("createButton").style.display = "none";
+	document.getElementById("backButton1").style.display = "none";
+	document.getElementById("backButton2").style.display = "inline-block";
 	document.getElementById("downloadButton").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "none";
 
 } 
 
 function toggleVariableTableDivSecondStep(){
+	document.getElementById("variableTablesSecondStep").style.display = "block";
+
 	if(document.querySelectorAll('input[type="checkbox"]:checked').length >=1){
 		document.getElementById("variableText").style.display = "block";
 	}
@@ -1839,9 +1885,7 @@ async function AddColumns() {
     });
 	
 	document.getElementById("optionsPanel").style.display = "inline-block";
-	changeButtonSecondStep();
-	history.pushState(updateStepNum(), '', "?step=3");
-	
+	changeButtonSecondStep();	
 }	
 
 //Third STEP
