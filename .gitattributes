@@ -1,2 +1,1 @@
-.js filter=lfs diff=lfs merge=lfs -text
-*.js filter=lfs diff=lfs merge=lfs -text
+"COW_Trade_4_0" filter=lfs diff=lfs merge=lfs -text
