@@ -217,7 +217,7 @@ function allVariables(){
 		variables.push("dr_at_2");
 		variables.push("de");
 	}
-	/* if(document.getElementById("COW_Trade_4_0").checked){
+	if(document.getElementById("COW_Trade_4_0").checked){
 		variables.push("state1no");
 		variables.push("state1ab");
 		variables.push("state2no");
@@ -229,7 +229,7 @@ function allVariables(){
 		variables.push("smoothflow2");
 		variables.push("smoothtotrade");
 		variables.push("china_alt_flow1");
-	} */
+	}
 	return variables;
 }
 function toggleVariableTableDiv(){
@@ -292,13 +292,13 @@ function toggleVariableTableDiv(){
 		$('#divCOWDiplomaticExchangeTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divCOWDiplomaticExchangeTable").style.display = "none";
 	}
-	/* if(document.getElementById("COW_Trade_4_0").checked){
+	if(document.getElementById("COW_Trade_4_0").checked){
 		document.getElementById("divCOWTradeTable").style.display = "block";
 	}
 	else{
 		$('#divCOWTradeTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divCOWTradeTable").style.display = "none";
-	} */
+	}
 }
 
 function contains(set, object, keys) {
@@ -832,7 +832,7 @@ function variableChooser(){
 			variables.push("de");
 		}
 	}
-	/* if(document.getElementById("COW_Trade_4_0").checked){
+	if(document.getElementById("COW_Trade_4_0").checked){
 		variables.push("state1no");
 		variables.push("state1ab");
 		variables.push("state2no");
@@ -856,7 +856,7 @@ function variableChooser(){
 		if(document.getElementById("china_alt_flow1_Trade").checked){
 			variables.push("china_alt_flow1");
 		}
-	} */
+	}
 	return variables;
 }
 
@@ -942,9 +942,9 @@ function mergeDyadYearData(){
 	if(document.getElementById("COW_Diplomatic_Exchange").checked){
 		dyadYearDataSelected.push(COW_Diplomatic_Exchange_Data);
 	}
-	/* if(document.getElementById("COW_Trade_4_0").checked){
+	if(document.getElementById("COW_Trade_4_0").checked){
 		dyadYearDataSelected.push(COW_Trade_Data);
-	} */
+	}
 	
 	return dyadYearDataSelected;
 }
@@ -1010,7 +1010,7 @@ function checkCheckboxes(){
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 		tf = false;
 	}
-	if(!document.getElementById("DirectContiguity").checked && /*$('input[name*="Trade"]:checked').length < 1 &&*/ $('input[name*="Diplo"]:checked').length < 1 &&$('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
+	if(!document.getElementById("DirectContiguity").checked && $('input[name*="Trade"]:checked').length < 1 && $('input[name*="Diplo"]:checked').length < 1 &&$('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
 		tf = false;
 	}
 	return Boolean(tf);
