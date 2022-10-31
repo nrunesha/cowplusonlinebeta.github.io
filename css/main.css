@@ -85,20 +85,90 @@ thead{
 	position: absolute;
 }
 
-#progressBar {
-	width: 1%;
-	height:20px;
-	background-color:limegreen;
-}
-
-#progressStatus{
-	width: 50%;
-	background-color:lightgrey;
-	margin-bottom:-5px;
-}
-
 #showData, #showDataSecondStep{
 	overflow-x:auto;
 	overflow:scroll;
 	height:300px;
+}
+
+body{
+	width:100%;
+}
+#page-container{
+	position: relative;
+	min-height: 100vh;
+	width: 100%;
+}
+
+#main{
+	padding-bottom: 100px;
+}
+#footer {
+  height: 100px;
+  background-color: lightgrey;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow:hidden;
+  margin:0;
+}
+
+h4{
+	font-size:20px;
+}
+h4.cow-plus-footer {
+	padding-top:20px;
+	text-align:center;
+	font-family:arial;
+}
+
+p.cow-plus-footer, li.cow-plus-footer{
+	text-align:center;
+	font-family:arial;
+	font-size:0.900rem;
+	font-weight:500px;
+	padding-left:0px;
+	margin-left:0px;
+}
+
+.cow-plus-footer{
+	padding-left:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+
+li.cow-plus-footer{
+	display:inline-block;
+	font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: underline;
+	font-family:arial;
+	font-style:normal;
+	
+}
+
+.cow-plus-footer ul>li::after {
+	padding-left:0.375em;
+    display: inline-block;
+    font-size: 0.75em;
+    content: '|';
+	color: black;
+}
+
+.cow-plus-footer ul>li:last-of-type::after {
+    content: '';
+}
+ul.cow-plus-footer{
+	position:relative;
+	text-align:center;
+	list-style:none;
+}
+
+#intro p{
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.cow-plus-footer a:visited{
+	color:blue;
 }
