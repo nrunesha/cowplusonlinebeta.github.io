@@ -865,10 +865,10 @@ function mergeCountryYearData(){
 	var countryYearDataSelected = [];
 
 	if(document.getElementById("NMC_5_0").checked){
-		countryYearDataSelected.push(NMC_5_0Unlim);
+		countryYearDataSelected.push(NMC_5_0);
 	}
 	if(document.getElementById("WRP_NAT").checked){
-		countryYearDataSelected.push(WRP_NATUnlim);
+		countryYearDataSelected.push(WRP_NAT);
 	}
 	if(document.getElementById("Major_Powers").checked){
 		countryYearDataSelected.push(COW_States_Major_Powers);
@@ -928,16 +928,16 @@ function mergeDyadYearData(){
 	var dyadYearDataSelected = [];
 
 	if(document.getElementById("DirectContiguity").checked){
-		dyadYearDataSelected.push(DirectContiguityDyadic);
+		dyadYearDataSelected.push(COW_Direct_Contiguity);
 	}
 	if(document.getElementById("MIDS_NDD").checked){
-		dyadYearDataSelected.push(COW_MID_DATA_NDD);
+		dyadYearDataSelected.push(COW_MID_Data);
 	}
 	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		dyadYearDataSelected.push(COWAllianceDataND);
+		dyadYearDataSelected.push(COW_Alliance_Data);
 	}
 	if(document.getElementById("COW_IGO_Data_NDD").checked){
-		dyadYearDataSelected.push(COWIGOData);
+		dyadYearDataSelected.push(COW_IGO_Data);
 	}
 	if(document.getElementById("COW_Diplomatic_Exchange").checked){
 		dyadYearDataSelected.push(COW_Diplomatic_Exchange_Data);
