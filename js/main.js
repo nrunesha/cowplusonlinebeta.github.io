@@ -345,274 +345,274 @@ function variableChooser(){
 		variables.push("year");
 		variables.push("ccode");
 		if(document.getElementById("milex_NMC_5_0").checked){
-			variables.push("milex_NMC_5_0");
+			variables.push("milex");
 		}
 		if(document.getElementById("milper_NMC_5_0").checked){
-			variables.push("milper_NMC_5_0");
+			variables.push("milper");
 		}
 		if(document.getElementById("irst_NMC_5_0").checked){
-			variables.push("irst_NMC_5_0");
+			variables.push("irst");
 		}
 		if(document.getElementById("pec_NMC_5_0").checked){
-			variables.push("pec_NMC_5_0");
+			variables.push("pec");
 		}
 		if(document.getElementById("tpop_NMC_5_0").checked){
-			variables.push("tpop_NMC_5_0");
+			variables.push("tpop");
 		}
 		if(document.getElementById("upop_NMC_5_0").checked){
-			variables.push("upop_NMC_5_0");
+			variables.push("upop");
 		}
 		if(document.getElementById("cinc_NMC_5_0").checked){
-			variables.push("cinc_NMC_5_0");
+			variables.push("cinc");
 		}
 	}
 	if(document.getElementById("Major_Powers").checked){
 		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
-		variables.push("statename_Major_Powers");
-		variables.push("major_Major_Powers");
+		variables.push("statename");
+		variables.push("major");
 	}
 	if(document.getElementById("WRP_NAT").checked){
 		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
 		if(document.getElementById("chrstprot_WRP_NAT").checked){
-			variables.push("chrstprot_WRP_NAT");
+			variables.push("chrstprot");
 		}
 		if(document.getElementById("chrstcat_WRP_NAT").checked){
-			variables.push("chrstcat_WRP_NAT");
+			variables.push("chrstcat");
 		}
 		if(document.getElementById("chrstorth_WRP_NAT").checked){
-			variables.push("chrstorth_WRP_NAT");
+			variables.push("chrstorth");
 		}
 		if(document.getElementById("chrstang_WRP_NAT").checked){
-			variables.push("chrstang_WRP_NAT");
+			variables.push("chrstang");
 		}
 		if(document.getElementById("chrstothr_WRP_NAT").checked){
-			variables.push("chrstothr_WRP_NAT");
+			variables.push("chrstothr");
 		}
 		if(document.getElementById("chrstgen_WRP_NAT").checked){
-			variables.push("chrstgen_WRP_NAT");
+			variables.push("chrstgen");
 		}
 		if(document.getElementById("judorth_WRP_NAT").checked){
-			variables.push("judorth_WRP_NAT");
+			variables.push("judorth");
 		}
 		if(document.getElementById("judcons_WRP_NAT").checked){
-			variables.push("judcons_WRP_NAT");
+			variables.push("judcons");
 		}
 		if(document.getElementById("judref_WRP_NAT").checked){
-			variables.push("judref_WRP_NAT");
+			variables.push("judref");
 		}
 		if(document.getElementById("judothr_WRP_NAT").checked){
-			variables.push("judothr_WRP_NAT");
+			variables.push("judothr");
 		}
 		if(document.getElementById("judgen_WRP_NAT").checked){
-			variables.push("judgen_WRP_NAT");
+			variables.push("judgen");
 		}
 		if(document.getElementById("islmsun_WRP_NAT").checked){
-			variables.push("islmsun_WRP_NAT");
+			variables.push("islmsun");
 		}
 		if(document.getElementById("islmshi_WRP_NAT").checked){
-			variables.push("islmshi_WRP_NAT");
+			variables.push("islmshi");
 		}
 		if(document.getElementById("islmibd_WRP_NAT").checked){
-			variables.push("islmibd_WRP_NAT");
+			variables.push("islmibd");
 		}
 		if(document.getElementById("islmnat_WRP_NAT").checked){
-			variables.push("islmnat_WRP_NAT");
+			variables.push("islmnat");
 		}
 		if(document.getElementById("islmalw_WRP_NAT").checked){
-			variables.push("islmalw_WRP_NAT");
+			variables.push("islmalw");
 		}
 		if(document.getElementById("islmahm_WRP_NAT").checked){
-			variables.push("islmahm_WRP_NAT");
+			variables.push("islmahm");
 		}
 		if(document.getElementById("islmothr_WRP_NAT").checked){
-			variables.push("islmothr_WRP_NAT");
+			variables.push("islmothr");
 		}
 		if(document.getElementById("islmgen_WRP_NAT").checked){
-			variables.push("islmgen_WRP_NAT");
+			variables.push("islmgen");
 		}
 		if(document.getElementById("budmah_WRP_NAT").checked){
-			variables.push("budmah_WRP_NAT");
+			variables.push("budmah");
 		}
 		if(document.getElementById("budthr_WRP_NAT").checked){
-			variables.push("budthr_WRP_NAT");
+			variables.push("budthr");
 		}
 		if(document.getElementById("budothr_WRP_NAT").checked){
-			variables.push("budothr_WRP_NAT");
+			variables.push("budothr");
 		}
 		if(document.getElementById("budgen_WRP_NAT").checked){
-			variables.push("budgen_WRP_NAT");
+			variables.push("budgen");
 		}
 		if(document.getElementById("zorogen_WRP_NAT").checked){
-			variables.push("zorogen_WRP_NAT");
+			variables.push("zorogen");
 		}
 		if(document.getElementById("hindgen_WRP_NAT").checked){
-			variables.push("hindgen_WRP_NAT");
+			variables.push("hindgen");
 		}
 		if(document.getElementById("sikhgen_WRP_NAT").checked){
-			variables.push("sikhgen_WRP_NAT");
+			variables.push("sikhgen");
 		}
 		if(document.getElementById("shntgen_WRP_NAT").checked){
-			variables.push("shntgen_WRP_NAT");
+			variables.push("shntgen");
 		}
 		if(document.getElementById("bahgen_WRP_NAT").checked){
-			variables.push("bahgen_WRP_NAT");
+			variables.push("bahgen");
 		}
 		if(document.getElementById("taogen_WRP_NAT").checked){
-			variables.push("taogen_WRP_NAT");
+			variables.push("taogen");
 		}
 		if(document.getElementById("jaingen_WRP_NAT").checked){
-			variables.push("jaingen_WRP_NAT");
+			variables.push("jaingen");
 		}
 		if(document.getElementById("confgen_WRP_NAT").checked){
-			variables.push("confgen_WRP_NAT");
+			variables.push("confgen");
 		}
 		if(document.getElementById("syncgen_WRP_NAT").checked){
-			variables.push("syncgen_WRP_NAT");
+			variables.push("syncgen");
 		}
 		if(document.getElementById("anmgen_WRP_NAT").checked){
-			variables.push("anmgen_WRP_NAT");
+			variables.push("anmgen");
 		}
 		if(document.getElementById("nonrelig_WRP_NAT").checked){
-			variables.push("nonrelig_WRP_NAT");
+			variables.push("nonrelig");
 		}
 		if(document.getElementById("othrgen_WRP_NAT").checked){
-			variables.push("othrgen_WRP_NAT");
+			variables.push("othrgen");
 		}
 		if(document.getElementById("sumrelig_WRP_NAT").checked){
-			variables.push("sumrelig_WRP_NAT");
+			variables.push("sumrelig");
 		}
 		if(document.getElementById("pop_WRP_NAT").checked){
-			variables.push("pop_WRP_NAT");
+			variables.push("pop");
 		}
 		if(document.getElementById("chrstprotpct_WRP_NAT").checked){
-			variables.push("chrstprotpct_WRP_NAT");
+			variables.push("chrstprotpct");
 		}
 		if(document.getElementById("chrstcatpct_WRP_NAT").checked){
-			variables.push("chrstcatpct_WRP_NAT");
+			variables.push("chrstcatpct");
 		}
 		if(document.getElementById("chrstorthpct_WRP_NAT").checked){
-			variables.push("chrstorthpct_WRP_NAT");
+			variables.push("chrstorthpct");
 		}
 		if(document.getElementById("chrstangpct_WRP_NAT").checked){
-			variables.push("chrstangpct_WRP_NAT");
+			variables.push("chrstangpct");
 		}
 		if(document.getElementById("chrstothrpct_WRP_NAT").checked){
-			variables.push("chrstothrpct_WRP_NAT");
+			variables.push("chrstothrpct");
 		}
 		if(document.getElementById("chrstgenpct_WRP_NAT").checked){
-			variables.push("chrstgenpct_WRP_NAT");
+			variables.push("chrstgenpct");
 		}
 		if(document.getElementById("judorthpct_WRP_NAT").checked){
-			variables.push("judorthpct_WRP_NAT");
+			variables.push("judorthpct");
 		}
 		if(document.getElementById("judconspct_WRP_NAT").checked){
-			variables.push("judconspct_WRP_NAT");
+			variables.push("judconspct");
 		}
 		if(document.getElementById("judrefpct_WRP_NAT").checked){
-			variables.push("judrefpct_WRP_NAT");
+			variables.push("judrefpct");
 		}
 		if(document.getElementById("judothrpct_WRP_NAT").checked){
-			variables.push("judothrpct_WRP_NAT");
+			variables.push("judothrpct");
 		}
 		if(document.getElementById("judgenpct_WRP_NAT").checked){
-			variables.push("judgenpct_WRP_NAT");
+			variables.push("judgenpct");
 		}
 		if(document.getElementById("islmsunpct_WRP_NAT").checked){
-			variables.push("islmsunpct_WRP_NAT");
+			variables.push("islmsunpct");
 		}
 		if(document.getElementById("islmshipct_WRP_NAT").checked){
-			variables.push("islmshipct_WRP_NAT");
+			variables.push("islmshipct");
 		}
 		if(document.getElementById("islmibdpct_WRP_NAT").checked){
-			variables.push("islmibdpct_WRP_NAT");
+			variables.push("islmibdpct");
 		}
 		if(document.getElementById("islmnatpct_WRP_NAT").checked){
-			variables.push("islmnatpct_WRP_NAT");
+			variables.push("islmnatpct");
 		}
 		if(document.getElementById("islmalwpct_WRP_NAT").checked){
-			variables.push("islmalwpct_WRP_NAT");
+			variables.push("islmalwpct");
 		}
 		if(document.getElementById("islmahmpct_WRP_NAT").checked){
-			variables.push("islmahmpct_WRP_NAT");
+			variables.push("islmahmpct");
 		}
 		if(document.getElementById("islmothrpct_WRP_NAT").checked){
-			variables.push("islmothrpct_WRP_NAT");
+			variables.push("islmothrpct");
 		}
 		if(document.getElementById("islmgenpct_WRP_NAT").checked){
-			variables.push("islmgenpct_WRP_NAT");
+			variables.push("islmgenpct");
 		}
 		if(document.getElementById("budmahpct_WRP_NAT").checked){
-			variables.push("budmahpct_WRP_NAT");
+			variables.push("budmahpct");
 		}
 		if(document.getElementById("budthrpct_WRP_NAT").checked){
-			variables.push("budthrpct_WRP_NAT");
+			variables.push("budthrpct");
 		}
 		if(document.getElementById("budothrpct_WRP_NAT").checked){
-			variables.push("budothrpct_WRP_NAT");
+			variables.push("budothrpct");
 		}
 		if(document.getElementById("budgenpct_WRP_NAT").checked){
-			variables.push("budgenpct_WRP_NAT");
+			variables.push("budgenpct");
 		}
 		if(document.getElementById("zorogenpct_WRP_NAT").checked){
-			variables.push("zorogenpct_WRP_NAT");
+			variables.push("zorogenpct");
 		}
 		if(document.getElementById("hindgenpct_WRP_NAT").checked){
-			variables.push("hindgenpct_WRP_NAT");
+			variables.push("hindgenpct");
 		}
 		if(document.getElementById("sikhgenpct_WRP_NAT").checked){
-			variables.push("sikhgenpct_WRP_NAT");
+			variables.push("sikhgenpct");
 		}
 		if(document.getElementById("shntgenpct_WRP_NAT").checked){
-			variables.push("shntgenpct_WRP_NAT");
+			variables.push("shntgenpct");
 		}
 		if(document.getElementById("bahgenpct_WRP_NAT").checked){
-			variables.push("bahgenpct_WRP_NAT");
+			variables.push("bahgenpct");
 		}
 		if(document.getElementById("taogenpct_WRP_NAT").checked){
-			variables.push("taogenpct_WRP_NAT");
+			variables.push("taogenpct");
 		}
 		if(document.getElementById("jaingenpct_WRP_NAT").checked){
-			variables.push("jaingenpct_WRP_NAT");
+			variables.push("jaingenpct");
 		}
 		if(document.getElementById("confgenpct_WRP_NAT").checked){
-			variables.push("confgenpct_WRP_NAT");
+			variables.push("confgenpct");
 		}
 		if(document.getElementById("syncgenpct_WRP_NAT").checked){
-			variables.push("syncgenpct_WRP_NAT");
+			variables.push("syncgenpct");
 		}
 		if(document.getElementById("anmgenpct_WRP_NAT").checked){
-			variables.push("anmgenpct_WRP_NAT");
+			variables.push("anmgenpct");
 		}
 		if(document.getElementById("nonreligpct_WRP_NAT").checked){
-			variables.push("nonreligpct_WRP_NAT");
+			variables.push("nonreligpct");
 		}
 		if(document.getElementById("othrgenpct_WRP_NAT").checked){
-			variables.push("othrgenpct_WRP_NAT");
+			variables.push("othrgenpct");
 		}
 		if(document.getElementById("sumreligpct_WRP_NAT").checked){
-			variables.push("sumreligpct_WRP_NAT");
+			variables.push("sumreligpct");
 		}
 		if(document.getElementById("total_WRP_NAT").checked){
-			variables.push("total_WRP_NAT");
+			variables.push("total");
 		}
 		if(document.getElementById("dualrelig_WRP_NAT").checked){
-			variables.push("dualrelig_WRP_NAT");
+			variables.push("dualrelig");
 		}
 		if(document.getElementById("datatype_WRP_NAT").checked){
-			variables.push("datatype_WRP_NAT");
+			variables.push("datatype");
 		}
 		if(document.getElementById("recreliab_WRP_NAT").checked){
-			variables.push("recreliab_WRP_NAT");
+			variables.push("recreliab");
 		}
 		if(document.getElementById("reliabilevel_WRP_NAT").checked){
-			variables.push("reliabilevel_WRP_NAT");
+			variables.push("reliabilevel");
 		}
 		if(document.getElementById("sourcecode_WRP_NAT").checked){
-			variables.push("sourcecode_WRP_NAT");
+			variables.push("sourcecode");
 		}
 	}
 	if(document.getElementById("DirectContiguity").checked){
@@ -622,7 +622,7 @@ function variableChooser(){
 		variables.push("state2ab");
 		variables.push("year");
 		variables.push("dyad");
-		variables.push("conttype_DirectContiguity");
+		variables.push("conttype");
 	}
 	if(document.getElementById("MIDS_NDD").checked){
 		variables.push("state1no");
