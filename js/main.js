@@ -879,7 +879,7 @@ function mergeCountryYearData(){
 
 function countryYearDataSetChooser(){
 	var countryYearDatasets = mergeCountryYearData();
-	var data = NMC_5_0Unlim;
+	var data = NMC_5_0;
 	var variableList = variableChooser();
 	var allVariablesList = allVariables();
 	if(countryYearDatasets.length == 1){
@@ -951,7 +951,7 @@ function mergeDyadYearData(){
 
 function dyadYearDataSetChooser(){
 	var dyadYearDatasets = mergeDyadYearData();
-	var data = DirectContiguityDyadic;
+	var data = COW_Direct_Contiguity;
 	var variableList = variableChooser();
 	var allVariablesList = allVariables();
 	if(dyadYearDatasets.length == 1){
@@ -1589,7 +1589,7 @@ function mergeCountryYearDataSecondStep(){
 
 function countryYearDataSetChooserSecondStep(){
 	var countryYearDatasets = mergeCountryYearDataSecondStep();
-	var data = NMC_5_0Unlim;
+	var data = NMC_5_0;
 	if(countryYearDatasets.length == 1){
 		data = countryYearDatasets[0];
 	}
