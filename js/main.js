@@ -931,7 +931,7 @@ function mergeDyadYearData(){
 		dyadYearDataSelected.push(COW_Direct_Contiguity);
 	}
 	if(document.getElementById("MIDS_NDD").checked){
-		dyadYearDataSelected.push(COW_MID_Data);
+		dyadYearDataSelected.push(COW_MID_DATA_NDD);
 	}
 	if(document.getElementById("COW_Alliance_Data_NDD").checked){
 		dyadYearDataSelected.push(COW_Alliance_Data);
