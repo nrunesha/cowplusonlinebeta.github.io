@@ -1576,10 +1576,10 @@ function mergeCountryYearDataSecondStep(){
 	var countryYearDataSelected = [];
 
 	if(document.getElementById("NMC_5_0SecondStep").checked){
-		countryYearDataSelected.push(NMC_5_0Unlim);
+		countryYearDataSelected.push(NMC_5_0);
 	}
 	if(document.getElementById("WRP_NATSecondStep").checked){
-		countryYearDataSelected.push(WRP_NATUnlim);
+		countryYearDataSelected.push(WRP_NAT);
 	}
 	if(document.getElementById("Major_PowersSecondStep").checked){
 		countryYearDataSelected.push(COW_States_Major_Powers);
