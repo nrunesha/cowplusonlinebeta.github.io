@@ -1303,269 +1303,269 @@ function variableChooserSecondStep(){
 	const variablesSecondStep = [];
 	if(document.getElementById("NMC_5_0SecondStep").checked){
 		if(document.getElementById("milex_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("milex_NMC_5_0");
+			variablesSecondStep.push("milex");
 		}
 		if(document.getElementById("milper_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("milper_NMC_5_0");
+			variablesSecondStep.push("milper");
 		}
 		if(document.getElementById("irst_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("irst_NMC_5_0");
+			variablesSecondStep.push("irst");
 		}
 		if(document.getElementById("pec_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("pec_NMC_5_0");
+			variablesSecondStep.push("pec");
 		}
 		if(document.getElementById("tpop_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("tpop_NMC_5_0");
+			variablesSecondStep.push("tpop");
 		}
 		if(document.getElementById("upop_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("upop_NMC_5_0");
+			variablesSecondStep.push("upop");
 		}
 		if(document.getElementById("cinc_NMC_5_0SecondStep").checked){
-			variablesSecondStep.push("cinc_NMC_5_0");
+			variablesSecondStep.push("cinc");
 		}
 	}
 	if(document.getElementById("Major_PowersSecondStep").checked){
 		if(document.getElementById("major_Major_PowersSecondStep").checked){
-			variablesSecondStep.push("major_Major_Powers");
+			variablesSecondStep.push("major");
 		}
 	}
 	if(document.getElementById("WRP_NATSecondStep").checked){
 		if(document.getElementById("chrstprot_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstprot_WRP_NAT");
+			variablesSecondStep.push("chrstprot");
 		}
 		if(document.getElementById("chrstcat_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstcat_WRP_NAT");
+			variablesSecondStep.push("chrstcat");
 		}
 		if(document.getElementById("chrstorth_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstorth_WRP_NAT");
+			variablesSecondStep.push("chrstorth");
 		}
 		if(document.getElementById("chrstang_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstang_WRP_NAT");
+			variablesSecondStep.push("chrstang");
 		}
 		if(document.getElementById("chrstothr_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstothr_WRP_NAT");
+			variablesSecondStep.push("chrstothr");
 		}
 		if(document.getElementById("chrstgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstgen_WRP_NAT");
+			variablesSecondStep.push("chrstgen");
 		}
 		if(document.getElementById("judorth_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judorth_WRP_NAT");
+			variablesSecondStep.push("judorth");
 		}
 		if(document.getElementById("judcons_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judcons_WRP_NAT");
+			variablesSecondStep.push("judcons");
 		}
 		if(document.getElementById("judref_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judref_WRP_NAT");
+			variablesSecondStep.push("judref");
 		}
 		if(document.getElementById("judothr_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judothr_WRP_NAT");
+			variablesSecondStep.push("judothr");
 		}
 		if(document.getElementById("judgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judgen_WRP_NAT");
+			variablesSecondStep.push("judgen");
 		}
 		if(document.getElementById("islmsun_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmsun_WRP_NAT");
+			variablesSecondStep.push("islmsun");
 		}
 		if(document.getElementById("islmshi_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmshi_WRP_NAT");
+			variablesSecondStep.push("islmshi");
 		}
 		if(document.getElementById("islmibd_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmibd_WRP_NAT");
+			variablesSecondStep.push("islmibd");
 		}
 		if(document.getElementById("islmnat_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmnat_WRP_NAT");
+			variablesSecondStep.push("islmnat");
 		}
 		if(document.getElementById("islmalw_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmalw_WRP_NAT");
+			variablesSecondStep.push("islmalw");
 		}
 		if(document.getElementById("islmahm_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmahm_WRP_NAT");
+			variablesSecondStep.push("islmahm");
 		}
 		if(document.getElementById("islmothr_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmothr_WRP_NAT");
+			variablesSecondStep.push("islmothr");
 		}
 		if(document.getElementById("islmgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmgen_WRP_NAT");
+			variablesSecondStep.push("islmgen");
 		}
 		if(document.getElementById("budmah_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budmah_WRP_NAT");
+			variablesSecondStep.push("budmah");
 		}
 		if(document.getElementById("budthr_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budthr_WRP_NAT");
+			variablesSecondStep.push("budthr");
 		}
 		if(document.getElementById("budothr_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budothr_WRP_NAT");
+			variablesSecondStep.push("budothr");
 		}
 		if(document.getElementById("budgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budgen_WRP_NAT");
+			variablesSecondStep.push("budgen");
 		}
 		if(document.getElementById("zorogen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("zorogen_WRP_NAT");
+			variablesSecondStep.push("zorogen");
 		}
 		if(document.getElementById("hindgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("hindgen_WRP_NAT");
+			variablesSecondStep.push("hindgen");
 		}
 		if(document.getElementById("sikhgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sikhgen_WRP_NAT");
+			variablesSecondStep.push("sikhgen");
 		}
 		if(document.getElementById("shntgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("shntgen_WRP_NAT");
+			variablesSecondStep.push("shntgen");
 		}
 		if(document.getElementById("bahgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("bahgen_WRP_NAT");
+			variablesSecondStep.push("bahgen");
 		}
 		if(document.getElementById("taogen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("taogen_WRP_NAT");
+			variablesSecondStep.push("taogen");
 		}
 		if(document.getElementById("jaingen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("jaingen_WRP_NAT");
+			variablesSecondStep.push("jaingen");
 		}
 		if(document.getElementById("confgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("confgen_WRP_NAT");
+			variablesSecondStep.push("confgen");
 		}
 		if(document.getElementById("syncgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("syncgen_WRP_NAT");
+			variablesSecondStep.push("syncgen");
 		}
 		if(document.getElementById("anmgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("anmgen_WRP_NAT");
+			variablesSecondStep.push("anmgen");
 		}
 		if(document.getElementById("nonrelig_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("nonrelig_WRP_NAT");
+			variablesSecondStep.push("nonrelig");
 		}
 		if(document.getElementById("othrgen_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("othrgen_WRP_NAT");
+			variablesSecondStep.push("othrgen");
 		}
 		if(document.getElementById("sumrelig_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sumrelig_WRP_NAT");
+			variablesSecondStep.push("sumrelig");
 		}
 		if(document.getElementById("pop_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("pop_WRP_NAT");
+			variablesSecondStep.push("pop");
 		}
 		if(document.getElementById("chrstprotpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstprotpct_WRP_NAT");
+			variablesSecondStep.push("chrstprotpct");
 		}
 		if(document.getElementById("chrstcatpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstcatpct_WRP_NAT");
+			variablesSecondStep.push("chrstcatpct");
 		}
 		if(document.getElementById("chrstorthpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstorthpct_WRP_NAT");
+			variablesSecondStep.push("chrstorthpct");
 		}
 		if(document.getElementById("chrstangpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstangpct_WRP_NAT");
+			variablesSecondStep.push("chrstangpct");
 		}
 		if(document.getElementById("chrstothrpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstothrpct_WRP_NAT");
+			variablesSecondStep.push("chrstothrpct");
 		}
 		if(document.getElementById("chrstgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("chrstgenpct_WRP_NAT");
+			variablesSecondStep.push("chrstgenpct");
 		}
 		if(document.getElementById("judorthpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judorthpct_WRP_NAT");
+			variablesSecondStep.push("judorthpct");
 		}
 		if(document.getElementById("judconspct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judconspct_WRP_NAT");
+			variablesSecondStep.push("judconspct");
 		}
 		if(document.getElementById("judrefpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judrefpct_WRP_NAT");
+			variablesSecondStep.push("judrefpct");
 		}
 		if(document.getElementById("judothrpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judothrpct_WRP_NAT");
+			variablesSecondStep.push("judothrpct");
 		}
 		if(document.getElementById("judgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("judgenpct_WRP_NAT");
+			variablesSecondStep.push("judgenpct");
 		}
 		if(document.getElementById("islmsunpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmsunpct_WRP_NAT");
+			variablesSecondStep.push("islmsunpct");
 		}
 		if(document.getElementById("islmshipct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmshipct_WRP_NAT");
+			variablesSecondStep.push("islmshipct");
 		}
 		if(document.getElementById("islmibdpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmibdpct_WRP_NAT");
+			variablesSecondStep.push("islmibdpct");
 		}
 		if(document.getElementById("islmnatpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmnatpct_WRP_NAT");
+			variablesSecondStep.push("islmnatpct");
 		}
 		if(document.getElementById("islmalwpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmalwpct_WRP_NAT");
+			variablesSecondStep.push("islmalwpct");
 		}
 		if(document.getElementById("islmahmpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmahmpct_WRP_NAT");
+			variablesSecondStep.push("islmahmpct");
 		}
 		if(document.getElementById("islmothrpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmothrpct_WRP_NAT");
+			variablesSecondStep.push("islmothrpct");
 		}
 		if(document.getElementById("islmgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("islmgenpct_WRP_NAT");
+			variablesSecondStep.push("islmgenpct");
 		}
 		if(document.getElementById("budmahpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budmahpct_WRP_NAT");
+			variablesSecondStep.push("budmahpct");
 		}
 		if(document.getElementById("budthrpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budthrpct_WRP_NAT");
+			variablesSecondStep.push("budthrpct");
 		}
 		if(document.getElementById("budothrpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budothrpct_WRP_NAT");
+			variablesSecondStep.push("budothrpct");
 		}
 		if(document.getElementById("budgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("budgenpct_WRP_NAT");
+			variablesSecondStep.push("budgenpct");
 		}
 		if(document.getElementById("zorogenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("zorogenpct_WRP_NAT");
+			variablesSecondStep.push("zorogenpct");
 		}
 		if(document.getElementById("hindgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("hindgenpct_WRP_NAT");
+			variablesSecondStep.push("hindgenpct");
 		}
 		if(document.getElementById("sikhgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sikhgenpct_WRP_NAT");
+			variablesSecondStep.push("sikhgenpct");
 		}
 		if(document.getElementById("shntgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("shntgenpct_WRP_NAT");
+			variablesSecondStep.push("shntgenpct");
 		}
 		if(document.getElementById("bahgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("bahgenpct_WRP_NAT");
+			variablesSecondStep.push("bahgenpct");
 		}
 		if(document.getElementById("taogenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("taogenpct_WRP_NAT");
+			variablesSecondStep.push("taogenpct");
 		}
 		if(document.getElementById("jaingenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("jaingenpct_WRP_NAT");
+			variablesSecondStep.push("jaingenpct");
 		}
 		if(document.getElementById("confgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("confgenpct_WRP_NAT");
+			variablesSecondStep.push("confgenpct");
 		}
 		if(document.getElementById("syncgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("syncgenpct_WRP_NAT");
+			variablesSecondStep.push("syncgenpct");
 		}
 		if(document.getElementById("anmgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("anmgenpct_WRP_NAT");
+			variablesSecondStep.push("anmgenpct");
 		}
 		if(document.getElementById("nonreligpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("nonreligpct_WRP_NAT");
+			variablesSecondStep.push("nonreligpct");
 		}
 		if(document.getElementById("othrgenpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("othrgenpct_WRP_NAT");
+			variablesSecondStep.push("othrgenpct");
 		}
 		if(document.getElementById("sumreligpct_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sumreligpct_WRP_NAT");
+			variablesSecondStep.push("sumreligpct");
 		}
 		if(document.getElementById("total_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("total_WRP_NAT");
+			variablesSecondStep.push("total");
 		}
 		if(document.getElementById("dualrelig_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("dualrelig_WRP_NAT");
+			variablesSecondStep.push("dualrelig");
 		}
 		if(document.getElementById("datatype_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("datatype_WRP_NAT");
+			variablesSecondStep.push("datatype");
 		}
 		if(document.getElementById("recreliab_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("recreliab_WRP_NAT");
+			variablesSecondStep.push("recreliab");
 		}
 		if(document.getElementById("reliabilevel_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("reliabilevel_WRP_NAT");
+			variablesSecondStep.push("reliabilevel");
 		}
 		if(document.getElementById("sourcecode_WRP_NATSecondStep").checked){
-			variablesSecondStep.push("sourcecode_WRP_NAT");
+			variablesSecondStep.push("sourcecode");
 		}
 	}
 	
