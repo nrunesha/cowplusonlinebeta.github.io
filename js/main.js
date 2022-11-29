@@ -639,7 +639,7 @@ function variableChooser(){
 		if(document.getElementById("mid_ongoing_m_MID").checked){
 			variables.push("mid_ongoing_m");
 		}
-		if(document.getElementById("onset_other_MID").checked){
+		/*if(document.getElementById("onset_other_MID").checked){
 			variables.push("onset_other");
 		}
 		if(document.getElementById("ongoing_other_MID").checked){
@@ -668,22 +668,22 @@ function variableChooser(){
 		}
 		if(document.getElementById("endyear_m_MID").checked){
 			variables.push("endyear_m");
-		}
+		}*/
 		if(document.getElementById("outcome_m_MID").checked){
 			variables.push("outcome_m");
-		}
+		}/*
 		if(document.getElementById("settlmnt_m_MID").checked){
 			variables.push("settlmnt_m");
-		}
+		}*/
 		if(document.getElementById("fatlev_m_MID").checked){
 			variables.push("fatlev_m");
-		}
+		}/*
 		if(document.getElementById("highact_m_MID").checked){
 			variables.push("highact_m");
-		}
+		}*/
 		if(document.getElementById("hihost_m_MID").checked){
 			variables.push("hihost_m");
-		}
+		}/*
 		if(document.getElementById("recip_m_MID").checked){
 			variables.push("recip_m");
 		}
@@ -746,10 +746,10 @@ function variableChooser(){
 		}
 		if(document.getElementById("dyad_roleb_m_MID").checked){
 			variables.push("dyad_roleb_m");
-		}
+		}*/
 		if(document.getElementById("war_m_MID").checked){
 			variables.push("war_m");
-		}
+		}/*
 		if(document.getElementById("durindx_m_MID").checked){
 			variables.push("durindx_m");
 		}
@@ -782,7 +782,7 @@ function variableChooser(){
 		}
 		if(document.getElementById("new_m_MID").checked){
 			variables.push("new_m");
-		}
+		}*/
 	}
 	if(document.getElementById("COW_Alliance_Data_NDD").checked){
 		variables.push("state1no");
