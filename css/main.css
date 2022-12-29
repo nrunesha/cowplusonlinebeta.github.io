@@ -172,3 +172,26 @@ ul.cow-plus-footer{
 .cow-plus-footer a:visited{
 	color:blue;
 }
+
+.download-buttons a:visited{
+	color:black;
+}
+
+.download-buttons{
+	background-color: grey;
+	border: 1px solid black;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	width:110px;
+	font-size: 16px;
+	cursor: pointer;
+	margin: 10px 20px;
+	border-radius:12px;
+}
+
+#downloadButtons{
+	text-align:center;
+}
