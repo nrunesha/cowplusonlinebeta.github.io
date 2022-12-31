@@ -255,10 +255,14 @@ function toggleVariableTableDiv(){
 		document.getElementById("divMajor_PowersTable").style.display = "block";
 	}
 	else{
+		$('#divMajor_PowersTable').find('input[type=checkbox]:checked').prop('checked',false);		
 		document.getElementById("divMajor_PowersTable").style.display = "none";
 	}
 	if(document.getElementById("DirectContiguity").checked){
 		document.getElementById("divDirectContiguityTable").style.display = "block";
+		if(document.querySelectorAll('input[type="checkbox"]:checked').length ==1){
+			document.getElementById("variableText").style.display = "none";
+		}
 	}
 	else{
 		document.getElementById("divDirectContiguityTable").style.display = "none";
