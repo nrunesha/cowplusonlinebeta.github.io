@@ -374,7 +374,6 @@ function variableChooser(){
 		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
-		variables.push("statename");
 		variables.push("major");
 	}
 	if(document.getElementById("WRP_NAT").checked){
