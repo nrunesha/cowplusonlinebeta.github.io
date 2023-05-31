@@ -25,8 +25,8 @@
 
       <!-- Dependencies are automatically installed when the package is installed -->
       <dependencies>
-          <dependency id="jQuery" version="1.8" />
-          <dependency id="jQuery.UI.Combined" version="1.8" />
+          <dependency id="jQuery" version="1.9" />
+          <dependency id="jQuery.UI.Combined" version="1.9" />
       </dependencies>
     </metadata>
 
