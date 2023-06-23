@@ -13,3 +13,7 @@ yuan - 6/20
 
 yuan - 6/22
 *  variableChooser() sends return array to cowplus.py
+
+yuan - 6/23
+*  important note: communicating with the python file atm requires a post request, which reloads the page. 
+*  i forgot to mention this during the meeting but i think it might be a good idea to redirect the user to a dedicated data display page afterwards.
