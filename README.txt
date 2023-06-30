@@ -17,3 +17,6 @@ yuan - 6/22
 yuan - 6/23
 *  important note: communicating with the python file atm requires a post request, which reloads the page. 
 *  i forgot to mention this during the meeting but i think it might be a good idea to redirect the user to a dedicated data display page afterwards.
+
+yuan - 6/28
+*  programs --> merge.py is a program that merges all .csv files in the same directory into one merged.csv file by ccode and year, with outer join using pandas.
