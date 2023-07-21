@@ -9,7 +9,6 @@ import os
 
 # Get the current working directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 # Change to the previous directory
 os.chdir(os.path.dirname(current_dir))
 
@@ -18,14 +17,11 @@ sys.path.append(os.getcwd())
 # ignore the vscode yellow error
 # import cowplus
 
-
-
 # Change to the "datafiles_csv" folder
 os.chdir('datafiles_csv')
 
 diplo_ex = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
 diplo_ex.name = 'diplo_ex'
-diplo_ex["dyadID"] = diplo_ex["stateabb1"] + diplo_ex["ccode1"] + diplo_ex["stateabb2"] + diplo_ex["ccode2"] + diplo_ex["year"]
 alliance = pd.read_csv('COW_Alliance__2022_Non_Directed_Dyadic.csv')
 alliance.name = 'alliance'
 direct_contiguity = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
@@ -58,18 +54,17 @@ data_dict = {
 dyadic_data = ['diplo_ex', 'alliance', 'igo', 'mids', 'trade', 'direct_contiguity']
 for name in dyadic_data:
     data_file = data_dict[name]
-    data_file["eventID"] = data_file["stateabb1"] + "_" + data_file["ccode1"] + "_" + data_file["stateabb2"] + "_" +  data_file["ccode2"] + "_" + str(data_file["year"])
+    data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
 monadic_data = ['nmc', 'wrp', 'major_powers']
 for name in monadic_data:
     data_file = data_dict[name]
-    data_file["eventID"] = data_file["stateabb"] + "_" + data_file["ccode"] + "_" + str(data_file["year"])
+    data_file["eventID"] = data_file["stateabb"].astype(str) + "_" + data_file["ccode"].astype(str) + "_" + data_file["year"].astype(str)
 # return from datasetChooserFirstStep()
 # i changed it to just these two cuz testing was taking too long
 # files_chosen = [diplo_ex, alliance, mids, igo, trade, direct_contiguity]
 
 # return from variablesChooser()
 # variables_chosen = ['defense','neutrality','nonaggression','entente','dr_at_1','dr_at_2','de','joint_igo_membership','joint_igo_membership_count', 'conttype', 'mid_count','mid_onset_m','mid_ongoing_m','onset_other','ongoing_other','main_disno','dyindex,strtday_m','strtmnth_m','strtyr_m','endday_m','endmnth_m','endyear_m','outcome_m','settlmnt_m','fatlev_m','highact_m', 'flow1','flow2','smoothflow1']
-
 def check(col, data):
     return col in data
 
