@@ -25,6 +25,7 @@ os.chdir('datafiles_csv')
 
 diplo_ex = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
 diplo_ex.name = 'diplo_ex'
+diplo_ex["dyadID"] = diplo_ex["stateabb1"] + diplo_ex["ccode1"] + diplo_ex["stateabb2"] + diplo_ex["ccode2"] + diplo_ex["year"]
 alliance = pd.read_csv('COW_Alliance__2022_Non_Directed_Dyadic.csv')
 alliance.name = 'alliance'
 direct_contiguity = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
@@ -55,8 +56,13 @@ data_dict = {
 }
 
 dyadic_data = ['diplo_ex', 'alliance', 'igo', 'mids', 'trade', 'direct_contiguity']
+for name in dyadic_data:
+    data_file = data_dict[name]
+    data_file["eventID"] = data_file["stateabb1"] + "_" + data_file["ccode1"] + "_" + data_file["stateabb2"] + "_" +  data_file["ccode2"] + "_" + str(data_file["year"])
 monadic_data = ['nmc', 'wrp', 'major_powers']
-
+for name in monadic_data:
+    data_file = data_dict[name]
+    data_file["eventID"] = data_file["stateabb"] + "_" + data_file["ccode"] + "_" + str(data_file["year"])
 # return from datasetChooserFirstStep()
 # i changed it to just these two cuz testing was taking too long
 # files_chosen = [diplo_ex, alliance, mids, igo, trade, direct_contiguity]
@@ -103,9 +109,7 @@ def createNewDataList(files_chosen_raw, variables_chosen):
                 if check(var, data_file) == True:
                     cols_monadic.append(var)
                     data_list_temp = data_file[cols_monadic]
-                    cols_monadic = ["stateabb", "ccode", "year"]
-                    df = df.merge(data_list_temp, how = "outer", on = cols_monadic)
-                cols_monadic = ["stateabb", "ccode", "year"]
+                    df = df.merge(data_list_temp, how = "outer", on = "eventID")
         df.fillna('.', inplace=True)
         df = df.sort_values(["ccode", "year"])
     if(datatype == "dyadic"):
@@ -117,9 +121,7 @@ def createNewDataList(files_chosen_raw, variables_chosen):
                 if check(var, data_file) == True:
                     cols_dyadic.append(var)
                     data_list_temp = data_file[cols_dyadic]
-                    cols_dyadic = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
-                    df = df.merge(data_list_temp, how = "outer", on = cols_dyadic)
-                cols_dyadic = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
+                    df = df.merge(data_list_temp, how = "outer", on = "eventID")
                 df = df.drop_duplicates(subset = cols_dyadic)
         df.fillna('.', inplace=True)
         df = df.sort_values(["ccode1", "ccode2", "year"])
