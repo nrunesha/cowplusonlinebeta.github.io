@@ -1,15 +1,36 @@
 from flask import Flask, render_template, request, redirect, url_for, request, jsonify
+import pandas as pd
+import numpy as np
+import csv
+import sys
+import os
+
+import os
+import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+python_files_dir = os.path.join(current_dir, 'python_files')
+sys.path.append(python_files_dir)
+
+import data_merger
 
 app = Flask(__name__, template_folder='templates')
 
-# -- routes -- #
-
 vc = []
-vc2 = []
-myData = []
+dc = []
+
+# -- routes -- #
 
 @app.route("/")
 def home():
+    return redirect("/index.html")
+
+@app.route("/debug")
+def debug():
+    global vc
+    global dc
+    print("cowplus> vc:",str(vc))
+    print("cowplus> dc:",str(dc))
     return redirect("/index.html")
 
 @app.route("/index.html")
@@ -29,29 +50,55 @@ def goto_download():
 
 # variableChooser()
 @app.route('/variableChooser', methods=['POST'])
-def processvc1():
+def processvc():
+    global vc
     data = request.get_json()
-    vc1 = data['array']
-    print("variableChooser() returned " + str(vc))
+    vc = data['array']
+    print("cowplus> vc = " + str(vc))
+    return 'okay' # replace
+
+# datasetChooser()
+@app.route('/datasetChooser', methods=['POST'])
+def processdc():
+    global dc
+    data = request.get_json()
+    dc = data['array']
+    print("cowplus> dc = " + str(dc))
+
     return 'okay'
 
-# variableChooserSecondStep()
-@app.route('/variableChooserSecondStep', methods=['POST'])
-def processvc2():
-    data = request.get_json()
-    vc2 = data['array']
-    print("variableChooserSecondStep() returned " + str(vc2))
-    return 'okay'
+@app.route('/createDf', methods=['POST', "GET"])
+def create_df():
+    new_df = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
+    print("cowplus> new_df created")
+    print(new_df)
+    print("<cowplus")
+    response = {
+        'message': 'data processing successful',
+        'status': 200,
+        'new_df': new_df
+    }
+    return response
 
-# addID()
+
+@app.route("/displayData.html", methods=["POST", "GET"])
+def goto_displayData():
+    if request.method == 'POST':
+        return render_template("displayData.html")
+    else:
+        # makes no sense to be at this page without hitting the "generate" button
+        return render_template("error")
+
+# generic for all req. to save code
 '''
-@app.route('/addID', methods=['POST'])
-def addID():
+@app.route('/<path:route>', methods=['POST'])
+def process_data(route):
     data = request.get_json()
-    myData = data['array']
-    print("addID: " + str(myData))
-    return 'okay'
-'''
+    requested_variable = data['array']
+    print(f"Data from route '{route}': {requested_variable}")
+    # Perform further processing or store the data in the requested variable
+    return 'OK'
+
 # -- TEST FUNCTIONS; THESE SERVE NO PURPOSE IN THE FINAL PROGRAM AND SHOULD BE DELETED IN THE FUTURE. -- #
 
 @app.route("/chooseDataset.html", methods=["POST", "GET"])
@@ -67,6 +114,8 @@ def goto_chooseDataset():
         return render_template("chooseDataset.html")
     else:
         return render_template("chooseDataset.html")
+
+
     
 @app.route("/test.html", methods=["POST", "GET"])
 def goto_test():
@@ -75,6 +124,7 @@ def goto_test():
         return render_template("test.html")
     else:
         return render_template("test.html")
+'''
 
 # run
 

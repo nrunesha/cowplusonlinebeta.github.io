@@ -1,4 +1,4 @@
-
+console.log("yz ver.")
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
 		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
@@ -303,43 +303,6 @@ function toggleVariableTableDiv(){
 		$('#divCOWTradeTable').find('input[type=checkbox]:checked').prop('checked',false);
 		document.getElementById("divCOWTradeTable").style.display = "none";
 	}
-}
-
-function contains(set, object, keys) {
-    var solution = -1;
-    set.forEach(function (item, index, array) {
-        var selfItem = item;
-        var allKeys = keys.every(function (item, index, array) {
-            if (selfItem[item] === object[item]) {
-                return true;
-            }
-        });
-        if (allKeys) {
-            solution = index;
-        }
-    });
-    return solution;
-}
-
-function mergeSets(first, second) {
-    var result = first;
-    var keys = Array.prototype.slice.call(arguments, 2);
-    second.forEach(function (item, index, array) {
-        var resultIndex = contains(result, item, keys);
-        if (resultIndex === -1) {
-            result.push(item);
-        } else {
-            for (var property in item) {
-                if (item.hasOwnProperty(property)) {
-                    if (!result[resultIndex].hasOwnProperty(property)) {
-                        var el = result[resultIndex];
-                        el[property] = item[property];
-                    }
-                }
-            }
-        }
-    });
-    return result;
 }
 
 function variableChooser(){
@@ -861,63 +824,54 @@ function variableChooser(){
 		}
 	}
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/variableChooserSecondStep", true);
+	xhr.open("POST", "/variableChooser", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify({ array: variables }));
-	return variables; 
+	console.log("post vc:");
+	console.log(variables);
+	return variables;
 }
 
-function mergeCountryYearData(){			
-	var countryYearDataSelected = [];
 
-	if(document.getElementById("NMC_5_0").checked){
-		countryYearDataSelected.push(NMC_5_0);
+function datasetChooserFirstStep(){			
+	var datasetsSelected = [];
+
+	if(document.getElementById("NMC_5_0").checked){	
+		datasetsSelected.push("nmc");	
+	}	
+	if(document.getElementById("WRP_NAT").checked){	
+		datasetsSelected.push("wrp");	
+	}	
+	if(document.getElementById("Major_Powers").checked){	
+		datasetsSelected.push("major_powers");	
+	}	
+	if(document.getElementById("DirectContiguity").checked){	
+		datasetsSelected.push("direct_contiguity");	
+	}	
+	if(document.getElementById("MIDS_NDD").checked){	
+		datasetsSelected.push("mids");	
+	}	
+	if(document.getElementById("COW_Alliance_Data_NDD").checked){	
+		datasetsSelected.push("alliance");	
+	}	
+	if(document.getElementById("COW_IGO_Data_NDD").checked){	
+		datasetsSelected.push("igo");	
+	}	
+	if(document.getElementById("COW_Diplomatic_Exchange").checked){	
+		datasetsSelected.push("diplo_ex");	
+	}	
+	if(document.getElementById("COW_Trade_4_0").checked){	
+		datasetsSelected.push("trade");	
 	}
-	if(document.getElementById("WRP_NAT").checked){
-		countryYearDataSelected.push(WRP_NAT);
-	}
-	if(document.getElementById("Major_Powers").checked){
-		countryYearDataSelected.push(COW_States_Major_Powers);
-	}
-	
-	return countryYearDataSelected;
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/datasetChooser", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: datasetsSelected }));
+	console.log("post dc:")
+	console.log(datasetsSelected)
+	return datasetsSelected;
 }
 
-function countryYearDataSetChooser(){
-	var countryYearDatasets = mergeCountryYearData();
-	var data = NMC_5_0;
-	var variableList = variableChooser();
-	var allVariablesList = allVariables();
-	if(countryYearDatasets.length == 1){
-		data = countryYearDatasets[0];
-	}
-	else if(countryYearDatasets.length == 2){
-		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
-	}
-	else if(countryYearDatasets.length == 3){
-		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
-		data = 	mergeSets(temp, countryYearDatasets[2], "stateabb", "year", "ccode");
-	}
-	for (var i = 0; i<allVariablesList.length; i++){
-		if(variableList.includes(allVariables()[i]) == false){
-			for(var j = 0; j<data.length; j++){
-				delete data[j][allVariables()[i]];
-			}
-		}
-	}
-	for (var i = 0; i < data.length; i++){
-		for(var j = 0; j<variableList.length; j++){
-			if(Object.keys(data[i]).includes(variableList[j])){
-				continue;
-			}
-			else{
-				data.splice(i,1);
-				i--;
-			}
-		}
-	}
-	return data;
-}
 
 function containsAll(obj, arr){
    for(var i = 0; i < arr.length; i++){
@@ -930,87 +884,6 @@ function containsAll(obj, arr){
    return true;
 }
 
-function mergeDyadYearData(){			
-	var dyadYearDataSelected = [];
-
-	if(document.getElementById("DirectContiguity").checked){
-		dyadYearDataSelected.push(COW_Direct_Contiguity);
-	}
-	if(document.getElementById("MIDS_NDD").checked){
-		dyadYearDataSelected.push(COW_MID_DATA_NDD);
-	}
-	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		dyadYearDataSelected.push(COW_Alliance_Data);
-	}
-	if(document.getElementById("COW_IGO_Data_NDD").checked){
-		dyadYearDataSelected.push(COW_IGO_Data);
-	}
-	if(document.getElementById("COW_Diplomatic_Exchange").checked){
-		dyadYearDataSelected.push(COW_Diplomatic_Exchange_Data);
-	}
-	if(document.getElementById("COW_Trade_4_0").checked){
-		dyadYearDataSelected.push(COW_Trade_Data);
-	}
-	
-	return dyadYearDataSelected;
-}
-
-function dyadYearDataSetChooser(){
-	var dyadYearDatasets = mergeDyadYearData();
-	var data = COW_Direct_Contiguity;
-	var variableList = variableChooser();
-	var allVariablesList = allVariables();
-	if(dyadYearDatasets.length == 1){
-		data = dyadYearDatasets[0];
-	}
-	if(dyadYearDatasets.length == 2){
-		data = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
-	}
-	if(dyadYearDatasets.length == 3){
-		var temp = 	mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
-		data = 	mergeSets(temp, dyadYearDatasets[2], "state1no", "state2no", "year");
-	}
-	if(dyadYearDatasets.length == 4){
-		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
-		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
-		data = 	mergeSets(temp1, temp2, "state1no", "state2no", "year");
-	}
-	if(dyadYearDatasets.length == 5){
-		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
-		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
-		var temp3 = mergeSets(temp1, temp2, "state1no", "state2no", "year");
-		data = 	mergeSets(temp3, dyadYearDatasets[4], "state1no", "state2no", "year");
-	}
-	if(dyadYearDatasets.length == 6){
-		var temp1 = mergeSets(dyadYearDatasets[0], dyadYearDatasets[1], "state1no", "state2no", "year");
-		var temp2 = mergeSets(dyadYearDatasets[2], dyadYearDatasets[3], "state1no", "state2no", "year");
-		var temp3 = mergeSets(dyadYearDatasets[4], dyadYearDatasets[5], "state1no", "state2no", "year");
-		var temp4 = mergeSets(temp1, temp2, "state1no", "state2no", "year");
-		data = 	mergeSets(temp3, temp4, "state1no", "state2no", "year");
-	}
-	for (var i = 0; i<allVariablesList.length; i++){
-		if(!variableList.includes(allVariablesList[i])){
-			for(var j = 0; j<data.length; j++){
-				delete data[j][allVariablesList[i]];
-			}
-		}
-	}
-	
-	for (var i = 0; i < data.length; i++){
-		for(var j = 0; j<variableList.length; j++){
-			if((!Object.keys(data[i]).includes(variableList[j])) || data[i] == undefined){
-				data.splice(i,1);
-				i--;
-				break;
-			}
-		}
-	}
-	
-	return data;
-}
-
-
-
 function checkCheckboxes(){
 	let tf = true;
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
@@ -1022,23 +895,35 @@ function checkCheckboxes(){
 	return Boolean(tf);
 }
 
+async function addID() {
+    var myData = [];
 
-function addID(){
-	if(document.getElementById("countryYear").checked){
-		var myData = countryYearDataSetChooser();
-	}
-	else if(document.getElementById("dyadYear").checked){
-		var myData = dyadYearDataSetChooser();
-	}
+    try {
+        const response = await fetch('/createDf'); // issues a GET request by default
+        const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+        const new_df = JSON.parse(data.new_df); // this js constant is set to the new_df output from the response, which is a JSON array
+
+        // populate myData with new_df
+        myData = JSON.parse(new_df);
+		console.log(new_df);
+    } catch (error) {
+        console.error('error processing data:', error);
+    }
+	// not entirely sure how this works but i think i understand
+	/*$.ajax({
+		type: "POST",
+		url: "python_files/data_merger.py",
+	  }).done(function( o ) {
+		var myData = data_merger.py
+	  });*/
 	for (var i = 0; i < myData.length; i++) {
 		myData[i] = {"id" : i+1, ...myData[i]};
 	}
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/addID", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: myData }));
-	return myData;
+	console.log(myData) 
+    return myData;
 }
+	
 
 function BackButtonOne(){
 	document.getElementById("qChooseCY").style.display = "none";
@@ -1091,8 +976,8 @@ function BackButtonTwo(){
 }
 
 var filteredItems = [];
-function CreateTable(){
-	
+async function CreateTable(){
+	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
 	var dataView;
@@ -1106,8 +991,13 @@ function CreateTable(){
 		document.getElementById("Warning").style.display = "none";				
 	}
 	document.getElementById("myTable").style.display = "inline-block";
-	var myData = addID();
+
 	let displayColumns = variableChooser();
+	datasetChooserFirstStep()
+
+	var myData = await addID(); 
+	// replace addId with return from data_merger.py createNewDataList(files_chosen, variables_chosen)
+	
 	displayColumns.unshift("id");
 	myData = myData.map(x => {
 		let newObj = {};
@@ -1235,7 +1125,6 @@ function CreateTable(){
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
 	document.getElementById("SecondStep").style.display = "block";
-
 }
 //SECOND STEP 
 function displayChooseCYData(){
@@ -1578,10 +1467,7 @@ function variableChooserSecondStep(){
 			variablesSecondStep.push("sourcecode");
 		}
 	}
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/variableChooserSecondStep", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: variablesSecondStep }));
+	
 	return variablesSecondStep;
 }
 
