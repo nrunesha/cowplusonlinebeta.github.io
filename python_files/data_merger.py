@@ -20,7 +20,7 @@ sys.path.append(os.getcwd())
 # Change to the "datafiles_csv" folder
 os.chdir('datafiles_csv')
 
-diplo_ex = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
+diplo_ex = pd.read_csv('COW_Diplomatic_Exchange_Dyadic.csv')
 diplo_ex.name = 'diplo_ex'
 alliance = pd.read_csv('COW_Alliance__2022_Non_Directed_Dyadic.csv')
 alliance.name = 'alliance'
@@ -52,13 +52,13 @@ data_dict = {
 }
 
 dyadic_data = ['diplo_ex', 'alliance', 'igo', 'mids', 'trade', 'direct_contiguity']
-for name in dyadic_data:
-    data_file = data_dict[name]
-    data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
+# for name in dyadic_data:
+#     data_file = data_dict[name]
+#     data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
 monadic_data = ['nmc', 'wrp', 'major_powers']
-for name in monadic_data:
-    data_file = data_dict[name]
-    data_file["eventID"] = data_file["stateabb"].astype(str) + "_" + data_file["ccode"].astype(str) + "_" + data_file["year"].astype(str)
+# for name in monadic_data:
+#     data_file = data_dict[name]
+#     data_file["eventID"] = data_file["stateabb"].astype(str) + "_" + data_file["ccode"].astype(str) + "_" + data_file["year"].astype(str)
 # return from datasetChooserFirstStep()
 # i changed it to just these two cuz testing was taking too long
 # files_chosen = [diplo_ex, alliance, mids, igo, trade, direct_contiguity]
@@ -85,6 +85,14 @@ def check_duplicates(data, datatype):
     if(datatype == "dyadic"):
         return len(data) - len(data.drop_duplicates(subset = cols_dyadic))
 
+def remove_items(test_list, item):
+ 
+    res = list(filter((item).__ne__, test_list))
+ 
+    return res
+
+# files_chosen_raw = ["nmc", 'wrp']
+# variables_chosen = ['stateabb', 'year', 'ccode', 'milex', 'stateabb', 'year', 'ccode', 'chrstprot']
 def createNewDataList(files_chosen_raw, variables_chosen):
     files_chosen = []
     for name in files_chosen_raw:
@@ -97,31 +105,63 @@ def createNewDataList(files_chosen_raw, variables_chosen):
     elif files_chosen[0].name in monadic_data:
         datatype = "monadic"
     if(datatype == "monadic"):
-        cols_monadic = ["stateabb", "ccode", "year"]
+        variables_chosen = remove_items(variables_chosen, "stateabb")
+        variables_chosen = remove_items(variables_chosen, "ccode")
+        variables_chosen = remove_items(variables_chosen, "year")
+        print(variables_chosen)
+        for file_df in files_chosen:
+            file_df["eventID"] = file_df["stateabb"].astype(str) + "_" + file_df["ccode"].astype(str) + "_" + file_df["year"].astype(str)
+        cols_monadic = ["eventID"]
         df = largest_file[cols_monadic]
+        df.drop_duplicates(subset = cols_monadic)
         for data_file in files_chosen: 
             for var in variables_chosen: 
                 if check(var, data_file) == True:
                     cols_monadic.append(var)
                     data_list_temp = data_file[cols_monadic]
-                    df = df.merge(data_list_temp, how = "outer", on = "eventID")
-        df.fillna('.', inplace=True)
-        df = df.sort_values(["ccode", "year"])
+                    df = df.merge(data_list_temp, how = "outer", on = "eventID", suffixes= (None, "_x"))
+                cols_monadic = ["eventID"]
+            cols_monadic = ["eventID"]
+        splitEvent= list(map(list, zip(*df["eventID"].str.split("_"))))
+        df.insert(1, "year", splitEvent[2])
+        df.insert(1, "ccode", splitEvent[1])
+        df.insert(1, "stateabb", splitEvent[0])
+        df.sort_values(by=["ccode", "year"])
     if(datatype == "dyadic"):
-        cols_dyadic = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
+        variables_chosen = remove_items(variables_chosen, "stateabb1")
+        variables_chosen = remove_items(variables_chosen, "ccode1")
+        variables_chosen = remove_items(variables_chosen, "stateabb2")
+        variables_chosen = remove_items(variables_chosen, "ccode2")
+        variables_chosen = remove_items(variables_chosen, "year")
+        print(variables_chosen)
+        for data_file in files_chosen:
+            data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
+        cols_dyadic = ["eventID"]
         df = largest_file[cols_dyadic]
         df.drop_duplicates(subset = cols_dyadic)
-        for data_file in files_chosen: #6
-            for var in variables_chosen: #32
+        for data_file in files_chosen: 
+            cols_dyadic = ["eventID"]
+            for var in variables_chosen: 
+                cols_dyadic = ["eventID"]
                 if check(var, data_file) == True:
                     cols_dyadic.append(var)
                     data_list_temp = data_file[cols_dyadic]
-                    df = df.merge(data_list_temp, how = "outer", on = "eventID")
+                    print(cols_dyadic)
+                    df = df.merge(data_list_temp, how = "outer", on = "eventID", suffixes= (None, "_x"))
                 df = df.drop_duplicates(subset = cols_dyadic)
-        df.fillna('.', inplace=True)
-        df = df.sort_values(["ccode1", "ccode2", "year"])
+        splitEvent= list(map(list, zip(*df["eventID"].str.split("_"))))
+        df.insert(1, "year", splitEvent[4])
+        df.insert(1, "ccode2", splitEvent[3])
+        df.insert(1, "stateabb2", splitEvent[2])
+        df.insert(1, "ccode1", splitEvent[1])
+        df.insert(1, "stateabb1", splitEvent[0])
+        df.sort_values(by=["ccode1", "ccode2", "year"])
+    print(df.columns.tolist())
+    df.fillna(".", inplace=True)
     df.insert(0, 'id', range(1, 1 + len(df)))
-    return df.to_json(orient="records")
+    df = df.drop(["eventID"], axis = 1)
+    new_df = df.to_json(orient="records")
+    return new_df
 
-#new_df = createNewDataList(files_chosen, variables_chosen)
-#print(new_df)
+# new_df = createNewDataList(files_chosen_raw, variables_chosen)
+# print(new_df)

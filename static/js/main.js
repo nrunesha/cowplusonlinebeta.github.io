@@ -40,7 +40,6 @@ function allVariables(){
 		variables.push("stateabb");
 		variables.push("year");
 		variables.push("ccode");
-		variables.push("statename_Major_Powers");
 		variables.push("major_Major_Powers");
 	}
 	if(document.getElementById("WRP_NAT").checked){
@@ -128,19 +127,18 @@ function allVariables(){
 		variables.push("sourcecode_WRP_NAT");
 	}
 	if(document.getElementById("DirectContiguity").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
-		variables.push("dyad");
 		variables.push("conttype_DirectContiguity");
 	}
 	if(document.getElementById("MIDS_NDD").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		variables.push("statenme1");
 		variables.push("statenme2");
@@ -197,10 +195,10 @@ function allVariables(){
 		variables.push("new_m");
 	}
 	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		variables.push("defense");
 		variables.push("neutrality");
@@ -208,20 +206,20 @@ function allVariables(){
 		variables.push("entente");
 	}
 	if(document.getElementById("COW_Diplomatic_Exchange").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		variables.push("dr_at_1");
 		variables.push("dr_at_2");
 		variables.push("de");
 	}
 	if(document.getElementById("COW_Trade_4_0").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		variables.push("flow1");
 		variables.push("flow2");
@@ -582,19 +580,18 @@ function variableChooser(){
 		}
 	}
 	if(document.getElementById("DirectContiguity").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
-		variables.push("dyad");
 		variables.push("conttype");
 	}
 	if(document.getElementById("MIDS_NDD").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		if(document.getElementById("mid_count_MID").checked){
 			variables.push("mid_count");
@@ -751,10 +748,10 @@ function variableChooser(){
 		}*/
 	}
 	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		if(document.getElementById("defense_Alliance").checked){
 			variables.push("defense");
@@ -770,10 +767,10 @@ function variableChooser(){
 		}
 	}
 	if(document.getElementById("COW_IGO_Data_NDD").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		if(document.getElementById("joint_igo_membership_IGO").checked){
 			variables.push("joint_igo_membership");
@@ -783,10 +780,10 @@ function variableChooser(){
 		}
 	}
 	if(document.getElementById("COW_Diplomatic_Exchange").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		if(document.getElementById("dr_at_1_Diplo").checked){
 			variables.push("dr_at_1");
@@ -799,10 +796,10 @@ function variableChooser(){
 		}
 	}
 	if(document.getElementById("COW_Trade_4_0").checked){
-		variables.push("state1no");
-		variables.push("state1ab");
-		variables.push("state2no");
-		variables.push("state2ab");
+		variables.push("ccode1");
+		variables.push("stateabb1");
+		variables.push("ccode2");
+		variables.push("stateabb2");
 		variables.push("year");
 		if(document.getElementById("flow1_Trade").checked){
 			variables.push("flow1");
@@ -889,43 +886,31 @@ function checkCheckboxes(){
 	if (document.querySelectorAll('input[type="checkbox"]:checked').length <1){
 		tf = false;
 	}
-	if(!document.getElementById("DirectContiguity").checked && $('input[name*="Trade"]:checked').length < 1 && $('input[name*="Diplo"]:checked').length < 1 &&$('input[name*="NMC_5_0"]:checked').length < 1 && $('input[name*="Alliance"]:checked').length < 1 && $('input[name*="IGO"]:checked').length < 1 && $('input[name*="WRP_NAT"]:checked').length < 1 && $('input[name*="Major_Powers"]:checked').length < 1 && $('input[name*="MID"]:checked').length < 1){
+	if(((variableChooser().length <=3) & ((document.getElementById("countryYear").checked))| (variableChooser().length <=5) & (document.getElementById("dyadYear").checked))){
 		tf = false;
 	}
 	return Boolean(tf);
 }
 
-async function addID() {
+async function retrieveJSON() {
     var myData = [];
 
     try {
-        const response = await fetch('/createDf'); // issues a GET request by default
+        const response = await fetch('createDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
         // access the new_df data from the response
-        const new_df = JSON.parse(data.new_df); // this js constant is set to the new_df output from the response, which is a JSON array
-
+		const new_df = data.new_df; // this js constant is set to the new_df output from the response, which is a JSON array
         // populate myData with new_df
         myData = JSON.parse(new_df);
-		console.log(new_df);
     } catch (error) {
-        console.error('error processing data:', error);
+		console.error('error processing data:', error);
     }
-	// not entirely sure how this works but i think i understand
-	/*$.ajax({
-		type: "POST",
-		url: "python_files/data_merger.py",
-	  }).done(function( o ) {
-		var myData = data_merger.py
-	  });*/
-	for (var i = 0; i < myData.length; i++) {
-		myData[i] = {"id" : i+1, ...myData[i]};
-	}
-	console.log(myData) 
     return myData;
 }
 	
 
 function BackButtonOne(){
+	console.log(variableChooser())			
 	document.getElementById("qChooseCY").style.display = "none";
 	document.getElementById("backButton1").style.display = "none";
 	document.getElementById("createButtonSecondStep").style.display = "none";
@@ -990,29 +975,16 @@ async function CreateTable(){
 	else{
 		document.getElementById("Warning").style.display = "none";				
 	}
-	document.getElementById("myTable").style.display = "inline-block";
 
-	let displayColumns = variableChooser();
-	datasetChooserFirstStep()
+	variableChooser();
+	datasetChooserFirstStep();
 
-	var myData = await addID(); 
-	// replace addId with return from data_merger.py createNewDataList(files_chosen, variables_chosen)
-	
-	displayColumns.unshift("id");
-	myData = myData.map(x => {
-		let newObj = {};
-		for (col of displayColumns) {
-			newObj[col] = x[col];
-		}
-		return newObj;
-	});
+	var myData = await retrieveJSON(); 
+	//displayColumns.unshift("id");
 	var col = [];
-	for (var i = 0; i < 1; i++) {
-	  for (var key in myData[i]) {
-		if (col.indexOf(key) === -1) {
-			col.push({id: key, name: key, field: key, toolTip: key});
-		}
-	  }
+	keys = Object.keys(myData[0])
+	for (var key in keys) {
+		col.push({id: keys[key], name: keys[key], field: keys[key], toolTip: keys[key]});
 	}
 	var options = {
 		enableCellNavigation: true,
@@ -1121,7 +1093,7 @@ async function CreateTable(){
 	else if(document.getElementById("countryYear").checked){
 		changeButtonSecondStep();
 	}
-	
+	document.getElementById("myTable").style.display = "inline-block";
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
 	document.getElementById("SecondStep").style.display = "block";
@@ -1471,35 +1443,25 @@ function variableChooserSecondStep(){
 	return variablesSecondStep;
 }
 
-function mergeCountryYearDataSecondStep(){			
-	var countryYearDataSelected = [];
+function datasetChooserSecondStep(){			
+	var datasetsSelected = [];
 
-	if(document.getElementById("NMC_5_0SecondStep").checked){
-		countryYearDataSelected.push(NMC_5_0);
+	if(document.getElementById("NMC_5_0").checked){	
+		datasetsSelected.push("nmc");	
+	}	
+	if(document.getElementById("WRP_NAT").checked){	
+		datasetsSelected.push("wrp");	
+	}	
+	if(document.getElementById("Major_Powers").checked){	
+		datasetsSelected.push("major_powers");	
 	}
-	if(document.getElementById("WRP_NATSecondStep").checked){
-		countryYearDataSelected.push(WRP_NAT);
-	}
-	if(document.getElementById("Major_PowersSecondStep").checked){
-		countryYearDataSelected.push(COW_States_Major_Powers);
-	}
-	return countryYearDataSelected;
-}
-
-function countryYearDataSetChooserSecondStep(){
-	var countryYearDatasets = mergeCountryYearDataSecondStep();
-	var data = NMC_5_0;
-	if(countryYearDatasets.length == 1){
-		data = countryYearDatasets[0];
-	}
-	else if(countryYearDatasets.length == 2){
-		data = 	mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
-	}
-	else if(countryYearDatasets.length == 3){
-		var temp = mergeSets(countryYearDatasets[0], countryYearDatasets[1], "stateabb", "year", "ccode");
-		data = 	mergeSets(temp, countryYearDatasets[2], "stateabb", "year", "ccode");
-	}
-	return data;
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/datasetChooser", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: datasetsSelected }));
+	console.log("post dc:")
+	console.log(datasetsSelected)
+	return datasetsSelected;
 }
 
 function yearArrayDyadYear(){
@@ -1514,7 +1476,7 @@ function stateArrayDyadYear1(){
 	var stateDup = [];
 	var myData = dyadYearDataSetChooser();
 	for (i = 0; i < myData.length; i++) {
-		stateDup.push(myData[i]["state1ab"]);       
+		stateDup.push(myData[i]["stateabb1"]);       
 	}
 	return stateDup;
 }
@@ -1522,7 +1484,7 @@ function stateArrayDyadYear2(){
 	var stateDup = [];
 	var myData = dyadYearDataSetChooser();
 	for (i = 0; i < myData.length; i++) {
-		stateDup.push(myData[i]["state2ab"]);       
+		stateDup.push(myData[i]["stateabb2"]);       
 	}
 	return stateDup;
 }
@@ -1535,14 +1497,14 @@ function createSearchArrayForExtraColumns(){
 	selectedVar = variableChooserSecondStep();
 	let compiledArray = [];
 	let state = {
-		"state1ab": "USA",
-		"state2ab": "CAN",
+		"stateabb1": "USA",
+		"stateabb2": "CAN",
 		"year": 1920
 	}
 	for (i = 0; i < state1.length; i++){
 		state = {
-			"state1ab": state1[i],
-			"state2ab": state2[i],
+			"stateabb1": state1[i],
+			"stateabb2": state2[i],
 			"year": year[i]
 		}
 		compiledArray.push(state);
@@ -1557,7 +1519,7 @@ function createArrayForExtraColumnObjectsState1(){
 	let compiledArray = [];
 	for (i = 0; i < searchArray.length; i++){
 		outputstate1 = dataset.find(function(element) {
-		  return element["stateabb"] == searchArray[i]["state1ab"] && element["year"] == searchArray[i]["year"];
+		  return element["stateabb"] == searchArray[i]["stateabb1"] && element["year"] == searchArray[i]["year"];
 		});		
 		compiledArray.push(outputstate1);
 	}
@@ -1570,7 +1532,7 @@ function createArrayForExtraColumnObjectsState2(){
 	let compiledArray = [];
 	for (i = 0; i < searchArray.length; i++){
 		outputstate2 = dataset.find(function(element) {
-		  return element["stateabb"] == searchArray[i]["state2ab"] && element["year"] == searchArray[i]["year"];
+		  return element["stateabb"] == searchArray[i]["stateabb2"] && element["year"] == searchArray[i]["year"];
 		});		
 		compiledArray.push(outputstate2);
 	}

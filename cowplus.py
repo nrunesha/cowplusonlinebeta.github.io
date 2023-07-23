@@ -52,31 +52,27 @@ def goto_download():
 @app.route('/variableChooser', methods=['POST'])
 def processvc():
     global vc
+    vc = []
     data = request.get_json()
     vc = data['array']
-    print("cowplus> vc = " + str(vc))
     return 'okay' # replace
 
 # datasetChooser()
 @app.route('/datasetChooser', methods=['POST'])
 def processdc():
     global dc
+    dc = []
     data = request.get_json()
     dc = data['array']
-    print("cowplus> dc = " + str(dc))
-
     return 'okay'
 
-@app.route('/createDf', methods=['POST', "GET"])
+@app.route('/createDf/', methods=['POST', "GET"])
 def create_df():
     new_df = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
-    print("cowplus> new_df created")
-    print(new_df)
-    print("<cowplus")
     response = {
-        'message': 'data processing successful',
-        'status': 200,
-        'new_df': new_df
+        "message": "data processing successful",
+        "status": 200,
+        "new_df": new_df
     }
     return response
 
