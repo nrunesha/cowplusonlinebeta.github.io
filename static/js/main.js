@@ -1456,7 +1456,7 @@ function datasetChooserSecondStep(){
 		datasetsSelected.push("major_powers");	
 	}
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooser", true);
+	xhr.open("POST", "/datasetChooserSecondStep", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify({ array: datasetsSelected }));
 	console.log("post dc:")
