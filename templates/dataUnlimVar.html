@@ -50,6 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/plugins/slick.cellselectionmodel.js') }}"></script>
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/plugins/slick.cellrangedecorator.js') }}"></script>
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/plugins/ext.headerfilter.js') }}"></script>
+		
 		<div id="page-container">
 			<header style="padding:-20px">
 				<h1 class="headerone">COW Plus Online (Beta-Version)</h1>
@@ -63,8 +64,18 @@ The above copyright notice and this permission notice shall be included in all c
 			</header>
 			<div id="main">
 				<div id="FirstStep">
-					<div style="padding-left:20px">
-						<h4 style="margin-top:20px;font-size:20px" id="firstStepText">Choose your dataset(s):</h4>
+				  	<div style="padding-left:20px">
+						<h4 style="margin-top:20px;font-size:20px" id="firstStepText">
+							Choose your dataset(s):
+							<span class="tooltip-container">
+								<button class="tooltip-btn">?</button>
+								<div class="tooltip-text">
+								<p>The way this tool works is...</p>
+								<p>It may take up to a minute to process...</p>
+								<p>etc</p>
+								</div>
+							</span>
+						</h4>
 						<input type="radio" id="countryYear" name="dataGroup" value="countryYear" onclick="toggleDataGroups()">
 						<label for="countryYear">Country-Year Data</label>
 					</div>
@@ -1547,6 +1558,7 @@ The above copyright notice and this permission notice shall be included in all c
 					</div>
 				</div>
 			</div>
+			
 			<br><br>
 			<footer id="footer">
 				<p class="cow-plus-footer" style="padding-top:20px">Copyright &copy; <script>document.write( new Date().getFullYear() );</script> </p>
@@ -1558,6 +1570,9 @@ The above copyright notice and this permission notice shall be included in all c
 						<li class="cow-plus-footer"><a href="sources.html">Sources</a></li>
 						<li class="cow-plus-footer"><a href="mailto:paulpoast@uchicago.edu">Contact</a></li>
 					</ul>
+				</div>
+				<div id="loadingMessage" style="display: none;">
+					Please be patient. This process takes about ten seconds per variable selected. Do NOT spam the Continue button.
 				</div>
 			</footer>
 		</div>

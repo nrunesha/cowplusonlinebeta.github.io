@@ -5,9 +5,6 @@ import csv
 import sys
 import os
 
-import os
-import sys
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'python_files')
 sys.path.append(python_files_dir)
@@ -17,6 +14,7 @@ import data_merger
 app = Flask(__name__, template_folder='templates')
 
 vc = []
+vc2 = []
 dc = []
 
 # -- routes -- #
@@ -52,18 +50,32 @@ def goto_download():
 @app.route('/variableChooser', methods=['POST'])
 def processvc():
     global vc
-    vc = []
     data = request.get_json()
     vc = data['array']
+    return 'okay' # replace
+
+@app.route('/variableChooser2', methods=['POST'])
+def processvc2():
+    global vc
+    data = request.get_json()
+    t = data['array']
+    vc = vc + t
     return 'okay' # replace
 
 # datasetChooser()
 @app.route('/datasetChooser', methods=['POST'])
 def processdc():
     global dc
-    dc = []
     data = request.get_json()
     dc = data['array']
+    return 'okay'
+
+@app.route('/datasetChooser2', methods=['POST'])
+def processdc2():
+    global dc
+    data = request.get_json()
+    t = data['array']
+    dc = dc + t
     return 'okay'
 
 @app.route('/createDf/', methods=['POST', "GET"])
@@ -76,6 +88,15 @@ def create_df():
     }
     return response
 
+@app.route('/createDf2', methods=['POST', "GET"])
+def create_df2():
+    new_df = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "new_df": new_df
+    }
+    return response
 
 @app.route("/displayData.html", methods=["POST", "GET"])
 def goto_displayData():

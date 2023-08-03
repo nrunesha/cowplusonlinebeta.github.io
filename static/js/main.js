@@ -1,4 +1,16 @@
-console.log("yz ver.")
+/*
+
+var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/datasetChooser2", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: datasetsSelectedSecondStep }));
+	console.log("post dc:")
+	console.log(datasetsSelectedSecondStep)
+	return datasetsSelectedSecondStep;
+
+*/
+
+console.log("flask branch")
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
 		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
@@ -892,10 +904,21 @@ function checkCheckboxes(){
 	return Boolean(tf);
 }
 
+function hideLoadingMessage() {
+	const loadingMessage = document.getElementById('loadingMessage');
+	loadingMessage.style.display = 'none';
+}
+  
+function showLoadingMessage() {
+	const loadingMessage = document.getElementById('loadingMessage');
+	loadingMessage.style.display = 'block';
+}
+
 async function retrieveJSON() {
     var myData = [];
 
     try {
+		showLoadingMessage();
         const response = await fetch('createDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
         // access the new_df data from the response
@@ -904,7 +927,9 @@ async function retrieveJSON() {
         myData = JSON.parse(new_df);
     } catch (error) {
 		console.error('error processing data:', error);
-    }
+    } finally {
+		hideLoadingMessage();
+	}
     return myData;
 }
 	
@@ -1439,7 +1464,11 @@ function variableChooserSecondStep(){
 			variablesSecondStep.push("sourcecode");
 		}
 	}
-	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/variableChooser2", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: variablesSecondStep }));
+	console.log(variablesSecondStep)
 	return variablesSecondStep;
 }
 
@@ -1456,7 +1485,7 @@ function datasetChooserSecondStep(){
 		datasetsSelected.push("major_powers");	
 	}
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooserSecondStep", true);
+	xhr.open("POST", "/datasetChooser2", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify({ array: datasetsSelected }));
 	console.log("post dc:")
@@ -1595,15 +1624,28 @@ function mergeAppendedData(){
 	return data;
 }
 
+async function addID2() {
+    var myData = [];
 
-function addID2(){
+    try {
+        const response = await fetch('createDf2');
+        const data = await response.json();
+		const new_df = data.new_df;
+        myData = JSON.parse(new_df);
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return myData;
+}
+
+/*function addID2(){
 	var myData = mergeAppendedData();
-
+	
 	for (var i = 0; i < myData.length; i++) {
 		myData[i] = {"id" : i+1, ...myData[i]};
 	}
 	return myData;
-}
+}*/
 
 async function AddColumns() {
 	var myData = mergeAppendedData();
