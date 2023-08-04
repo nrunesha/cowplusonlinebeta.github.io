@@ -908,6 +908,21 @@ async function retrieveJSON() {
     return myData;
 }
 	
+async function retrieveJSONSecondStep() {
+    var myData = [];
+
+    try {
+        const response = await fetch('createDfSS'); // issues a GET request by default
+        const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+		const new_df = data.new_df; // this js constant is set to the new_df output from the response, which is a JSON array
+        // populate myData with new_df
+        myData = JSON.parse(new_df);
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return myData;
+}
 
 function BackButtonOne(){
 	console.log(variableChooser())			
@@ -1439,29 +1454,34 @@ function variableChooserSecondStep(){
 			variablesSecondStep.push("sourcecode");
 		}
 	}
-	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/variableChooserSecondStep", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: variablesSecondStep }));
+	console.log("post vc:");
+	console.log(variablesSecondStep);
 	return variablesSecondStep;
 }
 
 function datasetChooserSecondStep(){			
-	var datasetsSelected = [];
+	var datasetsSelectedSecondStep = [];
 
 	if(document.getElementById("NMC_5_0").checked){	
-		datasetsSelected.push("nmc");	
+		datasetsSelectedSecondStep.push("nmc");	
 	}	
 	if(document.getElementById("WRP_NAT").checked){	
-		datasetsSelected.push("wrp");	
+		datasetsSelectedSecondStep.push("wrp");	
 	}	
 	if(document.getElementById("Major_Powers").checked){	
-		datasetsSelected.push("major_powers");	
+		datasetsSelectedSecondStep.push("major_powers");	
 	}
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "/datasetChooserSecondStep", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: datasetsSelected }));
+	xhr.send(JSON.stringify({ array: datasetsSelectedSecondStep }));
 	console.log("post dc:")
-	console.log(datasetsSelected)
-	return datasetsSelected;
+	console.log(datasetsSelectedSecondStep)
+	return datasetsSelectedSecondStep;
 }
 
 function yearArrayDyadYear(){
@@ -1606,14 +1626,7 @@ function addID2(){
 }
 
 async function AddColumns() {
-	var myData = mergeAppendedData();
-	let displayColumns = variableChooser();
-	var variableListAppended = variableReplacer();
-	for(var i = 0; i<variableListAppended.length; i++){
-		displayColumns.push(variableListAppended[i]);
-	}
-	displayColumns.unshift("id");
-	
+	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
 	var dataView;
@@ -1626,21 +1639,18 @@ async function AddColumns() {
 	else{
 		document.getElementById("Warning").style.display = "none";				
 	}
-	myData = addID2();
-	myData = myData.map(x => {
-		let newObj = {};
-		for (col of displayColumns) {
-			newObj[col] = x[col];
-		}
-		return newObj;
-	});
+
+	variableChooser();
+	datasetChooserFirstStep();
+	variableChooserSecondStep();
+	datasetChooserSecondStep();
+
+	var myData = await retrieveJSONSecondStep(); 
+	//displayColumns.unshift("id");
 	var col = [];
-	for (var i = 0; i < 1; i++) {
-	  for (var key in myData[i]) {
-		if (col.indexOf(key) === -1) {
-			col.push({id: key, name: key, field: key, toolTip: key});
-		}
-	  }
+	keys = Object.keys(myData[0])
+	for (var key in keys) {
+		col.push({id: keys[key], name: keys[key], field: keys[key], toolTip: keys[key]});
 	}
 	var options = {
 		enableCellNavigation: true,

@@ -6,6 +6,8 @@ import numpy as np
 
 import csv
 import os
+sys.path.append("C:/cowplus_online/cowplusonlinebeta.github.io/")
+import cowplus
 
 # Get the current working directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -159,9 +161,44 @@ def createNewDataList(files_chosen_raw, variables_chosen):
     print(df.columns.tolist())
     df.fillna(".", inplace=True)
     df.insert(0, 'id', range(1, 1 + len(df)))
+    
+    return df
+
+files_chosen_second_step = []
+variables_chosen_second_step = []
+
+def createNewDataListSecondStep(fcrss, vcss, fcr, vc):
+    df = createNewDataList(fcr, vc)
+    print(df.columns.tolist())
+    files_chosen = []
+    for name in fcrss:
+        files_chosen.append(data_dict[name])
+    print("data_merger> dc:",str(files_chosen))
+    print("data_merger> vc:",str(vcss))
+    datatype = "monadic"
+    vcss = remove_items(vcss, "stateabb")
+    vcss = remove_items(vcss, "ccode")
+    vcss = remove_items(vcss, "year")
+    #take create eventIDs for files_chosen
+    for file_df in files_chosen:
+            file_df["eventID"] = file_df["stateabb"].astype(str) + "_" + file_df["ccode"].astype(str) + "_" + file_df["year"].astype(str)
+    cols_monadic = ["eventID"]
+    #create eventIDs for df
+    df["eventID_state1"] = df["stateabb1"].astype(str) + "_" + df["ccode1"].astype(str) + "_" + df["year"].astype(str)
+    df["eventID_state2"] = df["stateabb2"].astype(str) + "_" + df["ccode2"].astype(str) + "_" + df["year"].astype(str)
     df = df.drop(["eventID"], axis = 1)
-    new_df = df.to_json(orient="records")
-    return new_df
+    for data_file in files_chosen: 
+        for var in vcss: 
+            if check(var, data_file) == True:
+                cols_monadic.append(var)
+                data_list_temp = data_file[cols_monadic]
+                df = df.merge(data_list_temp, how = "left", left_on = "eventID_state1", right_on = "eventID", suffixes= ("_1", "_2"))
+                df = df.drop(["eventID"], axis = 1)
+                df = df.merge(data_list_temp, how = "left", left_on = "eventID_state2", right_on = "eventID", suffixes= ("_1", "_2"))
+                df = df.drop(["eventID"], axis = 1)
+            cols_monadic = ["eventID"]
+        cols_monadic = ["eventID"]
+    return df
 
 # new_df = createNewDataList(files_chosen_raw, variables_chosen)
 # print(new_df)

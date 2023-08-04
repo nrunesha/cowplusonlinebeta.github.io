@@ -18,7 +18,9 @@ app = Flask(__name__, template_folder='templates')
 
 vc = []
 dc = []
-
+dataframe = []
+vcss = []
+dcss = []
 # -- routes -- #
 
 @app.route("/")
@@ -66,9 +68,32 @@ def processdc():
     dc = data['array']
     return 'okay'
 
+# variableChooserSecondStep()
+@app.route('/variableChooserSecondStep', methods=['POST'])
+def processvcss():
+    global vcss
+    vcss = []
+    data = request.get_json()
+    vcss = data['array']
+    return 'okay' # replace
+
+# datasetChooserSecondStep()
+@app.route('/datasetChooserSecondStep', methods=['POST'])
+def processdcss():
+    global dcss
+    dcss = []
+    data = request.get_json()
+    dcss = data['array']
+    return 'okay'
+
 @app.route('/createDf/', methods=['POST', "GET"])
 def create_df():
-    new_df = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
+    global dataframe
+    dataframe = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
+    dataframe = dataframe.drop(["eventID"], axis = 1)
+    print("converting to json...")
+    new_df = dataframe.to_json(orient="records")
+    
     response = {
         "message": "data processing successful",
         "status": 200,
@@ -76,6 +101,20 @@ def create_df():
     }
     return response
 
+@app.route('/createDfSS/', methods=['POST', "GET"])
+def create_df_secondstep():
+    print(dc)
+    print(vc)
+    dataframe2 = data_merger.createNewDataListSecondStep(dcss, vcss, dc, vc)
+    print("converting to json...")
+    new_df = dataframe2.to_json(orient="records")
+    
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "new_df": new_df
+    }
+    return response
 
 @app.route("/displayData.html", methods=["POST", "GET"])
 def goto_displayData():
