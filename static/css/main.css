@@ -34,6 +34,40 @@ h4 {margin:0px}
 p, nav {font-size: 17px;
   }
 
+.tooltip-container {
+	position: relative;
+	display: inline-block;
+}
+  
+.tooltip-btn {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: #333333;
+	color: #ffffff;
+	font-size: 18px;
+	cursor: pointer;
+	margin-right: 5px;
+}
+  
+.tooltip-text {
+	visibility: hidden;
+	position: absolute;
+	background-color: #333333;
+	color: #ffffff;
+	padding: 6px;
+	font-size: 14px;
+	width: 200px;
+	top: 0;
+	left: 100%;
+	margin-left: 5px;
+}
+  
+.tooltip-container:hover .tooltip-text {
+	visibility: visible;
+}
+  
+
 .variableTables table, .variableTables th, .variableTables td {
 	border: 1px solid black;
 	border-collapse:collapse;
