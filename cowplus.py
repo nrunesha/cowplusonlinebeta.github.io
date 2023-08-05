@@ -4,6 +4,7 @@ import numpy as np
 import csv
 import sys
 import os
+from datetime import date
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'python_files')
@@ -16,7 +17,6 @@ app = Flask(__name__, template_folder='templates')
 vc = []
 vc2 = []
 dc = []
-dataframe = []
 vcss = []
 dcss = []
 # -- routes -- #
@@ -93,11 +93,29 @@ def processdcss():
 @app.route('/createDf/', methods=['POST', "GET"])
 def create_df():
     global dataframe
+    global dataframe2
+    
     dataframe = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
     dataframe = dataframe.drop(["eventID"], axis = 1)
+    sample = dataframe.loc[:999]
     print("converting to json...")
-    new_df = dataframe.to_json(orient="records")
-    
+    new_df = sample.to_json(orient="records")
+    dataframe2 = dataframe.copy(deep = True)
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "new_df": new_df
+    }
+    return response
+
+@app.route('/backbutton2/', methods=['POST', "GET"])
+def back_button_2():
+    global dataframe
+    global dataframe2
+    sample = dataframe.loc[:999]
+       
+    print("converting to json...")
+    new_df = sample.to_json(orient="records")
     response = {
         "message": "data processing successful",
         "status": 200,
@@ -107,11 +125,14 @@ def create_df():
 
 @app.route('/createDfSS/', methods=['POST', "GET"])
 def create_df_secondstep():
-    print(dc)
-    print(vc)
-    dataframe2 = data_merger.createNewDataListSecondStep(dcss, vcss, dc, vc)
+    global dataframe
+    global dataframe2
+    dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc)
+    dataframe2 = dataframe2.drop(["eventID_state1"], axis = 1)
+    dataframe2 = dataframe2.drop(["eventID_state2"], axis = 1)
+    sample2 = dataframe2.loc[:999]
     print("converting to json...")
-    new_df = dataframe2.to_json(orient="records")
+    new_df = sample2.to_json(orient="records")
     
     response = {
         "message": "data processing successful",
@@ -127,6 +148,16 @@ def goto_displayData():
     else:
         # makes no sense to be at this page without hitting the "generate" button
         return render_template("error")
+
+@app.route('/downloadDf/', methods=['POST', "GET"])
+def downloadCSV():
+    csv = dataframe2.to_csv(index = False)
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "csv": csv
+    }
+    return response
 
 # generic for all req. to save code
 '''

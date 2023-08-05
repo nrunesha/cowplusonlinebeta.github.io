@@ -1,15 +1,3 @@
-/*
-
-var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooser2", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: datasetsSelectedSecondStep }));
-	console.log("post dc:")
-	console.log(datasetsSelectedSecondStep)
-	return datasetsSelectedSecondStep;
-
-*/
-
 console.log("flask branch")
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
@@ -967,6 +955,22 @@ function BackButtonOne(){
 	document.getElementById("noChooseCY").disabled = false;
 }
 
+async function retrieveBackButtonTwo() {
+    var myData = [];
+
+    try {
+        const response = await fetch('backbutton2'); // issues a GET request by default
+        const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+		const new_df = data.new_df; // this js constant is set to the new_df output from the response, which is a JSON array
+        // populate myData with new_df
+        myData = JSON.parse(new_df);
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return myData;
+}
+
 function BackButtonTwo(){
 	if(document.getElementById("dyadYear").checked){
 		document.getElementById("qChooseCY").style.display = "blcok";
@@ -984,7 +988,7 @@ function BackButtonTwo(){
 		document.getElementById("yesChooseCY").disabled = false;
 		document.getElementById("noChooseCY").disabled = false;
 		document.getElementById("myTable").style.display = "none";
-		CreateTable();
+		BackButton2_CreateTable();
 	}
 	else if(document.getElementById("countryYear").checked){
 		document.getElementById("createButton").style.display = "inline-block";
@@ -1138,6 +1142,142 @@ async function CreateTable(){
 	document.getElementById("FirstStep").style.display = "none";
 	document.getElementById("SecondStep").style.display = "block";
 }
+
+async function BackButton2_CreateTable(){
+	console.log("BackButton2() called")
+	var yearRangeMin = "0";
+	var yearRangeMax = "2022";
+	var dataView;
+	var grid;
+	let truefalse = checkCheckboxes();
+	if(truefalse == false){
+		document.getElementById("Warning").style.display = "block";
+		return;
+	}
+	else{
+		document.getElementById("Warning").style.display = "none";				
+	}
+
+	var myData = await retrieveBackButtonTwo(); 
+	//displayColumns.unshift("id");
+	var col = [];
+	keys = Object.keys(myData[0])
+	for (var key in keys) {
+		col.push({id: keys[key], name: keys[key], field: keys[key], toolTip: keys[key]});
+	}
+	var options = {
+		enableCellNavigation: true,
+        enableColumnReorder: false,
+        explicitInitialization: true,
+        editable: false,
+	};
+		
+	$(function () {
+		dataView = new Slick.Data.DataView();
+		grid = new Slick.Grid("#myGrid", dataView, col, options);
+		
+        grid.setSelectionModel(new Slick.CellSelectionModel());
+
+		dataView.onRowCountChanged.subscribe(function (e, args) {
+		  grid.updateRowCount();
+		  grid.render();
+		});
+		dataView.onRowsChanged.subscribe(function (e, args) {
+		  grid.invalidateRows(args.rows);
+		  grid.render();
+		});
+		
+		$("#yearRangeMinimum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			if (e.which == 27) {
+			  this.value = "0";
+			}
+
+			yearRangeMin = this.value;
+			updateFilter();
+		});
+		$("#yearRangeMaximum").keyup(function (e) {
+			Slick.GlobalEditorLock.cancelCurrentEdit();
+
+			if (e.which == 27) {
+			  this.value = "2022";
+			}
+
+			yearRangeMax = this.value;
+			updateFilter();
+		});
+		
+		function updateFilter() {
+			dataView.setFilterArgs({
+			  yearRangeMin: yearRangeMin,
+			  yearRangeMax: yearRangeMax
+			});
+			dataView.refresh();
+		}
+		grid.init();
+		dataView.beginUpdate();
+		dataView.setItems(myData);
+		dataView.setFilterArgs({
+			yearRangeMin: yearRangeMin,
+			yearRangeMax: yearRangeMax
+		});
+		dataView.setFilter(filter);
+		
+		dataView.endUpdate();
+		
+		var filterPlugin = new Ext.Plugins.HeaderFilter({});
+
+            filterPlugin.onFilterApplied.subscribe(function () {
+                dataView.refresh();
+                grid.resetActiveCell();
+				filteredItems = dataView.getRows();
+            });
+
+
+            grid.registerPlugin(filterPlugin);
+
+            
+
+            grid.init();
+
+            function filter(item, args) {
+                var columns = grid.getColumns();
+
+                var value = true;
+
+                for (var i = 0; i < columns.length; i++) {
+                    var col = columns[i];
+                    var filterValues = col.filterValues;
+
+                    if (filterValues && filterValues.length > 0) {
+                        value = value & _.contains(filterValues, item[col.field]);
+                    }
+                }
+				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
+					value = false;
+				}
+				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
+					value = false;
+				}
+                return value;
+            }
+		filteredItems = dataView.getRows();
+    });
+	
+	if (document.getElementById("dyadYear").checked){
+		document.getElementById("qChooseCY").style.display = "block";
+		changeButton();
+	}
+	else if(document.getElementById("countryYear").checked){
+		changeButtonSecondStep();
+	}
+	document.getElementById("myTable").style.display = "inline-block";
+	document.getElementById("optionsPanel").style.display = "inline-block";
+	document.getElementById("FirstStep").style.display = "none";
+	document.getElementById("SecondStep").style.display = "block";
+}
+
 //SECOND STEP 
 function displayChooseCYData(){
 	document.getElementById("yesChooseCY").disabled = true;
@@ -1236,9 +1376,7 @@ function variableChooserSecondStep(){
 		}
 	}
 	if(document.getElementById("Major_PowersSecondStep").checked){
-		if(document.getElementById("major_Major_PowersSecondStep").checked){
-			variablesSecondStep.push("major");
-		}
+		variablesSecondStep.push("major");
 	}
 	if(document.getElementById("WRP_NATSecondStep").checked){
 		if(document.getElementById("chrstprot_WRP_NATSecondStep").checked){
@@ -1491,17 +1629,17 @@ function variableChooserSecondStep(){
 function datasetChooserSecondStep(){			
 	var datasetsSelectedSecondStep = [];
 
-	if(document.getElementById("NMC_5_0").checked){	
+	if(document.getElementById("NMC_5_0SecondStep").checked){	
 		datasetsSelectedSecondStep.push("nmc");	
 	}	
-	if(document.getElementById("WRP_NAT").checked){	
+	if(document.getElementById("WRP_NATSecondStep").checked){	
 		datasetsSelectedSecondStep.push("wrp");	
 	}	
-	if(document.getElementById("Major_Powers").checked){	
+	if(document.getElementById("Major_PowersSecondStep").checked){	
 		datasetsSelectedSecondStep.push("major_powers");	
 	}
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooser2", true);
+	xhr.open("POST", "/datasetChooserSecondStep", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify({ array: datasetsSelectedSecondStep }));
 	console.log("post dc:")
@@ -1796,6 +1934,20 @@ async function AddColumns() {
 }	
 
 //Third STEP
+
+async function retrieveCSVThirdStep() {
+    try {
+        const response = await fetch('downloadDf'); // issues a GET request by default
+        const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+		download_csv = data.csv; // this js constant is set to the new_df output from the response, which is a JSON array
+        // populate myData with new_df
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return download_csv;
+}
+
 function downloadCSV(csv, filename) {
 	var csvFile;
 	var downloadLink;
@@ -1807,20 +1959,8 @@ function downloadCSV(csv, filename) {
 	document.body.appendChild(downloadLink);
 	downloadLink.click();
 }
-function exportTableToCSV(filename) {
-	
-	var csv = [];
-	var filteredItem = [];
-	var allKeysOfObject = Object.keys(filteredItems[0]);
-	filteredItem.push(allKeysOfObject);
-	csv.push(filteredItem.join(","));        
-
-	for (var i = 0; i < filteredItems.length; i++) {
-		var filteredItem = [], objectOfGrid = filteredItems[i];
-
-		filteredItem.push(Object.values(objectOfGrid));
-		csv.push(filteredItem.join(","));        
-	}
-	filename = filename + " " + new Date().toISOString().slice(0, 10) + ".csv";
-	downloadCSV(csv.join("\n"), filename);
+async function exportTableToCSV(filename) {
+	var csv = await retrieveCSVThirdStep()
+	filename = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
+	downloadCSV(csv, filename);
 }

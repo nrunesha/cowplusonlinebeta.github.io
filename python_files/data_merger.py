@@ -54,16 +54,7 @@ data_dict = {
 }
 
 dyadic_data = ['diplo_ex', 'alliance', 'igo', 'mids', 'trade', 'direct_contiguity']
-# for name in dyadic_data:
-#     data_file = data_dict[name]
-#     data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
 monadic_data = ['nmc', 'wrp', 'major_powers']
-# for name in monadic_data:
-#     data_file = data_dict[name]
-#     data_file["eventID"] = data_file["stateabb"].astype(str) + "_" + data_file["ccode"].astype(str) + "_" + data_file["year"].astype(str)
-# return from datasetChooserFirstStep()
-# i changed it to just these two cuz testing was taking too long
-# files_chosen = [diplo_ex, alliance, mids, igo, trade, direct_contiguity]
 
 # return from variablesChooser()
 # variables_chosen = ['defense','neutrality','nonaggression','entente','dr_at_1','dr_at_2','de','joint_igo_membership','joint_igo_membership_count', 'conttype', 'mid_count','mid_onset_m','mid_ongoing_m','onset_other','ongoing_other','main_disno','dyindex,strtday_m','strtmnth_m','strtyr_m','endday_m','endmnth_m','endyear_m','outcome_m','settlmnt_m','fatlev_m','highact_m', 'flow1','flow2','smoothflow1']
@@ -161,14 +152,10 @@ def createNewDataList(files_chosen_raw, variables_chosen):
     print(df.columns.tolist())
     df.fillna(".", inplace=True)
     df.insert(0, 'id', range(1, 1 + len(df)))
-    
     return df
 
-files_chosen_second_step = []
-variables_chosen_second_step = []
-
-def createNewDataListSecondStep(fcrss, vcss, fcr, vc):
-    df = createNewDataList(fcr, vc)
+def createNewDataListSecondStep(data_frame, fcrss, vcss, fcr, vc):
+    df = data_frame.copy(deep = True)
     print(df.columns.tolist())
     files_chosen = []
     for name in fcrss:
@@ -186,18 +173,19 @@ def createNewDataListSecondStep(fcrss, vcss, fcr, vc):
     #create eventIDs for df
     df["eventID_state1"] = df["stateabb1"].astype(str) + "_" + df["ccode1"].astype(str) + "_" + df["year"].astype(str)
     df["eventID_state2"] = df["stateabb2"].astype(str) + "_" + df["ccode2"].astype(str) + "_" + df["year"].astype(str)
-    df = df.drop(["eventID"], axis = 1)
     for data_file in files_chosen: 
         for var in vcss: 
             if check(var, data_file) == True:
                 cols_monadic.append(var)
                 data_list_temp = data_file[cols_monadic]
+                print(cols_monadic)
                 df = df.merge(data_list_temp, how = "left", left_on = "eventID_state1", right_on = "eventID", suffixes= ("_1", "_2"))
                 df = df.drop(["eventID"], axis = 1)
                 df = df.merge(data_list_temp, how = "left", left_on = "eventID_state2", right_on = "eventID", suffixes= ("_1", "_2"))
                 df = df.drop(["eventID"], axis = 1)
             cols_monadic = ["eventID"]
         cols_monadic = ["eventID"]
+    df.fillna(".", inplace=True)
     return df
 
 # new_df = createNewDataList(files_chosen_raw, variables_chosen)
