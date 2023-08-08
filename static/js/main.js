@@ -902,6 +902,16 @@ function showLoadingMessage() {
 	loadingMessage.style.display = 'block';
 }
 
+function hideDownloadMessage() {
+	const downloadMessage = document.getElementById('downloadMessage');
+	downloadMessage.style.display = 'none';
+}
+  
+function showDownloadMessage() {
+	const downloadMessage = document.getElementById('downloadMessage');
+	downloadMessage.style.display = 'block';
+}
+
 async function retrieveJSON() {
     var myData = [];
 
@@ -972,6 +982,7 @@ async function retrieveBackButtonTwo() {
 }
 
 function BackButtonTwo(){
+	hideDownloadMessage()
 	if(document.getElementById("dyadYear").checked){
 		document.getElementById("qChooseCY").style.display = "blcok";
 		document.getElementById("backButton1").style.display = "inline-block";
@@ -1937,6 +1948,7 @@ async function AddColumns() {
 
 async function retrieveCSVThirdStep() {
 	csv_file = []
+	hideDownloadMessage()
 	try {
         const response = await fetch('downloadDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
@@ -1946,7 +1958,9 @@ async function retrieveCSVThirdStep() {
 		csv_file = download_csv
     } catch (error) {
 		console.error('error processing data:', error);
-    }
+    } finally {
+		showDownloadMessage();
+	}
     return csv_file;
 }
 
@@ -1964,11 +1978,10 @@ function downloadCSV(csv, filename) {
 }
 async function exportTableToCSV(filename) {
 	var csv = await retrieveCSVThirdStep()
-	console.log(csv)
-	//downloadCSV(csv, filename);
-	let anchor = document.createElement('a');
-	anchor.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-	anchor.target = '_blank';
-	anchor.download = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
-	anchor.click()
+	// //downloadCSV(csv, filename);
+	// let anchor = document.createElement('a');
+	// anchor.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+	// anchor.target = '_blank';
+	// anchor.download = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
+	// anchor.click()
 }

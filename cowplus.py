@@ -143,9 +143,9 @@ def create_df_secondstep():
 
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
-    print(dataframe2)
-    csv = dataframe2.to_csv(index = False)
-    print(csv)
+    today = date.today()
+
+    csv = dataframe2.to_csv("~/Downloads/" + "cowplus_online_"+str(today)+".csv", index = False)
     print("csv converted")
     response = {
         "message": "data processing successful",

@@ -6,7 +6,7 @@ import numpy as np
 
 import csv
 import os
-sys.path.append("C:/cowplus_online/cowplusonlinebeta.github.io/")
+sys.path.append("../cowplusonlinebeta.github.io/")
 import cowplus
 
 # Get the current working directory
