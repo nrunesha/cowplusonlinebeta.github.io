@@ -1936,16 +1936,18 @@ async function AddColumns() {
 //Third STEP
 
 async function retrieveCSVThirdStep() {
-    try {
+	csv_file = []
+	try {
         const response = await fetch('downloadDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
         // access the new_df data from the response
-		download_csv = data.csv; // this js constant is set to the new_df output from the response, which is a JSON array
+		const download_csv = data.csv; // this js constant is set to the new_df output from the response, which is a JSON array
         // populate myData with new_df
+		csv_file = download_csv
     } catch (error) {
 		console.error('error processing data:', error);
     }
-    return download_csv;
+    return csv_file;
 }
 
 function downloadCSV(csv, filename) {
@@ -1954,6 +1956,7 @@ function downloadCSV(csv, filename) {
 	csvFile = new Blob([csv], {type: "text/csv"});
 	downloadLink = document.createElement("a");
 	downloadLink.download = filename;
+	console.log(filename)
 	downloadLink.href = window.URL.createObjectURL(csvFile);
 	downloadLink.style.display = "none";
 	document.body.appendChild(downloadLink);
@@ -1961,6 +1964,11 @@ function downloadCSV(csv, filename) {
 }
 async function exportTableToCSV(filename) {
 	var csv = await retrieveCSVThirdStep()
-	filename = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
-	downloadCSV(csv, filename);
+	console.log(csv)
+	//downloadCSV(csv, filename);
+	let anchor = document.createElement('a');
+	anchor.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+	anchor.target = '_blank';
+	anchor.download = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
+	anchor.click()
 }

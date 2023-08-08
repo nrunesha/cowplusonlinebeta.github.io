@@ -141,17 +141,12 @@ def create_df_secondstep():
     }
     return response
 
-@app.route("/displayData.html", methods=["POST", "GET"])
-def goto_displayData():
-    if request.method == 'POST':
-        return render_template("displayData.html")
-    else:
-        # makes no sense to be at this page without hitting the "generate" button
-        return render_template("error")
-
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
+    print(dataframe2)
     csv = dataframe2.to_csv(index = False)
+    print(csv)
+    print("csv converted")
     response = {
         "message": "data processing successful",
         "status": 200,
