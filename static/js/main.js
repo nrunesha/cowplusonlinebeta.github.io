@@ -1978,10 +1978,4 @@ function downloadCSV(csv, filename) {
 }
 async function exportTableToCSV(filename) {
 	var csv = await retrieveCSVThirdStep()
-	// //downloadCSV(csv, filename);
-	// let anchor = document.createElement('a');
-	// anchor.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-	// anchor.target = '_blank';
-	// anchor.download = filename + "_" + new Date().toISOString().slice(0, 10) + ".csv";
-	// anchor.click()
 }
