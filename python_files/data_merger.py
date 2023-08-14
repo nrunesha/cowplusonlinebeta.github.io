@@ -119,6 +119,8 @@ def createNewDataList(files_chosen_raw, variables_chosen):
         df.insert(1, "year", splitEvent[2])
         df.insert(1, "ccode", splitEvent[1])
         df.insert(1, "stateabb", splitEvent[0])
+        df.ccode = df.ccode.astype(int)
+        df.year = df.year.astype(int)
         df = df.sort_values(by=["ccode", "year"])
     if(datatype == "dyadic"):
         variables_chosen = remove_items(variables_chosen, "stateabb1")
@@ -148,6 +150,9 @@ def createNewDataList(files_chosen_raw, variables_chosen):
         df.insert(1, "stateabb2", splitEvent[2])
         df.insert(1, "ccode1", splitEvent[1])
         df.insert(1, "stateabb1", splitEvent[0])
+        df.year = df.year.astype(int)
+        df.ccode2 = df.ccode2.astype(int)
+        df.ccode1 = df.ccode1.astype(int)
         df = df.sort_values(by=["ccode1", "ccode2", "year"])
     print(df.columns.tolist())
     df.fillna(".", inplace=True)
