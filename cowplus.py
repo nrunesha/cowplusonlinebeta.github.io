@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, request, jsonify, session
+from datetime import timedelta
+
+from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import numpy as np
 import csv
@@ -6,13 +9,29 @@ import sys
 import os
 from datetime import date
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-python_files_dir = os.path.join(current_dir, 'python_files')
-sys.path.append(python_files_dir)
+
+
+# local path
+sys.path.append('C:\\Users\\yuan\\Desktop\\cowplusonlinebeta.github.io-yz\\python_files')
 
 import data_merger
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = "yabujin"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.permanent_session_lifetime = timedelta(minutes=60)
+
+db = SQLAlchemy(app)
+
+class users(db.Model):
+    _id = db.Column("id", db.Integer, primary_key=True)
+    name = db.Column("name", db.String(100))
+    email = db.Column("email", db.String(100))
+
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
 
 vc = []
 vc2 = []
@@ -47,6 +66,57 @@ def goto_dataUnlimVar():
 @app.route("/download.html")
 def goto_download():
     return render_template("download.html")
+
+@app.route("/view")
+def view():
+    return render_template("view.html", values=users.query.all())
+
+@app.route("/login.html", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        session.permanent = True
+        user = request.form["nm"]
+        session["user"] = user
+
+        found_user = users.query.filter_by(name=user).first()
+
+        if found_user:
+            session["email"] = found_user.email
+
+        else:
+            usr = users(user, "")
+            db.session.add(usr)
+            db.session.commit()
+
+        return redirect(url_for("user"))
+    else:
+        if "user" in session:
+            return redirect(url_for("user"))
+        return render_template("login.html")
+    
+@app.route("/user", methods=["POST", "GET"])
+def user():
+    email = None
+    if "user" in session:
+        user = session["user"]
+        if request.method == "POST":
+            email = request.form["email"]
+            session["email"] = email
+            found_user = users.query.filter_by(name=user).first()
+            found_user.email = email
+            db.session.commit()
+        else:
+            if "email" in session:
+                email = session["email"]
+        return render_template("user.html", email=email)
+    else:
+        return redirect(url_for("login"))
+    
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    session.pop("email", None)
+    return redirect(url_for("login"))
 
 # variableChooser()
 @app.route('/variableChooser', methods=['POST'])
@@ -141,12 +211,17 @@ def create_df_secondstep():
     }
     return response
 
+@app.route("/displayData.html", methods=["POST", "GET"])
+def goto_displayData():
+    if request.method == 'POST':
+        return render_template("displayData.html")
+    else:
+        # makes no sense to be at this page without hitting the "generate" button
+        return render_template("error")
+
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
-    today = date.today()
-
-    csv = dataframe2.to_csv("~/Downloads/" + "cowplus_online_"+str(today)+".csv", index = False)
-    print("csv converted")
+    csv = dataframe2.to_csv(index = False)
     response = {
         "message": "data processing successful",
         "status": 200,
@@ -155,14 +230,6 @@ def downloadCSV():
     return response
 
 # generic for all req. to save code
-'''
-@app.route('/<path:route>', methods=['POST'])
-def process_data(route):
-    data = request.get_json()
-    requested_variable = data['array']
-    print(f"Data from route '{route}': {requested_variable}")
-    # Perform further processing or store the data in the requested variable
-    return 'OK'
 
 # -- TEST FUNCTIONS; THESE SERVE NO PURPOSE IN THE FINAL PROGRAM AND SHOULD BE DELETED IN THE FUTURE. -- #
 
@@ -189,9 +256,11 @@ def goto_test():
         return render_template("test.html")
     else:
         return render_template("test.html")
-'''
+
 
 # run
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

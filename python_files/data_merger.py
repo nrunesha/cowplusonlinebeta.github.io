@@ -1,44 +1,31 @@
-#imports
 
 import sys
 import pandas as pd
 import numpy as np
-
 import csv
 import os
-sys.path.append("../cowplusonlinebeta.github.io/")
-import cowplus
 
-# Get the current working directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
-# Change to the previous directory
-os.chdir(os.path.dirname(current_dir))
+datafiles_csv_dir = "C:\\Users\\yuan\\Desktop\\cowplusonlinebeta.github.io-yz\\datafiles_csv"
+os.chdir(datafiles_csv_dir)
 
-sys.path.append(os.getcwd())
+diplo_ex = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Diplomatic_Exchange_Dyadic.csv'))
+alliance = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Alliance__2022_Non_Directed_Dyadic.csv'))
+direct_contiguity = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Direct_Contiguity_Directed_Dyadic.csv'))
+igo = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_IGO_2022_Non_Directed_Dyadic.csv'))
+major_powers = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Major_Powers_2022.csv'))
+mids = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_MIDs_2022_Non_Directed_Dyadic.csv'))
+nmc = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_National_Military_Capabilities.csv'))
+wrp = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_World_Religions.csv'))
+trade = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Trade_Dyadic.csv'))
 
-# ignore the vscode yellow error
-# import cowplus
-
-# Change to the "datafiles_csv" folder
-os.chdir('datafiles_csv')
-
-diplo_ex = pd.read_csv('COW_Diplomatic_Exchange_Dyadic.csv')
 diplo_ex.name = 'diplo_ex'
-alliance = pd.read_csv('COW_Alliance__2022_Non_Directed_Dyadic.csv')
 alliance.name = 'alliance'
-direct_contiguity = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
 direct_contiguity.name = 'direct_contiguity'
-igo = pd.read_csv('COW_IGO_2022_Non_Directed_Dyadic.csv')
 igo.name = 'igo'
-major_powers = pd.read_csv('COW_Major_Powers_2022.csv')
 major_powers.name = 'major_powers'
-mids = pd.read_csv('COW_MIDs_2022_Non_Directed_Dyadic.csv')
 mids.name = 'mids'
-nmc = pd.read_csv('COW_National_Military_Capabilities.csv')
 nmc.name = 'nmc'
-wrp = pd.read_csv('COW_World_Religions.csv')
 wrp.name = 'wrp'
-trade = pd.read_csv('COW_Trade_Dyadic.csv')
 trade.name = 'trade'
 
 data_dict = {
