@@ -11,6 +11,7 @@ python_files_dir = os.path.join(current_dir, 'python_files')
 sys.path.append(python_files_dir)
 
 import data_merger
+import upload
 
 app = Flask(__name__, template_folder='templates')
 
@@ -48,6 +49,27 @@ def goto_dataUnlimVar():
 def goto_download():
     return render_template("download.html")
 
+@app.route("/upload.html")
+def goto_upload():
+    return render_template("upload.html")
+
+@app.route('/success', methods = ['POST'])  
+def success(): 
+    global files 
+    if request.method == 'POST':
+        # Get the list of files from webpage
+        files = request.files.getlist("file")
+        print(files)
+        # Iterate for each file in the files List, and Save them
+        for file in files:
+            file.save(file.filename)
+        m_files, d_files, g_files, b_files = upload.verify_files(files)
+        print(m_files)
+        print(d_files)
+        print(g_files)
+        print(b_files)
+        return render_template("upload.html")
+  
 # variableChooser()
 @app.route('/variableChooser', methods=['POST'])
 def processvc():
