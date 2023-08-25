@@ -110,7 +110,7 @@ header{
 	text-align: center;
 	}
 .topnav a {
-	float: middle;
+	/*float: middle;*/
 	display: inline-block;
 	color: black;
 	text-align: center;

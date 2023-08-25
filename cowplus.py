@@ -20,6 +20,8 @@ vc2 = []
 dc = []
 vcss = []
 dcss = []
+all_d_files = []
+all_m_files = []
 # -- routes -- #
 
 @app.route("/")
@@ -59,6 +61,7 @@ def goto_upload():
 def verifyFunction():
     global files
     global m_files, d_files, g_files, b_files
+    global all_m_files, all_d_files
     verified = False
     # Get the list of files from webpage
     files = request.files.getlist("file")
@@ -88,6 +91,15 @@ def verifyFunction():
 
 @app.route('/uploadFunction', methods = ['POST', 'GET'])  
 def uploadFunction():
+    global all_m_files, all_d_files
+    print(m_files)
+    print(d_files)
+    for m in m_files:
+        all_m_files.append(m)
+    for d in d_files:
+        all_d_files.append(d)
+    print(all_m_files)
+    print(all_d_files)
     files = request.files.getlist("file")
     for file in files:
         file.save(file.filename)
