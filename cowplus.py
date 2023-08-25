@@ -53,23 +53,46 @@ def goto_download():
 def goto_upload():
     return render_template("upload.html")
 
-@app.route('/success', methods = ['POST'])  
-def success(): 
-    global files 
-    if request.method == 'POST':
-        # Get the list of files from webpage
-        files = request.files.getlist("file")
-        print(files)
-        # Iterate for each file in the files List, and Save them
-        for file in files:
-            file.save(file.filename)
-        m_files, d_files, g_files, b_files = upload.verify_files(files)
-        print(m_files)
-        print(d_files)
-        print(g_files)
-        print(b_files)
-        return render_template("upload.html")
-  
+
+
+@app.route('/verifyFunction/', methods = ['POST', 'GET'])  
+def verifyFunction():
+    global files
+    global m_files, d_files, g_files, b_files
+    verified = False
+    # Get the list of files from webpage
+    files = request.files.getlist("file")
+    print(files)
+    # Iterate for each file in the files List, and Save them
+    for file in files:
+        file.save(file.filename)
+    m_files, d_files, g_files, b_files = upload.verify_files(files)
+    if(len(b_files) == 0):
+        verified = True
+    print(m_files)
+    print(d_files)
+    print(g_files)
+    print(b_files)
+    for f in g_files:
+        os.remove(f)
+    for f in b_files:
+        os.remove(f)
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "good_files": g_files,
+        "bad_files": b_files,
+        "verification": verified
+    }
+    return response
+
+@app.route('/uploadFunction', methods = ['POST', 'GET'])  
+def uploadFunction():
+    files = request.files.getlist("file")
+    for file in files:
+        file.save(file.filename)
+    return redirect('/upload.html')
+
 # variableChooser()
 @app.route('/variableChooser', methods=['POST'])
 def processvc():

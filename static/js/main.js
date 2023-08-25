@@ -1964,18 +1964,77 @@ async function retrieveCSVThirdStep() {
     return csv_file;
 }
 
-function downloadCSV(csv, filename) {
-	var csvFile;
-	var downloadLink;
-	csvFile = new Blob([csv], {type: "text/csv"});
-	downloadLink = document.createElement("a");
-	downloadLink.download = filename;
-	console.log(filename)
-	downloadLink.href = window.URL.createObjectURL(csvFile);
-	downloadLink.style.display = "none";
-	document.body.appendChild(downloadLink);
-	downloadLink.click();
-}
 async function exportTableToCSV(filename) {
 	var csv = await retrieveCSVThirdStep()
 }
+
+//upload functions
+
+function triggerValidation(el) {
+	document.getElementById("uploadButton").disabled = true;
+	var regex = new RegExp("(.*?)\.(csv)$");
+	if (!(regex.test(el.value.toLowerCase()))) {
+    	el.value = '';
+    	alert('Please only input csv files.');
+  	}
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	document.getElementById("uploadButton").disabled = true;
+});
+
+string_2 = "";
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	$(function() {
+		$('#verifyFile').click(function() {
+			document.getElementById("processing_upload").style.display = "inline-block";
+			document.getElementById("verifyFile").disabled = true;
+			var form_data = new FormData($('#uploadForm')[0]);
+			$.ajax({
+				type: 'POST',
+				url: '/verifyFunction',
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData: false,
+				success: function(data) {
+					response = Object.entries(data);
+					good = response[1][1];
+					bad = response[0][1];
+					string_1 = "These datasets were passed through: \n";
+					string_2 = "";
+					for (let g = 0; g < good.length-1; g++){
+						string_2 += "    " + good[g] + '\n';
+					}
+					string_2 += "    " + good[good.length-1];
+					if (good.length == 0){
+						string_2 = "    none";
+					}
+					string_3 = "These datasets were not passed through because they did not have the necessary column names: \n";
+					string_4 = "";
+					for (let b = 0; b < bad.length-1; b++){
+						string_4 += "    " + bad[b] + '\n';
+					}
+					string_4 += "    " + bad[bad.length-1];
+					if (bad.length == 0){
+						string_4 = "    none";
+					}
+					string_f = string_1 + string_2 + '\n' + string_3 + string_4;
+					alert(string_f)
+					if(bad.length == 0){
+						document.getElementById("uploadButton").disabled = false;
+					}
+					document.getElementById("verifyFile").disabled = false;
+					document.getElementById("processing_upload").style.display = "none";
+				},
+			});
+		});
+	});
+});
+
+function uploadFileSuccess(){
+	string_f = "Files successfully uploaded: \n" + string_2;
+	alert(string_f)
+}
+

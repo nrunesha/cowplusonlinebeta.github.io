@@ -35,7 +35,6 @@ def verify_files(files):
     bad_files = []
     for file in files:
         temp_file = pd.read_csv(file.filename)
-        print(temp_file.columns.tolist())
         if(column_check(temp_file, monadic_reqcol)):
             monadic_files.append(file.filename)
             good_files.append(file.filename)
@@ -46,5 +45,4 @@ def verify_files(files):
             continue
         else:
             bad_files.append(file.filename)
-            os.remove(file.filename)
     return monadic_files, dyadic_files, good_files, bad_files
