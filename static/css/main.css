@@ -10,24 +10,41 @@ body, nav {margin:0px;
 	display: none;
 }
 
-#divNMC_5_0SecondStep, #divWRP_NATSecondStep, #divMajor_PowersSecondStep{
+.variableTableSS{
 	display:none;
 	padding-left:20px;
+	padding-right:20px;
+	overflow:scroll;
+	width: 94%;
+	height:200px;
+	overflow-x:auto;
+	margin-top: 5px;
+	margin-bottom:20px;
 }
 #countryYearData, #dyadicData{
 	display:none;
 	padding-left:40px;
 }
-#divNMC_5_0_Table, #divWRP_NAT_Table, #divMajor_PowersTable, #divDirectContiguityTable, #divCOWDiplomaticExchangeTable, #divCOWTradeTable, #divMidDataTable, #divCOWAllianceDataTable, #divCOWIGODataTable, #divNMC_5_0_TableSecondStep, #divWRP_NAT_TableSecondStep, #divMajor_PowersTableSecondStep{
+.variableTable{
 	display:none;
 	padding-left:20px;
 	padding-right:20px;
 	overflow:scroll;
-	width: 50%;
+	width: 94%;
 	height:200px;
 	overflow-x:auto;
 	margin-top: 5px;
 	margin-bottom:20px;
+}
+
+.container{
+	display: flex;
+	width: 100%;
+}
+.column{
+	flex: 1;
+  	border: 2px solid black;
+  	margin: 10px;
 }
 h1 {text-align: center}
 h4 {margin:0px}
@@ -77,6 +94,7 @@ p{padding-left:20px;
 }
 .variableTables th, .variableTables td{
 	padding-right:20px;
+	white-space: normal;
 }
 body {
 	background-color: #ffffff;

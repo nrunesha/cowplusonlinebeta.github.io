@@ -954,8 +954,9 @@ function BackButtonOne(){
 	document.getElementById("createButtonSecondStep").style.display = "none";
 	document.getElementById("createButton").style.display = "inline-block";
 	document.getElementById("optionsPanel").style.display = "none";
-	document.getElementById("FirstStep").style.display = "block";
+	document.getElementById("FirstStep").style.display = "flex";
 	document.getElementById("SecondStep").style.display = "none";
+	document.getElementById("SecondStepData").style.display = "none";
 	document.getElementById("backButton2").style.display = "none";
 	document.getElementById("downloadButton").style.display = "none";
 	$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
@@ -990,9 +991,9 @@ function BackButtonTwo(){
 		document.getElementById("createButton").style.display = "none";
 		document.getElementById("FirstStep").style.display = "none";
 		document.getElementById("SecondStep").style.display = "block";
+		document.getElementById("SecondStepData").style.display = "none";
 		document.getElementById("backButton2").style.display = "none";
 		document.getElementById("downloadButton").style.display = "none";
-		document.getElementById("chooseCountryYearData").style.display = "none";
 		document.getElementById("variableTablesSecondStep").style.display = "none";
 		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
 		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
@@ -1006,7 +1007,7 @@ function BackButtonTwo(){
 		document.getElementById("backButton1").style.display = "none";
 		document.getElementById("backButton2").style.display = "none";
 		document.getElementById("downloadButton").style.display = "none";
-		document.getElementById("FirstStep").style.display = "block";
+		document.getElementById("FirstStep").style.display = "flex";
 		document.getElementById("SecondStep").style.display = "none";
 		document.getElementById("optionsPanel").style.display = "none";
 		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
@@ -1294,7 +1295,7 @@ function displayChooseCYData(){
 	document.getElementById("yesChooseCY").disabled = true;
 	document.getElementById("noChooseCY").disabled = true;
 	if(document.getElementById("yesChooseCY").checked){
-		document.getElementById("chooseCountryYearData").style.display = "block";
+		document.getElementById("SecondStepData").style.display = "flex";
 	}
 	if (document.getElementById("noChooseCY").checked){
 		changeButtonSecondStep();
