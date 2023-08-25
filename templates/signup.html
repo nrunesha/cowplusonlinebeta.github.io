@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}COW Plus | Login{% endblock %}
+
+{% block content %}
+<form action="#" method="POST">
+	<p>Sign up:</p>
+	<p>Extremely important note: The password will probably be seen by me <br>
+		(I need to look at database entries for testing purposes).<br>
+		Don't put anything in here that you don't want me to see</p>
+	<p><input autocomplete="off" type="text" name="nm" placeholder="Username"/></p>
+	<p><input autocomplete="off" type="email" name="em" placeholder="Email"/></p>
+	<p><input autocomplete="off" type="password" name="pwd" placeholder="Password"/></p>
+	<p><input type="submit" value="submit" /></p>
+</form>
+{% endblock %}

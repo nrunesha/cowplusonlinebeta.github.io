@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, request, jsonify, session
+from flask import Flask, flash, render_template, request, redirect, url_for, request, jsonify, session
+from werkzeug.utils import secure_filename
+
 from datetime import timedelta
 
 from flask_sqlalchemy import SQLAlchemy
@@ -9,7 +11,8 @@ import sys
 import os
 from datetime import date
 
-
+UPLOAD_FOLDER = 'C:\\Users\\yuan\\Desktop\\cowplusonlinebeta.github.io-yz\\datafiles_csv\\userupload'
+ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
 # local path
 sys.path.append('C:\\Users\\yuan\\Desktop\\cowplusonlinebeta.github.io-yz\\python_files')
@@ -18,9 +21,14 @@ import data_merger
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = "yabujin"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=60)
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 db = SQLAlchemy(app)
 
@@ -28,11 +36,12 @@ class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
+    password = db.Column("password", db.String(100))
 
-    def __init__(self, name, email):
+    def __init__(self, name, email, password):
         self.name = name
         self.email = email
-
+        self.password = password
 vc = []
 vc2 = []
 dc = []
@@ -46,12 +55,31 @@ def home():
 
 @app.route("/debug")
 def debug():
-    global vc
-    global dc
-    print("cowplus> vc:",str(vc))
-    print("cowplus> dc:",str(dc))
-    return redirect("/index.html")
+    return render_template("/view.html", values=users.query.all())
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if "user" in session:
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            # If the user does not select a file, the browser submits an
+            # empty file without a filename.
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return redirect(url_for('download_file', name=filename))
+    else:
+        flash("You are not logged in!")
+        return redirect("/login")
+    return render_template("upload.html")
+    
 @app.route("/index.html")
 def goto_index():
     return render_template("index.html")
@@ -71,51 +99,115 @@ def goto_download():
 def view():
     return render_template("view.html", values=users.query.all())
 
-@app.route("/login.html", methods=["POST", "GET"])
+@app.route("/resetdatabase")
+def resetdatabase():
+    found_user = users.query.all()
+    flash(found_user)
+    for user in found_user:
+        db.session.delete(user)
+        db.session.commit()
+    return render_template("view.html")
+
+@app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         session.permanent = True
         user = request.form["nm"]
-        session["user"] = user
+        pwd = request.form["pwd"]
 
         found_user = users.query.filter_by(name=user).first()
+        found_email = users.query.filter_by(email=user).first()
 
         if found_user:
-            session["email"] = found_user.email
+            if pwd == found_user.password:
+                session["user"] = user
+                session["email"] = found_user.email
+            else:
+                flash("Password incorrect.")
+                return redirect(url_for("login"))
+        elif found_email:
+            if pwd == found_email.password:
+                session["user"] = found_email.name
+                session["email"] = user
+            else:
+                flash("Password incorrect.")
+                return redirect(url_for("login"))
 
         else:
-            usr = users(user, "")
-            db.session.add(usr)
-            db.session.commit()
+            flash("User does not exist")
+            return redirect(url_for("login"))
 
         return redirect(url_for("user"))
     else:
         if "user" in session:
+            flash("Already logged in!")
             return redirect(url_for("user"))
         return render_template("login.html")
-    
+
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    if request.method == "POST":
+        session.permanent = True
+        user = request.form["nm"]
+        em = request.form["em"]
+        pwd = request.form['pwd']
+
+        found_user = users.query.filter_by(name=user).first()
+        found_email = users.query.filter_by(email=em).first()
+
+        if found_user or found_email:
+            flash("User already exists. Did you mean to sign in?")
+            return render_template("signup.html")
+
+        else:
+            if user and em and pwd:
+                if ("@" in em) and ("." in em):
+                    flash("User created")
+                    usr = users(user, em, pwd)
+                    db.session.add(usr)
+                    db.session.commit()
+                    session["user"] = user
+                    session["email"] = em
+                else:
+                    flash("Enter a valid email")
+                    return render_template("signup.html")
+            else:
+                flash("Please fill out all fields")
+                return render_template("signup.html")
+
+        return redirect(url_for("user"))
+    else:
+        if "user" in session:
+            flash("Already logged in!")
+            return redirect(url_for("user"))
+        return render_template("signup.html")
+
 @app.route("/user", methods=["POST", "GET"])
 def user():
     email = None
     if "user" in session:
         user = session["user"]
+        found_user = users.query.filter_by(name=user).first()
         if request.method == "POST":
             email = request.form["email"]
             session["email"] = email
-            found_user = users.query.filter_by(name=user).first()
             found_user.email = email
             db.session.commit()
+            flash("Email saved!")
         else:
             if "email" in session:
                 email = session["email"]
+        username = found_user.name
+        flash("Logged in as " + username)
         return render_template("user.html", email=email)
     else:
         return redirect(url_for("login"))
-    
+
 @app.route("/logout")
 def logout():
     session.pop("user", None)
     session.pop("email", None)
+    flash("Logged out successfully.")
     return redirect(url_for("login"))
 
 # variableChooser()
@@ -248,14 +340,9 @@ def goto_chooseDataset():
         return render_template("chooseDataset.html")
 
 
-    
-@app.route("/test.html", methods=["POST", "GET"])
-def goto_test():
-    if request.method == "POST":
-        print(str(request.form["testname"]))
-        return render_template("test.html")
-    else:
-        return render_template("test.html")
+@app.route("/child")
+def test_child():
+    return render_template("child.html")
 
 
 # run
