@@ -8,10 +8,11 @@ from datetime import date
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'python_files')
+upload_files_dir = os.path.join(current_dir, 'datafiles_csv')
 sys.path.append(python_files_dir)
-
-import data_merger
+import variables
 import upload
+import data_merger
 
 app = Flask(__name__, template_folder='templates')
 
@@ -211,6 +212,16 @@ def downloadCSV():
     }
     return response
 
+@app.route('/preloadedVarJSON/', methods=['POST', "GET"])
+def preloadedVarJSON():    
+    json = variables.createPreloadedVarJSON() # datasetChooser, variableChooser
+    print(json)
+    response = {
+        "message": "vars",
+        "status": 200,
+        "json": json
+    }
+    return response
 # generic for all req. to save code
 '''
 @app.route('/<path:route>', methods=['POST'])

@@ -1,4 +1,5 @@
 console.log("flask branch")
+
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
 		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
@@ -22,214 +23,6 @@ function toggleDataGroups(){
 	}
 }
 
-function allVariables(){
-	const variables = [];
-	if(document.getElementById("NMC_5_0").checked){
-		variables.push("stateabb");
-		variables.push("year");
-		variables.push("ccode");
-		variables.push("milex_NMC_5_0");
-		variables.push("milper_NMC_5_0");
-		variables.push("irst_NMC_5_0");
-		variables.push("pec_NMC_5_0");
-		variables.push("tpop_NMC_5_0");
-		variables.push("upop_NMC_5_0");
-		variables.push("cinc_NMC_5_0");
-	}
-	if(document.getElementById("Major_Powers").checked){
-		variables.push("stateabb");
-		variables.push("year");
-		variables.push("ccode");
-		variables.push("major_Major_Powers");
-	}
-	if(document.getElementById("WRP_NAT").checked){
-		variables.push("stateabb");
-		variables.push("year");
-		variables.push("ccode");
-		variables.push("chrstprot_WRP_NAT");
-		variables.push("chrstcat_WRP_NAT");
-		variables.push("chrstorth_WRP_NAT");
-		variables.push("chrstang_WRP_NAT");
-		variables.push("chrstothr_WRP_NAT");
-		variables.push("chrstgen_WRP_NAT");
-		variables.push("judorth_WRP_NAT");
-		variables.push("judcons_WRP_NAT");
-		variables.push("judref_WRP_NAT");
-		variables.push("judothr_WRP_NAT");
-		variables.push("judgen_WRP_NAT");
-		variables.push("islmsun_WRP_NAT");
-		variables.push("islmshi_WRP_NAT");
-		variables.push("islmibd_WRP_NAT");
-		variables.push("islmnat_WRP_NAT");
-		variables.push("islmalw_WRP_NAT");
-		variables.push("islmahm_WRP_NAT");
-		variables.push("islmothr_WRP_NAT");
-		variables.push("islmgen_WRP_NAT");
-		variables.push("budmah_WRP_NAT");
-		variables.push("budthr_WRP_NAT");
-		variables.push("budothr_WRP_NAT");
-		variables.push("budgen_WRP_NAT");
-		variables.push("zorogen_WRP_NAT");
-		variables.push("hindgen_WRP_NAT");
-		variables.push("sikhgen_WRP_NAT");
-		variables.push("shntgen_WRP_NAT");
-		variables.push("bahgen_WRP_NAT");
-		variables.push("taogen_WRP_NAT");
-		variables.push("jaingen_WRP_NAT");
-		variables.push("confgen_WRP_NAT");
-		variables.push("syncgen_WRP_NAT");
-		variables.push("anmgen_WRP_NAT");
-		variables.push("nonrelig_WRP_NAT");
-		variables.push("othrgen_WRP_NAT");
-		variables.push("sumrelig_WRP_NAT");
-		variables.push("pop_WRP_NAT");
-		variables.push("chrstprotpct_WRP_NAT");
-		variables.push("chrstcatpct_WRP_NAT");
-		variables.push("chrstorthpct_WRP_NAT");
-		variables.push("chrstangpct_WRP_NAT");
-		variables.push("chrstothrpct_WRP_NAT");
-		variables.push("chrstgenpct_WRP_NAT");
-		variables.push("judorthpct_WRP_NAT");
-		variables.push("judconspct_WRP_NAT");
-		variables.push("judrefpct_WRP_NAT");
-		variables.push("judothrpct_WRP_NAT");
-		variables.push("judgenpct_WRP_NAT");
-		variables.push("islmsunpct_WRP_NAT");
-		variables.push("islmshipct_WRP_NAT");
-		variables.push("islmibdpct_WRP_NAT");
-		variables.push("islmnatpct_WRP_NAT");
-		variables.push("islmalwpct_WRP_NAT");
-		variables.push("islmahmpct_WRP_NAT");
-		variables.push("islmothrpct_WRP_NAT");
-		variables.push("islmgenpct_WRP_NAT");
-		variables.push("budmahpct_WRP_NAT");
-		variables.push("budthrpct_WRP_NAT");
-		variables.push("budothrpct_WRP_NAT");
-		variables.push("budgenpct_WRP_NAT");
-		variables.push("zorogenpct_WRP_NAT");
-		variables.push("hindgenpct_WRP_NAT");
-		variables.push("sikhgenpct_WRP_NAT");
-		variables.push("shntgenpct_WRP_NAT");
-		variables.push("bahgenpct_WRP_NAT");
-		variables.push("taogenpct_WRP_NAT");
-		variables.push("jaingenpct_WRP_NAT");
-		variables.push("confgenpct_WRP_NAT");
-		variables.push("syncgenpct_WRP_NAT");
-		variables.push("anmgenpct_WRP_NAT");
-		variables.push("nonreligpct_WRP_NAT");
-		variables.push("othrgenpct_WRP_NAT");
-		variables.push("sumreligpct_WRP_NAT");
-		variables.push("total_WRP_NAT");
-		variables.push("dualrelig_WRP_NAT");
-		variables.push("datatype_WRP_NAT");
-		variables.push("recreliab_WRP_NAT");
-		variables.push("reliabilevel_WRP_NAT");
-		variables.push("sourcecode_WRP_NAT");
-	}
-	if(document.getElementById("DirectContiguity").checked){
-		variables.push("ccode1");
-		variables.push("stateabb1");
-		variables.push("ccode2");
-		variables.push("stateabb2");
-		variables.push("year");
-		variables.push("conttype_DirectContiguity");
-	}
-	if(document.getElementById("MIDS_NDD").checked){
-		variables.push("ccode1");
-		variables.push("stateabb1");
-		variables.push("ccode2");
-		variables.push("stateabb2");
-		variables.push("year");
-		variables.push("statenme1");
-		variables.push("statenme2");
-		variables.push("mid_count");
-		variables.push("mid_onset_m");
-		variables.push("mid_ongoing_m");
-		variables.push("onset_other");
-		variables.push("ongoing_other");
-		variables.push("main_disno");
-		variables.push("dyindex");
-		variables.push("strtday_m");
-		variables.push("strtmnth_m");
-		variables.push("strtyr_m");
-		variables.push("endday_m");
-		variables.push("endmnth_m");
-		variables.push("endyear_m");
-		variables.push("outcome_m");
-		variables.push("settlmnt_m");
-		variables.push("fatlev_m");
-		variables.push("highact_m");
-		variables.push("hihost_m");
-		variables.push("recip_m");
-		variables.push("nosideA_m");
-		variables.push("nosideB_m");
-		variables.push("sideaa_m");
-		variables.push("revstata_m");
-		variables.push("revtypea_m");
-		variables.push("fatleva_m");
-		variables.push("highmcaa_m");
-		variables.push("hihosta_m");
-		variables.push("orignata_m");
-		variables.push("sideab_m");
-		variables.push("revstatb_m");
-		variables.push("revtypeb_m");
-		variables.push("fatlevb_m");
-		variables.push("highmcab_m");
-		variables.push("hihostb_m");
-		variables.push("orignatb_m");
-		variables.push("rolea_m");
-		variables.push("roleb_m");
-		variables.push("dyad_rolea_m");
-		variables.push("dyad_roleb_m");
-		variables.push("war_m");
-		variables.push("durindx_m");
-		variables.push("duration_m");
-		variables.push("cumdurat_m");
-		variables.push("mid5hiact_m");
-		variables.push("mid5hiacta_m");
-		variables.push("mid5hiactb_m");
-		variables.push("severity_m");
-		variables.push("severitya_m");
-		variables.push("severityb_m");
-		variables.push("ongo2014_m");
-		variables.push("new_m");
-	}
-	if(document.getElementById("COW_Alliance_Data_NDD").checked){
-		variables.push("ccode1");
-		variables.push("stateabb1");
-		variables.push("ccode2");
-		variables.push("stateabb2");
-		variables.push("year");
-		variables.push("defense");
-		variables.push("neutrality");
-		variables.push("nonaggression");
-		variables.push("entente");
-	}
-	if(document.getElementById("COW_Diplomatic_Exchange").checked){
-		variables.push("ccode1");
-		variables.push("stateabb1");
-		variables.push("ccode2");
-		variables.push("stateabb2");
-		variables.push("year");
-		variables.push("dr_at_1");
-		variables.push("dr_at_2");
-		variables.push("de");
-	}
-	if(document.getElementById("COW_Trade_4_0").checked){
-		variables.push("ccode1");
-		variables.push("stateabb1");
-		variables.push("ccode2");
-		variables.push("stateabb2");
-		variables.push("year");
-		variables.push("flow1");
-		variables.push("flow2");
-		variables.push("smoothflow1");
-		variables.push("smoothflow2");
-		variables.push("smoothtotrade");
-		variables.push("china_alt_flow1");
-	}
-	return variables;
-}
 function toggleVariableTableDiv(){
 	if(document.querySelectorAll('input[type="checkbox"]:checked').length >=1){
 		document.getElementById("variableText").style.display = "block";
@@ -1966,9 +1759,40 @@ async function retrieveCSVThirdStep() {
 }
 
 async function exportTableToCSV(filename) {
-	var csv = await retrieveCSVThirdStep()
+	var csv = await retrieveCSVThirdStep();
 }
 
+
+async function retrievePreloadedVars() {
+	try {
+        const response = await fetch('preloadedVarJSON'); // issues a GET request by default
+        const json_response = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+		const variables = json_response.json; // this js constant is set to the new_df output from the response, which is a JSON array
+        // populate myData with new_df
+		json_variables = JSON.parse(variables);
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return json_variables;
+}
+
+async function preloaded_vars() {
+	var json_file = await retrievePreloadedVars();
+	var vars_id = [];
+	for (let i = 0; i < json_file.length; i++){
+		variables = json_file[i][0];
+		for(let j = 0; j < variables.length-1; j++){
+			vars_id.push(variables[j]);
+		}
+	}
+	return vars_id;
+}
+document.addEventListener("DOMContentLoaded", function(event) {
+	if (window.location.href.indexOf("dataUnlimVar.html") > -1) {
+		variable_ids = preloaded_vars();
+	}
+});
 //upload functions
 
 function triggerValidation(el) {
@@ -1981,7 +1805,9 @@ function triggerValidation(el) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-	document.getElementById("uploadButton").disabled = true;
+	if (window.location.href.indexOf("upload.html") > -1) {
+		document.getElementById("uploadButton").disabled = true;
+	}
 });
 
 string_2 = "";

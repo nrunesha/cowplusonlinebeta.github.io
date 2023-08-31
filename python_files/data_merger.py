@@ -20,11 +20,11 @@ sys.path.append(os.getcwd())
 # import cowplus
 
 # Change to the "datafiles_csv" folder
-os.chdir('datafiles_csv')
+os.chdir('datafiles_csv/preloaded_datasets')
 
 diplo_ex = pd.read_csv('COW_Diplomatic_Exchange_Dyadic.csv')
 diplo_ex.name = 'diplo_ex'
-alliance = pd.read_csv('COW_Alliance__2022_Non_Directed_Dyadic.csv')
+alliance = pd.read_csv('COW_Alliance_2022_Non_Directed_Dyadic.csv')
 alliance.name = 'alliance'
 direct_contiguity = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')
 direct_contiguity.name = 'direct_contiguity'
@@ -40,6 +40,8 @@ wrp = pd.read_csv('COW_World_Religions.csv')
 wrp.name = 'wrp'
 trade = pd.read_csv('COW_Trade_Dyadic.csv')
 trade.name = 'trade'
+
+os.chdir('..')
 
 data_dict = {
     'diplo_ex': diplo_ex,

@@ -56,13 +56,13 @@ The above copyright notice and this permission notice shall be included in all c
 			</header>
 			<div id="main">
 				<div id="FirstStep" class = "container">
-					<div id = "COW_Data"  class = "column">
-						<div style="padding-left:20px">
-							<h4 style="margin-top:20px;font-size:20px">
-								COW Datasets:
+					<div id = "Preloaded_Data"  class = "column">
+						<div style="padding-left:10px">
+							<h4 style="font-size:20px">
+								Preloaded Datasets:
 							</h4>
 						</div>
-						<div style="padding-left:20px">
+						<div style="padding-left:10px">
 							<input type="radio" id="countryYear" name="dataGroup" value="countryYear" onclick="toggleDataGroups()">
 							<label for="countryYear">Country-Year Data</label>
 						</div>
@@ -80,7 +80,7 @@ The above copyright notice and this permission notice shall be included in all c
 								<label for="Major_Powers">COW States and Major Powers</label>
 							</div>
 						</div>
-						<div style="padding-left:20px">
+						<div style="padding-left:10px">
 							<input type="radio" id="dyadYear" name="dataGroup" value="dyadYear" onclick="toggleDataGroups()">
 							<label for="dyadYear">Dyad-Year Data</label>
 						</div>
@@ -112,7 +112,7 @@ The above copyright notice and this permission notice shall be included in all c
 						</div>
 						<div id="variableTables" class ="variableTables">
 							<br>
-							<h4 style="display:none;padding-left:20px; margin-bottom:0px;padding-bottom:0px;" id = "variableText">Choose your variable(s):</h4>
+							<h4 style="display:none;padding-left:10px; margin-bottom:0px;padding-bottom:0px;" id = "variableText">Choose your variable(s):</h4>
 							<div id="divNMC_5_0_Table" class="variableTable">
 								<table>
 									<tr>
@@ -1001,12 +1001,18 @@ The above copyright notice and this permission notice shall be included in all c
 								</table>
 							</div>
 						</div>
+						<div id = "preloaded_table">
+							<div id="preloaded_grid" style="width:100%;height:500px;"></div>
+						</div>
 					</div>
 					<div id = "Uploaded_Datasets" class = "column">
-						<div style="padding-left:20px">
-							<h4 style="margin-top:20px;font-size:20px">
+						<div style="padding-left:10px">
+							<h4 style="font-size:20px">
 								Uploaded Datasets:
 							</h4>
+						</div>
+						<div id = "uploaded_table">
+							<div id="uploaded_grid" style="width:100%;height:500px;"></div>
 						</div>					
 					</div>
 				</div>	
@@ -1019,13 +1025,13 @@ The above copyright notice and this permission notice shall be included in all c
 							<label for="noChooseCY">No</label>
 					</div>
 					<div id = "SecondStepData" style = "display: none" class = "container">
-						<div id = "COW_Data_SS" class = "column">
-							<div style="padding-left:20px">
-								<h4 style="margin-top:20px;font-size:20px">
-									COW Datasets:
+						<div id = "Preloaded_Data_SS" class = "column">
+							<div style="padding-left:10px">
+								<h4 style="font-size:20px">
+									Preloaded Datasets:
 								</h4>
 							</div>
-							<div id="chooseCountryYearData" style="padding-left:20px">
+							<div id="chooseCountryYearData" style="padding-left:10px">
 								<div style="margin-bottom:0px">
 									<input type="checkbox" id="NMC_5_0SecondStep" name="SecondStepDataSets" value="NMC_5_0" onclick="toggleVariableTableDivSecondStep();">
 									<label for="NMC_5_0SecondStep">National Military Capabilities</label>
@@ -1517,8 +1523,8 @@ The above copyright notice and this permission notice shall be included in all c
 							</div>
 						</div>
 						<div id = "Uploaded_Data_SS" class = "column">
-							<div style="padding-left:20px">
-								<h4 style="margin-top:20px;font-size:20px">
+							<div style="padding-left:10px">
+								<h4 style="font-size:20px">
 									Uploaded Datasets:
 								</h4>
 							</div>
