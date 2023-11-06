@@ -20,7 +20,7 @@ sys.path.append(os.getcwd())
 # import cowplus
 
 # Change to the "datafiles_csv" folder
-os.chdir('datafiles_csv')
+os.chdir('C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv')
 monadic_reqcol = ["stateabb", "ccode", "year"]
 dyadic_reqcol = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
 def column_check(dataframe, reqcol):

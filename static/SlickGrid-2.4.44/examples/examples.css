@@ -19,7 +19,7 @@ ul {
   margin: 0;
 }
 
-#myGrid, .example-grid {
+#myGrid, .example-grid, #grid_vars_first_step, #grid_vars_second_step  {
   background: white;
   outline: 0;
   border: 1px solid gray;

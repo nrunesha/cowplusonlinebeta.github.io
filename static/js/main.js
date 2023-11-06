@@ -1,5 +1,316 @@
 console.log("flask branch")
 
+let dyadmonad = "monadic";
+async function VarTable_S1(){
+	var dataView;
+	var grid;
+	var data = [];
+	variable_ids = await first_step_vars();
+	function loadData() {
+		data = [];
+		count = variable_ids[0].length;
+		// prepare the data
+		for (var i = 0; i < count; i++) {
+		  var d = (data[i] = {});
+		  d["id"] = i;
+		  d["var_name"] = variable_ids[0][i];
+		  d["var_description"] = variable_ids[1][i];
+		  d["var_dataset"] = variable_ids[3][i];
+		  d["var_id"] = variable_ids[2][i];
+		  d["var_type"] = variable_ids[4][i];
+		  d["var_pvu"] = variable_ids[5][i];
+		}
+		dataView.setItems(data);
+		return(data);
+	}
+
+	var checkboxSelector = new Slick.CheckboxSelectColumn({
+		// cssClass: "slick-cell-checkboxsel"
+	});
+
+	var columns = [
+		checkboxSelector.getColumnDefinition(),
+		{id: "var_name", name: "var_name", field: "var_name", toolTip: "var_name", width: 100},
+		{id: "var_description", name: "var_description", field: "var_description", toolTip: "var_description", width: 300}
+	];
+
+	//displayColumns.unshift("id");
+	var options = {
+		enableCellNavigation: true,
+        enableColumnReorder: false,
+        explicitInitialization: true,
+        editable: false,
+		autosizeColsMode: true,
+		fullWidthRows: true
+	};
+	
+	function groupByPVUTypeDataset() {
+		dataView.setGrouping([
+			{
+				getter: "var_pvu",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: false
+			},
+			{
+				getter: "var_type",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: true
+			},
+			{
+				getter: "var_dataset",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: true
+			},
+		]);
+	}
+	
+	$(function () {
+		var groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider();
+		dataView = new Slick.Data.DataView({
+			groupItemMetadataProvider: groupItemMetadataProvider,
+			inlineFilters: true
+		});
+		grid = new Slick.Grid("#grid_vars_first_step", dataView, columns, options);
+        
+		grid.registerPlugin(groupItemMetadataProvider);
+		groupItemMetadataProvider.destroy();
+
+		
+		grid.setSelectionModel(new Slick.RowSelectionModel({selectActiveRow: false}));
+		grid.registerPlugin(checkboxSelector);
+		
+		dataView.syncGridSelection(grid, true, true);
+
+		dataView.onRowCountChanged.subscribe(function (e, args) {
+		  grid.updateRowCount();
+		  grid.render();
+		});
+		dataView.onRowsChanged.subscribe(function (e, args) {
+			grid.invalidateRows(args.rows);
+			grid.render();
+		});
+		grid.onSelectedRowsChanged.subscribe(function (evt, args) {
+			grid.invalidateRows(args.rows);
+			grid.render();
+			
+			variableChooser();
+			datasetChooser();
+		});
+
+		dataView.beginUpdate();
+		loadData();
+		groupByPVUTypeDataset();
+		grid.init();
+		dataView.endUpdate()
+		function variableChooser(){
+			var selectedVars = [];
+	
+			selectedIndexes = grid.getSelectedRows();
+			jQuery.each(selectedIndexes, function (index, value) {
+				selectedVars.push(grid.getData().getItem(value)["var_name"]);
+			});
+			if(selectedVars.length > 0){
+				document.getElementById("createButton").disabled = false;
+			}
+			else{
+				document.getElementById("createButton").disabled = true;
+			}	
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/variableChooser", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify({ array: selectedVars }));
+			console.log("post vc:");
+			console.log(selectedVars);
+		}
+		function datasetChooser(){
+			let selectedDatasets = new Set();
+	
+			selectedIndexes = grid.getSelectedRows();
+			jQuery.each(selectedIndexes, function (index, value) {
+				selectedDatasets.add(grid.getData().getItem(value)["var_dataset"]);
+				if(grid.getData().getItem(value)["var_type"] == "Country Year"){
+					dyadmonad = "monadic";
+				}
+				else if (grid.getData().getItem(value)["var_type"] == "Dyad Year"){
+					dyadmonad = "dyadic";
+				}
+			});
+			console.log(selectedDatasets);
+			let arrDatasets = Array.from(selectedDatasets);
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/datasetChooser", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify({ array: arrDatasets }));
+			console.log("post dc:")
+			console.log(arrDatasets)
+		}
+		
+    });
+
+}
+
+async function VarTable_S2(){
+	var dataView;
+	var grid;
+	var data = [];
+	variable_ids = await second_step_vars();
+	function loadData() {
+		data = [];
+		count = variable_ids[0].length;
+		// prepare the data
+		for (var i = 0; i < count; i++) {
+		  var d = (data[i] = {});
+		  d["id"] = i;
+		  d["var_name"] = variable_ids[0][i];
+		  d["var_description"] = variable_ids[1][i];
+		  d["var_dataset"] = variable_ids[3][i];
+		  d["var_id"] = variable_ids[2][i];
+		  d["var_type"] = variable_ids[4][i];
+		  d["var_pvu"] = variable_ids[5][i];
+		}
+		dataView.setItems(data);
+		return(data);
+	}
+
+	var checkboxSelector = new Slick.CheckboxSelectColumn({
+		// cssClass: "slick-cell-checkboxsel"
+	});
+
+	var columns = [
+		checkboxSelector.getColumnDefinition(),
+		{id: "var_name", name: "var_name", field: "var_name", toolTip: "var_name", width: 100},
+		{id: "var_description", name: "var_description", field: "var_description", toolTip: "var_description", width: 300}
+	];
+
+	//displayColumns.unshift("id");
+	var options = {
+		enableCellNavigation: true,
+        enableColumnReorder: false,
+        explicitInitialization: true,
+        editable: false,
+		autosizeColsMode: true,
+		fullWidthRows: true
+	};
+	
+	function groupByPVUTypeDataset() {
+		dataView.setGrouping([
+			{
+				getter: "var_pvu",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: false
+			},
+			{
+				getter: "var_type",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: true
+			},
+			{
+				getter: "var_dataset",
+				formatter :function (g) {
+					return g.value;
+				},
+				collapsed: true
+			},
+		]);
+	}
+	
+	$(function () {
+		var groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider();
+		dataView = new Slick.Data.DataView({
+			groupItemMetadataProvider: groupItemMetadataProvider,
+			inlineFilters: true
+		});
+		grid = new Slick.Grid("#grid_vars_second_step", dataView, columns, options);
+        
+		grid.registerPlugin(groupItemMetadataProvider);
+		groupItemMetadataProvider.destroy();
+
+		
+		grid.setSelectionModel(new Slick.RowSelectionModel({selectActiveRow: false}));
+		grid.registerPlugin(checkboxSelector);
+		
+		dataView.syncGridSelection(grid, true, true);
+
+		dataView.onRowCountChanged.subscribe(function (e, args) {
+		  grid.updateRowCount();
+		  grid.render();
+		});
+		dataView.onRowsChanged.subscribe(function (e, args) {
+			grid.invalidateRows(args.rows);
+			grid.render();
+		});
+		grid.onSelectedRowsChanged.subscribe(function (evt, args) {
+			grid.invalidateRows(args.rows);
+			grid.render();
+			
+			variableChooser();
+			datasetChooser();
+		});
+
+		dataView.beginUpdate();
+		loadData();
+		groupByPVUTypeDataset();
+		grid.init();
+		dataView.endUpdate()
+		function variableChooser(){
+			var selectedVars = [];
+	
+			selectedIndexes = grid.getSelectedRows();
+			jQuery.each(selectedIndexes, function (index, value) {
+				selectedVars.push(grid.getData().getItem(value)["var_name"]);
+			});
+			if(selectedVars.length > 0){
+				document.getElementById("createButton").disabled = false;
+			}
+			else{
+				document.getElementById("createButton").disabled = true;
+			}	
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/variableChooserSecondStep", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify({ array: selectedVars }));
+			console.log("post vc:");
+			console.log(selectedVars);
+		}
+		function datasetChooser(){
+			let selectedDatasets = new Set();
+	
+			selectedIndexes = grid.getSelectedRows();
+			jQuery.each(selectedIndexes, function (index, value) {
+				selectedDatasets.add(grid.getData().getItem(value)["var_dataset"]);
+				if(grid.getData().getItem(value)["var_type"] == "Country Year"){
+					dyadmonad = "monadic";
+				}
+				else if (grid.getData().getItem(value)["var_type"] == "Dyad Year"){
+					dyadmonad = "dyadic";
+				}
+			});
+			console.log(selectedDatasets);
+			let arrDatasets = Array.from(selectedDatasets);
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/datasetChooserSecondStep", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify({ array: arrDatasets }));
+			console.log("post dc:")
+			console.log(arrDatasets)
+		}
+		
+    });
+
+}
+
 function toggleDataGroups(){
 	if(document.getElementById("countryYear").checked){
 		$('#dyadicData').find('input[type=checkbox]:checked').prop('checked',false);				
@@ -96,7 +407,7 @@ function toggleVariableTableDiv(){
 	}
 }
 
-function variableChooser(){
+function variableChooserNSS(){
 	const variables = [];
 	if(document.getElementById("NMC_5_0").checked){
 		variables.push("stateabb");
@@ -623,7 +934,7 @@ function variableChooser(){
 }
 
 
-function datasetChooserFirstStep(){			
+function datasetChooserFirstStepNSS(){			
 	var datasetsSelected = [];
 
 	if(document.getElementById("NMC_5_0").checked){	
@@ -741,15 +1052,15 @@ async function retrieveJSONSecondStep() {
 }
 
 function BackButtonOne(){
-	console.log(variableChooser())			
 	document.getElementById("qChooseCY").style.display = "none";
 	document.getElementById("backButton1").style.display = "none";
 	document.getElementById("createButtonSecondStep").style.display = "none";
 	document.getElementById("createButton").style.display = "inline-block";
 	document.getElementById("optionsPanel").style.display = "none";
-	document.getElementById("FirstStep").style.display = "flex";
+	document.getElementById("FirstStep").style.display = "block";
+	document.getElementById("grid_vars_first_step").style.display = "block";
 	document.getElementById("SecondStep").style.display = "none";
-	document.getElementById("SecondStepData").style.display = "none";
+	document.getElementById("SecondStepVars").style.display = "none";
 	document.getElementById("backButton2").style.display = "none";
 	document.getElementById("downloadButton").style.display = "none";
 	$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
@@ -777,30 +1088,33 @@ async function retrieveBackButtonTwo() {
 
 function BackButtonTwo(){
 	hideDownloadMessage()
-	if(document.getElementById("dyadYear").checked){
-		document.getElementById("qChooseCY").style.display = "blcok";
+	if(dyadmonad == "dyadic"){
+		document.getElementById("qChooseCY").style.display = "block";
 		document.getElementById("backButton1").style.display = "inline-block";
 		document.getElementById("createButtonSecondStep").style.display = "inline-block";
 		document.getElementById("createButton").style.display = "none";
 		document.getElementById("FirstStep").style.display = "none";
+		document.getElementById("grid_vars_first_step").style.display = "none";
 		document.getElementById("SecondStep").style.display = "block";
-		document.getElementById("SecondStepData").style.display = "none";
+		document.getElementById("SecondStepVars").style.display = "none";
+		document.getElementById("grid_vars_second_step").style.display = "none";
 		document.getElementById("backButton2").style.display = "none";
 		document.getElementById("downloadButton").style.display = "none";
-		document.getElementById("variableTablesSecondStep").style.display = "none";
+		// document.getElementById("variableTablesSecondStep").style.display = "none";
 		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
 		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
 		document.getElementById("yesChooseCY").disabled = false;
 		document.getElementById("noChooseCY").disabled = false;
-		document.getElementById("myTable").style.display = "none";
+		document.getElementById("myTable").style.display = "block";
 		BackButton2_CreateTable();
 	}
-	else if(document.getElementById("countryYear").checked){
+	else if(dyadmonad == "monadic"){
 		document.getElementById("createButton").style.display = "inline-block";
 		document.getElementById("backButton1").style.display = "none";
 		document.getElementById("backButton2").style.display = "none";
 		document.getElementById("downloadButton").style.display = "none";
-		document.getElementById("FirstStep").style.display = "flex";
+		document.getElementById("FirstStep").style.display = "block";
+		document.getElementById("grid_vars_first_step").style.display = "block";
 		document.getElementById("SecondStep").style.display = "none";
 		document.getElementById("optionsPanel").style.display = "none";
 		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
@@ -816,22 +1130,18 @@ async function CreateTable(){
 	var yearRangeMax = "2022";
 	var dataView;
 	var grid;
-	let truefalse = checkCheckboxes();
-	if(truefalse == false){
-		document.getElementById("Warning").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("Warning").style.display = "none";				
-	}
-
-	variableChooser();
-	datasetChooserFirstStep();
-
+	// let truefalse = checkCheckboxes();
+	// if(truefalse == false){
+	// 	document.getElementById("Warning").style.display = "block";
+	// 	return;
+	// }
+	// else{
+	// 	document.getElementById("Warning").style.display = "none";				
+	// }
 	var myData = await retrieveJSON(); 
 	//displayColumns.unshift("id");
 	var col = [];
-	keys = Object.keys(myData[0])
+	keys = Object.keys(myData[0]);
 	for (var key in keys) {
 		col.push({id: keys[key], name: keys[key], field: keys[key], toolTip: keys[key]});
 	}
@@ -935,16 +1245,17 @@ async function CreateTable(){
 		filteredItems = dataView.getRows();
     });
 	
-	if (document.getElementById("dyadYear").checked){
+	if (dyadmonad == "dyadic"){
 		document.getElementById("qChooseCY").style.display = "block";
 		changeButton();
 	}
-	else if(document.getElementById("countryYear").checked){
+	else if(dyadmonad == "monadic"){
 		changeButtonSecondStep();
 	}
-	document.getElementById("myTable").style.display = "inline-block";
-	document.getElementById("optionsPanel").style.display = "inline-block";
+	document.getElementById("grid_vars_first_step").style.display = "none";
 	document.getElementById("FirstStep").style.display = "none";
+	document.getElementById("myTable").style.display = "inline-block";
+	document.getElementById("optionsPanel").style.display = "block";
 	document.getElementById("SecondStep").style.display = "block";
 }
 
@@ -954,14 +1265,14 @@ async function BackButton2_CreateTable(){
 	var yearRangeMax = "2022";
 	var dataView;
 	var grid;
-	let truefalse = checkCheckboxes();
-	if(truefalse == false){
-		document.getElementById("Warning").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("Warning").style.display = "none";				
-	}
+	// let truefalse = checkCheckboxes();
+	// if(truefalse == false){
+	// 	document.getElementById("Warning").style.display = "block";
+	// 	return;
+	// }
+	// else{
+	// 	document.getElementById("Warning").style.display = "none";				
+	// }
 
 	var myData = await retrieveBackButtonTwo(); 
 	//displayColumns.unshift("id");
@@ -1088,7 +1399,9 @@ function displayChooseCYData(){
 	document.getElementById("yesChooseCY").disabled = true;
 	document.getElementById("noChooseCY").disabled = true;
 	if(document.getElementById("yesChooseCY").checked){
-		document.getElementById("SecondStepData").style.display = "flex";
+		document.getElementById("SecondStepVars").style.display = "block";
+		document.getElementById("table_vars_second_step").style.display = "block";
+		document.getElementById("grid_vars_second_step").style.display = "block";
 	}
 	if (document.getElementById("noChooseCY").checked){
 		changeButtonSecondStep();
@@ -1123,7 +1436,8 @@ function changeButtonSecondStep(){
 	document.getElementById("backButton2").style.display = "inline-block";
 	document.getElementById("downloadButton").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "none";
-
+	document.getElementById("grid_vars_first_step").style.display = "none";
+	document.getElementById("grid_vars_second_step").style.display = "none";
 } 
 
 function toggleVariableTableDivSecondStep(){
@@ -1155,7 +1469,7 @@ function toggleVariableTableDivSecondStep(){
 	}
 }
 
-function variableChooserSecondStep(){
+function variableChooserSecondStepNSS(){
 	const variablesSecondStep = [];
 	if(document.getElementById("NMC_5_0SecondStep").checked){
 		if(document.getElementById("milex_NMC_5_0SecondStep").checked){
@@ -1431,7 +1745,7 @@ function variableChooserSecondStep(){
 	return variablesSecondStep;
 }
 
-function datasetChooserSecondStep(){			
+function datasetChooserSecondStepNSS(){			
 	var datasetsSelectedSecondStep = [];
 
 	if(document.getElementById("NMC_5_0SecondStep").checked){	
@@ -1452,179 +1766,25 @@ function datasetChooserSecondStep(){
 	return datasetsSelectedSecondStep;
 }
 
-function yearArrayDyadYear(){
-	var yearDup = [];
-	var myData = dyadYearDataSetChooser();
-	for (i = 0; i < myData.length; i++) {
-		yearDup.push(myData[i]["year"]);
-	}
-	return yearDup;
-}
-function stateArrayDyadYear1(){
-	var stateDup = [];
-	var myData = dyadYearDataSetChooser();
-	for (i = 0; i < myData.length; i++) {
-		stateDup.push(myData[i]["stateabb1"]);       
-	}
-	return stateDup;
-}
-function stateArrayDyadYear2(){
-	var stateDup = [];
-	var myData = dyadYearDataSetChooser();
-	for (i = 0; i < myData.length; i++) {
-		stateDup.push(myData[i]["stateabb2"]);       
-	}
-	return stateDup;
-}
-
-function createSearchArrayForExtraColumns(){
-	var state1, state2, year, selectedVar;
-	state1 = stateArrayDyadYear1();
-	state2 = stateArrayDyadYear2();
-	year = yearArrayDyadYear();
-	selectedVar = variableChooserSecondStep();
-	let compiledArray = [];
-	let state = {
-		"stateabb1": "USA",
-		"stateabb2": "CAN",
-		"year": 1920
-	}
-	for (i = 0; i < state1.length; i++){
-		state = {
-			"stateabb1": state1[i],
-			"stateabb2": state2[i],
-			"year": year[i]
-		}
-		compiledArray.push(state);
-	}
-	return compiledArray;
-}
-
-function createArrayForExtraColumnObjectsState1(){
-	var searchArray, selectedVar, dataset, i, outputstate1;
-	searchArray = createSearchArrayForExtraColumns();
-	dataset = countryYearDataSetChooserSecondStep();
-	let compiledArray = [];
-	for (i = 0; i < searchArray.length; i++){
-		outputstate1 = dataset.find(function(element) {
-		  return element["stateabb"] == searchArray[i]["stateabb1"] && element["year"] == searchArray[i]["year"];
-		});		
-		compiledArray.push(outputstate1);
-	}
-	return compiledArray;
-}
-function createArrayForExtraColumnObjectsState2(){
-	var searchArray, selectedVar, dataset, i, outputstate2;
-	searchArray = createSearchArrayForExtraColumns();
-	dataset = countryYearDataSetChooserSecondStep();
-	let compiledArray = [];
-	for (i = 0; i < searchArray.length; i++){
-		outputstate2 = dataset.find(function(element) {
-		  return element["stateabb"] == searchArray[i]["stateabb2"] && element["year"] == searchArray[i]["year"];
-		});		
-		compiledArray.push(outputstate2);
-	}
-	return compiledArray;
-}
-
-function createArrayForExtraColumnsFINALSTEP(){
-	var state1, state2, selectedVar, compiledArray;
-	state1 = createArrayForExtraColumnObjectsState1();
-	state2 = createArrayForExtraColumnObjectsState2();
-	selectedVar = variableChooserSecondStep();
-	compiledArray = createSearchArrayForExtraColumns();
-	
-	for (var i = 0; i < compiledArray.length; i++) {
-		for(var j = 0; j<selectedVar.length; j++){
-			if(state1[i] == undefined){
-				compiledArray[i][selectedVar[j] + "_1"] = ".";
-			}
-			else{
-				compiledArray[i][selectedVar[j] + "_1"] = state1[i][selectedVar[j]];
-			}
-		}
-	}
-	for (var i = 0; i < compiledArray.length; i++) {
-		for(var j = 0; j<selectedVar.length; j++){
-			if(state2[i] == undefined){
-				compiledArray[i][selectedVar[j] + "_2"] = ".";
-			}
-			else{
-				compiledArray[i][selectedVar[j] + "_2"] = state2[i][selectedVar[j]];
-			}
-		}
-	}
-	return compiledArray;
-}
-
-function variableReplacer(){
-	var variables = [];
-	var selectedVar = variableChooserSecondStep();
-	
-	for (var i = 0; i < selectedVar.length; i++) {
-		variables.push(selectedVar[i] + "_1");
-		variables.push(selectedVar[i] + "_2");
-	}
-	return variables;
-}
-
-function mergeSetsByIndex(first, second){
-	var result = first.map((obj, index) => ({
-		...obj,
-		...second[index]
-	}));
-	return result;
-}
-function mergeAppendedData(){
-	var origData = dyadYearDataSetChooser();
-	var newData = createArrayForExtraColumnsFINALSTEP();
-	var data = mergeSetsByIndex(origData, newData);
-	//data.pop();
-	return data;
-}
-
-async function addID2() {
-    var myData = [];
-
-    try {
-        const response = await fetch('createDf2');
-        const data = await response.json();
-		const new_df = data.new_df;
-        myData = JSON.parse(new_df);
-    } catch (error) {
-		console.error('error processing data:', error);
-    }
-    return myData;
-}
-
-/*function addID2(){
-	var myData = mergeAppendedData();
-	
-	for (var i = 0; i < myData.length; i++) {
-		myData[i] = {"id" : i+1, ...myData[i]};
-	}
-	return myData;
-}*/
-
 async function AddColumns() {
 	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
 	var dataView;
 	var grid;
-	let truefalse = checkCheckboxes();
-	if(truefalse == false){
-		document.getElementById("Warning").style.display = "block";
-		return;
-	}
-	else{
-		document.getElementById("Warning").style.display = "none";				
-	}
+	// let truefalse = checkCheckboxes();
+	// if(truefalse == false){
+	// 	document.getElementById("Warning").style.display = "block";
+	// 	return;
+	// }
+	// else{
+	// 	document.getElementById("Warning").style.display = "none";				
+	// // }
 
-	variableChooser();
-	datasetChooserFirstStep();
-	variableChooserSecondStep();
-	datasetChooserSecondStep();
+	// variableChooser();
+	// datasetChooserFirstStep();
+	// variableChooserSecondStep();
+	// datasetChooserSecondStep();
 
 	var myData = await retrieveJSONSecondStep(); 
 	//displayColumns.unshift("id");
@@ -1763,34 +1923,151 @@ async function exportTableToCSV(filename) {
 }
 
 
-async function retrievePreloadedVars() {
+async function retrieveFirstStepVars() {
 	try {
-        const response = await fetch('preloadedVarJSON'); // issues a GET request by default
+        const response = await fetch('firstStepVarJSON'); // issues a GET request by default
         const json_response = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
         // access the new_df data from the response
-		const variables = json_response.json; // this js constant is set to the new_df output from the response, which is a JSON array
+		const var_ids_r = json_response.var_id_json; // this js constant is set to the new_df output from the response, which is a JSON array
         // populate myData with new_df
-		json_variables = JSON.parse(variables);
+		const var_names_r = json_response.name_json;
+		const var_descrip_r = json_response.descrip_json;
+		const var_dataset_r = json_response.dataset_json;
+
+		var_names = JSON.parse(var_names_r);
+		var_ids = JSON.parse(var_ids_r);
+		var_descrips = JSON.parse(var_descrip_r);
+		var_datasets= JSON.parse(var_dataset_r);
+
     } catch (error) {
 		console.error('error processing data:', error);
     }
-    return json_variables;
+    return [var_names, var_descrips, var_ids, var_datasets];
 }
 
-async function preloaded_vars() {
-	var json_file = await retrievePreloadedVars();
+async function first_step_vars() {
+	var json_file = await retrieveFirstStepVars();
+	var vars_name = [];
 	var vars_id = [];
-	for (let i = 0; i < json_file.length; i++){
-		variables = json_file[i][0];
-		for(let j = 0; j < variables.length-1; j++){
-			vars_id.push(variables[j]);
+	var vars_descrip = [];
+	var vars_dataset = [];
+	var vars_type = [];
+	var vars_pvu = [];
+	for (let i = 0; i < json_file[2].length; i++){
+		temp = json_file[2][i][0];
+		for(let j = 0; j < temp.length; j++){
+			vars_id.push(temp[j]);
 		}
 	}
-	return vars_id;
+	for (let i = 0; i < json_file[1].length; i++){
+		temp_2 = json_file[1][i][0];
+		for(let j = 0; j < temp_2.length; j++){
+			vars_descrip.push(temp_2[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][0].length; i++){
+		temp_3 = json_file[0][0][i];
+		for(let j = 0; j < temp_3.length; j++){
+			vars_name.push(temp_3[j]);
+		}
+	}
+	for (let i = 0; i < json_file[3].length; i++){
+		temp_4 = json_file[3][i][0];
+		for(let j = 0; j < temp_4.length; j++){
+			vars_dataset.push(temp_4[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][1].length; i++){
+		temp_5 = json_file[0][1][i];
+		for(let j = 0; j < temp_5.length; j++){
+			vars_type.push(temp_5[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][2].length; i++){
+		temp_6 = json_file[0][2][i];
+		for(let j = 0; j < temp_6.length; j++){
+			vars_pvu.push(temp_6[j]);
+		}
+	}
+
+	return [vars_name, vars_descrip, vars_id, vars_dataset, vars_type, vars_pvu];
 }
+
+async function retrieveSecondStepVars() {
+	try {
+        const response = await fetch('secondStepVarJSON'); // issues a GET request by default
+        const json_response = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+        // access the new_df data from the response
+		const var_ids_r = json_response.var_id_json; // this js constant is set to the new_df output from the response, which is a JSON array
+        // populate myData with new_df
+		const var_names_r = json_response.name_json;
+		const var_descrip_r = json_response.descrip_json;
+		const var_dataset_r = json_response.dataset_json;
+
+		var_names = JSON.parse(var_names_r);
+		var_ids = JSON.parse(var_ids_r);
+		var_descrips = JSON.parse(var_descrip_r);
+		var_datasets= JSON.parse(var_dataset_r);
+
+    } catch (error) {
+		console.error('error processing data:', error);
+    }
+    return [var_names, var_descrips, var_ids, var_datasets];
+}
+
+async function second_step_vars() {
+	var json_file = await retrieveSecondStepVars();
+	var vars_name = [];
+	var vars_id = [];
+	var vars_descrip = [];
+	var vars_dataset = [];
+	var vars_type = [];
+	var vars_pvu = [];
+	for (let i = 0; i < json_file[2].length; i++){
+		temp = json_file[2][i][0];
+		for(let j = 0; j < temp.length; j++){
+			vars_id.push(temp[j]);
+		}
+	}
+	for (let i = 0; i < json_file[1].length; i++){
+		temp_2 = json_file[1][i][0];
+		for(let j = 0; j < temp_2.length; j++){
+			vars_descrip.push(temp_2[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][0].length; i++){
+		temp_3 = json_file[0][0][i];
+		for(let j = 0; j < temp_3.length; j++){
+			vars_name.push(temp_3[j]);
+		}
+	}
+	for (let i = 0; i < json_file[3].length; i++){
+		temp_4 = json_file[3][i][0];
+		for(let j = 0; j < temp_4.length; j++){
+			vars_dataset.push(temp_4[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][1].length; i++){
+		temp_5 = json_file[0][1][i];
+		for(let j = 0; j < temp_5.length; j++){
+			vars_type.push(temp_5[j]);
+		}
+	}
+	for (let i = 0; i < json_file[0][2].length; i++){
+		temp_6 = json_file[0][2][i];
+		for(let j = 0; j < temp_6.length; j++){
+			vars_pvu.push(temp_6[j]);
+		}
+	}
+
+	return [vars_name, vars_descrip, vars_id, vars_dataset, vars_type, vars_pvu];
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	if (window.location.href.indexOf("dataUnlimVar.html") > -1) {
-		variable_ids = preloaded_vars();
+		VarTable_S1();
+		VarTable_S2();
+		document.getElementById("createButton").disabled = true;
 	}
 });
 //upload functions

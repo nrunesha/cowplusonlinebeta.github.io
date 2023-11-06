@@ -38,13 +38,7 @@ body, nav {margin:0px;
 }
 
 .container{
-	display: flex;
-	width: 100%;
-}
-.column{
-	flex: 1;
-  	border: 2px solid black;
-  	margin: 10px;
+	width: 80%;
 }
 h1 {text-align: center}
 h4 {margin:0px}
@@ -250,3 +244,5 @@ ul.cow-plus-footer{
 #downloadButtons{
 	text-align:center;
 }
+
+

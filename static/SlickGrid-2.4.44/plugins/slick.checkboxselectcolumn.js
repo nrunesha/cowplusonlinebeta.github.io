@@ -10,16 +10,16 @@
   function CheckboxSelectColumn(options) {
     var _grid;
     var _selectableOverride = null;
-    var _selectAll_UID = createUID();
+    // var _selectAll_UID = createUID();
     var _handler = new Slick.EventHandler();
     var _selectedRowsLookup = {};
     var _defaults = {
       columnId: "_checkbox_selector",
       cssClass: null,
-      hideSelectAllCheckbox: false,
+      hideSelectAllCheckbox: true,
       toolTip: "Select/Deselect All",
       width: 30,
-      hideInColumnTitleRow: false,
+      hideInColumnTitleRow: true,
       hideInFilterHeaderRow: true
     };
     var _isSelectAllChecked = false;

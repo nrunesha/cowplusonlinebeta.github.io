@@ -67,6 +67,7 @@ def verifyFunction():
     # Get the list of files from webpage
     files = request.files.getlist("file")
     print(files)
+    os.chdir("C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv")
     # Iterate for each file in the files List, and Save them
     for file in files:
         file.save(file.filename)
@@ -102,6 +103,8 @@ def uploadFunction():
     print(all_m_files)
     print(all_d_files)
     files = request.files.getlist("file")
+    username = "test_profile"
+    os.chdir(os.path.join("C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv", username))
     for file in files:
         file.save(file.filename)
     return redirect('/upload.html')
@@ -212,14 +215,35 @@ def downloadCSV():
     }
     return response
 
-@app.route('/preloadedVarJSON/', methods=['POST', "GET"])
-def preloadedVarJSON():    
-    json = variables.createPreloadedVarJSON() # datasetChooser, variableChooser
-    print(json)
+@app.route('/firstStepVarJSON/', methods=['POST', "GET"])
+def firstStepVarJSON():    
+    var_id_json = variables.createVarIDsJSON() 
+    var_name_json = variables.createVarJSON() 
+    var_descrip_json = variables.createVarDescripJSON() 
+    var_dataset_json = variables.createVarDatasetJSON()
     response = {
         "message": "vars",
         "status": 200,
-        "json": json
+        "name_json": var_name_json,
+        "descrip_json": var_descrip_json,
+        "var_id_json": var_id_json,
+        "dataset_json": var_dataset_json
+    }
+    return response
+
+@app.route('/secondStepVarJSON/', methods=['POST', "GET"])
+def secondStepVarJSON():    
+    var_id_json = variables.createVarIDsJSONSS() 
+    var_name_json = variables.createVarJSONSS() 
+    var_descrip_json = variables.createVarDescripJSONSS() 
+    var_dataset_json = variables.createVarDatasetJSONSS()
+    response = {
+        "message": "vars",
+        "status": 200,
+        "name_json": var_name_json,
+        "descrip_json": var_descrip_json,
+        "var_id_json": var_id_json,
+        "dataset_json": var_dataset_json
     }
     return response
 # generic for all req. to save code
