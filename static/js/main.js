@@ -289,12 +289,6 @@ async function VarTable_S2(){
 			selectedIndexes = grid.getSelectedRows();
 			jQuery.each(selectedIndexes, function (index, value) {
 				selectedDatasets.add(grid.getData().getItem(value)["var_dataset"]);
-				if(grid.getData().getItem(value)["var_type"] == "Country Year"){
-					dyadmonad = "monadic";
-				}
-				else if (grid.getData().getItem(value)["var_type"] == "Dyad Year"){
-					dyadmonad = "dyadic";
-				}
 			});
 			console.log(selectedDatasets);
 			let arrDatasets = Array.from(selectedDatasets);
@@ -1105,7 +1099,8 @@ function BackButtonTwo(){
 		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
 		document.getElementById("yesChooseCY").disabled = false;
 		document.getElementById("noChooseCY").disabled = false;
-		document.getElementById("myTable").style.display = "block";
+		document.getElementById("myTable").style.display = "inline-block";
+		document.getElementById("addColumns").disabled = false;
 		BackButton2_CreateTable();
 	}
 	else if(dyadmonad == "monadic"){
@@ -1125,6 +1120,7 @@ function BackButtonTwo(){
 
 var filteredItems = [];
 async function CreateTable(){
+	document.getElementById("createButton").disabled = true;
 	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
@@ -1255,7 +1251,7 @@ async function CreateTable(){
 	document.getElementById("grid_vars_first_step").style.display = "none";
 	document.getElementById("FirstStep").style.display = "none";
 	document.getElementById("myTable").style.display = "inline-block";
-	document.getElementById("optionsPanel").style.display = "block";
+	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "block";
 }
 
@@ -1381,13 +1377,6 @@ async function BackButton2_CreateTable(){
 		filteredItems = dataView.getRows();
     });
 	
-	if (document.getElementById("dyadYear").checked){
-		document.getElementById("qChooseCY").style.display = "block";
-		changeButton();
-	}
-	else if(document.getElementById("countryYear").checked){
-		changeButtonSecondStep();
-	}
 	document.getElementById("myTable").style.display = "inline-block";
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("FirstStep").style.display = "none";
@@ -1399,9 +1388,10 @@ function displayChooseCYData(){
 	document.getElementById("yesChooseCY").disabled = true;
 	document.getElementById("noChooseCY").disabled = true;
 	if(document.getElementById("yesChooseCY").checked){
+		VarTable_S2();
 		document.getElementById("SecondStepVars").style.display = "block";
-		document.getElementById("table_vars_second_step").style.display = "block";
-		document.getElementById("grid_vars_second_step").style.display = "block";
+		document.getElementById("table_vars_second_step").style.display = "inline-block";
+		document.getElementById("grid_vars_second_step").style.display = "inline-block";
 	}
 	if (document.getElementById("noChooseCY").checked){
 		changeButtonSecondStep();
@@ -1767,6 +1757,7 @@ function datasetChooserSecondStepNSS(){
 }
 
 async function AddColumns() {
+	document.getElementById("addColumns").disabled = true;
 	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
@@ -1901,8 +1892,8 @@ async function AddColumns() {
 //Third STEP
 
 async function retrieveCSVThirdStep() {
-	csv_file = []
-	hideDownloadMessage()
+	csv_file = [];
+	await hideDownloadMessage();
 	try {
         const response = await fetch('downloadDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
@@ -2063,11 +2054,10 @@ async function second_step_vars() {
 	return [vars_name, vars_descrip, vars_id, vars_dataset, vars_type, vars_pvu];
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", async function(event) {
 	if (window.location.href.indexOf("dataUnlimVar.html") > -1) {
-		VarTable_S1();
-		VarTable_S2();
 		document.getElementById("createButton").disabled = true;
+		await VarTable_S1();
 	}
 });
 //upload functions

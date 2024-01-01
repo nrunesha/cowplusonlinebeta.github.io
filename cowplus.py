@@ -155,7 +155,20 @@ def processdcss():
 def create_df():
     global dataframe
     global dataframe2
-    
+    global dc
+    global vc
+    i = 0
+    while i < len(dc):
+        if dc[i] is None:
+            dc = dc[:i] + dc[i+1:]
+        else:
+            i += 1
+    i = 0
+    while i < len(vc):
+        if vc[i] is None:
+            vc = vc[:i] + vc[i+1:]
+        else:
+            i += 1
     dataframe = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
     dataframe = dataframe.drop(["eventID"], axis = 1)
     sample = dataframe.loc[:999]
@@ -215,12 +228,21 @@ def downloadCSV():
     }
     return response
 
+def getVarJSONs():
+    global a_var_id_json, m_var_id_json, a_var_name_json, m_var_name_json, a_var_descrip_json, m_var_descrip_json, a_var_dataset_json, m_var_dataset_json
+    a_var_id_json, m_var_id_json = variables.createVarIDs_JS()
+    a_var_name_json, m_var_name_json = variables.createVar_JS()
+    a_var_descrip_json, m_var_descrip_json = variables.createVarDescrip_JS()
+    a_var_dataset_json, m_var_dataset_json = variables.createVarDataset_JS()
+
+
 @app.route('/firstStepVarJSON/', methods=['POST', "GET"])
-def firstStepVarJSON():    
-    var_id_json = variables.createVarIDsJSON() 
-    var_name_json = variables.createVarJSON() 
-    var_descrip_json = variables.createVarDescripJSON() 
-    var_dataset_json = variables.createVarDatasetJSON()
+def firstStepVarJSON():
+    getVarJSONs() 
+    var_id_json = a_var_id_json
+    var_name_json = a_var_name_json
+    var_descrip_json = a_var_descrip_json
+    var_dataset_json = a_var_dataset_json
     response = {
         "message": "vars",
         "status": 200,
@@ -232,11 +254,11 @@ def firstStepVarJSON():
     return response
 
 @app.route('/secondStepVarJSON/', methods=['POST', "GET"])
-def secondStepVarJSON():    
-    var_id_json = variables.createVarIDsJSONSS() 
-    var_name_json = variables.createVarJSONSS() 
-    var_descrip_json = variables.createVarDescripJSONSS() 
-    var_dataset_json = variables.createVarDatasetJSONSS()
+def secondStepVarJSON():
+    var_id_json = m_var_id_json
+    var_name_json = m_var_name_json
+    var_descrip_json = m_var_descrip_json
+    var_dataset_json = m_var_dataset_json
     response = {
         "message": "vars",
         "status": 200,

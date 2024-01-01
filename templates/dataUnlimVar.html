@@ -58,10 +58,10 @@ The above copyright notice and this permission notice shall be included in all c
 				</nav>
 			</header>
 			<div id="main">
-				<div id="FirstStep" class = "container">
+				<div id="FirstStep">
 					<p>Please be patient. In a couple minutes, the box below will populate with a table of variables.</p>
 					<div id = "table_vars_first_step">
-						<div id="grid_vars_first_step" style="width:100%;height:500px;margin:20px;"></div>
+						<div id="grid_vars_first_step" style="width:600px;height:500px;margin:20px;"></div>
 					</div>
 				</div>	
 				<div id="SecondStep" style = "display:none" >
@@ -578,10 +578,10 @@ The above copyright notice and this permission notice shall be included in all c
 							</div>
 						</div>
 					</div> -->
-					<div id = "SecondStepVars" style = "display:none" class = "container">
+					<div id = "SecondStepVars" style = "display:none">
 						<p>Please be patient. In a couple minutes, the box below will populate with a table of variables.</p>
 						<div id = "table_vars_second_step">
-							<div id="grid_vars_second_step" style="width:100%;height:500px;margin:20px;"></div>
+							<div id="grid_vars_second_step" style="width:600px;height:500px;margin:20px;"></div>
 						</div>
 					</div>
 				</div>
@@ -595,7 +595,7 @@ The above copyright notice and this permission notice shall be included in all c
 						<button onclick="BackButtonOne();" id="backButtonToFirst">Back</button>
 					</div>
 					<div style="display:none" id="createButtonSecondStep">
-						<button onclick="AddColumns();" id="buttonSecond">Next</button>
+						<button onclick="AddColumns();" id="addColumns">Next</button>
 					</div>
 					<div style="display:none" id="backButton2">
 						<br>
@@ -612,6 +612,9 @@ The above copyright notice and this permission notice shall be included in all c
 					</div>
 				</div>		
 				<div id="table">
+					<div id="downloadMessage" style="display: none;padding-left:20px;">
+						Your downloaded dataset is now available in your downloads folder.
+					</div>
 					<div id = "myTable">
 						<div id="myGrid" style="width:600px;height:500px;"></div>
 					</div>
@@ -630,9 +633,6 @@ The above copyright notice and this permission notice shall be included in all c
 				</div>
 				<div id="loadingMessage" style="display: none;padding-left:20px;">
 					Please be patient. This process takes about ten seconds per variable selected. Do NOT spam the Continue button.
-				</div>
-				<div id="downloadMessage" style="display: none;padding-left:20px;">
-					Your downloaded dataset is now available in your downloads folder.
 				</div>
 			</div>
 			

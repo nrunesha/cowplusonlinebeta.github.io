@@ -101,6 +101,7 @@ def remove_items(test_list, item):
 def createNewDataList(files_chosen_raw, variables_chosen):
     files_chosen = []
     for name in files_chosen_raw:
+        print(name)
         f = os.path.join(directory_preloaded, name +'.csv')
         print(f)
         # checking if it is a file

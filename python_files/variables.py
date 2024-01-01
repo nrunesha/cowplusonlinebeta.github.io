@@ -6,8 +6,8 @@ import numpy as np
 
 import csv
 import os
-sys.path.append("../cowplusonlinebeta.github.io/")
-import cowplus
+# sys.path.append("../cowplusonlinebeta.github.io")
+# import cowplus
 
 # Get the current working directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -37,8 +37,10 @@ def remove_items(test_list, item):
     res = [i for i in test_list if i != item]
     return res
 
-def createVarIDsJSON():
-    dictionary = {}
+
+def createVarIDsDict():
+    all_dictionary = {}
+    secondstep_dictionary = {}
     i = 0
     for filename in os.listdir(directory_preloaded):
         f = os.path.join(directory_preloaded, filename)
@@ -55,7 +57,9 @@ def createVarIDsJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = temp_list[j]+filename[:-4]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
     for filename in os.listdir(directory_uploaded):
         f = os.path.join(directory_uploaded, filename)
@@ -72,14 +76,15 @@ def createVarIDsJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = temp_list[j]+filename[:-4]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
-
-    df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
-    return df.to_json(orient="values")
-
-def createVarJSON():
-    dictionary = {}
+    return all_dictionary, secondstep_dictionary
+    
+def createVarDict():
+    all_dictionary = {}
+    secondstep_dictionary = {}
     i = 0
     var_names = []
     var_types = []
@@ -106,7 +111,9 @@ def createVarJSON():
             elif(column_check(temp_file, dyadic_reqcol)):
                 for j in range(len(temp_list)):
                     var_types.append("Dyad Year")
-            dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+            all_dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
             var_names = []
             var_types = []
             var_pvus = []
@@ -133,17 +140,18 @@ def createVarJSON():
             elif(column_check(temp_file, dyadic_reqcol)):
                 for j in range(len(temp_list)):
                     var_types.append("Dyad Year")
-            dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+            all_dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
             var_names = []
             var_types = []
             var_pvus = []
             i = i+1
+    return all_dictionary, secondstep_dictionary
 
-    df = pd.DataFrame.from_dict(dictionary)
-    return df.to_json(orient="values")
-
-def createVarDescripJSON():
-    dictionary = {}
+def createVarDescripDict():
+    all_dictionary = {}
+    secondstep_dictionary = {}
     i = 0
     for filename in os.listdir(directory_preloaded):
         f = os.path.join(directory_preloaded, filename)
@@ -160,7 +168,9 @@ def createVarDescripJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = temp_list[j]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
     for filename in os.listdir(directory_uploaded):
         f = os.path.join(directory_uploaded, filename)
@@ -177,14 +187,17 @@ def createVarDescripJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = temp_list[j]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
-
+    return all_dictionary, secondstep_dictionary
     df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
     return df.to_json(orient="values")
 
-def createVarDatasetJSON():
-    dictionary = {}
+def createVarDatasetDict():
+    all_dictionary = {}
+    secondstep_dictionary = {}
     i = 0
     for filename in os.listdir(directory_preloaded):
         f = os.path.join(directory_preloaded, filename)
@@ -201,7 +214,9 @@ def createVarDatasetJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = filename[:-4]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
     for filename in os.listdir(directory_uploaded):
         f = os.path.join(directory_uploaded, filename)
@@ -218,161 +233,187 @@ def createVarDatasetJSON():
             temp_list = remove_items(temp_list, "year")
             for j in range(len(temp_list)):
                 temp_list[j] = filename[:-4]
-            dictionary[i] = {'vars' : temp_list}
+            all_dictionary[i] = {'vars' : temp_list}
+            if(column_check(temp_file, monadic_reqcol)):
+                secondstep_dictionary[i] = {'vars' : temp_list}
             i = i+1
-
+    return all_dictionary, secondstep_dictionary
     df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
     return df.to_json(orient="values")
 
-def createVarIDsJSONSS():
-    dictionary = {}
-    i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = temp_list[j]+filename[:-4]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
-    for filename in os.listdir(directory_uploaded):
-        f = os.path.join(directory_uploaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = temp_list[j]+filename[:-4]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
+def createVarIDs_JS():
+    a, m = createVarIDsDict()
+    adf = pd.DataFrame.from_dict(a, orient='index',columns=['vars'])
+    mdf = pd.DataFrame.from_dict(m, orient = 'index', columns = ['vars'])
+    return adf.to_json(orient="values"), mdf.to_json(orient="values")
 
-    df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
-    return df.to_json(orient="values")
+def createVar_JS():
+    a, m = createVarDict()
+    adf = pd.DataFrame.from_dict(a)
+    mdf = pd.DataFrame.from_dict(m)
+    return adf.to_json(orient="values"), mdf.to_json(orient="values")
 
-def createVarJSONSS():
-    dictionary = {}
-    i = 0
-    var_names = []
-    var_types = []
-    var_pvus = []
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    var_names.append(temp_list[j])
-                    var_pvus.append("Preloaded Datasets")
-                    var_types.append("Country Year")
-                dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
-                var_names = []
-                var_types = []
-                var_pvus = []
-                i = i+1
-    for filename in os.listdir(directory_uploaded):
-        f = os.path.join(directory_uploaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    var_names.append(temp_list[j])
-                    var_pvus.append("Uploaded Datasets")
-                    var_types.append("Country Year")
-                dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
-                var_names = []
-                var_types = []
-                var_pvus = []
-                i = i+1
+def createVarDescrip_JS():
+    a, m = createVarDescripDict()
+    adf = pd.DataFrame.from_dict(a, orient='index',columns=['vars'])
+    mdf = pd.DataFrame.from_dict(m, orient = 'index', columns = ['vars'])
+    return adf.to_json(orient="values"), mdf.to_json(orient="values")
 
-    df = pd.DataFrame.from_dict(dictionary)
-    return df.to_json(orient="values")
+def createVarDataset_JS():
+    a, m = createVarDatasetDict()
+    adf = pd.DataFrame.from_dict(a, orient='index',columns=['vars'])
+    mdf = pd.DataFrame.from_dict(m, orient = 'index', columns = ['vars'])
+    return adf.to_json(orient="values"), mdf.to_json(orient="values")
+# def createVarIDsJSONSS():
+#     dictionary = {}
+#     i = 0
+#     for filename in os.listdir(directory_preloaded):
+#         f = os.path.join(directory_preloaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = temp_list[j]+filename[:-4]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
+#     for filename in os.listdir(directory_uploaded):
+#         f = os.path.join(directory_uploaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = temp_list[j]+filename[:-4]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
+#     df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
+#     return df.to_json(orient="values")
 
-def createVarDescripJSONSS():
-    dictionary = {}
-    i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = temp_list[j]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
-    for filename in os.listdir(directory_uploaded):
-        f = os.path.join(directory_uploaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = temp_list[j]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
+# def createVarJSONSS():
+#     dictionary = {}
+#     i = 0
+#     var_names = []
+#     var_types = []
+#     var_pvus = []
+#     for filename in os.listdir(directory_preloaded):
+#         f = os.path.join(directory_preloaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     var_names.append(temp_list[j])
+#                     var_pvus.append("Preloaded Datasets")
+#                     var_types.append("Country Year")
+#                 dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+#                 var_names = []
+#                 var_types = []
+#                 var_pvus = []
+#                 i = i+1
+#     for filename in os.listdir(directory_uploaded):
+#         f = os.path.join(directory_uploaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     var_names.append(temp_list[j])
+#                     var_pvus.append("Uploaded Datasets")
+#                     var_types.append("Country Year")
+#                 dictionary[i] = {'vars_name' : var_names, 'vars_type' : var_types, 'vars_pvu' : var_pvus}
+#                 var_names = []
+#                 var_types = []
+#                 var_pvus = []
+#                 i = i+1
 
-    df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
-    return df.to_json(orient="values")
+#     df = pd.DataFrame.from_dict(dictionary)
+#     return df.to_json(orient="values")
 
-def createVarDatasetJSONSS():
-    dictionary = {}
-    i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = filename[:-4]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
-    for filename in os.listdir(directory_uploaded):
-        f = os.path.join(directory_uploaded, filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
-            if(column_check(temp_file, monadic_reqcol)):
-                temp_list = temp_file.columns.tolist().copy()
-                temp_list = remove_items(temp_list, "stateabb")
-                temp_list = remove_items(temp_list, "ccode")
-                temp_list = remove_items(temp_list, "year")
-                for j in range(len(temp_list)):
-                    temp_list[j] = filename[:-4]
-                dictionary[i] = {'vars' : temp_list}
-                i = i+1
+# def createVarDescripJSONSS():
+#     dictionary = {}
+#     i = 0
+#     for filename in os.listdir(directory_preloaded):
+#         f = os.path.join(directory_preloaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = temp_list[j]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
+#     for filename in os.listdir(directory_uploaded):
+#         f = os.path.join(directory_uploaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = temp_list[j]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
 
-    df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
-    return df.to_json(orient="values")
+#     df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
+#     return df.to_json(orient="values")
+
+# def createVarDatasetJSONSS():
+#     dictionary = {}
+#     i = 0
+#     for filename in os.listdir(directory_preloaded):
+#         f = os.path.join(directory_preloaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = filename[:-4]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
+#     for filename in os.listdir(directory_uploaded):
+#         f = os.path.join(directory_uploaded, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             temp_file = pd.read_csv(f)
+#             if(column_check(temp_file, monadic_reqcol)):
+#                 temp_list = temp_file.columns.tolist().copy()
+#                 temp_list = remove_items(temp_list, "stateabb")
+#                 temp_list = remove_items(temp_list, "ccode")
+#                 temp_list = remove_items(temp_list, "year")
+#                 for j in range(len(temp_list)):
+#                     temp_list[j] = filename[:-4]
+#                 dictionary[i] = {'vars' : temp_list}
+#                 i = i+1
+
+#     df = pd.DataFrame.from_dict(dictionary, orient='index',columns=['vars'])
+#     return df
+# #.to_json(orient="values")
+# print(createVarJSONSS())
