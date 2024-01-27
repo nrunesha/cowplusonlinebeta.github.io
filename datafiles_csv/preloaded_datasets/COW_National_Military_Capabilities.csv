@@ -1,5 +1,5 @@
 stateabb,ccode,year,milex,milper,irst,pec,tpop,upop,cinc,version
-,,,"military expenditure in 100,000s",military personnel in 1000s,iron and steel production,energy consumption,total population,urban population,composite index of national capability (scale: 0-1),
+"","","","military expenditure in 100,000s",military personnel in 1000s,iron and steel production,energy consumption,total population,urban population,composite index of national capability (scale: 0-1),
 USA,2,1816,3823,17,80,254,8659,101,0.0396975,2011
 USA,2,1817,2466,15,80,277,8899,106,0.0358166,2011
 USA,2,1818,1910,14,90,302,9139,112,0.0361265,2011

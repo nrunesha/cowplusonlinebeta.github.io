@@ -46,7 +46,7 @@ def createVarIDsDict():
         f = os.path.join(directory_preloaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -65,7 +65,7 @@ def createVarIDsDict():
         f = os.path.join(directory_uploaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -93,7 +93,7 @@ def createVarDict():
         f = os.path.join(directory_preloaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -122,7 +122,7 @@ def createVarDict():
         f = os.path.join(directory_uploaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -157,7 +157,7 @@ def createVarDescripDict():
         f = os.path.join(directory_preloaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.iloc[0].tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -176,7 +176,7 @@ def createVarDescripDict():
         f = os.path.join(directory_uploaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.iloc[0].tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -203,7 +203,7 @@ def createVarDatasetDict():
         f = os.path.join(directory_preloaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
@@ -222,7 +222,7 @@ def createVarDatasetDict():
         f = os.path.join(directory_uploaded, filename)
         # checking if it is a file
         if os.path.isfile(f):
-            temp_file = pd.read_csv(f)
+            temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.columns.tolist().copy()
             temp_list = remove_items(temp_list, "stateabb")
             temp_list = remove_items(temp_list, "stateabb1")
