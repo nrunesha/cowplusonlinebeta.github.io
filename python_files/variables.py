@@ -20,7 +20,7 @@ sys.path.append(os.getcwd())
 # import cowplus
 
 # Change to the "datafiles_csv" folder
-directory_preloaded = 'C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv\preloaded_datasets'
+directory_preloaded = 'C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv\var_descriptions'
 username = "test_profile"
 directory_uploaded = os.path.join("C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv", username)
 
