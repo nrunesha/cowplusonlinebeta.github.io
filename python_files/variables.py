@@ -186,8 +186,6 @@ def createVarDescripDict():
             temp_list = remove_items(temp_list, "ccode2")
             temp_list = remove_items(temp_list, "ccode")
             temp_list = remove_items(temp_list, "year")
-            for j in range(len(temp_list)):
-                temp_list[j] = temp_list[j]
             all_dictionary[i] = {'vars' : temp_list}
             if(column_check(temp_file, monadic_reqcol)):
                 secondstep_dictionary[i] = {'vars' : temp_list}
