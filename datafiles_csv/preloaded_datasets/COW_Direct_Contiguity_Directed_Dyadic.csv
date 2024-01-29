@@ -1,9 +1,4 @@
 dyad,ccode1,stateabb1,ccode2,stateabb2,year,conttype
-"","","","","","","1: land contiguity
-2: water contiguity by 12 miles
-3: water contiguity by 24 miles
-4: water contiguity by 150 miles
-5: water contiguity by 400 miles"
 2020,2,USA,20,CAN,1920,1
 2020,2,USA,20,CAN,1921,1
 2020,2,USA,20,CAN,1922,1
