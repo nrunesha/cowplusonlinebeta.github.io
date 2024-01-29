@@ -168,7 +168,6 @@ def createVarDescripDict():
             temp_list = remove_items(temp_list, "year")
             temp_list = [x for x in temp_list if str(x) != 'nan']
             for j in range(len(temp_list)):
-                print(temp_list)
                 temp_list[j] = temp_list[j]
             all_dictionary[i] = {'vars' : temp_list}
             if(column_check(temp_file, monadic_reqcol)):
