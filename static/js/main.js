@@ -31,7 +31,7 @@ async function VarTable_S1(){
 	var columns = [
 		checkboxSelector.getColumnDefinition(),
 		{id: "var_name", name: "var_name", field: "var_name", toolTip: "var_name", width: 100},
-		{id: "var_description", name: "var_description", field: "var_description", toolTip: "var_description", width: 300}
+		{id: "var_description", name: "var_description", field: "var_description", toolTip: "var_description", width: 1000}
 	];
 
 	//displayColumns.unshift("id");
@@ -41,7 +41,8 @@ async function VarTable_S1(){
         explicitInitialization: true,
         editable: false,
 		autosizeColsMode: true,
-		fullWidthRows: true
+		fullWidthRows: true,
+		forceFitColumns: true
 	};
 	
 	function groupByPVUTypeDataset() {

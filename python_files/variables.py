@@ -20,7 +20,7 @@ sys.path.append(os.getcwd())
 # import cowplus
 
 # Change to the "datafiles_csv" folder
-directory_preloaded = 'C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv\var_descriptions'
+directory_preloaded = 'C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv\descriptions'
 username = "test_profile"
 directory_uploaded = os.path.join("C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv", username)
 
@@ -166,7 +166,9 @@ def createVarDescripDict():
             temp_list = remove_items(temp_list, "ccode2")
             temp_list = remove_items(temp_list, "ccode")
             temp_list = remove_items(temp_list, "year")
+            temp_list = [x for x in temp_list if str(x) != 'nan']
             for j in range(len(temp_list)):
+                print(temp_list)
                 temp_list[j] = temp_list[j]
             all_dictionary[i] = {'vars' : temp_list}
             if(column_check(temp_file, monadic_reqcol)):
@@ -178,7 +180,7 @@ def createVarDescripDict():
         if os.path.isfile(f):
             temp_file = pd.read_csv(f, sep=",")
             temp_list = temp_file.iloc[0].tolist().copy()
-            temp_list = remove_items(temp_list, "stateabb")
+            temp_list = remove_items(temp_list, "nan")
             temp_list = remove_items(temp_list, "stateabb1")
             temp_list = remove_items(temp_list, "stateabb2")
             temp_list = remove_items(temp_list, "ccode1")
