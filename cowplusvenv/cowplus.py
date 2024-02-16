@@ -13,7 +13,7 @@ from flask_bcrypt import Bcrypt
 from email.message import EmailMessage
 import ssl
 import smtplib
-
+import csv
 import pandas as pd
 import numpy as np
 import logging
@@ -21,16 +21,15 @@ from flask import request
 from functools import wraps
 import sys
 import os
-import random
-import re
 
+from datetime import date
 UPLOAD_FOLDER = 'C:\\Users\\yuan\\Desktop\\cowplus\\cowplusvenv\\datafiles_csv\\userupload'
+current_dir = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
+python_files_dir = os.path.join(current_dir, 'python_files')
+upload_files_dir = os.path.join(current_dir, 'datafiles_csv')
 
-# local path
-sys.path.append('C:\\Users\\yuan\\Desktop\\cowplus\\cowplusvenv\\python_files')
-
-import data_merger
+os.chdir("C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv")
 
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__, template_folder='templates')
@@ -40,6 +39,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=60)
+import random
+import re
+
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -49,7 +52,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 bcrypt = Bcrypt(app)
-
 
 class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
@@ -67,6 +69,9 @@ class users(db.Model):
         self.is_admin = is_admin
         self.is_confirmed = is_confirmed
         self.confirmed_on = confirmed_on
+
+
+
 vc = []
 vc2 = []
 dc = []
@@ -75,6 +80,15 @@ dcss = []
 
 email_sender = "cowplusnoreply@gmail.com"
 email_password = "rkjhjkvetassfwkx"
+
+all_d_files = []
+all_m_files = []
+
+# local path
+sys.path.append(python_files_dir)
+import variables
+import upload
+import data_merger
 
 # -- routes -- #
 
@@ -203,10 +217,60 @@ def goto_download():
 def view():
     ip_address = request.remote_addr
     logging.info(f"/view request from {ip_address}")
-    if "is_admin" in session:
-        if session["is_admin"] == True:
+    if "is_admin" in session and session["is_admin"]:
             return render_template("view.html", values=users.query.all())
     return '''<p>Access denied</p>'''
+
+@app.route('/verifyFunction/', methods=['POST', 'GET'])  
+def verifyFunction():
+    global files
+    global m_files, d_files, g_files, b_files
+    global all_m_files, all_d_files
+    verified = False
+    # Get the list of files from webpage
+    files = request.files.getlist("file")
+    print(files)
+    os.chdir("C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv\\datafiles_csv")
+    # Iterate for each file in the files List, and Save them
+    for file in files:
+        file.save(file.filename)
+    m_files, d_files, g_files, b_files = upload.verify_files(files)
+    if(len(b_files) == 0):
+        verified = True
+    print(m_files)
+    print(d_files)
+    print(g_files)
+    print(b_files)
+    for f in g_files:
+        os.remove(f)
+    for f in b_files:
+        os.remove(f)
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "good_files": g_files,
+        "bad_files": b_files,
+        "verification": verified
+    }
+    return response
+
+@app.route('/uploadFunction', methods = ['POST', 'GET'])
+def uploadFunction():
+    global all_m_files, all_d_files
+    print(m_files)
+    print(d_files)
+    for m in m_files:
+        all_m_files.append(m)
+    for d in d_files:
+        all_d_files.append(d)
+    print(all_m_files)
+    print(all_d_files)
+    files = request.files.getlist("file")
+    username = session["user"]
+    os.chdir(os.path.join("C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv\\datafiles_csv", username))
+    for file in files:
+        file.save(file.filename)
+    return redirect('/upload')
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -275,7 +339,6 @@ def signup():
 
         else:
             if user and em and pwd:
-                
                 if ("@" in em) and ("." in em):
                     flash("User created")
                     hashed_pwd = bcrypt.generate_password_hash(pwd).decode('utf-8')
@@ -285,6 +348,7 @@ def signup():
                     session["user"] = user
                     session["email"] = em
                     session["verified"] = False
+                    os.mkdir(os.path.join("C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv\\datafiles_csv\\", session["user"]))
                     return redirect(url_for("verify"))
                 else:
                     flash("Enter a valid email")
@@ -410,6 +474,21 @@ def processdcss():
 def create_df():
     global dataframe
     global dataframe2
+
+    global dc
+    global vc
+    i = 0
+    while i < len(dc):
+        if dc[i] is None:
+            dc = dc[:i] + dc[i+1:]
+        else:
+            i += 1
+    i = 0
+    while i < len(vc):
+        if vc[i] is None:
+            vc = vc[:i] + vc[i+1:]
+        else:
+            i += 1
     
     dataframe = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
     dataframe = dataframe.drop(["eventID"], axis = 1)
@@ -467,7 +546,10 @@ def goto_displayData():
 
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
-    csv = dataframe2.to_csv(index = False)
+    today = date.today()
+
+    csv = dataframe2.to_csv("~/Downloads/" + "cowplus_online_"+str(today)+".csv", index = False)
+    print("csv converted")
     response = {
         "message": "data processing successful",
         "status": 200,
