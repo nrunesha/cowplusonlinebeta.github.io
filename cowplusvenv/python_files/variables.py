@@ -7,6 +7,7 @@ import numpy as np
 import csv
 import os
 # sys.path.append("../cowplusonlinebeta.github.io")
+# import cowplus
 
 # Get the current working directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,9 +20,9 @@ sys.path.append(os.getcwd())
 # import cowplus
 
 # Change to the "datafiles_csv" folder
-directory_preloaded = 'C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv\\datafiles_csv\\descriptions'
+directory_descriptions = 'C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv\descriptions'
 username = "test_profile"
-directory_uploaded = os.path.join("C:/Users/yuan/Desktop/cowplusNPM new/cowplusvenv/datafiles_csv", username)
+directory_uploaded = os.path.join("C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv", username)
 
 monadic_reqcol = ["stateabb", "ccode", "year"]
 dyadic_reqcol = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
@@ -41,8 +42,8 @@ def createVarIDsDict():
     all_dictionary = {}
     secondstep_dictionary = {}
     i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
+    for filename in os.listdir(directory_descriptions):
+        f = os.path.join(directory_descriptions, filename)
         # checking if it is a file
         if os.path.isfile(f):
             temp_file = pd.read_csv(f, sep=",")
@@ -88,8 +89,8 @@ def createVarDict():
     var_names = []
     var_types = []
     var_pvus = []
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
+    for filename in os.listdir(directory_descriptions):
+        f = os.path.join(directory_descriptions, filename)
         # checking if it is a file
         if os.path.isfile(f):
             temp_file = pd.read_csv(f, sep=",")
@@ -152,8 +153,8 @@ def createVarDescripDict():
     all_dictionary = {}
     secondstep_dictionary = {}
     i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
+    for filename in os.listdir(directory_descriptions):
+        f = os.path.join(directory_descriptions, filename)
         # checking if it is a file
         if os.path.isfile(f):
             temp_file = pd.read_csv(f, sep=",")
@@ -197,8 +198,8 @@ def createVarDatasetDict():
     all_dictionary = {}
     secondstep_dictionary = {}
     i = 0
-    for filename in os.listdir(directory_preloaded):
-        f = os.path.join(directory_preloaded, filename)
+    for filename in os.listdir(directory_descriptions):
+        f = os.path.join(directory_descriptions, filename)
         # checking if it is a file
         if os.path.isfile(f):
             temp_file = pd.read_csv(f, sep=",")

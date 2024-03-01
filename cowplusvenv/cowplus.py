@@ -23,13 +23,13 @@ import sys
 import os
 
 from datetime import date
-UPLOAD_FOLDER = 'C:\\Users\\yuan\\Desktop\\cowplus\\cowplusvenv\\datafiles_csv\\userupload'
+UPLOAD_FOLDER = 'C:\\cowplus_online\\cowplusonlinebeta.github.io\\cowplusvenv\\datafiles_csv\\test_profile'
 current_dir = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
 python_files_dir = os.path.join(current_dir, 'python_files')
 upload_files_dir = os.path.join(current_dir, 'datafiles_csv')
 
-os.chdir("C:\\Users\\yuan\\Desktop\\cowplusNPM new\\cowplusvenv")
+os.chdir("C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv")
 
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__, template_folder='templates')
@@ -428,6 +428,46 @@ def logout():
     flash("Logged out successfully.")
     return redirect(url_for("login"))
 
+def getVarJSONs():
+    global a_var_id_json, m_var_id_json, a_var_name_json, m_var_name_json, a_var_descrip_json, m_var_descrip_json, a_var_dataset_json, m_var_dataset_json
+    a_var_id_json, m_var_id_json = variables.createVarIDs_JS()
+    a_var_name_json, m_var_name_json = variables.createVar_JS()
+    a_var_descrip_json, m_var_descrip_json = variables.createVarDescrip_JS()
+    a_var_dataset_json, m_var_dataset_json = variables.createVarDataset_JS()
+
+
+@app.route('/firstStepVarJSON/', methods=['POST', "GET"])
+def firstStepVarJSON():
+    getVarJSONs() 
+    var_id_json = a_var_id_json
+    var_name_json = a_var_name_json
+    var_descrip_json = a_var_descrip_json
+    var_dataset_json = a_var_dataset_json
+    response = {
+        "message": "vars",
+        "status": 200,
+        "name_json": var_name_json,
+        "descrip_json": var_descrip_json,
+        "var_id_json": var_id_json,
+        "dataset_json": var_dataset_json
+    }
+    return response
+
+@app.route('/secondStepVarJSON/', methods=['POST', "GET"])
+def secondStepVarJSON():
+    var_id_json = m_var_id_json
+    var_name_json = m_var_name_json
+    var_descrip_json = m_var_descrip_json
+    var_dataset_json = m_var_dataset_json
+    response = {
+        "message": "vars",
+        "status": 200,
+        "name_json": var_name_json,
+        "descrip_json": var_descrip_json,
+        "var_id_json": var_id_json,
+        "dataset_json": var_dataset_json
+    }
+    return response
 # variableChooser()
 @app.route('/variableChooser', methods=['POST'])
 def processvc():

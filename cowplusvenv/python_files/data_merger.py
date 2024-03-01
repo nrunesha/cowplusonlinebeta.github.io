@@ -5,10 +5,10 @@ import numpy as np
 import csv
 import os
 
-datafiles_csv_dir = "C:\\Users\\yuan\\Desktop\\cowplus\\cowplusvenv\\datafiles_csv"
+datafiles_csv_dir = "C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv\preloaded_datasets"
 
 diplo_ex = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Diplomatic_Exchange_Dyadic.csv'))
-alliance = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Alliance__2022_Non_Directed_Dyadic.csv'))
+alliance = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Alliance_2022_Non_Directed_Dyadic.csv'))
 direct_contiguity = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Direct_Contiguity_Directed_Dyadic.csv'))
 igo = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_IGO_2022_Non_Directed_Dyadic.csv'))
 major_powers = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Major_Powers_2022.csv'))
