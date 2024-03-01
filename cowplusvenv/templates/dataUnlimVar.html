@@ -20,12 +20,22 @@ The above copyright notice and this permission notice shall be included in all c
 		<!-- <link rel="stylesheet" href="SlickGrid-2.4.44/css/smoothness/jquery-ui.css" type="text/css"/> -->
 		<link rel="canonical" href= "https://www.geeksforgeeks.org/creating-progress-bar-using-javascript/" />
 		<link rel="canonical" href= "https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm" />
-		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css" rel="stylesheet">
+
 		<link rel="stylesheet" href="{{ url_for('static', filename='SlickGrid-2.4.44/examples/examples.css') }}" type="text/css"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename='SlickGrid-2.4.44/css/plugins-common.css') }}" type="text/css"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename='SlickGrid-2.4.44/css/plugins-gdoc-style.css') }}" type="text/css"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
+		<style>
+			.centered-layout {
+				margin: 0 auto;
+				max-width: 1200px; /* Adjust this value based on your preference */
+			}
+			.header-center {
+				text-align: center;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
 	<body>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -45,21 +55,49 @@ The above copyright notice and this permission notice shall be included in all c
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/slick.groupitemmetadataprovider.js') }}"></script>
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/controls/slick.pager.js') }}"></script>
 		<script src="{{ url_for('static', filename='SlickGrid-2.4.44/controls/slick.columnpicker.js') }}"></script>
-		<div id="page-container">
-			<header style="padding:-20px">
-				<h1 class="headerone">COW Plus Online (Beta-Version)</h1>
-				<nav>
-					<div class="topnav">
-						<a href="index.html">Home</a>
-						<a class = "active" href="dataUnlimVar.html">Data</a>
-						<a href="download.html">Downloads</a>
-						<a href="upload.html">Upload</a>
-					</div>	
+		<div id="page-container" class="centered-layout">
+			<header>
+				<h1 class="header-center">COW Plus Online (Beta)</h1>
+				<br>
+				<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+					<div class="container-fluid">
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+				
+						<div class="collapse navbar-collapse" id="navbarColor04">
+							<ul class="navbar-nav me-auto">
+								<li class="nav-item">
+									<a class="nav-link active" href="index.html">Home</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="dataUnlimVar.html">Data</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="download.html">Downloads</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="upload">Upload</a>
+								</li>
+							</ul>
+							<div class="d-flex justify-content-end">
+								<ul class="navbar-nav">
+									<li class="nav-item">
+										{% if 'user' in session %}
+											<a class="nav-link" href="{{ url_for('logout') }}">Logged in as {{ session['user'] }} (Logout)</a>
+										{% else %}
+											<a class="nav-link" href="{{ url_for('login') }}">Login</a>
+										{% endif %}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</nav>
+				
 			</header>
 			<div id="main">
 				<div id="FirstStep">
-					<p>Please be patient. In a couple minutes, the box below will populate with a table of variables.</p>
 					<div id = "table_vars_first_step">
 						<div id="grid_vars_first_step" style="width:600px;height:500px;margin:20px;"></div>
 					</div>
@@ -72,514 +110,7 @@ The above copyright notice and this permission notice shall be included in all c
 						<input type="radio" id="noChooseCY" name="qChooseCY" value="noChooseCY" onclick="displayChooseCYData()">
 							<label for="noChooseCY">No</label>
 					</div>
-					<!-- <div id = "SecondStepData" style = "display: none" class = "container">
-						<div id = "Preloaded_Data_SS" class = "column">
-							<div style="padding-left:10px">
-								<h4 style="font-size:20px">
-									Preloaded Datasets:
-								</h4>
-							</div>
-							<div id="chooseCountryYearData" style="padding-left:10px">
-								<div style="margin-bottom:0px">
-									<input type="checkbox" id="NMC_5_0SecondStep" name="SecondStepDataSets" value="NMC_5_0" onclick="toggleVariableTableDivSecondStep();">
-									<label for="NMC_5_0SecondStep">National Military Capabilities</label>
-								</div>
-								<div style="margin-bottom:0px">
-									<input type="checkbox" id="WRP_NATSecondStep" name="SecondStepDataSets" value="WRP_NAT" onclick="toggleVariableTableDivSecondStep();">
-									<label for="WRP_NATSecondStep">World Religions Data</label>
-								</div>
-								<div style="margin-bottom:0px">
-									<input type="checkbox" id="Major_PowersSecondStep" name="SecondStepDataSets" value="Major_Powers" onclick="toggleVariableTableDivSecondStep();">
-									<label for="Major_PowersSecondStep">COW States and Major Powers</label>
-								</div>
-							</div>
-							<div id="variableTablesSecondStep" class ="variableTables">
-								<div id="divNMC_5_0_TableSecondStep" class = "variableTableSS">
-									<table>
-										<tr>
-											<th></th>
-											<th>Name</th>
-											<th>Description</th>
-										</tr>
-										<tr>
-											<td>
-												<input type="checkbox" id="milex_NMC_5_0SecondStep" name="milex_NMC_5_0SecondStep" value="milex_NMC_5_0SecondStep">
-											</td>
-											<td>milex</td>
-											<td>military expenditure in 100,000s</td>
-										</tr>
-										<tr>
-											<td>				
-												<input type="checkbox" id="milper_NMC_5_0SecondStep" name="milper_NMC_5_0SecondStep" value="milper_NMC_5_0SecondStep">
-											</td>
-											<td>milper</td>
-											<td>military personnel in 1000s</td>
-										</tr>
-										<tr>
-											<td>
-												<input type="checkbox" id="irst_NMC_5_0SecondStep" name="irst_NMC_5_0SecondStep" value="irst_NMC_5_0SecondStep">
-											</td>
-											<td>irst</td>
-											<td>iron and steel production</td>
-										</tr>
-										<tr>
-											<td>
-												<input type="checkbox" id="pec_NMC_5_0SecondStep" name="pec_NMC_5_0SecondStep" value="pec_NMC_5_0SecondStep">
-											</td>
-											<td>pec</td>
-											<td>energy consumption</td>
-										</tr>
-										<tr>
-											<td>
-												<input type="checkbox" id="tpop_NMC_5_0SecondStep" name="tpop_NMC_5_0SecondStep" value="tpop_NMC_5_0SecondStep">
-											</td>
-											<td>tpop</td>
-											<td>total population</td>
-										</tr>
-										<tr>
-											<td>
-												<input type="checkbox" id="upop_NMC_5_0SecondStep" name="upop_NMC_5_0SecondStep" value="upop_NMC_5_0SecondStep">
-											</td>
-											<td>upop</td>
-											<td>urban population</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="cinc_NMC_5_0SecondStep" name="cinc_NMC_5_0SecondStep" value="cinc_NMC_5_0SecondStep"></td>
-											<td>cinc</td>
-											<td>composite index of national capability (scale: 0-1)</td>
-										</tr>
-									</table>
-								</div>
-								<div id="divWRP_NAT_TableSecondStep" class = "variableTableSS">
-									<table>
-										<tr>
-											<th></th>
-											<th>Name</th>
-											<th>Description</th>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstprot_WRP_NATSecondStep" name="chrstprot_WRP_NATSecondStep" value="chrstprot_WRP_NATSecondStep"></td>
-											<td>chrstprot</td>
-											<td>Christianity: Protestant - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstcat_WRP_NATSecondStep" name="chrstcat_WRP_NATSecondStep" value="chrstcat_WRP_NATSecondStep"></td>
-											<td>chrstcat</td>
-											<td>Christianity: Roman Catholics - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstorth_WRP_NATSecondStep" name="chrstorth_WRP_NATSecondStep" value="chrstorth_WRP_NATSecondStep"></td>
-											<td>chrstorth</td>
-											<td>Christianity: Eastern Orthodox - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstang_WRP_NATSecondStep" name="chrstang_WRP_NATSecondStep" value="chrstang_WRP_NATSecondStep"></td>
-											<td>chrstang</td>
-											<td>Christianity: Anglican - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstothr_WRP_NATSecondStep" name="chrstothr_WRP_NATSecondStep" value="chrstothr_WRP_NATSecondStep"></td>
-											<td>chrstothr</td>
-											<td>Christianity: Others - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstgen_WRP_NATSecondStep" name="chrstgen_WRP_NATSecondStep" value="chrstgen_WRP_NATSecondStep"></td>
-											<td>chrstgen</td>
-											<td>Christianity - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judorth_WRP_NATSecondStep" name="judorth_WRP_NATSecondStep" value="judorth_WRP_NATSecondStep"></td>
-											<td>judorth</td>
-											<td>Judaism: Orthodox - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judcons_WRP_NATSecondStep" name="judcons_WRP_NATSecondStep" value="judcons_WRP_NATSecondStep"></td>
-											<td>judcons</td>
-											<td>Judaism: Conservatives - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judref_WRP_NATSecondStep" name="judref_WRP_NATSecondStep" value="judref_WRP_NATSecondStep"></td>
-											<td>judref</td>
-											<td>Judaism: Reform - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judothr_WRP_NATSecondStep" name="judothr_WRP_NATSecondStep" value="judothr_WRP_NATSecondStep"></td>
-											<td>judothr</td>
-											<td>Judaism: Others - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judgen_WRP_NATSecondStep" name="judgen_WRP_NATSecondStep" value="judgen_WRP_NATSecondStep"></td>
-											<td>judgen</td>
-											<td>Judaism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmsun_WRP_NATSecondStep" name="islmsun_WRP_NATSecondStep" value="islmsun_WRP_NATSecondStep"></td>
-											<td>islmsun</td>
-											<td>Islam: Sunni - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmshi_WRP_NATSecondStep" name="islmshi_WRP_NATSecondStep" value="islmshi_WRP_NATSecondStep"></td>
-											<td>islmshi</td>
-											<td>Islam: Shi'a - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmibd_WRP_NATSecondStep" name="islmibd_WRP_NATSecondStep" value="islmibd_WRP_NATSecondStep"></td>
-											<td>islmibd</td>
-											<td>Islam: Ibadhi - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmnat_WRP_NATSecondStep" name="islmnat_WRP_NATSecondStep" value="islmnat_WRP_NATSecondStep"></td>
-											<td>islmnat</td>
-											<td>Islam: Nation of Islam - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmalw_WRP_NATSecondStep" name="islmalw_WRP_NATSecondStep" value="islmalw_WRP_NATSecondStep"></td>
-											<td>islmalw</td>
-											<td>Islam: Alawite - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmahm_WRP_NATSecondStep" name="islmahm_WRP_NATSecondStep" value="islmahm_WRP_NATSecondStep"></td>
-											<td>islmahm</td>
-											<td>Islam: Almadiyya - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmothr_WRP_NATSecondStep" name="islmothr_WRP_NATSecondStep" value="islmothr_WRP_NATSecondStep"></td>
-											<td>islmothr</td>
-											<td>Islam: Others - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmgen_WRP_NATSecondStep" name="islmgen_WRP_NATSecondStep" value="islmgen_WRP_NATSecondStep"></td>
-											<td>islmgen</td>
-											<td>Islam - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budmah_WRP_NATSecondStep" name="budmah_WRP_NATSecondStep" value="budmah_WRP_NATSecondStep"></td>
-											<td>budmah</td>
-											<td>Buddhism: Mahayana - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budthr_WRP_NATSecondStep" name="budthr_WRP_NATSecondStep" value="budthr_WRP_NATSecondStep"></td>
-											<td>budthr</td>
-											<td>Buddhism: Theravada - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budothr_WRP_NATSecondStep" name="budothr_WRP_NATSecondStep" value="budothr_WRP_NATSecondStep"></td>
-											<td>budothr</td>
-											<td>Buddhism: Others - number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budgen_WRP_NATSecondStep" name="budgen_WRP_NATSecondStep" value="budgen_WRP_NATSecondStep"></td>
-											<td>budgen</td>
-											<td>Buddhism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="zorogen_WRP_NATSecondStep" name="zorogen_WRP_NATSecondStep" value="zorogen_WRP_NATSecondStep"></td>
-											<td>zorogen</td>
-											<td>Zoroastrianism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="hindgen_WRP_NATSecondStep" name="hindgen_WRP_NATSecondStep" value="hindgen_WRP_NATSecondStep"></td>
-											<td>hindgen</td>
-											<td>Hinduism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="sikhgen_WRP_NATSecondStep" name="sikhgen_WRP_NATSecondStep" value="sikhgen_WRP_NATSecondStep"></td>
-											<td>sikhgen</td>
-											<td>Sikhism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="shntgen_WRP_NATSecondStep" name="shntgen_WRP_NATSecondStep" value="shntgen_WRP_NATSecondStep"></td>
-											<td>shntgen</td>
-											<td>Shinto - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="bahgen_WRP_NATSecondStep" name="bahgen_WRP_NATSecondStep" value="bahgen_WRP_NATSecondStep"></td>
-											<td>bahgen</td>
-											<td>Baha'i - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="taogen_WRP_NATSecondStep" name="taogen_WRP_NATSecondStep" value="taogen_WRP_NATSecondStep"></td>
-											<td>taogen</td>
-											<td>Taoism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="jaingen_WRP_NATSecondStep" name="jaingen_WRP_NATSecondStep" value="jaingen_WRP_NATSecondStep"></td>
-											<td>jaingen</td>
-											<td>Jainism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="confgen_WRP_NATSecondStep" name="confgen_WRP_NATSecondStep" value="confgen_WRP_NATSecondStep"></td>
-											<td>confgen</td>
-											<td>Confucianism - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="syncgen_WRP_NATSecondStep" name="syncgen_WRP_NATSecondStep" value="syncgen_WRP_NATSecondStep"></td>
-											<td>syncgen</td>
-											<td>Syncretic Religions - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="anmgen_WRP_NATSecondStep" name="anmgen_WRP_NATSecondStep" value="anmgen_WRP_NATSecondStep"></td>
-											<td>anmgen</td>
-											<td>Animist - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="nonrelig_WRP_NATSecondStep" name="nonrelig_WRP_NATSecondStep" value="nonrelig_WRP_NATSecondStep"></td>
-											<td>nonrelig</td>
-											<td>Non-relgious - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="othrgen_WRP_NATSecondStep" name="othrgen_WRP_NATSecondStep" value="othrgen_WRP_NATSecondStep"></td>
-											<td>othrgen</td>
-											<td>Other Religions - total number of adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="sumrelig_WRP_NATSecondStep" name="sumrelig_WRP_NATSecondStep" value="sumrelig_WRP_NATSecondStep"></td>
-											<td>sumrelig</td>
-											<td>total number of religious adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="pop_WRP_NATSecondStep" name="pop_WRP_NATSecondStep" value="pop_WRP_NATSecondStep"></td>
-											<td>pop</td>
-											<td>total population</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstprotpct_WRP_NATSecondStep" name="chrstprotpct_WRP_NATSecondStep" value="chrstprotpct_WRP_NATSecondStep"></td>
-											<td>chrstprotpct</td>
-											<td>Christianity: Protestant - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstcatpct_WRP_NATSecondStep" name="chrstcatpct_WRP_NATSecondStep" value="chrstcatpct_WRP_NATSecondStep"></td>
-											<td>chrstcatpct</td>
-											<td>Christianity: Roman Catholics - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstorthpct_WRP_NATSecondStep" name="chrstorthpct_WRP_NATSecondStep" value="chrstorthpct_WRP_NATSecondStep"></td>
-											<td>chrstorthpct</td>
-											<td>Christianity: Eastern Orthodox - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstangpct_WRP_NATSecondStep" name="chrstangpct_WRP_NATSecondStep" value="chrstangpct_WRP_NATSecondStep"></td>
-											<td>chrstangpct</td>
-											<td>Christianity: Anglican - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstothrpct_WRP_NATSecondStep" name="chrstothrpct_WRP_NATSecondStep" value="chrstothrpct_WRP_NATSecondStep"></td>
-											<td>chrstothrpct</td>
-											<td>Christianity: Others - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="chrstgenpct_WRP_NATSecondStep" name="chrstgenpct_WRP_NATSecondStep" value="chrstgenpct_WRP_NATSecondStep"></td>
-											<td>chrstgenpct</td>
-											<td>Christianity - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judorthpct_WRP_NATSecondStep" name="judorthpct_WRP_NATSecondStep" value="judorthpct_WRP_NATSecondStep"></td>
-											<td>judorthpct</td>
-											<td>Judaism: Orthodox - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judconspct_WRP_NATSecondStep" name="judconspct_WRP_NATSecondStep" value="judconspct_WRP_NATSecondStep"></td>
-											<td>judconspct</td>
-											<td>Judaism: Conservatives - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judrefpct_WRP_NATSecondStep" name="judrefpct_WRP_NATSecondStep" value="judrefpct_WRP_NATSecondStep"></td>
-											<td>judrefpct</td>
-											<td>Judaism: Reform - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judothrpct_WRP_NATSecondStep" name="judothrpct_WRP_NATSecondStep" value="judothrpct_WRP_NATSecondStep"></td>
-											<td>judothrpct</td>
-											<td>Judaism: Others - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="judgenpct_WRP_NATSecondStep" name="judgenpct_WRP_NATSecondStep" value="judgenpct_WRP_NATSecondStep"></td>
-											<td>judgenpct</td>
-											<td>Judaism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmsunpct_WRP_NATSecondStep" name="islmsunpct_WRP_NATSecondStep" value="islmsunpct_WRP_NATSecondStep"></td>
-											<td>islmsunpct</td>
-											<td>Islam: Sunni - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmshipct_WRP_NATSecondStep" name="islmshipct_WRP_NATSecondStep" value="islmshipct_WRP_NATSecondStep"></td>
-											<td>islmshipct</td>
-											<td>Islam: Shi'a - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmibdpct_WRP_NATSecondStep" name="islmibdpct_WRP_NATSecondStep" value="islmibdpct_WRP_NATSecondStep"></td>
-											<td>islmibdpct</td>
-											<td>Islam: Ibadhi - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmnatpct_WRP_NATSecondStep" name="islmnatpct_WRP_NATSecondStep" value="islmnatpct_WRP_NATSecondStep"></td>
-											<td>islmnatpct</td>
-											<td>Islam: Nation of Islam - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmalwpct_WRP_NATSecondStep" name="islmalwpct_WRP_NATSecondStep" value="islmalwpct_WRP_NATSecondStep"></td>
-											<td>islmalwpct</td>
-											<td>Islam: Alawite - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmahmpct_WRP_NATSecondStep" name="islmahmpct_WRP_NATSecondStep" value="islmahmpct_WRP_NATSecondStep"></td>
-											<td>islmahmpct</td>
-											<td>Islam: Almadiyya - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmothrpct_WRP_NATSecondStep" name="islmothrpct_WRP_NATSecondStep" value="islmothrpct_WRP_NATSecondStep"></td>
-											<td>islmothrpct</td>
-											<td>Islam: Others - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="islmgenpct_WRP_NATSecondStep" name="islmgenpct_WRP_NATSecondStep" value="islmgenpct_WRP_NATSecondStep"></td>
-											<td>islmgenpct</td>
-											<td>Islam - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budmahpct_WRP_NATSecondStep" name="budmahpct_WRP_NATSecondStep" value="budmahpct_WRP_NATSecondStep"></td>
-											<td>budmahpct</td>
-											<td>Buddhism: Mahayana - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budthrpct_WRP_NATSecondStep" name="budthrpct_WRP_NATSecondStep" value="budthrpct_WRP_NATSecondStep"></td>
-											<td>budthrpct</td>
-											<td>Buddhism: Theravada - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budothrpct_WRP_NATSecondStep" name="budothrpct_WRP_NATSecondStep" value="budothrpct_WRP_NATSecondStep"></td>
-											<td>budothrpct</td>
-											<td>Buddhism: Others - percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="budgenpct_WRP_NATSecondStep" name="budgenpct_WRP_NATSecondStep" value="budgenpct_WRP_NATSecondStep"></td>
-											<td>budgenpct</td>
-											<td>Buddhism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="zorogenpct_WRP_NATSecondStep" name="zorogenpct_WRP_NATSecondStep" value="zorogenpct_WRP_NATSecondStep"></td>
-											<td>zorogenpct</td>
-											<td>Zoroastrianism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="hindgenpct_WRP_NATSecondStep" name="hindgenpct_WRP_NATSecondStep" value="hindgenpct_WRP_NATSecondStep"></td>
-											<td>hindgenpct</td>
-											<td>Hinduism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="sikhgenpct_WRP_NATSecondStep" name="sikhgenpct_WRP_NATSecondStep" value="sikhgenpct_WRP_NATSecondStep"></td>
-											<td>sikhgenpct</td>
-											<td>Sikhism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="shntgenpct_WRP_NATSecondStep" name="shntgenpct_WRP_NATSecondStep" value="shntgenpct_WRP_NATSecondStep"></td>
-											<td>shntgenpct</td>
-											<td>Shinto - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="bahgenpct_WRP_NATSecondStep" name="bahgenpct_WRP_NATSecondStep" value="bahgenpct_WRP_NATSecondStep"></td>
-											<td>bahgenpct</td>
-											<td>Baha'i - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="taogenpct_WRP_NATSecondStep" name="taogenpct_WRP_NATSecondStep" value="taogenpct_WRP_NATSecondStep"></td>
-											<td>taogenpct</td>
-											<td>Taoism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="jaingenpct_WRP_NATSecondStep" name="jaingenpct_WRP_NATSecondStep" value="jaingenpct_WRP_NATSecondStep"></td>
-											<td>jaingenpct</td>
-											<td>Jainism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="confgenpct_WRP_NATSecondStep" name="confgenpct_WRP_NATSecondStep" value="confgenpct_WRP_NATSecondStep"></td>
-											<td>confgenpct</td>
-											<td>Confucianism - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="syncgenpct_WRP_NATSecondStep" name="syncgenpct_WRP_NATSecondStep" value="syncgenpct_WRP_NATSecondStep"></td>
-											<td>syncgenpct</td>
-											<td>Syncretic Religions - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="anmgenpct_WRP_NATSecondStep" name="anmgenpct_WRP_NATSecondStep" value="anmgenpct_WRP_NATSecondStep"></td>
-											<td>anmgenpct</td>
-											<td>Animist - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="nonreligpct_WRP_NATSecondStep" name="nonreligpct_WRP_NATSecondStep" value="nonreligpct_WRP_NATSecondStep"></td>
-											<td>nonreligpct</td>
-											<td>Non-relgious - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="othrgenpct_WRP_NATSecondStep" name="othrgenpct_WRP_NATSecondStep" value="othrgenpct_WRP_NATSecondStep"></td>
-											<td>othrgenpct</td>
-											<td>Other Religions - total percent adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="sumreligpct_WRP_NATSecondStep" name="sumreligpct_WRP_NATSecondStep" value="sumreligpct_WRP_NATSecondStep"></td>
-											<td>sumreligpct</td>
-											<td>total percent religious adherents</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="total_WRP_NATSecondStep" name="total_WRP_NATSecondStep" value="total_WRP_NATSecondStep"></td>
-											<td>total</td>
-											<td>total population percentage (if dualrelig = 1, total > 1)</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="dualrelig_WRP_NATSecondStep" name="dualrelig_WRP_NATSecondStep" value="dualrelig_WRP_NATSecondStep"></td>
-											<td>dualrelig</td>
-											<td>dual religion (1: Yes; 0: No)</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="datatype_WRP_NATSecondStep" name="datatype_WRP_NATSecondStep" value="datatype_WRP_NATSecondStep"></td>
-											<td>datatype</td>
-											<td>1=single source<br>2=multiple sources<br>3=interpolated<br>4=adjusted<br>13=single source, interpolated<br>14=single source, adjusted<br>
-												134=single source, interpolated, adjusted<br>23=mult. sources, interpolated<br>24=mult. sources, adjusted<br>
-												234=mult. sources, interpolated, adjusted<br>34=interpolated, adjusted</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="recreliab_WRP_NATSecondStep" name="recreliab_WRP_NATSecondStep" value="recreliab_WRP_NATSecondStep"></td>
-											<td>recreliab</td>
-											<td>reliability of record (source + datatype); 1: very high; 35: very low</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="reliabilevel_WRP_NATSecondStep" name="reliabilevel_WRP_NATSecondStep" value="reliabilevel_WRP_NATSecondStep"></td>
-											<td>reliabilevel</td>
-											<td>level of reliability of record</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" id="sourcecode_WRP_NATSecondStep" name="sourcecode_WRP_NATSecondStep" value="sourcecode_WRP_NATSecondStep"></td>
-											<td>sourcecode</td>
-											<td>code of major source used for the record</td>
-										</tr>
-									</table>
-								</div>
-								<div id="divMajor_PowersTableSecondStep" class = "variableTableSS">
-								<table>
-									<tr>
-										<th>Name</th>
-										<th>Description</th>
-									</tr>
-									<tr>
-										<td>major</td>
-										<td>0: No; 1: Yes</td>
-									</tr>
-								</table>
-								</div>			
-							</div>
-						</div>
-						<div id = "Uploaded_Data_SS" class = "column">
-							<div style="padding-left:10px">
-								<h4 style="font-size:20px">
-									Uploaded Datasets:
-								</h4>
-							</div>
-						</div>
-					</div> -->
 					<div id = "SecondStepVars" style = "display:none">
-						<p>Please be patient. In a couple minutes, the box below will populate with a table of variables.</p>
 						<div id = "table_vars_second_step">
 							<div id="grid_vars_second_step" style="width:600px;height:500px;margin:20px;"></div>
 						</div>
@@ -637,19 +168,15 @@ The above copyright notice and this permission notice shall be included in all c
 			</div>
 			
 			<br><br>
-			<footer id="footer">
-				<p class="cow-plus-footer" style="padding-top:20px">Copyright &copy; <script>document.write( new Date().getFullYear() );</script> </p>
-				<div class="cow-plus-footer">
-					<ul class="cow-plus-footer">
-						<li class="cow-plus-footer"><a href="index.html">Home</a></li>
-						<li class="cow-plus-footer"><a href="dataUnlimVar.html">Data</a></li>
-						<li class="cow-plus-footer"><a href="download.html">Downloads</a></li>
-						<li class="cow-plus-footer"><a href="upload.html">Upload</a></li>
-						<li class="cow-plus-footer"><a href="sources.html">Sources</a></li>
-						<li class="cow-plus-footer"><a href="mailto:paulpoast@uchicago.edu">Contact</a></li>
-					</ul>
-				</div>
-				
+			<footer id="footer" class="text-center py-4">
+				<p>&copy; <script>document.write( new Date().getFullYear() );</script> COW Plus Online</p>
+				<ul class="list-inline">
+					<li class="list-inline-item"><a href="index.html">Home</a></li>
+					<li class="list-inline-item"><a href="dataUnlimVar.html">Data</a></li>
+					<li class="list-inline-item"><a href="download.html">Downloads</a></li>
+					<li class="list-inline-item"><a href="sources.html">Sources</a></li>
+					<li class="list-inline-item"><a href="mailto:paulpoast@uchicago.edu">Contact</a></li>
+				</ul>
 			</footer>
 		</div>
 	</body>
