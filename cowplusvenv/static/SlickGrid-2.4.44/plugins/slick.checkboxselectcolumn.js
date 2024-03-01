@@ -18,7 +18,7 @@
       cssClass: null,
       hideSelectAllCheckbox: false,
       toolTip: "Select/Deselect All",
-      width: 30,
+      width: 38,
       hideInColumnTitleRow: false,
       hideInFilterHeaderRow: true
     };
@@ -96,7 +96,7 @@
           var dataItem = _grid.getDataItem(k);
           if (!checkSelectableOverride(i, dataItem, _grid)) {
             disabledCount++;
-          }
+          } 
         }
       }
 
@@ -122,7 +122,7 @@
       }
       _selectedRowsLookup = lookup;
       _grid.render();
-      _isSelectAllChecked = selectedRows.length && selectedRows.length + disabledCount >= _grid.getDataLength();
+      _isSelectAllChecked = selectedRows.length && selectedRows.length + disabledCount >= _grid.getDataLength() -15;
 
       if (!_options.hideInColumnTitleRow && !_options.hideSelectAllCheckbox) {
         renderSelectAllCheckbox(_isSelectAllChecked);

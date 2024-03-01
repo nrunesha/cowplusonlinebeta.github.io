@@ -104,9 +104,9 @@ The above copyright notice and this permission notice shall be included in all c
 				</div>	
 				<div id="SecondStep" style = "display:none" >
 					<div id="qChooseCY" style="display:none;padding-left:20px; padding-top:20px; margin: 0px">
-						<p>Do you want to add variables from country-year data?</p>
-						<input type="radio" id="yesChooseCY" name="qChooseCY" value="yesChooseCY" onclick="displayChooseCYData()" style="margin-top:0px">
-						<label for="yesChooseCY">Yes</label>
+						<p style="margin-bottom:6px;">Do you want to add variables from country-year data?</p>
+						<input type="radio" id="yesChooseCY" name="qChooseCY" value="yesChooseCY" onclick="displayChooseCYData()" style="margin-top:0px; padding-top: 0px">
+						<label for="yesChooseCY">Yes   </label>
 						<input type="radio" id="noChooseCY" name="qChooseCY" value="noChooseCY" onclick="displayChooseCYData()">
 							<label for="noChooseCY">No</label>
 					</div>
@@ -119,21 +119,21 @@ The above copyright notice and this permission notice shall be included in all c
 				<div id="buttons">
 					<div style="padding-left:20px;display:inline-block">
 						<br>
-						<input type="button" id = "createButton" onclick="CreateTable()" value="Continue"/>
+						<input type="button" style="border:1px solid gray" id = "createButton" onclick="CreateTable()" value="Continue"/>
 					</div>
 					<div style="display:none" id="backButton1">
 						<br>
-						<button onclick="BackButtonOne();" id="backButtonToFirst">Back</button>
+						<button onclick="BackButtonOne();" style="border:1px solid gray" id="backButtonToFirst">Back</button>
 					</div>
 					<div style="display:none" id="createButtonSecondStep">
-						<button onclick="AddColumns();" id="addColumns">Next</button>
+						<button onclick="AddColumns();" style="border:1px solid gray" id="addColumns">Next</button>
 					</div>
 					<div style="display:none" id="backButton2">
 						<br>
-						<button onclick="BackButtonTwo();" id="backButtonToSecond">Back</button>
+						<button onclick="BackButtonTwo();" style="border:1px solid gray" id="backButtonToSecond">Back</button>
 					</div>
 					<div style="display: none" id="downloadButton">
-						<button onclick="exportTableToCSV('cowplusonline')">Download CSV File</button>
+						<button style="border:1px solid gray" onclick="exportTableToCSV('cowplusonline')">Download CSV File</button>
 					</div>
 					<div style="display:none" id="WarningDownload">
 						<p style="color:red;padding-left:20px;font-family:arial; font-size:14px">A table was not created.</p>
@@ -153,10 +153,10 @@ The above copyright notice and this permission notice shall be included in all c
 						<b>Filter by year:</b>
 						<hr/>
 						<div style="padding:6px;">
-							<label style="width:120px; float:left">Choose start year:</label>
+							<label style="width:100px; float:left">Choose start year:</label>
 							<input type=text id="yearRangeMinimum" style="width:100px;" placeholder = "1980">
 							<br/><br/>
-							<label style="width:120px; float:left">Choose end year:</label>
+							<label style="width:100px; float:left">Choose end year:</label>
 							<input type=text id="yearRangeMaximum" style="width:100px;" placeholder = "2000">
 							<br/>
 						</div>
