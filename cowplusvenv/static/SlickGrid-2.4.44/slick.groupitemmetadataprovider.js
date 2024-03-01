@@ -13,6 +13,7 @@
    * @constructor
    * @param inputOptions
    */
+  
   function GroupItemMetadataProvider(inputOptions) {
     var _grid;
     var _defaults = {
@@ -69,6 +70,7 @@
     function init(grid) {
       _grid = grid;
       _grid.onClick.subscribe(handleGridClick);
+      _grid.onClick.subscribe(onExpandClick);
       _grid.onKeyDown.subscribe(handleGridKeyDown);
 
     }
@@ -76,9 +78,84 @@
     function destroy() {
       if (_grid) {
         _grid.onClick.unsubscribe(handleGridClick);
-        _grid.onKeyDown.unsubscribe(handleGridKeyDown);
+        //_grid.onKeyDown.unsubscribe(handleGridKeyDown);
       }
     }
+    
+    var expanded_groups = [];
+	  var collapsed_groups = [];
+    function onExpandClick(e, args) {
+			var $target = $(e.target);
+			var item = this.getDataItem(args.row);
+			if (item && item instanceof Slick.Group && $target.hasClass(options.toggleCssClass)) {
+        var range = _grid.getRenderedRange();
+        this.getData().setRefreshHints({
+          ignoreDiffsBefore: range.top,
+          ignoreDiffsAfter: range.bottom + 1
+        });
+
+        if (item.collapsed) {
+          this.getData().expandGroup(item.groupingKey);
+        } else {
+          this.getData().collapseGroup(item.groupingKey);
+        }
+
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+			if (item && item instanceof Slick.Group && $target.hasClass(options.toggleCollapsedCssClass)) {
+        console.log(item.groupingKey);
+        if((item.groupingKey.includes("Country Year"))||item.groupingKey.includes("Dyad Year")){
+          expanded_groups.push(item.groupingKey);
+          index = collapsed_groups.indexOf(item.groupingKey);
+          if (index > -1) { // only splice array when item is found
+            collapsed_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+        if((item.groupingKey.includes("Country Year")) && ((expanded_groups.includes("Preloaded Datasets:|:Dyad Year")) || (expanded_groups.includes("Uploaded Datasets:|:Dyad Year")))){
+          this.getData().collapseGroup("Preloaded Datasets:|:Dyad Year");
+          this.getData().collapseGroup("Uploaded Datasets:|:Dyad Year");
+          this.setSelectedRows([]);
+          index = expanded_groups.indexOf("Preloaded Datasets:|:Dyad Year");
+          if (index > -1) { // only splice array when item is found
+            expanded_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+          index = expanded_groups.indexOf("Uploaded Datasets:|:Dyad Year");
+          if (index > -1) { // only splice array when item is found
+            expanded_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+        if((item.groupingKey.includes("Dyad Year")) && ((expanded_groups.includes("Preloaded Datasets:|:Country Year")) || (expanded_groups.includes("Uploaded Datasets:|:Country Year")))){
+          this.getData().collapseGroup("Preloaded Datasets:|:Country Year");
+          this.getData().collapseGroup("Uploaded Datasets:|:Country Year");
+          this.setSelectedRows([]);
+          index = expanded_groups.indexOf("Preloaded Datasets:|:Country Year");
+          if (index > -1) { // only splice array when item is found
+            expanded_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+          index = expanded_groups.indexOf("Uploaded Datasets:|:Country Year");
+          if (index > -1) { // only splice array when item is found
+            expanded_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+        console.log("expanded groups");
+        console.log(expanded_groups);
+        console.log(collapsed_groups);
+
+			}
+			if (item && item instanceof Slick.Group && $target.hasClass(options.toggleExpandedCssClass)) {
+        if((item.groupingKey.includes("Country Year"))||item.groupingKey.includes("Dyad Year")){
+          collapsed_groups.push(item.groupingKey);
+          index = expanded_groups.indexOf(item.groupingKey);
+          if (index > -1) { // only splice array when item is found
+            expanded_groups.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+        console.log("collapsed groups");
+        console.log(expanded_groups);
+        console.log(collapsed_groups);
+			}
+		}
 
     function handleGridClick(e, args) {
       var $target = $(e.target);

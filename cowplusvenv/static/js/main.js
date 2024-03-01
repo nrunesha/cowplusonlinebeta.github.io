@@ -929,46 +929,6 @@ function variableChooserNSS(){
 }
 
 
-function datasetChooserFirstStepNSS(){			
-	var datasetsSelected = [];
-
-	if(document.getElementById("NMC_5_0").checked){	
-		datasetsSelected.push("nmc");	
-	}	
-	if(document.getElementById("WRP_NAT").checked){	
-		datasetsSelected.push("wrp");	
-	}	
-	if(document.getElementById("Major_Powers").checked){	
-		datasetsSelected.push("major_powers");	
-	}	
-	if(document.getElementById("DirectContiguity").checked){	
-		datasetsSelected.push("direct_contiguity");	
-	}	
-	if(document.getElementById("MIDS_NDD").checked){	
-		datasetsSelected.push("mids");	
-	}	
-	if(document.getElementById("COW_Alliance_Data_NDD").checked){	
-		datasetsSelected.push("alliance");	
-	}	
-	if(document.getElementById("COW_IGO_Data_NDD").checked){	
-		datasetsSelected.push("igo");	
-	}	
-	if(document.getElementById("COW_Diplomatic_Exchange").checked){	
-		datasetsSelected.push("diplo_ex");	
-	}	
-	if(document.getElementById("COW_Trade_4_0").checked){	
-		datasetsSelected.push("trade");	
-	}
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooser", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: datasetsSelected }));
-	console.log("post dc:")
-	console.log(datasetsSelected)
-	return datasetsSelected;
-}
-
-
 function containsAll(obj, arr){
    for(var i = 0; i < arr.length; i++){
       if(Object.keys(obj).includes(arr[i])){
@@ -1106,6 +1066,7 @@ function BackButtonTwo(){
 	}
 	else if(dyadmonad == "monadic"){
 		document.getElementById("createButton").style.display = "inline-block";
+		document.getElementById("createButton").disabled = false;
 		document.getElementById("backButton1").style.display = "none";
 		document.getElementById("backButton2").style.display = "none";
 		document.getElementById("downloadButton").style.display = "none";
@@ -1736,26 +1697,6 @@ function variableChooserSecondStepNSS(){
 	return variablesSecondStep;
 }
 
-function datasetChooserSecondStepNSS(){			
-	var datasetsSelectedSecondStep = [];
-
-	if(document.getElementById("NMC_5_0SecondStep").checked){	
-		datasetsSelectedSecondStep.push("nmc");	
-	}	
-	if(document.getElementById("WRP_NATSecondStep").checked){	
-		datasetsSelectedSecondStep.push("wrp");	
-	}	
-	if(document.getElementById("Major_PowersSecondStep").checked){	
-		datasetsSelectedSecondStep.push("major_powers");	
-	}
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/datasetChooserSecondStep", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify({ array: datasetsSelectedSecondStep }));
-	console.log("post dc:")
-	console.log(datasetsSelectedSecondStep)
-	return datasetsSelectedSecondStep;
-}
 
 async function AddColumns() {
 	document.getElementById("addColumns").disabled = true;

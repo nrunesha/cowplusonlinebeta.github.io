@@ -510,6 +510,7 @@ def processdcss():
     dcss = data['array']
     return 'okay'
 
+
 @app.route('/createDf/', methods=['POST', "GET"])
 def create_df():
     global dataframe

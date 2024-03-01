@@ -1,43 +1,62 @@
+#imports
 
 import sys
 import pandas as pd
 import numpy as np
+
 import csv
 import os
+sys.path.append("../cowplusonlinebeta.github.io/")
+import cowplus
 
-datafiles_csv_dir = "C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv\preloaded_datasets"
+# Get the current working directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Change to the previous directory
+os.chdir(os.path.dirname(current_dir))
 
-diplo_ex = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Diplomatic_Exchange_Dyadic.csv'))
-alliance = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Alliance_2022_Non_Directed_Dyadic.csv'))
-direct_contiguity = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Direct_Contiguity_Directed_Dyadic.csv'))
-igo = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_IGO_2022_Non_Directed_Dyadic.csv'))
-major_powers = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Major_Powers_2022.csv'))
-mids = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_MIDs_2022_Non_Directed_Dyadic.csv'))
-nmc = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_National_Military_Capabilities.csv'))
-wrp = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_World_Religions.csv'))
-trade = pd.read_csv(os.path.join(datafiles_csv_dir, 'COW_Trade_Dyadic.csv'))
+sys.path.append(os.getcwd())
 
-diplo_ex.name = 'diplo_ex'
-alliance.name = 'alliance'
-direct_contiguity.name = 'direct_contiguity'
-igo.name = 'igo'
-major_powers.name = 'major_powers'
-mids.name = 'mids'
-nmc.name = 'nmc'
-wrp.name = 'wrp'
-trade.name = 'trade'
+directory_preloaded = 'C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv\preloaded_datasets'
+username = "test_profile"
+directory_uploaded = os.path.join("C:\cowplus_online\cowplusonlinebeta.github.io\cowplusvenv\datafiles_csv", username)
+# ignore the vscode yellow error
+# import cowplus
 
-data_dict = {
-    'diplo_ex': diplo_ex,
-    'alliance': alliance,
-    'direct_contiguity': direct_contiguity,
-    'igo': igo,
-    'major_powers': major_powers,
-    'mids': mids,
-    'nmc': nmc,
-    'wrp': wrp,
-    'trade': trade
-}
+# Change to the "datafiles_csv" folder
+# os.chdir('C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv\preloaded_datasets')
+
+# diplo_ex = pd.read_csv('COW_Diplomatic_Exchange_Dyadic.csv')[1:]
+# diplo_ex.name = 'diplo_ex'
+# alliance = pd.read_csv('COW_Alliance_2022_Non_Directed_Dyadic.csv')[1:]
+# alliance.name = 'alliance'
+# direct_contiguity = pd.read_csv('COW_Direct_Contiguity_Directed_Dyadic.csv')[1:]
+# direct_contiguity.name = 'direct_contiguity'
+# igo = pd.read_csv('COW_IGO_2022_Non_Directed_Dyadic.csv')[1:]
+# igo.name = 'igo'
+# major_powers = pd.read_csv('COW_Major_Powers_2022.csv')[1:]
+# major_powers.name = 'major_powers'
+# mids = pd.read_csv('COW_MIDs_2022_Non_Directed_Dyadic.csv')[1:]
+# mids.name = 'mids'
+# nmc = pd.read_csv('COW_National_Military_Capabilities.csv')[1:]
+# nmc.name = 'nmc'
+# wrp = pd.read_csv('COW_World_Religions.csv')[1:]
+# wrp.name = 'wrp'
+# trade = pd.read_csv('COW_Trade_Dyadic.csv')[1:]
+# trade.name = 'trade'
+
+# os.chdir('C:\cowplus_online\cowplusonlinebeta.github.io\datafiles_csv')
+
+# data_dict = {
+#     'diplo_ex': diplo_ex,
+#     'alliance': alliance,
+#     'direct_contiguity': direct_contiguity,
+#     'igo': igo,
+#     'major_powers': major_powers,
+#     'mids': mids,
+#     'nmc': nmc,
+#     'wrp': wrp,
+#     'trade': trade
+# }
 
 dyadic_data = ['diplo_ex', 'alliance', 'igo', 'mids', 'trade', 'direct_contiguity']
 monadic_data = ['nmc', 'wrp', 'major_powers']
@@ -46,6 +65,13 @@ monadic_data = ['nmc', 'wrp', 'major_powers']
 # variables_chosen = ['defense','neutrality','nonaggression','entente','dr_at_1','dr_at_2','de','joint_igo_membership','joint_igo_membership_count', 'conttype', 'mid_count','mid_onset_m','mid_ongoing_m','onset_other','ongoing_other','main_disno','dyindex,strtday_m','strtmnth_m','strtyr_m','endday_m','endmnth_m','endyear_m','outcome_m','settlmnt_m','fatlev_m','highact_m', 'flow1','flow2','smoothflow1']
 def check(col, data):
     return col in data
+
+monadic_reqcol = ["stateabb", "ccode", "year"]
+dyadic_reqcol = ["stateabb1", "ccode1", "stateabb2", "ccode2", "year"]
+def column_check(dataframe, reqcol):
+    if not set(reqcol).issubset(set(dataframe.columns)):
+       return False
+    return True
 
 def find_largest(files):
     length = len(files[0])
@@ -75,18 +101,28 @@ def remove_items(test_list, item):
 def createNewDataList(files_chosen_raw, variables_chosen):
     files_chosen = []
     for name in files_chosen_raw:
-        files_chosen.append(data_dict[name])
+        print(name)
+        f = os.path.join(directory_preloaded, name +'.csv')
+        print(f)
+        # checking if it is a file
+        if os.path.isfile(f):
+            files_chosen.append(pd.read_csv(f)[1:])
+        else:
+            f = os.path.join(directory_uploaded, name + '.csv')
+            print(f)
+            if os.path.isfile(f):
+                files_chosen.append(pd.read_csv(f)[1:])
     print("data_merger> dc:",str(files_chosen))
     print("data_merger> vc:",str(variables_chosen))
     largest_file = find_largest(files_chosen)
-    if files_chosen[0].name in dyadic_data:
-        datatype = "dyadic"
-    elif files_chosen[0].name in monadic_data:
+    if(column_check(files_chosen[0], monadic_reqcol)):
         datatype = "monadic"
+    elif(column_check(files_chosen[0], dyadic_reqcol)):
+        datatype = "dyadic"
     if(datatype == "monadic"):
-        variables_chosen = remove_items(variables_chosen, "stateabb")
-        variables_chosen = remove_items(variables_chosen, "ccode")
-        variables_chosen = remove_items(variables_chosen, "year")
+        # variables_chosen = remove_items(variables_chosen, "stateabb")
+        # variables_chosen = remove_items(variables_chosen, "ccode")
+        # variables_chosen = remove_items(variables_chosen, "year")
         print(variables_chosen)
         for file_df in files_chosen:
             file_df["eventID"] = file_df["stateabb"].astype(str) + "_" + file_df["ccode"].astype(str) + "_" + file_df["year"].astype(str)
@@ -109,11 +145,11 @@ def createNewDataList(files_chosen_raw, variables_chosen):
         df.year = df.year.astype(int)
         df = df.sort_values(by=["ccode", "year"])
     if(datatype == "dyadic"):
-        variables_chosen = remove_items(variables_chosen, "stateabb1")
-        variables_chosen = remove_items(variables_chosen, "ccode1")
-        variables_chosen = remove_items(variables_chosen, "stateabb2")
-        variables_chosen = remove_items(variables_chosen, "ccode2")
-        variables_chosen = remove_items(variables_chosen, "year")
+        # variables_chosen = remove_items(variables_chosen, "stateabb1")
+        # variables_chosen = remove_items(variables_chosen, "ccode1")
+        # variables_chosen = remove_items(variables_chosen, "stateabb2")
+        # variables_chosen = remove_items(variables_chosen, "ccode2")
+        # variables_chosen = remove_items(variables_chosen, "year")
         print(variables_chosen)
         for data_file in files_chosen:
             data_file["eventID"] = data_file["stateabb1"].astype(str) + "_" + data_file["ccode1"].astype(str) + "_" + data_file["stateabb2"].astype(str) + "_" + data_file["ccode2"].astype(str) + "_" + data_file["year"].astype(str)
@@ -149,14 +185,24 @@ def createNewDataListSecondStep(data_frame, fcrss, vcss, fcr, vc):
     df = data_frame.copy(deep = True)
     print(df.columns.tolist())
     files_chosen = []
+    
     for name in fcrss:
-        files_chosen.append(data_dict[name])
+        f = os.path.join(directory_preloaded, name +'.csv')
+        print(f)
+        # checking if it is a file
+        if os.path.isfile(f):
+            files_chosen.append(pd.read_csv(f)[1:])
+        else:
+            f = os.path.join(directory_uploaded, name + '.csv')
+            print(f)
+            if os.path.isfile(f):
+                files_chosen.append(pd.read_csv(f)[1:])
     print("data_merger> dc:",str(files_chosen))
     print("data_merger> vc:",str(vcss))
     datatype = "monadic"
-    vcss = remove_items(vcss, "stateabb")
-    vcss = remove_items(vcss, "ccode")
-    vcss = remove_items(vcss, "year")
+    # vcss = remove_items(vcss, "stateabb")
+    # vcss = remove_items(vcss, "ccode")
+    # vcss = remove_items(vcss, "year")
     #take create eventIDs for files_chosen
     for file_df in files_chosen:
             file_df["eventID"] = file_df["stateabb"].astype(str) + "_" + file_df["ccode"].astype(str) + "_" + file_df["year"].astype(str)
