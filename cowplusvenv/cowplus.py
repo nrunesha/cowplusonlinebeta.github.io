@@ -575,6 +575,46 @@ def create_df():
         }
     return response
 
+@app.route('/getStateColumns', methods=['POST', "GET"])
+def getStateColumns():
+    global dataframe
+    global dataframe2
+
+    stateabb_vals = []
+    stateabb1_vals = []
+    stateabb2_vals = []
+    if "stateabb" in dataframe.columns:
+        stateabb_values = dataframe['stateabb'].unique()
+        stateabb_vals = sorted(stateabb_values)
+    if "stateabb1" in dataframe.columns:
+        stateabb1_values = dataframe['stateabb1'].unique()
+        stateabb1_vals = sorted(stateabb1_values)
+    if "stateabb2" in dataframe.columns:
+        stateabb2_values = dataframe['stateabb2'].unique()
+        stateabb2_vals = sorted(stateabb2_values)
+    if len(stateabb_vals) > 0:
+        state_columns_dict = {'stateabb': stateabb_vals}
+        state_columns = pd.DataFrame(data=[state_columns_dict])
+    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+        state1_columns_dict = {'stateabb1': stateabb1_vals} 
+        state2_columns_dict = {'stateabb2': stateabb2_vals}
+        state_columns1 = pd.DataFrame(data=[state1_columns_dict])
+        state_columns2 = pd.DataFrame(data=[state2_columns_dict])
+    if len(stateabb_vals) > 0:
+        response = {
+            "message": "data processing successful",
+            "status": 200,
+            "state_columns": state_columns.to_json(orient = "values")
+        }
+    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+        response = {
+            "message": "data processing successful",
+            "status": 200,
+            "state_columns1": state_columns1.to_json(orient = "values"),
+            "state_columns2": state_columns2.to_json(orient = "values")
+        }
+    return response
+
 @app.route('/backbutton2/', methods=['POST', "GET"])
 def back_button_2():
     global dataframe

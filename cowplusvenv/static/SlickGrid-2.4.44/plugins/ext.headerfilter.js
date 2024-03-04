@@ -100,14 +100,14 @@
             var values = [];
         
             try {
-                const response = await fetch('createDf'); // issues a GET request by default
+                const response = await fetch('getStateColumns'); // issues a GET request by default
                 const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
                 // access the new_df data from the response
-                if(Object.keys(data).length == 4){
+                if(Object.keys(data).length == 3){
                     const state_columns = data.state_columns;
                     values = JSON.parse(state_columns);
                 }
-                else if (Object.keys(data).length == 5){
+                else if (Object.keys(data).length == 4){
                     const state_columns1 = data.state_columns1; 
                     const state_columns2 = data.state_columns2;
                     state_col1 = JSON.parse(state_columns1);

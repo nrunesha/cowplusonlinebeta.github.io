@@ -277,10 +277,10 @@ async function VarTable_S2(){
 				selectedVars.push(grid.getData().getItem(value)["var_name"]);
 			});
 			if(selectedVars.length > 0){
-				document.getElementById("createButton").disabled = false;
+				document.getElementById("addColumns").disabled = false;
 			}
 			else{
-				document.getElementById("createButton").disabled = true;
+				document.getElementById("addColumns").disabled = true;
 			}	
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "/variableChooserSecondStep", true);
@@ -1028,6 +1028,10 @@ function BackButtonOne(){
 	document.getElementById("myTable").style.display = "none";
 	document.getElementById("yesChooseCY").disabled = false;
 	document.getElementById("noChooseCY").disabled = false;
+	filterYearMin = 1000;
+	filterYearMax = 3000;
+	filterState1 = [];
+	filterState2 = [];
 }
 
 async function retrieveBackButtonTwo() {
@@ -1068,6 +1072,10 @@ function BackButtonTwo(){
 		document.getElementById("myTable").style.display = "inline-block";
 		document.getElementById("addColumns").disabled = true;
 		BackButton2_CreateTable();
+		filterYearMin = 1000;
+		filterYearMax = 3000;
+		filterState1 = [];
+		filterState2 = [];
 	}
 	else if(dyadmonad == "monadic"){
 		document.getElementById("createButton").style.display = "inline-block";
@@ -1082,6 +1090,10 @@ function BackButtonTwo(){
 		$('#SecondStep').find('input[type=checkbox]:checked').prop('checked',false);
 		$('#SecondStep').find('input[type=radio]:checked').prop('checked',false);
 		document.getElementById("myTable").style.display = "none";
+		filterYearMin = 1000;
+		filterYearMax = 3000;
+		filterState1 = [];
+		filterState2 = [];
 	}
 }
 
@@ -1230,6 +1242,7 @@ async function CreateTable(){
 	document.getElementById("myTable").style.display = "inline-block";
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "block";
+	document.getElementById("addColumns").disabled = true;
 }
 
 
@@ -1376,7 +1389,6 @@ function displayChooseCYData(){
 	// document.getElementById("noChooseCY").disabled = true;
 	if(document.getElementById("yesChooseCY").checked){
 		VarTable_S2();
-		document.getElementById("addColumns").disabled = false;
 		document.getElementById("SecondStepVars").style.display = "block";
 		document.getElementById("table_vars_second_step").style.display = "inline-block";
 		document.getElementById("grid_vars_second_step").style.display = "inline-block";
@@ -1836,7 +1848,6 @@ async function AddColumns() {
                 for (var i = 0; i < columns.length; i++) {
                     var col = columns[i];
                     filterValues = col.filterValues;
-					console.log(filterValues)
                     if (filterValues && filterValues.length > 0) {
                         value = value & _.contains(filterValues, item[col.field]);
                     }
