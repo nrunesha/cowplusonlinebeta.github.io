@@ -1,5 +1,10 @@
 console.log("flask branch")
 
+let filterYearMin = 1000;
+let filterYearMax = 3000;
+let filterState1 = [];
+let filterState2 = [];
+
 let dyadmonad = "monadic";
 async function VarTable_S1(){
 	var dataView;
@@ -979,9 +984,9 @@ async function retrieveJSON() {
         const response = await fetch('createDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
         // access the new_df data from the response
-		const new_df = data.new_df; // this js constant is set to the new_df output from the response, which is a JSON array
+		const newdf = data.new_df; // this js constant is set to the new_df output from the response, which is a JSON array
         // populate myData with new_df
-        myData = JSON.parse(new_df);
+		myData = JSON.parse(newdf);
     } catch (error) {
 		console.error('error processing data:', error);
     } finally {
@@ -1061,7 +1066,7 @@ function BackButtonTwo(){
 		document.getElementById("yesChooseCY").disabled = false;
 		document.getElementById("noChooseCY").disabled = false;
 		document.getElementById("myTable").style.display = "inline-block";
-		document.getElementById("addColumns").disabled = false;
+		document.getElementById("addColumns").disabled = true;
 		BackButton2_CreateTable();
 	}
 	else if(dyadmonad == "monadic"){
@@ -1133,6 +1138,7 @@ async function CreateTable(){
 			}
 
 			yearRangeMin = this.value;
+			filterYearMin = yearRangeMin;
 			updateFilter();
 		});
 		$("#yearRangeMaximum").keyup(function (e) {
@@ -1141,8 +1147,8 @@ async function CreateTable(){
 			if (e.which == 27) {
 			  this.value = "2022";
 			}
-
 			yearRangeMax = this.value;
+			filterYearMax = yearRangeMax;
 			updateFilter();
 		});
 		
@@ -1178,28 +1184,37 @@ async function CreateTable(){
             
 
             grid.init();
-
             function filter(item, args) {
                 var columns = grid.getColumns();
-
+				var filterValues = [];
                 var value = true;
-
+				
                 for (var i = 0; i < columns.length; i++) {
                     var col = columns[i];
-                    var filterValues = col.filterValues;
+                    filterValues = col.filterValues;
 
                     if (filterValues && filterValues.length > 0) {
                         value = value & _.contains(filterValues, item[col.field]);
                     }
                 }
+				
 				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
 					value = false;
 				}
 				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
 					value = false;
 				}
+				if(columns[1].filterValues != undefined){
+					filterState1 = columns[1].filterValues;
+				}
+				if(dyadmonad == "dyadic"){
+					if(columns[3].filterValues != undefined){
+						filterState2 = columns[3].filterValues;
+					}
+				}
                 return value;
             }
+			
 		filteredItems = dataView.getRows();
     });
 	
@@ -1216,6 +1231,7 @@ async function CreateTable(){
 	document.getElementById("optionsPanel").style.display = "inline-block";
 	document.getElementById("SecondStep").style.display = "block";
 }
+
 
 async function BackButton2_CreateTable(){
 	console.log("BackButton2() called")
@@ -1269,6 +1285,7 @@ async function BackButton2_CreateTable(){
 			}
 
 			yearRangeMin = this.value;
+			filterYearMin = yearRangeMin;
 			updateFilter();
 		});
 		$("#yearRangeMaximum").keyup(function (e) {
@@ -1277,8 +1294,8 @@ async function BackButton2_CreateTable(){
 			if (e.which == 27) {
 			  this.value = "2022";
 			}
-
 			yearRangeMax = this.value;
+			filterYearMax = yearRangeMax;
 			updateFilter();
 		});
 		
@@ -1314,25 +1331,33 @@ async function BackButton2_CreateTable(){
             
 
             grid.init();
-
             function filter(item, args) {
                 var columns = grid.getColumns();
-
+				var filterValues = [];
                 var value = true;
-
+				
                 for (var i = 0; i < columns.length; i++) {
                     var col = columns[i];
-                    var filterValues = col.filterValues;
+                    filterValues = col.filterValues;
 
                     if (filterValues && filterValues.length > 0) {
                         value = value & _.contains(filterValues, item[col.field]);
                     }
                 }
+				
 				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
 					value = false;
 				}
 				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
 					value = false;
+				}
+				if(columns[1].filterValues != undefined){
+					filterState1 = columns[1].filterValues;
+				}
+				if(dyadmonad == "dyadic"){
+					if(columns[3].filterValues != undefined){
+						filterState2 = columns[3].filterValues;
+					}
 				}
                 return value;
             }
@@ -1347,15 +1372,17 @@ async function BackButton2_CreateTable(){
 
 //SECOND STEP 
 function displayChooseCYData(){
-	document.getElementById("yesChooseCY").disabled = true;
-	document.getElementById("noChooseCY").disabled = true;
+	// document.getElementById("yesChooseCY").disabled = true;
+	// document.getElementById("noChooseCY").disabled = true;
 	if(document.getElementById("yesChooseCY").checked){
 		VarTable_S2();
+		document.getElementById("addColumns").disabled = false;
 		document.getElementById("SecondStepVars").style.display = "block";
 		document.getElementById("table_vars_second_step").style.display = "inline-block";
 		document.getElementById("grid_vars_second_step").style.display = "inline-block";
 	}
 	if (document.getElementById("noChooseCY").checked){
+		document.getElementById("addColumns").disabled = false;
 		changeButtonSecondStep();
 		//toggleSelectors();
 	}
@@ -1700,7 +1727,6 @@ function variableChooserSecondStepNSS(){
 
 async function AddColumns() {
 	document.getElementById("addColumns").disabled = true;
-	console.log("CreateTable() called")
 	var yearRangeMin = "0";
 	var yearRangeMax = "2022";
 	var dataView;
@@ -1751,23 +1777,22 @@ async function AddColumns() {
 		$("#yearRangeMinimum").keyup(function (e) {
 			Slick.GlobalEditorLock.cancelCurrentEdit();
 
-			// clear on Esc
 			if (e.which == 27) {
 			  this.value = "0";
 			}
 
 			yearRangeMin = this.value;
+			filterYearMin = yearRangeMin;
 			updateFilter();
 		});
 		$("#yearRangeMaximum").keyup(function (e) {
 			Slick.GlobalEditorLock.cancelCurrentEdit();
 
-			// clear on Esc
 			if (e.which == 27) {
 			  this.value = "2022";
 			}
-
 			yearRangeMax = this.value;
+			filterYearMax = yearRangeMax;
 			updateFilter();
 		});
 		
@@ -1785,7 +1810,8 @@ async function AddColumns() {
 			yearRangeMin: yearRangeMin,
 			yearRangeMax: yearRangeMax
 		});
-		dataView.setFilter(filter);		
+		dataView.setFilter(filter);
+		
 		dataView.endUpdate();
 		
 		var filterPlugin = new Ext.Plugins.HeaderFilter({});
@@ -1802,25 +1828,33 @@ async function AddColumns() {
             
 
             grid.init();
-
             function filter(item, args) {
                 var columns = grid.getColumns();
-
+				var filterValues = [];
                 var value = true;
-
+				
                 for (var i = 0; i < columns.length; i++) {
                     var col = columns[i];
-                    var filterValues = col.filterValues;
-
+                    filterValues = col.filterValues;
+					console.log(filterValues)
                     if (filterValues && filterValues.length > 0) {
                         value = value & _.contains(filterValues, item[col.field]);
                     }
                 }
+				
 				if (args.yearRangeMin != "" && item["year"] < parseInt(args.yearRangeMin)) {
 					value = false;
 				}
 				if (args.yearRangeMax != "" && item["year"] > parseInt(args.yearRangeMax)){
 					value = false;
+				}
+				if(columns[1].filterValues != undefined){
+					filterState1 = columns[1].filterValues;
+				}
+				if(dyadmonad == "dyadic"){
+					if(columns[3].filterValues != undefined){
+						filterState2 = columns[3].filterValues;
+					}
 				}
                 return value;
             }
@@ -1833,9 +1867,20 @@ async function AddColumns() {
 
 //Third STEP
 
+async function filterGrid(){
+	let filterItems = [filterYearMin, filterYearMax, filterState1, filterState2];
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/filterData", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({ array: filterItems }));
+	console.log("post filterGrid:")
+	console.log(filterItems)
+}
+
 async function retrieveCSVThirdStep() {
 	csv_file = [];
 	await hideDownloadMessage();
+	await filterGrid();
 	try {
         const response = await fetch('downloadDf'); // issues a GET request by default
         const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }

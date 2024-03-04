@@ -12,6 +12,8 @@
 
     (Can't be used at the same time as the header menu plugin as it implements the dropdown in the same way)
     */
+
+    
     function HeaderFilter(options) {
         var grid;
         var self = this;
@@ -23,7 +25,6 @@
             sortDescImage: "/static/images/sort-desc.png"
         };
         var $menu;
-
         function init(g) {
             options = $.extend(true, {}, defaults, options);
             grid = g;
@@ -94,8 +95,32 @@
              .text(title)
              .appendTo($item);
         }
-
-
+        let myData = [];
+        async function retrieveStateValues() {
+            var values = [];
+        
+            try {
+                const response = await fetch('createDf'); // issues a GET request by default
+                const data = await response.json(); // data becomes the response from create_df(), which is { 'message': 'data processing successful', 'status': 200, 'new_df': new_df }
+                // access the new_df data from the response
+                if(Object.keys(data).length == 4){
+                    const state_columns = data.state_columns;
+                    values = JSON.parse(state_columns);
+                }
+                else if (Object.keys(data).length == 5){
+                    const state_columns1 = data.state_columns1; 
+                    const state_columns2 = data.state_columns2;
+                    state_col1 = JSON.parse(state_columns1);
+                    state_col2 = JSON.parse(state_columns2);
+                    values = [].concat(state_col1, state_col2);
+                }
+            } catch (error) {
+                console.error('error processing data:', error);
+            } finally {
+            }
+            return values;
+        } 
+        
         function updateFilterInputs(menu, columnDef, filterItems) {
             var filterOptions = "<label><input type='checkbox' value='-1' />(Select All)</label>";
             columnDef.filterValues = columnDef.filterValues || [];
@@ -118,12 +143,18 @@
             });
         }
 
-        function showFilter(e) {
+        async function showFilter(e) {
+            myData = await retrieveStateValues();
+            if(myData.length == 1){
+                dyadmonad = "monadic";
+            }
+            else if(myData.length == 2){
+                dyadmonad = "dyadic";
+            }        
+
             var $menuButton = $(this);
-            var columnDef = $menuButton.data("column");
-
-            columnDef.filterValues = columnDef.filterValues || [];
-
+            var columnDef = $menuButton.data("column"); //defined as the column selected
+            columnDef.filterValues = columnDef.filterValues || []; //selected filter values
             // WorkingFilters is a copy of the filters to enable apply/cancel behaviour
             var workingFilters = columnDef.filterValues.slice(0);
 
@@ -131,13 +162,29 @@
 
             if (workingFilters.length === 0) {
                 // Filter based all available values
-                filterItems = getFilterValues(grid.getData(), columnDef);
+                if((dyadmonad == "monadic") && columnDef["name"] == "stateabb"){
+                    filterItems = myData[0][0];
+                }
+                if((dyadmonad == "dyadic") && columnDef["name"] == "stateabb1"){
+                    filterItems = myData[0][0];
+                }
+                if((dyadmonad == "dyadic") && columnDef["name"] == "stateabb2"){
+                    filterItems = myData[1][0];
+                }
+                //filterItems = getFilterValues(grid.getData(), columnDef);
             }
             else {
                 // Filter based on current dataView subset
-                filterItems = getAllFilterValues(grid.getData().getItems(), columnDef);
+                if((dyadmonad == "monadic") && columnDef["name"] == "stateabb"){
+                    filterItems = myData[0][0];
+                }
+                if((dyadmonad == "dyadic") && columnDef["name"] == "stateabb1"){
+                    filterItems = myData[0][0];
+                }
+                if((dyadmonad == "dyadic") && columnDef["name"] == "stateabb2"){
+                    filterItems = myData[1][0];
+                }
             }
-
             if (!$menu) {
                 $menu = $("<div class='slick-header-menu'>").appendTo(document.body);
             }

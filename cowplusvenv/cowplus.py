@@ -23,6 +23,7 @@ import sys
 import os
 
 from datetime import date
+from datetime import datetime
 UPLOAD_FOLDER = 'C:\\cowplus_online\\cowplusonlinebeta.github.io\\cowplusvenv\\datafiles_csv\\test_profile'
 current_dir = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
@@ -534,14 +535,44 @@ def create_df():
     dataframe = data_merger.createNewDataList(dc, vc) # datasetChooser, variableChooser
     dataframe = dataframe.drop(["eventID"], axis = 1)
     sample = dataframe.loc[:999]
+    stateabb_vals = []
+    stateabb1_vals = []
+    stateabb2_vals = []
+    if "stateabb" in dataframe.columns:
+        stateabb_values = dataframe['stateabb'].unique()
+        stateabb_vals = sorted(stateabb_values)
+    if "stateabb1" in dataframe.columns:
+        stateabb1_values = dataframe['stateabb1'].unique()
+        stateabb1_vals = sorted(stateabb1_values)
+    if "stateabb2" in dataframe.columns:
+        stateabb2_values = dataframe['stateabb2'].unique()
+        stateabb2_vals = sorted(stateabb2_values)
+    if len(stateabb_vals) > 0:
+        state_columns_dict = {'stateabb': stateabb_vals}
+        state_columns = pd.DataFrame(data=[state_columns_dict])
+    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+        state1_columns_dict = {'stateabb1': stateabb1_vals} 
+        state2_columns_dict = {'stateabb2': stateabb2_vals}
+        state_columns1 = pd.DataFrame(data=[state1_columns_dict])
+        state_columns2 = pd.DataFrame(data=[state2_columns_dict])
     print("converting to json...")
     new_df = sample.to_json(orient="records")
     dataframe2 = dataframe.copy(deep = True)
-    response = {
-        "message": "data processing successful",
-        "status": 200,
-        "new_df": new_df
-    }
+    if len(stateabb_vals) > 0:
+        response = {
+            "message": "data processing successful",
+            "status": 200,
+            "new_df": new_df,
+            "state_columns": state_columns.to_json(orient = "values")
+        }
+    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+        response = {
+            "message": "data processing successful",
+            "status": 200,
+            "new_df": new_df,
+            "state_columns1": state_columns1.to_json(orient = "values"),
+            "state_columns2": state_columns2.to_json(orient = "values")
+        }
     return response
 
 @app.route('/backbutton2/', methods=['POST', "GET"])
@@ -585,11 +616,34 @@ def goto_displayData():
         # makes no sense to be at this page without hitting the "generate" button
         return render_template("error")
 
+@app.route('/filterData', methods=['POST'])
+def processfilters():
+    global yearMin, yearMax, stateOneFilter, stateTwoFilter
+    data = request.get_json()
+    filters = data['array']
+    yearMin = filters[0]
+    yearMax = filters[1]
+    stateOneFilter = filters[2]
+    stateTwoFilter = filters[3]
+    return 'okay'
+
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
-    today = date.today()
-
-    csv = dataframe2.to_csv("~/Downloads/" + "cowplus_online_"+str(today)+".csv", index = False)
+    global dataframe2, chng_df, yearMin, yearMax, stateOneFilter, stateTwoFilter
+    chng_df = dataframe2.copy(deep = True)
+    today = datetime.now()
+    if yearMin == "":
+        yearMin = 1000
+    if yearMax == "":
+        yearMax = 3000
+    if (len(stateOneFilter) != 0) & ("stateabb" in chng_df.columns):
+        chng_df = chng_df[chng_df['stateabb'].isin(stateOneFilter)]
+    elif (len(stateOneFilter) != 0) & ("stateabb1" in chng_df.columns):
+        chng_df = chng_df[chng_df['stateabb1'].isin(stateOneFilter)]
+    if (len(stateTwoFilter) != 0) & ("stateabb2" in chng_df.columns):
+        chng_df = chng_df[chng_df['stateabb2'].isin(stateTwoFilter)]
+    chng_df = chng_df.loc[(chng_df['year'] >= int(yearMin)) & (chng_df['year'] <= int(yearMax))] 
+    csv = chng_df.to_csv("C:\\Users\\alice\\Downloads\\" + "cowplus_online_"+str(today.year) + str(today.month) + str(today.day) + "_" + str(today.hour) + "_" + str(today.minute) + "_" + str(today.second) + ".csv", index = False)
     print("csv converted")
     response = {
         "message": "data processing successful",
