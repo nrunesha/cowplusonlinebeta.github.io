@@ -12,38 +12,18 @@
 	</head>
 	<body>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<header>
-			<h1 class="headerone">COW Plus Online (Beta-Version)</h1>
-			<nav>
-				<div class="topnav">
-					<a href="index.html">Home</a>
-					<a href="dataUnlimVar.html">Data</a>
-					<a href="download.html">Downloads</a>
-                    <a class = "active" href="upload.html">Upload</a>
-				</div>	
-			</nav>
-		</header>
-        <p> </p>
+		{% extends "base.html" %}
+		{% block title %}COW Plus | User Info{% endblock %}
+		{% block content %}
+
 		<div id = "upload" style = "padding-left:20px">
 			<form action = "/uploadFunction" id="uploadForm" method="post" enctype="multipart/form-data">
 				<input type="file" name="file" oninput="triggerValidation(this)" accept=".csv" multiple />  <br><br>
-				<button id="verifyFile" type="button">Verify</button>
-				<input type = "submit" id="uploadButton" type="button" value = "Upload" onclick = "uploadFileSuccess()">
+				<button id="verifyFile" type="button" style="border:1px solid gray">Verify</button>
+				<input type = "submit" id="uploadButton" style="border:1px solid gray" type="button" value = "Upload" onclick = "uploadFileSuccess()">
 				<p id = "processing_upload" style="padding:0px; margin: 0px;display:none; font-family:Arial, Helvetica, sans-serif;font-size:13.33333px;">processing...</p>
 			</form>
 		</div>
-		<footer id="footer">
-			<p class="cow-plus-footer" style="padding-top:20px">Copyright © <script>document.write( new Date().getFullYear() );</script> </p>
-			<div class="cow-plus-footer">
-				<ul class="cow-plus-footer">
-					<li class="cow-plus-footer"><a href="index.html">Home</a></li>
-					<li class="cow-plus-footer"><a href="dataUnlimVar.html">Data</a></li>
-					<li class="cow-plus-footer"><a href="download.html">Downloads</a></li>
-                    <li class="cow-plus-footer"><a href="upload.html">Upload</a></li>
-					<li class="cow-plus-footer"><a href="sources.html">Sources</a></li>
-					<li class="cow-plus-footer"><a href="mailto:paulpoast@uchicago.edu">Contact</a></li>
-				</ul>
-			</div>
-		</footer>
+		{% endblock %}
 	</body>
 </html>
