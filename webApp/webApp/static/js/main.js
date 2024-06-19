@@ -1908,7 +1908,8 @@ async function retrieveCSVThirdStep() {
 }
 
 async function exportTableToCSV(filename) {
-	var csv = await retrieveCSVThirdStep();
+	await filterGrid();
+	location.replace('downloadDf')
 }
 
 

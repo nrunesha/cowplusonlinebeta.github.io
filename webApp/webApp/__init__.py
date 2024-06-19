@@ -1,6 +1,5 @@
-from flask import Flask, cli, Response, flash, render_template, request, redirect, url_for, request, jsonify, session, make_response
+from flask import Flask, cli, send_file, Response, flash, render_template, request, redirect, url_for, request, jsonify, session, make_response
 from werkzeug.utils import secure_filename
-
 from datetime import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -787,6 +786,7 @@ def test_download():
 def popup(message):
     return render_template('popup.html', message=message)
 
+
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
     global dataframe2, chng_df, yearMin, yearMax, stateOneFilter, stateTwoFilter
@@ -803,14 +803,12 @@ def downloadCSV():
     if (len(stateTwoFilter) != 0) & ("stateabb2" in chng_df.columns):
         chng_df = chng_df[chng_df['stateabb2'].isin(stateTwoFilter)]
     chng_df = chng_df.loc[(chng_df['year'] >= int(yearMin)) & (chng_df['year'] <= int(yearMax))] 
-    csv_content = chng_df.to_csv(index=False)
-    response = make_response(csv_content)
-    #/bm
-    filename = f"cowplus_online_{today.strftime('%Y%m%d_%H%M%S')}.csv"
-    response.headers['Content-Disposition'] = "attachment; filename=" + filename
-    response.headers['Content-Type'] = 'text/csv'
     print("csv converted")
-    return response
+    return Response(
+       chng_df.to_csv(),
+       mimetype="text/csv",
+       headers={"Content-disposition":
+       "attachment; filename=cowplus_online_"+str(today.year) + str(today.month) + str(today.day) + "_" + str(today.hour) + "_" + str(today.minute) + "_" + str(today.second) + ".csv"})
 
 # generic for all req. to save code
 
