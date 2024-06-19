@@ -733,7 +733,11 @@ def back_button_2():
 def create_df_secondstep():
     global dataframe
     global dataframe2
-    dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, session["user"])
+    if "user" in session:
+        dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, session["user"]) # datasetChooser, variableChooser
+    else:
+        dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, "test_profile")
+    
     dataframe2 = dataframe2.drop(["eventID_state1"], axis = 1)
     dataframe2 = dataframe2.drop(["eventID_state2"], axis = 1)
     sample2 = dataframe2.loc[:999]
