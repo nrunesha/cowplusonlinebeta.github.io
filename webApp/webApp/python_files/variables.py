@@ -236,7 +236,6 @@ def createVarDescripDict(username):
             #set int variable = to index
             #remove index position in temp_list.iloc[0]
             #if index position of new thing to be removed < removed; index stays same; else: index-1
-            print(temp_list)
             all_dictionary[i] = {'vars' : temp_list}
             if(column_check(temp_file, monadic_reqcol)):
                 secondstep_dictionary[i] = {'vars' : temp_list}
