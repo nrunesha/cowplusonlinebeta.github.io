@@ -2084,6 +2084,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			document.getElementById("processing_upload").style.display = "inline-block";
 			document.getElementById("verifyFile").disabled = true;
 			var form_data = new FormData($('#uploadForm')[0]);
+			for (var [key, value] of form_data.entries()) { 
+				console.log(key, value);
+			}
 			$.ajax({
 				type: 'POST',
 				url: '/verifyFunction',
@@ -2126,7 +2129,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 });
 
-function uploadFileSuccess(){
-	string_f = "Files successfully uploaded: \n" + string_2;
-	alert(string_f)
+document.addEventListener("DOMContentLoaded", function(event) {
+	$(function() {
+		$('#uploadButton').click(function() {
+			document.getElementById("processing_upload").style.display = "inline-block";
+			document.getElementById("verifyFile").disabled = true;
+			document.getElementById("uploadButton").disabled = true;
+			var form_data = new FormData($('#uploadForm')[0]);
+			for (var [key, value] of form_data.entries()) { 
+				console.log(key, value);
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/uploadFunction',
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData: false,
+				success: function() {
+					string_f = "Files successfully uploaded: \n" + string_2;
+					alert(string_f);
+					document.getElementById('file_input').value= null;
+					document.getElementById("verifyFile").disabled = false;
+					document.getElementById("processing_upload").style.display = "none";
+				}
+			})
+		});
+	});
+});
+
+async function uploadFileSuccess(){
+	
+	
 }

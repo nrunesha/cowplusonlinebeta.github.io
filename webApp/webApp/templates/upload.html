@@ -91,10 +91,11 @@
 				
 			</header>
 			<div id = "upload" style = "padding-top:20px">
-				<form action = "/uploadFunction" id="uploadForm" method="post" enctype="multipart/form-data">
-					<input type="file" name="file" oninput="triggerValidation(this)" accept=".csv" multiple />  <br><br>
+				<form action = "" id="uploadForm" method="post" enctype="multipart/form-data">
+					<input type="file" id = "file_input" name="file" oninput="triggerValidation(this)" accept=".csv" multiple />  <br><br>
 					<button id="verifyFile" type="button">Verify</button>
-					<input type = "submit" id="uploadButton" type="button" value = "Upload" onclick = "uploadFileSuccess()">
+					<button id="uploadButton" type="button">Upload</button>
+					<!-- <input type = "submit" id="uploadButton" type="button" value = "Upload" onclick = "uploadFileSuccess()"> -->
 					<p id = "processing_upload" style="padding:0px; margin: 0px;display:none; font-family:Arial, Helvetica, sans-serif;font-size:13.33333px;">processing...</p>
 				</form>
 			</div>

@@ -253,6 +253,17 @@ def remove_admin(username):
     return redirect("/panel")
 
 @app.route('/upload.html', methods=['GET', 'POST'])
+def goto_upload():
+    if "user" in session:
+        if session["verified"] == True:
+            print(session["verified"])
+            return render_template("upload.html")
+        else:
+            return redirect(url_for("verify"))
+    else:
+        flash("You are not logged in!")
+        return redirect("/login")
+
 def upload_file():
     if "user" in session:
         if session["verified"] == True:
@@ -320,6 +331,7 @@ def verifyFunction():
     verified = False
     # Get the list of files from webpage
     files = request.files.getlist("file")
+    print(files)
     os.chdir(config["UPLOAD_FOLDER"])
     # Iterate for each file in the files List, and Save them
     if files[0].filename != "":
@@ -341,15 +353,12 @@ def verifyFunction():
         "bad_files": b_files,
         "verification": verified
     }
-    m_files = []
-    d_files = []
-    g_files = []
-    b_files = []
+    
     return response
 
-@app.route('/uploadFunction', methods = ['POST', 'GET'])
+@app.route('/uploadFunction/', methods = ['POST', 'GET'])
 def uploadFunction():
-    global all_m_files, all_d_files
+    global all_m_files, all_d_files, m_files, d_files
     for m in m_files:
         all_m_files.append(m)
     for d in d_files:
@@ -359,6 +368,11 @@ def uploadFunction():
     os.chdir(os.path.join(config["UPLOAD_FOLDER"], username))
     for file in files:
         file.save(file.filename)
+        print("saved")
+    m_files = []
+    d_files = []
+    g_files = []
+    b_files = []
     return redirect('/upload.html')
 
 @app.route("/login", methods=["POST", "GET"])
