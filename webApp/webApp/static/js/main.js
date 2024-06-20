@@ -2115,7 +2115,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					}
 					string_f = string_1 + string_2 + '\n' + string_3 + string_4;
 					alert(string_f)
-					if(bad.length == 0){
+					if((bad.length == 0) && (good.length > 0) ){
 						document.getElementById("uploadButton").disabled = false;
 					}
 					document.getElementById("verifyFile").disabled = false;

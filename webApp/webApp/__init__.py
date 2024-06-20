@@ -252,7 +252,7 @@ def remove_admin(username):
         return redirect(url_for('login'))  # redirect unauthorized users
     return redirect("/panel")
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload.html', methods=['GET', 'POST'])
 def upload_file():
     if "user" in session:
         if session["verified"] == True:
@@ -320,22 +320,20 @@ def verifyFunction():
     verified = False
     # Get the list of files from webpage
     files = request.files.getlist("file")
-    print(files)
     os.chdir(config["UPLOAD_FOLDER"])
     # Iterate for each file in the files List, and Save them
-    for file in files:
-        file.save(file.filename)
-    m_files, d_files, g_files, b_files = upload.verify_files(files)
-    if(len(b_files) == 0):
-        verified = True
-    print(m_files)
-    print(d_files)
-    print(g_files)
-    print(b_files)
-    for f in g_files:
-        os.remove(f)
-    for f in b_files:
-        os.remove(f)
+    if files[0].filename != "":
+        for file in files:
+           file.save(file.filename)
+        m_files, d_files, g_files, b_files = upload.verify_files(files)
+        if(len(b_files) == 0):
+            verified = True
+        for f in g_files:
+            os.remove(f)
+        for f in b_files:
+            os.remove(f)
+    if(len(files) == 0):
+        verified = False
     response = {
         "message": "data processing successful",
         "status": 200,
@@ -343,25 +341,25 @@ def verifyFunction():
         "bad_files": b_files,
         "verification": verified
     }
+    m_files = []
+    d_files = []
+    g_files = []
+    b_files = []
     return response
 
 @app.route('/uploadFunction', methods = ['POST', 'GET'])
 def uploadFunction():
     global all_m_files, all_d_files
-    print(m_files)
-    print(d_files)
     for m in m_files:
         all_m_files.append(m)
     for d in d_files:
         all_d_files.append(d)
-    print(all_m_files)
-    print(all_d_files)
     files = request.files.getlist("file")
     username = session["user"]
     os.chdir(os.path.join(config["UPLOAD_FOLDER"], username))
     for file in files:
         file.save(file.filename)
-    return redirect('/upload')
+    return redirect('/upload.html')
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
