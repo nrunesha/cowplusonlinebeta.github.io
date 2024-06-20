@@ -365,6 +365,9 @@ def uploadFunction():
         all_d_files.append(d)
     files = request.files.getlist("file")
     username = session["user"]
+    directory_to_check = config["UPLOAD_FOLDER"] + "/" + username
+    if not os.path.isdir(directory_to_check):
+        os.makedirs(directory_to_check)
     os.chdir(os.path.join(config["UPLOAD_FOLDER"], username))
     for file in files:
         file.save(file.filename)
