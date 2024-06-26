@@ -268,6 +268,10 @@ def goto_upload():
 def goto_index():
     return render_template("index.html")
 
+@app.route("/guides.html")
+def goto_guide():
+    return render_template("guides.html")
+
 @app.route("/dataUnlimVar.html", methods=["POST", "GET"])
 def goto_dataUnlimVar():
     if "user" in session:
