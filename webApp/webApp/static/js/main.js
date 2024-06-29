@@ -5,6 +5,15 @@ let filterYearMax = 3000;
 let filterState1 = [];
 let filterState2 = [];
 
+function checkAgreements(){
+	if((document.getElementById("privacy_policy").checked) && (document.getElementById("tos").checked)){
+		document.getElementById("signupButtonSubmit").disabled = false;
+	}
+	else{
+		document.getElementById("signupButtonSubmit").disabled = true;
+	}
+}
+
 let dyadmonad = "monadic";
 async function VarTable_S1(){
 	var dataView;
@@ -2158,7 +2167,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 });
 
-async function uploadFileSuccess(){
-	
-	
-}

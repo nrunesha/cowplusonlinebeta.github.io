@@ -272,6 +272,14 @@ def goto_index():
 def goto_guide():
     return render_template("guides.html")
 
+@app.route("/privacy_policy.html")
+def goto_privacy_policy():
+    return render_template("privacy_policy.html")
+
+@app.route("/terms_of_service.html")
+def goto_tos():
+    return render_template("terms_of_service.html")
+
 @app.route("/dataUnlimVar.html", methods=["POST", "GET"])
 def goto_dataUnlimVar():
     if "user" in session:
@@ -397,7 +405,7 @@ def login():
             return redirect(url_for("user"))
         return render_template("login.html")
 
-@app.route("/signup", methods=["POST", "GET"])
+@app.route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         log("signup")
