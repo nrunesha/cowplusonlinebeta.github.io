@@ -406,6 +406,7 @@ def login():
         return render_template("login.html")
 
 @app.route("/signup", methods=["POST", "GET"])
+
 def signup():
     if request.method == "POST":
         log("signup")
@@ -428,26 +429,28 @@ def signup():
         if found_user or found_email:
             flash("User already exists.")
             return render_template("signup.html")
-
-        else:
-            if user and em and pwd:
-                if ("@" in em) and ("." in em):
-                    flash("User created")
-                    hashed_pwd = bcrypt.generate_password_hash(pwd).decode('utf-8')
-                    usr = users(user, em, hashed_pwd)
-                    db.session.add(usr)
-                    db.session.commit()
-                    session["user"] = user
-                    session["email"] = em
-                    session["verified"] = False
-                    os.mkdir(os.path.join(config["UPLOAD_FOLDER"], session["user"])) #testthis
-                    return redirect(url_for("verify"))
-                else:
-                    flash("Enter a valid email")
-                    return render_template("signup.html")
+        
+        if user and em and pwd:
+            if "@" in em and "." in em:
+                hashed_pwd = bcrypt.generate_password_hash(pwd).decode('utf-8')
+                usr = users(name=user, email=em, password=hashed_pwd)  # assuming the 'users' model takes these parameters
+                db.session.add(usr)
+                db.session.commit()
+                
+                session["user"] = user
+                session["email"] = em
+                session["verified"] = False
+                
+                os.mkdir(os.path.join(config["UPLOAD_FOLDER"], session["user"]))
+                
+                flash("User created")
+                return redirect(url_for("verify"))
             else:
-                flash("Please fill out all fields")
+                flash("Enter a valid email")
                 return render_template("signup.html")
+        else:
+            flash("Please fill out all fields")
+            return render_template("signup.html")
     else:
         if "user" in session:
             flash("Already logged in!")
@@ -483,6 +486,62 @@ def verify():
                 print(session["code"])
                 return render_template("verify.html")
     return redirect(url_for("login"))
+
+from flask import send_file
+from io import StringIO, BytesIO
+file_contents = []
+
+@app.route("/import.html", methods=["POST", "GET"])
+def importdata():
+    global file_contents  # Declare as global to ensure updates are retained
+    if request.method == 'POST':
+        if 'file' in request.files:
+            files = request.files.getlist('file')
+            for file in files:
+                if file.filename == '':
+                    continue
+                
+                # Read the content of the file and store it
+                stream = StringIO(file.stream.read().decode("UTF8"), newline=None)
+                csv_input = csv.reader(stream)
+                file_data = list(csv_input)
+                
+                # Append file data to file_contents
+                file_contents.append({
+                    'filename': file.filename,
+                    'content': file_data
+                })
+
+        return redirect(url_for('importdata'))
+
+    return render_template("import.html", file_contents=file_contents)
+
+@app.route("/delete", methods=["POST"])
+def delete_file():
+    global file_contents
+    filename_to_delete = request.form['filename']
+    # Remove the file from file_contents
+    file_contents = [file_data for file_data in file_contents if file_data['filename'] != filename_to_delete]
+    return redirect(url_for('importdata'))
+
+@app.route("/download", methods=["POST"])
+def download_file():
+    filename_to_download = request.form['filename']
+    for file_data in file_contents:
+        if file_data['filename'] == filename_to_download:
+            # Create a CSV in memory
+            output = StringIO()
+            writer = csv.writer(output)
+            writer.writerows(file_data['content'])
+            output.seek(0)
+
+            return send_file(BytesIO(output.getvalue().encode()), 
+                             mimetype='text/csv', 
+                             as_attachment=True, 
+                             download_name=filename_to_download)
+    return redirect(url_for('importdata'))
+
+
 
 @app.route("/user", methods=["POST", "GET"])
 def user():
