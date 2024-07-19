@@ -487,14 +487,38 @@ def verify():
                 return render_template("verify.html")
     return redirect(url_for("login"))
 
-from flask import send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file
+import csv
 from io import StringIO, BytesIO
+
 file_contents = []
+user_files = {}  # Dictionary to store user metadata and their corresponding file names
+
+def create_chicago_citation(metadata):
+    citation = f"{metadata['author_name']}. \"{metadata['article_title']}.\" In {metadata['title']}."
+    citation += f" {metadata['inclusive_pages']}."
+    if metadata['volume']:
+        citation += f" Vol. {metadata['volume']}."
+    if metadata['issue']:
+        citation += f" Issue {metadata['issue']}."
+    citation += f" {metadata['year']}."
+    if metadata['month']:
+        citation += f" {metadata['month']}."
+    return citation
 
 @app.route("/import.html", methods=["POST", "GET"])
 def importdata():
-    global file_contents  # Declare as global to ensure updates are retained
+    global file_contents, user_files  # Declare as global to ensure updates are retained
     if request.method == 'POST':
+        author_name = request.form['author_name']
+        article_title = request.form['article_title']
+        title = request.form['title']
+        inclusive_pages = request.form['inclusive_pages']
+        volume = request.form['volume']
+        issue = request.form['issue']
+        year = request.form['year']
+        month = request.form['month']
+        
         if 'file' in request.files:
             files = request.files.getlist('file')
             for file in files:
@@ -509,8 +533,30 @@ def importdata():
                 # Append file data to file_contents
                 file_contents.append({
                     'filename': file.filename,
-                    'content': file_data
+                    'content': file_data,
+                    'citation': create_chicago_citation({
+                        'author_name': author_name,
+                        'article_title': article_title,
+                        'title': title,
+                        'inclusive_pages': inclusive_pages,
+                        'volume': volume,
+                        'issue': issue,
+                        'year': year,
+                        'month': month
+                    })
                 })
+
+                # Store metadata and file name in the dictionary
+                user_files[file.filename] = {
+                    'author_name': author_name,
+                    'article_title': article_title,
+                    'title': title,
+                    'inclusive_pages': inclusive_pages,
+                    'volume': volume,
+                    'issue': issue,
+                    'year': year,
+                    'month': month
+                }
 
         return redirect(url_for('importdata'))
 
@@ -518,17 +564,20 @@ def importdata():
 
 @app.route("/delete", methods=["POST"])
 def delete_file():
-    global file_contents
+    global file_contents, user_files
     filename_to_delete = request.form['filename']
     # Remove the file from file_contents
     file_contents = [file_data for file_data in file_contents if file_data['filename'] != filename_to_delete]
+    # Remove the file from user_files dictionary
+    if filename_to_delete in user_files:
+        del user_files[filename_to_delete]
     return redirect(url_for('importdata'))
 
 @app.route("/download", methods=["POST"])
 def download_file():
     filename_to_download = request.form['filename']
     for file_data in file_contents:
-        if file_data['filename'] == filename_to_download:
+        if (file_data['filename'] == filename_to_download):
             # Create a CSV in memory
             output = StringIO()
             writer = csv.writer(output)
@@ -540,8 +589,6 @@ def download_file():
                              as_attachment=True, 
                              download_name=filename_to_download)
     return redirect(url_for('importdata'))
-
-
 
 @app.route("/user", methods=["POST", "GET"])
 def user():
