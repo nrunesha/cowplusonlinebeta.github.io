@@ -1,4 +1,4 @@
-CONFIG_PATH = "C:\cowplusonlinebeta.github.io\webApp\webApp\config.txt"
+CONFIG_PATH = '/var/www/webApp/webApp/config.txt'
 
 def read_config():
     config = {}

@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 	</head>
 	<body>
+		<h2>Administrator panel</h2>
 		{% with messages = get_flashed_messages() %}
 			{% if messages %}
 				<ul class=flashes>
@@ -24,7 +25,4 @@
 				is_admin={{item.is_admin}}, is_confirmed={{item.is_confirmed}}, confirmed_on={{item.confirmed_on}}<br></p>
 		{% endfor %}
 	</body>
-	<form method="post" action="{{ url_for('reset') }}">
-        <button type="submit">Reset the entire database</button>
-    </form>
 </html>

@@ -1,6 +1,5 @@
-from flask import Flask, cli, Response, flash, render_template, request, redirect, url_for, request, jsonify, session, make_response
+from flask import Flask, cli, Response, flash, render_template, request, redirect, url_for, request, jsonify, session, make_response, send_from_directory
 from werkzeug.utils import secure_filename
-
 from datetime import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -16,7 +15,14 @@ import csv
 import pandas as pd
 import numpy as np
 import logging
-sys.path.append('C:\cowplusonlinebeta.github.io\webApp\webApp')
+# new imports
+import io
+import time
+import threading
+import math
+from threading import Lock
+import queue
+sys.path.append('/var/www/webApp/webApp')
 import openconfig
 from flask import request
 from functools import wraps
@@ -25,24 +31,36 @@ import os
 
 from datetime import date
 from datetime import datetime
+import shutil
+
+max_size_mb = 1000
+max_size_bytes = max_size_mb * 1024 * 1024
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
 python_files_dir = os.path.join(current_dir, 'python_files')
 upload_files_dir = os.path.join(current_dir, 'datafiles_csv')
-
 config = openconfig.read_config()
+citations = {}
+with open(config['BASE'] + "/citations.txt", 'r') as file:
+    for line in file:
+        if "#" not in line:
+            key, value = line.strip().split('=')
+            citations[key] = value
+
 # UPLOAD_FOLDER , SQLALCHEMY_DATABASE_URI
 
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__, template_folder='templates')
 Bootstrap(app)
-app.secret_key = "yabujin"
+app.secret_key = "dJL1bnnSOCDi2Brtt04x"
 app.config['UPLOAD_FOLDER'] = config['UPLOAD_FOLDER']
 app.config['SQLALCHEMY_DATABASE_URI'] = config['SQLALCHEMY_DATABASE_URI']
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=60)
 import random
 import re
+import inspect
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -52,6 +70,27 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 bcrypt = Bcrypt(app)
+task_queue = queue.Queue()
+route_lock = Lock()
+
+# TASK WORKER FOR ACTIONS THAT REQUIRE NON CONCURRENCE
+def task_worker():
+    while True:
+        # get the next task; this is blocking if the queue is empty
+        task_func = task_queue.get()
+        try:
+            task_func()
+        finally:
+            # signal that the task is done
+            task_queue.task_done()
+
+def debug(label, variable):
+    print("\n>>> (DEBUG) " + label + " : " + str(variable) + "\n")
+    return
+
+worker_thread = threading.Thread(target=task_worker)
+worker_thread.daemon = True  # Daemon threads exit when the program does
+worker_thread.start()
 
 class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
@@ -70,8 +109,6 @@ class users(db.Model):
         self.is_confirmed = is_confirmed
         self.confirmed_on = confirmed_on
 
-
-
 vc = []
 vc2 = []
 dc = []
@@ -86,7 +123,12 @@ d_files = []
 all_d_files = []
 all_m_files = []
 
-# local path
+m_files_shared = []
+d_files_shared = []
+all_d_files_shared = []
+all_m_files_shared = []
+
+# local path []
 sys.path.append(python_files_dir)
 import variables
 import upload
@@ -122,6 +164,9 @@ def sendverification(code):
        smtp.login(email_sender, email_password)
        smtp.sendmail(email_sender, email_receiver, em.as_string())
    return "sent"
+
+def create_citations():
+    return
 
 @app.route('/get-username')
 def get_username():
@@ -192,6 +237,7 @@ def logip():
     logging.debug(f"/reset request from {ip_address},", session["user"])
     return
 
+# resets the whole user database
 @app.route("/reset", methods=['POST'])
 def reset():
     if request.method == 'POST':
@@ -253,7 +299,18 @@ def remove_admin(username):
         return redirect(url_for('login'))  # redirect unauthorized users
     return redirect("/panel")
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload.html', methods=['GET', 'POST'])
+def goto_upload():
+    if "user" in session:
+        if session["verified"] == True:
+            print(session["verified"])
+            return render_template("upload.html")
+        else:
+            return redirect(url_for("verify"))
+    else:
+        flash("You are not logged in!")
+        return redirect("/login")
+
 def upload_file():
     if "user" in session:
         if session["verified"] == True:
@@ -272,7 +329,7 @@ def upload_file():
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    return redirect(url_for('download_file', name=filename))
+                    return redirect(url_for('shared_download_file', name=filename))
             return render_template("upload.html")
         else:
             return redirect(url_for("verify"))
@@ -284,6 +341,18 @@ def upload_file():
 def goto_index():
     return render_template("index.html")
 
+@app.route("/guides.html")
+def goto_guide():
+    return render_template("guides.html")
+
+@app.route("/privacy_policy.html")
+def goto_privacy_policy():
+    return render_template("privacy_policy.html")
+
+@app.route("/terms_of_service.html")
+def goto_tos():
+    return render_template("terms_of_service.html")
+
 @app.route("/dataUnlimVar.html", methods=["POST", "GET"])
 def goto_dataUnlimVar():
     if "user" in session:
@@ -294,6 +363,8 @@ def goto_dataUnlimVar():
     else:
         print("no user in session")
         directory_to_check = config["UPLOAD_FOLDER"] + "/test_profile"
+    if not os.path.isdir(directory_to_check):
+        os.makedirs(directory_to_check)
     if request.method == 'POST':
         return render_template("dataUnlimVar.html")
     else:
@@ -324,19 +395,18 @@ def verifyFunction():
     print(files)
     os.chdir(config["UPLOAD_FOLDER"])
     # Iterate for each file in the files List, and Save them
-    for file in files:
-        file.save(file.filename)
-    m_files, d_files, g_files, b_files = upload.verify_files(files)
-    if(len(b_files) == 0):
-        verified = True
-    print(m_files)
-    print(d_files)
-    print(g_files)
-    print(b_files)
-    for f in g_files:
-        os.remove(f)
-    for f in b_files:
-        os.remove(f)
+    if files[0].filename != "":
+        for file in files:
+           file.save(file.filename)
+        m_files, d_files, g_files, b_files = upload.verify_files(files)
+        if(len(b_files) == 0):
+            verified = True
+        for f in g_files:
+            os.remove(f)
+        for f in b_files:
+            os.remove(f)
+    if(len(files) == 0):
+        verified = False
     response = {
         "message": "data processing successful",
         "status": 200,
@@ -344,25 +414,94 @@ def verifyFunction():
         "bad_files": b_files,
         "verification": verified
     }
+    
     return response
 
-@app.route('/uploadFunction', methods = ['POST', 'GET'])
+def get_directory_size(directory):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(directory):
+        for filename in filenames:
+            file_path = os.path.join(dirpath, filename)
+            if os.path.isfile(file_path):  # Ensure it's a file
+                total_size += os.path.getsize(file_path)
+    return total_size
+
+@app.route('/uploadFunction/', methods = ['POST', 'GET'])
 def uploadFunction():
-    global all_m_files, all_d_files
-    print(m_files)
-    print(d_files)
+    global all_m_files, all_d_files, m_files, d_files, max_size_bytes
     for m in m_files:
         all_m_files.append(m)
     for d in d_files:
         all_d_files.append(d)
-    print(all_m_files)
-    print(all_d_files)
     files = request.files.getlist("file")
+    citation = request.form['citation']
+    print("dbg.citation: " + citation)
     username = session["user"]
-    os.chdir(os.path.join(config["UPLOAD_FOLDER"], username))
+    
+    directory_to_check = os.path.join(config["UPLOAD_FOLDER"], username)
+    current_size = get_directory_size(directory_to_check)
+    if not os.path.isdir(directory_to_check):
+        os.makedirs(directory_to_check)
+    debug("dirsize", current_size)
+
+    new_files_size = 0
     for file in files:
-        file.save(file.filename)
-    return redirect('/upload')
+        # Move the file pointer to the start of the file
+        file.stream.seek(0, os.SEEK_END)
+        file_size = file.stream.tell()  # Get the current position in the stream, which is the size
+        file.stream.seek(0)  # Reset the file pointer to the start of the file
+        new_files_size += file_size
+        print(f"File: {file.filename}, Size: {file_size} bytes")
+    
+    debug("new_files_size", new_files_size)
+
+    if new_files_size + current_size < max_size_bytes:
+        os.chdir(os.path.join(config["UPLOAD_FOLDER"], username))
+        for file in files:
+            file.save(file.filename)
+            print("saved")
+        m_files = []
+        d_files = []
+        g_files = []
+        b_files = []
+    else:
+        print("Storage limit reached")
+        flash("Storage limit of 3GB reached. Remove existing files or upgrade to upload.")
+    
+    return redirect('/upload.html')
+
+@app.route('/verifyFunctionShared/', methods=['POST', 'GET'])  
+def verifyFunctionShared():
+    global files_shared
+    global m_files_shared, d_files_shared, g_files_shared, b_files_shared
+    global all_m_files_shared, all_d_files_shared
+    verified = False
+    # Get the list of files from webpage
+    files_shared = request.files.getlist("file")
+    print(files_shared)
+    os.chdir(app.config['UPLOAD_FOLDER'].replace("datafiles_csv", "datasets_shared"))
+    # Iterate for each file in the files List, and Save them
+    if files_shared[0].filename != "":
+        for file in files_shared:
+           file.save(file.filename)
+        m_files_shared, d_files_shared, g_files_shared, b_files_shared = upload.verify_files(files_shared)
+        if(len(b_files_shared) == 0):
+            verified = True
+        for f in g_files_shared:
+            os.remove(f)
+        for f in b_files_shared:
+            os.remove(f)
+    if(len(files_shared) == 0):
+        verified = False
+    response = {
+        "message": "data processing successful",
+        "status": 200,
+        "good_files": g_files_shared,
+        "bad_files": b_files_shared,
+        "verification": verified
+    }
+
+    return response
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -405,16 +544,27 @@ def login():
             return redirect(url_for("user"))
         return render_template("login.html")
 
-@app.route("/signup", methods=["POST", "GET"])
 
+def remove_items(test_list, item):
+
+    # using list comprehension to perform the task
+    res = [i for i in test_list if i != item]
+    return res
+
+@app.route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         log("signup")
         session.permanent = True
         user = request.form["nm"]
         em = request.form["em"]
+        cem = request.form["cem"]
         pwd = request.form['pwd']
 
+        if em != cem:
+            flash("Emails do not match.")
+            return render_template("signup.html")
+        
         if len(user) > 20 or not user.isalnum():
             flash("Username must be 20 characters or fewer and must contain only numbers and letters.")
             return render_template("signup.html")
@@ -490,108 +640,275 @@ def verify():
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import csv
 from io import StringIO, BytesIO
-
 file_contents = []
 user_files = {}  # Dictionary to store user metadata and their corresponding file names
-
 def create_chicago_citation(metadata):
-    citation = f"{metadata['author_name']}. \"{metadata['article_title']}.\" In {metadata['title']}."
-    citation += f" {metadata['inclusive_pages']}."
-    if metadata['volume']:
-        citation += f" Vol. {metadata['volume']}."
-    if metadata['issue']:
-        citation += f" Issue {metadata['issue']}."
-    citation += f" {metadata['year']}."
-    if metadata['month']:
-        citation += f" {metadata['month']}."
+    """
+    Create a Chicago-style citation from metadata.
+    
+    Args:
+        metadata (dict): A dictionary containing citation metadata.
+            - author_name (str): The name of the author.
+            - article_title (str): The title of the article.
+            - title (str): The title of the journal or book.
+            - inclusive_pages (str): The inclusive page numbers of the article.
+            - volume (str): The volume number of the journal.
+            - issue (str): The issue number of the journal.
+            - year (str): The year of publication.
+            - month (str): The month of publication.
+    
+    Returns:
+        str: A formatted Chicago-style citation.
+    """
+    author_name = metadata.get('author_name', '')
+    article_title = metadata.get('article_title', '')
+    title = metadata.get('title', '')
+    inclusive_pages = metadata.get('inclusive_pages', '')
+    volume = metadata.get('volume', '')
+    issue = metadata.get('issue', '')
+    year = metadata.get('year', '')
+    month = metadata.get('month', '')
+
+    citation = f"{author_name}. \"{article_title}.\" {title} {volume}, no. {issue} ({month} {year}): {inclusive_pages}."
+    
     return citation
 
-@app.route("/import.html", methods=["POST", "GET"])
-def importdata():
-    global file_contents, user_files  # Declare as global to ensure updates are retained
+def append_to_file(filename, citation, file_path):
+    filename = filename.split(".")[0]
+    to_append = "\n" + filename + "=" + citation# Add a newline character for formatting
+    try:
+        with open(file_path, 'a') as file:
+            file.write(to_append)
+        print(f"Appended to file: {file_path}")
+    except Exception as e:
+        print(f"An error occurred while appending to the file: {e}")
+
+@app.route("/shared.html", methods=["POST", "GET"])
+def importpage():
+    IMPORT_FOLDER = app.config['UPLOAD_FOLDER'].replace("datafiles_csv", "datasets_shared")
+    global file_contents, user_files
+    global all_m_files_shared, all_d_files_shared, m_files_shared, d_files_shared
+    print("dbg: IMPORT_FOLDER = " + IMPORT_FOLDER)
     if request.method == 'POST':
-        author_name = request.form['author_name']
-        article_title = request.form['article_title']
-        title = request.form['title']
-        inclusive_pages = request.form['inclusive_pages']
-        volume = request.form['volume']
-        issue = request.form['issue']
-        year = request.form['year']
-        month = request.form['month']
-        
+        citation= request.form['citation']
+        for m in m_files_shared:
+            all_m_files_shared.append(m)
+        for d in d_files_shared:
+            all_d_files_shared.append(d)
         if 'file' in request.files:
             files = request.files.getlist('file')
             for file in files:
                 if file.filename == '':
                     continue
-                
+                ###
+                if "user" in session:
+                    filename = str(session['user'] + "_" + secure_filename(file.filename))
+                else:
+                    filename = str("unknownUser" + "_" + secure_filename(file.filename))
+                file.save(os.path.join(IMPORT_FOLDER, filename))
+                ###
                 # Read the content of the file and store it
                 stream = StringIO(file.stream.read().decode("UTF8"), newline=None)
                 csv_input = csv.reader(stream)
                 file_data = list(csv_input)
-                
-                # Append file data to file_contents
-                file_contents.append({
-                    'filename': file.filename,
-                    'content': file_data,
-                    'citation': create_chicago_citation({
-                        'author_name': author_name,
-                        'article_title': article_title,
-                        'title': title,
-                        'inclusive_pages': inclusive_pages,
-                        'volume': volume,
-                        'issue': issue,
-                        'year': year,
-                        'month': month
-                    })
-                })
+                # to change; have individuals put manual citations.
+                to_append = filename + "=" + citation
+                print("dbg.to_append = " + to_append)
 
-                # Store metadata and file name in the dictionary
-                user_files[file.filename] = {
-                    'author_name': author_name,
-                    'article_title': article_title,
-                    'title': title,
-                    'inclusive_pages': inclusive_pages,
-                    'volume': volume,
-                    'issue': issue,
-                    'year': year,
-                    'month': month
-                }
+                append_to_file(filename, citation, config["BASE"] + "/citations.txt")
 
-        return redirect(url_for('importdata'))
+    m_files_shared = []
+    d_files_shared = []
+    g_files_shared = []
+    b_files_shared = [] 
+    files = os.listdir(IMPORT_FOLDER)
+    file_contents = [{'filename': f} for f in files]
 
-    return render_template("import.html", file_contents=file_contents)
+    return render_template("shared.html", file_contents=file_contents)
 
-@app.route("/delete", methods=["POST"])
-def delete_file():
+def construct_preview(file_path):
+    print("dbg.file_path.preview = " + file_path)
+    # Check if file exists
+    if not os.path.exists(file_path):
+        return "File not found", 404
+    
+    # Read the CSV file
+    try:
+        df = pd.read_csv(file_path, nrows=100)
+    except Exception as e:
+        return f"An error occurred while reading the CSV file: {e}", 500
+    
+    # Convert DataFrame to HTML
+    html_table = df.to_html(classes='table table-striped', index=False)
+
+    html = f"""
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <title>CSV Preview</title>
+      </head>
+      <body>
+        <div class="container">
+          <h1 class="mt-5">Preview of {file_path.split("/")[-1]} (first 100 rows)</h1>
+          <div class="table-responsive">
+            {html_table}
+          </div>
+        </div>
+      </body>
+    </html>
+    """
+
+    return html
+
+@app.route("/uploaded_preview", methods=["POST", "GET"])
+def uploaded_preview():
+    if request.method == "POST":
+        filename = request.form['filename']
+    # Construct the full file path
+    file_path = config["UPLOAD_FOLDER"] + "/" + session["user"] + "/" + filename
+    
+    return construct_preview(file_path)
+
+@app.route("/shared_preview", methods=["POST", "GET"])
+def shared_preview():
+    if request.method == "POST":
+        filename = request.form['filename']
+    # Construct the full file path
+    file_path = config["BASE"] + "/datasets_shared/" + filename
+    
+    return construct_preview(file_path)
+
+
+def copy_file_to_folder(file_path, destination_folder):
+    """
+    Copy a file to the specified folder.
+    
+    Args:
+        file_path (str): The full path to the file to be copied.
+        destination_folder (str): The folder where the file should be copied.
+    
+    Returns:
+        str: The path to the copied file, or an error message.
+    """
+    try:
+        # Ensure the destination folder exists
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
+        
+        # Get the filename from the file path
+        filename = os.path.basename(file_path)
+        
+        # Construct the full destination path
+        destination_path = os.path.join(destination_folder, filename)
+        
+        # Copy the file
+        shutil.copy(file_path, destination_path)
+        
+        return f"File copied to {destination_path}"
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+@app.route("/import", methods=["POST"])
+def import_file():
+    print("dbg: import req sent")
+    if 'user' in session:  
+        filename = request.form['filename']
+        file_path = config["BASE"] + "/datasets_shared/" + filename
+        destination_folder = config["UPLOAD_FOLDER"] + "/" + session['user']
+        print("dbg.file_path = " + file_path)
+        print("dbg.destination_folder = " + destination_folder)
+        try:
+            # Ensure the destination folder exists
+            if not os.path.exists(destination_folder):
+                os.makedirs(destination_folder)
+            
+            copy_file_to_folder(file_path, destination_folder)
+            flash(f"Successfully imported {filename}")
+            return redirect(url_for('importpage'))
+        except Exception as e:
+            return f"An error occurred: {e}"
+        
+    else:
+        flash("You must be logged in to import data.")
+        return redirect(url_for('login'))
+    
+def delete_file(file_path):
+    try:
+        # Check if file exists
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        else:
+            return f"File not found", 404
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/shared_delete", methods=["POST"])
+def shared_delete_file():
     global file_contents, user_files
     filename_to_delete = request.form['filename']
-    # Remove the file from file_contents
-    file_contents = [file_data for file_data in file_contents if file_data['filename'] != filename_to_delete]
-    # Remove the file from user_files dictionary
-    if filename_to_delete in user_files:
-        del user_files[filename_to_delete]
-    return redirect(url_for('importdata'))
+    directory = config["BASE"] + "/datasets_shared"
+    
+    # Construct the full file path
+    file_path = os.path.join(directory, filename_to_delete)
+    
+    try:
+        # Check if file exists
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            flash(f"File '{filename_to_delete}' deleted successfully")
+            return redirect(url_for('importpage'))
+        else:
+            return f"File '{filename_to_delete}' not found", 404
+    except Exception as e:
+        return str(e), 500
 
-@app.route("/download", methods=["POST"])
-def download_file():
+@app.route("/uploaded_delete", methods=["POST"])
+def uploaded_delete_file():
+    global file_contents, user_files
+    filename_to_delete = request.form['filename']
+    directory = os.path.join(config["UPLOAD_FOLDER"], session["user"])
+    
+    # Construct the full file path
+    file_path = os.path.join(directory, filename_to_delete)
+    
+    try:
+        # Check if file exists
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            flash(f"File '{filename_to_delete}' deleted successfully")
+            return redirect(url_for('user'))
+        else:
+            return f"File '{filename_to_delete}' not found", 404
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/shared_download", methods=["POST"])
+def shared_download_file():
     filename_to_download = request.form['filename']
-    for file_data in file_contents:
-        if (file_data['filename'] == filename_to_download):
-            # Create a CSV in memory
-            output = StringIO()
-            writer = csv.writer(output)
-            writer.writerows(file_data['content'])
-            output.seek(0)
+    print("dbg.filename = " + filename_to_download)
+    # Define the directory where the files are located
+    directory = config["BASE"] + "/datasets_shared"
+    try:
+        return send_from_directory(directory, filename_to_download, as_attachment=True)
+    except FileNotFoundError:
+        return "File not found", 404
+    return redirect(url_for('importpage'))
 
-            return send_file(BytesIO(output.getvalue().encode()), 
-                             mimetype='text/csv', 
-                             as_attachment=True, 
-                             download_name=filename_to_download)
-    return redirect(url_for('importdata'))
+def convert_size(size_bytes):
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p)
+    return f"{s} {size_name[i]}"
 
 @app.route("/user", methods=["POST", "GET"])
 def user():
+    global max_size_bytes
     email = None
     if "user" in session:
         if session["verified"] == False:
@@ -612,7 +929,22 @@ def user():
                 email = session["email"]
         username = found_user.name
         flash("Logged in as " + username)
-        return render_template("user.html", email=email)
+
+        filesfolder = config["UPLOAD_FOLDER"] + "/" + username
+        print("dbg.filesfolder: " + filesfolder)
+        files = os.listdir(filesfolder)
+        file_contents = [{'filename': f} for f in files]
+
+        directory_to_check = os.path.join(config["UPLOAD_FOLDER"], username)
+        current_size_bytes = get_directory_size(directory_to_check)
+        percent_full = round((current_size_bytes / max_size_bytes) * 100)
+
+        debug("currentsize", current_size_bytes)
+        debug("max_size_bytes", max_size_bytes)
+        debug("percent_full", percent_full)
+        current_size = convert_size(current_size_bytes)
+
+        return render_template("user.html", email=email, file_contents=file_contents, current_size=current_size, percent_full=percent_full)
     else:
         return redirect(url_for("login"))
 
@@ -678,7 +1010,8 @@ def processvc():
     global vc
     data = request.get_json()
     vc = data['array']
-    return 'okay' # replace
+    print()
+    return ''
 
 @app.route('/variableChooser2', methods=['POST'])
 def processvc2():
@@ -686,7 +1019,7 @@ def processvc2():
     data = request.get_json()
     t = data['array']
     vc = vc + t
-    return 'okay' # replace
+    return ''
 
 # datasetChooser()
 @app.route('/datasetChooser', methods=['POST'])
@@ -721,65 +1054,98 @@ def create_df():
 
     global dc
     global vc
+    
     print("creating dataframe")
-    i = 0
-    while i < len(dc):
-        if dc[i] is None:
-            dc = dc[:i] + dc[i+1:]
-        else:
-            i += 1
-    i = 0
-    while i < len(vc):
-        if vc[i] is None:
-            vc = vc[:i] + vc[i+1:]
-        else:
-            i += 1
-    if "user" in session:
-        dataframe = data_merger.createNewDataList(dc, vc, session["user"]) # datasetChooser, variableChooser
-    else:
-        dataframe = data_merger.createNewDataList(dc, vc, "test_profile") # datasetChooser, variableChooser
-    dataframe = dataframe.drop(["eventID"], axis = 1)
-    sample = dataframe.loc[:999]
-    stateabb_vals = []
-    stateabb1_vals = []
-    stateabb2_vals = []
-    if "stateabb" in dataframe.columns:
-        stateabb_values = dataframe['stateabb'].unique()
-        stateabb_vals = sorted(stateabb_values)
-    if "stateabb1" in dataframe.columns:
-        stateabb1_values = dataframe['stateabb1'].unique()
-        stateabb1_vals = sorted(stateabb1_values)
-    if "stateabb2" in dataframe.columns:
-        stateabb2_values = dataframe['stateabb2'].unique()
-        stateabb2_vals = sorted(stateabb2_values)
-    if len(stateabb_vals) > 0:
-        state_columns_dict = {'stateabb': stateabb_vals}
-        state_columns = pd.DataFrame(data=[state_columns_dict])
-    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
-        state1_columns_dict = {'stateabb1': stateabb1_vals} 
-        state2_columns_dict = {'stateabb2': stateabb2_vals}
-        state_columns1 = pd.DataFrame(data=[state1_columns_dict])
-        state_columns2 = pd.DataFrame(data=[state2_columns_dict])
-    print("converting to json...")
-    new_df = sample.to_json(orient="records")
-    dataframe2 = dataframe.copy(deep = True)
-    if len(stateabb_vals) > 0:
-        response = {
-            "message": "data processing successful",
-            "status": 200,
-            "new_df": new_df,
-            "state_columns": state_columns.to_json(orient = "values")
-        }
-    elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
-        response = {
-            "message": "data processing successful",
-            "status": 200,
-            "new_df": new_df,
-            "state_columns1": state_columns1.to_json(orient = "values"),
-            "state_columns2": state_columns2.to_json(orient = "values")
-        }
-    return response
+    if route_lock.acquire(blocking=False):
+        try:
+            i = 0
+            while i < len(dc):
+                if dc[i] is None:
+                    dc = dc[:i] + dc[i+1:]
+                else:
+                    i += 1
+            i = 0
+            while i < len(vc):
+                if vc[i] is None:
+                    vc = vc[:i] + vc[i+1:]
+                else:
+                    i += 1
+            if "user" in session:
+                dataframe = data_merger.createNewDataList(dc, vc, session["user"]) # datasetChooser, variableChooser
+            else:
+                dataframe = data_merger.createNewDataList(dc, vc, "test_profile") # datasetChooser, variableChooser
+            dataframe = dataframe.drop(["eventID"], axis = 1)
+            sample = dataframe.loc[:999]
+            stateabb_vals = []
+            stateabb1_vals = []
+            stateabb2_vals = []
+            if "stateabb" in dataframe.columns:
+                stateabb_values = dataframe['stateabb'].unique()
+                stateabb_vals = sorted(stateabb_values)
+            if "stateabb1" in dataframe.columns:
+                stateabb1_values = dataframe['stateabb1'].unique()
+                stateabb1_vals = sorted(stateabb1_values)
+            if "stateabb2" in dataframe.columns:
+                stateabb2_values = dataframe['stateabb2'].unique()
+                stateabb2_vals = sorted(stateabb2_values)
+            if len(stateabb_vals) > 0:
+                state_columns_dict = {'stateabb': stateabb_vals}
+                state_columns = pd.DataFrame(data=[state_columns_dict])
+            elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+                state1_columns_dict = {'stateabb1': stateabb1_vals} 
+                state2_columns_dict = {'stateabb2': stateabb2_vals}
+                state_columns1 = pd.DataFrame(data=[state1_columns_dict])
+                state_columns2 = pd.DataFrame(data=[state2_columns_dict])
+            print("converting to json...")
+            new_df = sample.to_json(orient="records")
 
+            if "user" in session:
+                csv_file_path = config["UPLOAD_FOLDER"] + "/" + session["user"] + "/temp.csv"
+                session["dc"] = dc
+                print("dbg.csv_file_path = " + csv_file_path)
+                os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
+                sample.to_csv(csv_file_path, index=False)
+
+            dataframe2 = dataframe.copy(deep = True)
+            if len(stateabb_vals) > 0:
+                response = {
+                    "message": "data processing successful",
+                    "status": 200,
+                    "new_df": new_df,
+                    "state_columns": state_columns.to_json(orient = "values")
+                }
+            elif (len(stateabb1_vals) > 0) & (len(stateabb2_vals) >0):
+                response = {
+                    "message": "data processing successful",
+                    "status": 200,
+                    "new_df": new_df,
+                    "state_columns1": state_columns1.to_json(orient = "values"),
+                    "state_columns2": state_columns2.to_json(orient = "values")
+                }
+        finally:
+            route_lock.release()
+        return response
+    else:
+        print("dbg: resource busy; lock engaged")
+        return redirect("busy.html")
+
+@app.route("/locktest")
+def locktest():
+    logging.info("Request received, attempting to acquire lock.")
+    acquired = route_lock.acquire(blocking=False)
+    if acquired:
+        try:
+            
+            logging.info("Lock acquired, processing...")
+            time.sleep(30)
+            logging.info("Processing complete, releasing lock.")
+            return "DataFrame created or modified successfully"
+        finally:
+            route_lock.release()
+            logging.info("Lock released.")
+    else:
+        logging.info("Could not acquire lock, resource is busy.")
+        return "Resource is busy, please try in a moment", 429
 @app.route('/getStateColumns', methods=['POST', "GET"])
 def getStateColumns():
     global dataframe
@@ -839,12 +1205,20 @@ def back_button_2():
 def create_df_secondstep():
     global dataframe
     global dataframe2
-    dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, session["user"])
-    dataframe2 = dataframe2.drop(["eventID_state1"], axis = 1)
+    if "user" in session:
+        dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, session["user"]) # datasetChooser, variableChooser
+    else:
+        dataframe2 = data_merger.createNewDataListSecondStep(dataframe, dcss, vcss, dc, vc, "test_profile")
     dataframe2 = dataframe2.drop(["eventID_state2"], axis = 1)
     sample2 = dataframe2.loc[:999]
     print("converting to json...")
     new_df = sample2.to_json(orient="records")
+
+    if "user" in session:
+        csv_file_path = config["UPLOAD_FOLDER"] + "/" + session["user"] + "/temp.csv"
+        print("dbg.csv_file_path = " + csv_file_path)
+        os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
+        sample2.to_csv(csv_file_path, index=False)
     
     response = {
         "message": "data processing successful",
@@ -885,14 +1259,29 @@ def test_download():
     response.headers['Content-Type'] = 'text/csv'
     return response
 
-@app.route('/popup/<message>')
-def popup(message):
-    return render_template('popup.html', message=message)
+@app.route('/downloadCitations/', methods=['POST', "GET"])
+def downloadCitations():
+    if "user" not in session:
+        flash("You must be logged in to download citations.")
+        return redirect(url_for("login"))
+    print("dbg.dc: " + str(session["dc"]))
+    citations_text = "\n".join([f"{citations[name]}" for name in session["dc"] if name in citations])
+    
+    # Convert the string to a BytesIO object
+    buffer = io.BytesIO()
+    buffer.write(citations_text.encode('utf-8'))
+    buffer.seek(0)
+    today = datetime.now()
+    return send_file(buffer, as_attachment=True, download_name=f"citations_{today.strftime('%Y%m%d_%H%M%S')}.txt", mimetype='text/plain')
+
 
 @app.route('/downloadDf/', methods=['POST', "GET"])
 def downloadCSV():
-    global dataframe2, chng_df, yearMin, yearMax, stateOneFilter, stateTwoFilter
-    chng_df = dataframe2.copy(deep = True)
+    global dataframe2, chng_df, yearMin, yearMax, stateOneFilter, stateTwoFilter, dc
+    if "user" not in session:
+        flash("You must be logged in to download CSV files.")
+        return redirect(url_for("login"))
+    chng_df = pd.read_csv(config["UPLOAD_FOLDER"] + "/" + session["user"] + "/temp.csv")
     today = datetime.now()
     if yearMin == "":
         yearMin = 1000
@@ -905,14 +1294,12 @@ def downloadCSV():
     if (len(stateTwoFilter) != 0) & ("stateabb2" in chng_df.columns):
         chng_df = chng_df[chng_df['stateabb2'].isin(stateTwoFilter)]
     chng_df = chng_df.loc[(chng_df['year'] >= int(yearMin)) & (chng_df['year'] <= int(yearMax))] 
-    csv_content = chng_df.to_csv(index=False)
-    response = make_response(csv_content)
-    #/bm
-    filename = f"cowplus_online_{today.strftime('%Y%m%d_%H%M%S')}.csv"
-    response.headers['Content-Disposition'] = "attachment; filename=" + filename
-    response.headers['Content-Type'] = 'text/csv'
     print("csv converted")
-    return response
+    return Response(
+       chng_df.to_csv(),
+       mimetype="text/csv",
+       headers={"Content-disposition":
+       "attachment; filename=cowplus_online_"+str(today.year) + str(today.month) + str(today.day) + "_" + str(today.hour) + "_" + str(today.minute) + "_" + str(today.second) + ".csv"})
 
 # generic for all req. to save code
 
